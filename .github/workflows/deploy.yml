@@ -25,6 +25,11 @@ jobs:
           server-dir: /dev_pages/pages/
           dangerous-clean-slate: false
 
+      - name: Prepare stylesheet
+        run: |
+          mkdir -p deploy-css
+          cp magazinot_gen.css deploy-css/magazinot_gen.css
+
       - name: Deploy generated stylesheet
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
