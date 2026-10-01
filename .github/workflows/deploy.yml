@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - 'pages/**'
+      - 'scripts/**'
       - 'magazinot_gen.css'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
@@ -23,6 +24,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Generate DEV catalog
+        run: node scripts/generate-dev-index.mjs
 
       - name: Deploy pages
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
