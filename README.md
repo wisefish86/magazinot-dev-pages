@@ -3,7 +3,26 @@
 Development source for generated MagazinOT content pages.
 
 Managed files:
-- `pages/*.html`
+- `pages/**/*.html`
 - `magazinot_gen.css`
+- `scripts/generate-dev-index.mjs`
 
 Server `index.php` is intentionally not tracked or deployed.
+
+## Automatic DEV catalog
+
+Every deploy generates `pages/index-gpt.html`. The catalog scans every HTML page and builds a multi-level navigation tree.
+
+Optional metadata can be placed in HTML comments at the top of any page:
+
+```html
+<!-- dev-title: Название страницы -->
+<!-- dev-path: Маркировка трубопроводов/Маркировочные стрелки -->
+<!-- dev-status: Рабочая -->
+<!-- dev-description: Короткое пояснение -->
+<!-- dev-order: 10 -->
+```
+
+- `dev-path` uses `/` as the hierarchy separator and supports any number of levels.
+- A page without `dev-path` is placed in **Прочее**.
+- `index-gpt.html` is generated automatically and must not be maintained by hand.
