@@ -43,7 +43,6 @@ function pageInfo(file) {
     title: meta.title || titleFrom(html, fallback),
     pathParts: (meta.path || 'Прочее').split('/').map((x) => x.trim()).filter(Boolean),
     status: meta.status || '',
-    description: meta.description || '',
     order: Number.isFinite(Number(meta.order)) ? Number(meta.order) : 999,
     slug,
   };
@@ -67,68 +66,39 @@ for (const file of walk(pagesDir)) {
 
 function pageHtml(page) {
   const href = previewBase + '?page=' + encodeURIComponent(page.slug);
-  const badge = page.status ? `<span class="dev-badge">${esc(page.status)}</span>` : '';
-  const description = page.description ? `<div class="dev-description">${esc(page.description)}</div>` : '';
-  return `<li class="dev-page"><a href="${href}">${esc(page.title)}</a>${badge}${description}</li>`;
+  const badge = page.status ? ` <span class="dev-index-status">${esc(page.status)}</span>` : '';
+  return `<li><a href="${href}">${esc(page.title)}</a>${badge}</li>`;
 }
 
 function renderNode(n, depth = 0) {
   const pages = [...n.pages].sort((a, b) => a.order - b.order || a.title.localeCompare(b.title, 'ru'));
   const children = [...n.children.values()].sort((a, b) => a.name.localeCompare(b.name, 'ru'));
   const body = [
-    pages.length ? `<ul class="dev-pages">${pages.map(pageHtml).join('')}</ul>` : '',
+    pages.length ? `<ul>${pages.map(pageHtml).join('')}</ul>` : '',
     ...children.map((child) => renderNode(child, depth + 1)),
   ].join('');
 
   if (!n.name) return body;
-  const open = depth <= 2 ? ' open' : '';
-  return `<details class="dev-group depth-${depth}"${open}><summary>${esc(n.name)}</summary><div class="dev-group-body">${body}</div></details>`;
+  return `<section class="dev-index-group" style="--dev-depth:${Math.max(0, depth - 1)}"><div class="dev-index-heading">${esc(n.name)}</div>${body}</section>`;
 }
 
-const count = walk(pagesDir).filter((f) => path.resolve(f) !== path.resolve(outputFile)).length;
-const generated = new Date().toISOString();
-
-const html = `<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DEV-каталог MagazinOT</title>
+const html = `<!-- Служебная страница-хаб. Намеренно без общей HTML-обёртки. -->
 <style>
-:root{font-family:Arial,sans-serif;color:#222;background:#f5f6f8}
-*{box-sizing:border-box}
-body{margin:0;padding:24px}
-.dev-wrap{max-width:1050px;margin:0 auto}
-.dev-head{background:#fff;border:1px solid #e3e5e8;border-radius:14px;padding:20px 22px;margin-bottom:16px}
-h1{font-size:28px;margin:0 0 8px}
-.dev-sub{color:#666;line-height:1.45}
-.dev-group{background:#fff;border:1px solid #e3e5e8;border-radius:12px;margin:10px 0;overflow:hidden}
-.dev-group .dev-group{margin:10px 0;background:#fafafa}
-.dev-group summary{cursor:pointer;font-weight:700;padding:13px 16px;user-select:none}
-.dev-group-body{padding:0 14px 12px 26px}
-.dev-pages{list-style:none;margin:0;padding:0}
-.dev-page{padding:10px 0;border-top:1px solid #eceef1}
-.dev-page:first-child{border-top:0}
-.dev-page a{font-weight:600;color:#185abc;text-decoration:none}
-.dev-page a:hover{text-decoration:underline}
-.dev-badge{display:inline-block;margin-left:8px;padding:2px 7px;border-radius:999px;background:#eee;font-size:12px;color:#555;vertical-align:1px}
-.dev-description{margin-top:4px;color:#727272;font-size:13px;line-height:1.4}
-.dev-foot{margin-top:16px;color:#888;font-size:12px}
-@media(max-width:640px){body{padding:12px}.dev-group-body{padding-left:16px}h1{font-size:23px}}
+#dev-index-gpt{max-width:980px;margin:0 auto;padding:8px 0 24px;font-family:Arial,sans-serif;color:#222}
+#dev-index-gpt .dev-index-group{margin:18px 0 0;padding-left:calc(var(--dev-depth) * 22px)}
+#dev-index-gpt .dev-index-heading{font-size:20px;font-weight:700;margin:0 0 8px}
+#dev-index-gpt .dev-index-group .dev-index-group .dev-index-heading{font-size:17px}
+#dev-index-gpt ul{margin:0;padding:0 0 0 22px}
+#dev-index-gpt li{margin:7px 0;line-height:1.4}
+#dev-index-gpt a{color:#185abc;text-decoration:none}
+#dev-index-gpt a:hover{text-decoration:underline}
+#dev-index-gpt .dev-index-status{font-size:12px;color:#777}
+@media(max-width:640px){#dev-index-gpt .dev-index-group{padding-left:calc(var(--dev-depth) * 12px)}}
 </style>
-</head>
-<body>
-<div class="dev-wrap">
-  <div class="dev-head">
-    <h1>DEV-каталог MagazinOT</h1>
-    <div class="dev-sub">Автоматический хаб по всем HTML-страницам репозитория. Иерархия строится по служебному полю <code>dev-path</code>; количество уровней не ограничено.</div>
-  </div>
-  ${renderNode(root)}
-  <div class="dev-foot">Страниц: ${count}. Каталог пересобран: ${generated}.</div>
+<div id="dev-index-gpt">
+${renderNode(root)}
 </div>
-</body>
-</html>
 `;
 
 fs.writeFileSync(outputFile, html, 'utf8');
-console.log(`Generated ${path.relative(process.cwd(), outputFile)} with ${count} pages`);
+console.log(`Generated ${path.relative(process.cwd(), outputFile)}`);
