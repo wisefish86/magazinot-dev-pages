@@ -33,6 +33,10 @@ function titleFrom(html, fallback) {
   return match ? match[1].trim() : fallback;
 }
 
+function isFinalTitle(meta) {
+  return ['final', 'approved', 'финальный', 'утвержден'].includes((meta['title-state'] || '').trim().toLowerCase());
+}
+
 function pageInfo(file) {
   const html = fs.readFileSync(file, 'utf8');
   const rel = path.relative(pagesDir, file).replaceAll('\\', '/');
@@ -43,6 +47,7 @@ function pageInfo(file) {
     title: meta.title || titleFrom(html, fallback),
     pathParts: (meta.path || 'Прочее').split('/').map((x) => x.trim()).filter(Boolean),
     status: meta.status || '',
+    titleFinal: isFinalTitle(meta),
     order: Number.isFinite(Number(meta.order)) ? Number(meta.order) : 999,
     slug,
   };
@@ -66,8 +71,9 @@ for (const file of walk(pagesDir)) {
 
 function pageHtml(page) {
   const href = previewBase + '?page=' + encodeURIComponent(page.slug);
+  const temporary = page.titleFinal ? '' : '<span class="dev-index-temp" title="Предварительное название">⏳</span> ';
   const badge = page.status ? ` <span class="dev-index-status">${esc(page.status)}</span>` : '';
-  return `<li><a href="${href}">${esc(page.title)}</a>${badge}</li>`;
+  return `<li>${temporary}<a href="${href}">${esc(page.title)}</a>${badge}</li>`;
 }
 
 function renderNode(n, depth = 0) {
@@ -82,6 +88,26 @@ function renderNode(n, depth = 0) {
   return `<section class="dev-index-group" style="--dev-depth:${Math.max(0, depth - 1)}"><div class="dev-index-heading">${esc(n.name)}</div>${body}</section>`;
 }
 
+function injectDocumentTitle(page) {
+  const source = fs.readFileSync(page.file || path.join(pagesDir, page.slug + '.html'), 'utf8');
+  const browserTitle = (page.titleFinal ? '' : '⏳ ') + page.title + ' | MagazinOT DEV';
+  const script = '<script data-dev-document-title>document.title=' + JSON.stringify(browserTitle) + ';<\\/script>';
+
+  if (source.includes('data-dev-document-title')) return;
+  if (/<\\/body\\s*>/i.test(source)) {
+    fs.writeFileSync(page.file || path.join(pagesDir, page.slug + '.html'), source.replace(/<\\/body\\s*>/i, script + '\\n</body>'), 'utf8');
+  } else {
+    fs.writeFileSync(page.file || path.join(pagesDir, page.slug + '.html'), source + '\\n' + script + '\\n', 'utf8');
+  }
+}
+
+for (const file of walk(pagesDir)) {
+  if (path.resolve(file) === path.resolve(outputFile)) continue;
+  const page = pageInfo(file);
+  page.file = file;
+  injectDocumentTitle(page);
+}
+
 const html = `<!-- Служебная страница-хаб. Намеренно без общей HTML-обёртки. -->
 <style>
 #dev-index-gpt{max-width:980px;margin:0 auto;padding:8px 0 24px;font-family:Arial,sans-serif;color:#222}
@@ -93,11 +119,13 @@ const html = `<!-- Служебная страница-хаб. Намеренн�
 #dev-index-gpt a{color:#185abc;text-decoration:none}
 #dev-index-gpt a:hover{text-decoration:underline}
 #dev-index-gpt .dev-index-status{font-size:12px;color:#777}
+#dev-index-gpt .dev-index-temp{font-size:13px}
 @media(max-width:640px){#dev-index-gpt .dev-index-group{padding-left:calc(var(--dev-depth) * 12px)}}
 </style>
 <div id="dev-index-gpt">
 ${renderNode(root)}
 </div>
+<script data-dev-document-title>document.title='DEV-каталог MagazinOT';<\/script>
 `;
 
 fs.writeFileSync(outputFile, html, 'utf8');
