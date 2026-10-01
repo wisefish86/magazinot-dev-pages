@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Прототип калькулятора маркировочных стрелок v1</title>
+<style>
+.arrow-calc-page{
+  max-width:1280px;
+  margin:0 auto;
+  font-family:Arial, sans-serif;
+  font-size:16px;
+  color:#222;
+}
+.arrow-calc-page *{box-sizing:border-box}
+.ac-layout{
+  display:grid;
+  grid-template-columns:minmax(0, 1fr) minmax(300px, 340px);
+  gap:18px;
+  align-items:start;
+}
+.ac-demo{min-width:0}
+.ac-side{min-width:0}
+.ac-block{
+  margin-bottom:16px;
+  padding:14px 16px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+}
+.ac-title{
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.ac-current{
+  font-weight:normal;
+  color:#555;
+}
+.ac-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.ac-btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:8px 14px;
+  border:1px solid #cfcfcf;
+  border-radius:6px;
+  background:#f7f7f7;
+  color:#333 !important;
+  text-decoration:none !important;
+  cursor:pointer;
+  line-height:1.2;
+  text-align:center;
+  user-select:none;
+}
+.ac-btn:hover{
+  background:#fff;
+  border-color:#999;
+}
+.ac-btn.active{
+  border-color:#d35400;
+  background:#fff3e8;
+  color:#000 !important;
+  font-weight:bold;
+}
+.ac-btn-type{min-width:145px; flex:1 1 145px}
+.ac-btn-size{width:170px}
+.ac-btn-execution{width:185px}
+.ac-subblock{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px dashed #ddd;
+}
+.ac-row-title{
+  font-weight:bold;
+  margin-bottom:8px;
+}
+.ac-input{
+  width:120px;
+  height:38px;
+  padding:6px 8px;
+  border:1px solid #bbb;
+  border-radius:5px;
+  font-size:16px;
+}
+.ac-input-wide{width:min(100%, 420px)}
+.ac-textarea{
+  width:100%;
+  min-height:90px;
+  padding:9px 10px;
+  border:1px solid #bbb;
+  border-radius:5px;
+  font:inherit;
+  resize:vertical;
+}
+.ac-fields{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px 18px;
+  align-items:flex-start;
+}
+.ac-field label{
+  display:block;
+  margin-bottom:6px;
+  font-weight:bold;
+}
+.ac-help{
+  margin-top:8px;
+  color:#666;
+  font-size:14px;
+  line-height:1.45;
+}
+.ac-hint{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:6px;
+  background:#f7f7f7;
+  color:#555;
+  font-size:14px;
+  line-height:1.45;
+}
+.ac-warning{
+  margin-top:10px;
+  padding:10px 12px;
+  border-radius:6px;
+  background:#fff3e8;
+  color:#8f4600;
+  font-size:14px;
+  line-height:1.45;
+}
+.ac-error{
+  margin-top:7px;
+  color:#b00000;
+  font-size:14px;
+}
+.ac-hidden{display:none!important}
+.ac-summary{
+  padding:16px;
+  border:1px solid #e3c5ad;
+  border-radius:8px;
+  background:#fffaf6;
+}
+.ac-summary-title{
+  margin-bottom:8px;
+  font-weight:bold;
+  font-size:18px;
+}
+.ac-description{
+  line-height:1.5;
+}
+.ac-note{
+  margin-top:10px;
+  font-size:14px;
+  color:#666;
+  line-height:1.45;
+}
+.ac-price-line{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px 24px;
+  align-items:baseline;
+  margin-top:14px;
+  padding-top:12px;
+  border-top:1px solid #ead6c6;
+}
+.ac-price-main{
+  font-size:23px;
+  font-weight:bold;
+  color:#c43d1d;
+}
+.ac-price-total{
+  font-size:18px;
+  font-weight:bold;
+}
+.ac-action{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:42px;
+  margin-top:14px;
+  padding:9px 18px;
+  border:1px solid #c43d1d;
+  border-radius:6px;
+  background:#c43d1d;
+  color:#fff !important;
+  text-decoration:none !important;
+  cursor:pointer;
+  font-weight:bold;
+}
+.ac-action:hover{background:#a83218}
+.ac-side-box{
+  margin-bottom:16px;
+  padding:14px 14px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fafafa;
+  font-size:13px;
+  line-height:1.4;
+  overflow:visible;
+  min-width:0;
+}
+.ac-side-box h3{
+  margin:0 0 10px;
+  font-size:17px;
+}
+.ac-side-box table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+.ac-side-box td{
+  padding:4px 0;
+  vertical-align:top;
+  border-bottom:1px dotted #ddd;
+}
+.ac-side-box td:first-child{
+  width:48%;
+  padding-right:9px;
+}
+.ac-side-box td:last-child{
+  width:52%;
+  text-align:right;
+  white-space:normal;
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+.ac-total{
+  margin-top:10px;
+  padding-top:10px;
+  border-top:2px solid #ddd;
+  font-weight:bold;
+}
+.ac-total-price{
+  font-size:19px;
+  color:#c43d1d;
+}
+.ac-tech{
+  max-width:992px;
+  margin-top:20px;
+  padding:16px 18px;
+  border:1px solid #ddd;
+  border-radius:8px;
+  background:#fff;
+  line-height:1.5;
+}
+.ac-tech summary{
+  cursor:pointer;
+  font-weight:bold;
+  font-size:18px;
+}
+.ac-tech pre{
+  margin:14px 0 0;
+  padding:12px;
+  background:#f7f7f7;
+  border:1px solid #ddd;
+  overflow:auto;
+  white-space:pre-wrap;
+  font-size:13px;
+}
+@media(max-width:1100px){
+  .ac-layout{display:block}
+  .ac-side{max-width:992px}
+}
+@media(max-width:620px){
+  .ac-block{padding:12px}
+  .ac-btn-type,.ac-btn-size,.ac-btn-execution{width:auto;flex:1 1 44%}
+  .ac-input{width:100%}
+  .ac-field{flex:1 1 130px}
+}
+</style>
+</head>
+<body>
+
+<div class="arrow-calc-page">
+  <div class="ac-layout">
+
+    <div class="ac-demo">
+
+      <div class="ac-block">
+        <div class="ac-title">Тип стрелки: <span class="ac-current" id="typeText">ВОДА</span></div>
+        <div class="ac-options">
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type active" data-arrow_type="voda">ВОДА</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="par">ПАР</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="vozduh">ВОЗДУХ</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="gaz">ГАЗ</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="kislota">КИСЛОТА</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="scheloch">ЩЕЛОЧЬ</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="zhidkost">ЖИДКОСТЬ</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="prochie">ПРОЧИЕ ВЕЩЕСТВА</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-type" data-arrow_type="custom">НА ЗАКАЗ</a>
+        </div>
+
+        <div id="customTextBlock" class="ac-subblock ac-hidden">
+          <div class="ac-row-title">Надпись на стрелке</div>
+          <input id="customText" class="ac-input ac-input-wide" type="text" maxlength="100" placeholder="Например: АЗОТ">
+        </div>
+      </div>
+
+      <div class="ac-block">
+        <div class="ac-title">Размер: <span class="ac-current" id="sizeText">P.3 358×74 мм</span></div>
+        <div class="ac-options">
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size" data-size="p1">P.1 — 126×26</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size" data-size="p2">P.2 — 252×52</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size active" data-size="p3">P.3 — 358×74</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size" data-size="p4">P.4 — 507×105</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size" data-size="p5">P.5 — 716×148</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-size" data-size="custom">Свой размер</a>
+        </div>
+
+        <div id="customSizeBlock" class="ac-subblock ac-hidden">
+          <div class="ac-fields">
+            <div class="ac-field">
+              <label for="customWidth">Ширина, мм</label>
+              <input id="customWidth" class="ac-input" type="number" min="50" max="1500" value="358">
+              <div id="customWidthError" class="ac-error ac-hidden">Укажите ширину от 50 до 1500 мм.</div>
+            </div>
+            <div class="ac-field">
+              <label for="customHeight">Высота, мм</label>
+              <input id="customHeight" class="ac-input" type="number" min="20" max="500" value="74">
+              <div id="customHeightError" class="ac-error ac-hidden">Укажите высоту от 20 до 500 мм.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ac-block">
+        <div class="ac-title">Исполнение: <span class="ac-current" id="executionText">Стандарт+</span></div>
+        <div class="ac-options">
+          <a href="javascript:void(0)" class="ac-btn ac-btn-execution" data-execution="standard" title="Базовая самоклеящаяся плёнка для сухих помещений.">Стандарт</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-execution active" data-execution="standard_plus" title="Самоклеящаяся плёнка с защитной ламинацией. Рекомендуемый вариант для большинства объектов.">Стандарт+</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-execution" data-execution="strong_glue" title="Для окрашенных, неровных и сложных поверхностей, где нужна повышенная адгезия.">Усиленный клей</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-execution" data-execution="premium" title="Полимерная плёнка с защитной ламинацией для более стойкого и аккуратного исполнения.">Премиум</a>
+          <a href="javascript:void(0)" class="ac-btn ac-btn-execution" data-execution="individual" title="Для нестандартных условий, больших списков надписей и проектных заказов.">Индивидуальный расчёт</a>
+        </div>
+        <div id="executionHint" class="ac-hint">Самоклеящаяся плёнка с защитной ламинацией. Рекомендуемый вариант для большинства объектов.</div>
+
+        <div id="individualBlock" class="ac-subblock ac-hidden">
+          <div class="ac-row-title">Комментарий</div>
+          <textarea id="comment" class="ac-textarea" placeholder="Опишите условия эксплуатации, поверхность монтажа, список надписей или другие особенности заказа."></textarea>
+          <div class="ac-help">Материал, ламинирование и другие параметры индивидуального исполнения уточняются менеджером.</div>
+        </div>
+      </div>
+
+      <div class="ac-block">
+        <div class="ac-title">Количество</div>
+        <input id="qty" class="ac-input" type="number" min="1" max="10000" value="100">
+        <div id="qtyError" class="ac-error ac-hidden">Укажите количество от 1 до 10000 шт.</div>
+      </div>
+
+      <div class="ac-summary">
+        <div class="ac-summary-title">Ваша позиция</div>
+        <div id="positionDescription" class="ac-description"></div>
+        <div class="ac-note">Стрелка изготавливается двунаправленной. При монтаже лишнее направление отрезается.</div>
+        <div id="priceResult" class="ac-price-line"></div>
+        <div id="individualResult" class="ac-hidden">
+          <div class="ac-warning">Стоимость рассчитывается менеджером после уточнения условий.</div>
+          <a href="javascript:void(0)" class="ac-action">Отправить заявку на расчёт</a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="ac-side">
+      <div class="ac-side-box">
+        <h3>Отладка расчёта</h3>
+        <div id="priceDebug"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <details class="ac-tech">
+    <summary>Формула и переменные прототипа</summary>
+    <pre>area_one = width_mm × height_mm / 1 000 000
+perimeter_one = 2 × (width_mm + height_mm) / 1000
+base_piece = area_one × 1320 + perimeter_one × 1 + 0.50
+
+raw_total = base_piece × execution_coeff × qty + 30
+raw_piece = raw_total / qty
+raw_piece = max(raw_piece, execution_min_piece)
+
+price_piece = ceil(raw_piece / round_step) × round_step
+final_total = price_piece × qty
+
+Коэффициенты и ламинация внутри исполнения:
+standard = 1.0; minPiece = 6.50; без ламинирования
+standard_plus = 1.5; minPiece = 9.75; с защитной ламинацией
+strong_glue = 2.0; minPiece = 15.00; с защитной ламинацией
+premium = 3.0; minPiece = 25.00; с защитной ламинацией
+individual = автоматический расчёт отключён
+
+Для Стандарта значение ламинации определяется исполнением: без ламинирования.
+Для Стандарт+, Усиленного клея и Премиума защитная ламинация включена в исполнение
+и отдельно не рассчитывается — её стоимость уже учтена коэффициентом.
+
+Для execution = individual отдельного выбора ламинации в калькуляторе нет.
+Материал, ламинирование и покрытие уточняются менеджером по комментарию клиента.</pre>
+  </details>
+</div>
+
+<script>
+(function(){
+  const config = {
+    base_area_rate_m2: 1320,
+    cut_rate_m: 1,
+    piece_work_fee: 0.50,
+    position_fee: 30,
+    executions: {
+      standard:      {label:'Стандарт', coeff:1.0, minPiece:6.50, laminationText:'без ламинирования', debugLamination:'без ламинирования', hint:'Базовая самоклеящаяся плёнка для сухих помещений.'},
+      standard_plus: {label:'Стандарт+', coeff:1.5, minPiece:9.75, laminationText:'с защитной ламинацией', debugLamination:'включена в коэффициент исполнения', hint:'Самоклеящаяся плёнка с защитной ламинацией. Рекомендуемый вариант для большинства объектов.'},
+      strong_glue:   {label:'Усиленный клей', coeff:2.0, minPiece:15.00, laminationText:'с защитной ламинацией', debugLamination:'включена в коэффициент исполнения', hint:'Для окрашенных, неровных и сложных поверхностей, где нужна повышенная адгезия.'},
+      premium:       {label:'Премиум', coeff:3.0, minPiece:25.00, laminationText:'с защитной ламинацией', debugLamination:'включена в коэффициент исполнения', hint:'Полимерная плёнка с защитной ламинацией для более стойкого и аккуратного исполнения.'},
+      individual:    {label:'Индивидуальный расчёт', coeff:null, minPiece:null, laminationText:null, debugLamination:null, hint:'Для нестандартных условий, больших списков надписей и проектных заказов.'}
+    }
+  };
+
+  const arrowTypes = {
+    voda:'ВОДА',
+    par:'ПАР',
+    vozduh:'ВОЗДУХ',
+    gaz:'ГАЗ',
+    kislota:'КИСЛОТА',
+    scheloch:'ЩЕЛОЧЬ',
+    zhidkost:'ЖИДКОСТЬ',
+    prochie:'ПРОЧИЕ ВЕЩЕСТВА',
+    custom:'НА ЗАКАЗ'
+  };
+
+  const sizes = {
+    p1:{label:'P.1', width:126, height:26},
+    p2:{label:'P.2', width:252, height:52},
+    p3:{label:'P.3', width:358, height:74},
+    p4:{label:'P.4', width:507, height:105},
+    p5:{label:'P.5', width:716, height:148}
+  };
+
+  let state = {
+    arrow_type:'voda',
+    size:'p3',
+    execution:'standard_plus'
+  };
+
+  function byId(id){ return document.getElementById(id); }
+
+  function getRoundStep(price){
+    if(price < 10) return 0.5;
+    if(price < 50) return 1;
+    if(price < 200) return 5;
+    if(price < 500) return 10;
+    if(price < 1000) return 50;
+    return 100;
+  }
+
+  function roundUpToStep(value, step){
+    return Math.ceil((value - 1e-9) / step) * step;
+  }
+
+  function formatNumber(value, maxDigits){
+    return Number(value).toLocaleString('ru-RU', {
+      minimumFractionDigits:0,
+      maximumFractionDigits:maxDigits == null ? 3 : maxDigits
+    });
+  }
+
+  function formatMoney(value, forceTwo){
+    const hasFraction = Math.abs(value - Math.round(value)) > 1e-9;
+    return Number(value).toLocaleString('ru-RU', {
+      minimumFractionDigits:forceTwo || hasFraction ? 2 : 0,
+      maximumFractionDigits:2
+    }) + ' ₽';
+  }
+
+  function setActive(attr, value){
+    document.querySelectorAll('[data-' + attr + ']').forEach(function(el){
+      el.classList.toggle('active', el.getAttribute('data-' + attr) === value);
+    });
+  }
+
+  function getQty(){
+    return Number(byId('qty').value) || 0;
+  }
+
+  function getDimensions(){
+    if(state.size === 'custom'){
+      return {
+        label:'свой размер',
+        width:Number(byId('customWidth').value) || 0,
+        height:Number(byId('customHeight').value) || 0
+      };
+    }
+    return sizes[state.size];
+  }
+
+  function getArrowText(){
+    if(state.arrow_type === 'custom'){
+      return (byId('customText').value || '').trim() || 'НА ЗАКАЗ';
+    }
+    return arrowTypes[state.arrow_type];
+  }
+
+  function validate(){
+    let valid = true;
+    const qty = Number(byId('qty').value);
+    const qtyOk = qty >= 1 && qty <= 10000;
+    byId('qtyError').classList.toggle('ac-hidden', qtyOk);
+    valid = valid && qtyOk;
+
+    if(state.size === 'custom'){
+      const width = Number(byId('customWidth').value);
+      const height = Number(byId('customHeight').value);
+      const widthOk = width >= 50 && width <= 1500;
+      const heightOk = height >= 20 && height <= 500;
+      byId('customWidthError').classList.toggle('ac-hidden', widthOk);
+      byId('customHeightError').classList.toggle('ac-hidden', heightOk);
+      valid = valid && widthOk && heightOk;
+    }else{
+      byId('customWidthError').classList.add('ac-hidden');
+      byId('customHeightError').classList.add('ac-hidden');
+    }
+    return valid;
+  }
+
+  function calculate(){
+    const dimensions = getDimensions();
+    const qty = getQty();
+    const execution = config.executions[state.execution];
+    const areaOne = dimensions.width * dimensions.height / 1000000;
+    const perimeterOne = 2 * (dimensions.width + dimensions.height) / 1000;
+    const areaTotal = areaOne * qty;
+    const perimeterTotal = perimeterOne * qty;
+    const basePiece = areaOne * config.base_area_rate_m2 + perimeterOne * config.cut_rate_m + config.piece_work_fee;
+
+    if(state.execution === 'individual'){
+      return {
+        dimensions, qty, execution, areaOne, perimeterOne, areaTotal, perimeterTotal, basePiece,
+        costBeforeFee:0, rawTotal:0, calculatedPiece:0, rawPiece:0, roundStep:0, pricePiece:0, finalTotal:0
+      };
+    }
+
+    const costBeforeFee = basePiece * execution.coeff * qty;
+    const rawTotal = costBeforeFee + config.position_fee;
+    const calculatedPiece = qty > 0 ? rawTotal / qty : 0;
+    const rawPiece = Math.max(calculatedPiece, execution.minPiece);
+    const roundStep = qty > 0 ? getRoundStep(rawPiece) : 0;
+    const pricePiece = qty > 0 ? roundUpToStep(rawPiece, roundStep) : 0;
+    const finalTotal = pricePiece * qty;
+
+    return {
+      dimensions, qty, execution, areaOne, perimeterOne, areaTotal, perimeterTotal, basePiece,
+      costBeforeFee, rawTotal, calculatedPiece, rawPiece, roundStep, pricePiece, finalTotal
+    };
+  }
+
+  function renderCurrentTexts(){
+    byId('typeText').textContent = getArrowText();
+    const d = getDimensions();
+    byId('sizeText').textContent = (state.size === 'custom' ? 'свой размер ' : d.label + ' ') + d.width + '×' + d.height + ' мм';
+    byId('executionText').textContent = config.executions[state.execution].label;
+    byId('executionHint').textContent = config.executions[state.execution].hint;
+  }
+
+  function renderDescription(c){
+    const sizePart = state.size === 'custom'
+      ? 'свой размер ' + c.dimensions.width + '×' + c.dimensions.height + ' мм'
+      : c.dimensions.label + ' ' + c.dimensions.width + '×' + c.dimensions.height + ' мм';
+
+    const parts = [
+      'Маркировочная стрелка «' + getArrowText() + '»',
+      sizePart,
+      c.execution.label
+    ];
+
+    if(state.execution !== 'individual'){
+      parts.push(c.execution.laminationText);
+    }
+
+    parts.push('двунаправленная');
+    parts.push(c.qty + ' шт.');
+    byId('positionDescription').textContent = parts.join(', ') + '.';
+  }
+
+  function renderPrice(c, valid){
+    const isIndividual = state.execution === 'individual';
+    byId('priceResult').classList.toggle('ac-hidden', isIndividual);
+    byId('individualResult').classList.toggle('ac-hidden', !isIndividual);
+
+    if(isIndividual){
+      byId('priceResult').innerHTML = '';
+      return;
+    }
+
+    if(!valid || c.qty <= 0){
+      byId('priceResult').innerHTML = '<span class="ac-warning">Исправьте значения, чтобы получить стоимость.</span>';
+      return;
+    }
+
+    byId('priceResult').innerHTML =
+      '<span class="ac-price-main">Цена: ' + formatMoney(c.pricePiece, false) + '/шт.</span>' +
+      '<span class="ac-price-total">Итого: ' + formatMoney(c.finalTotal, false) + '</span>';
+  }
+
+  function row(label, value){
+    return '<tr><td>' + label + '</td><td>' + value + '</td></tr>';
+  }
+
+  function renderDebug(c, valid){
+    let html = '<table>';
+    html += row('Тип стрелки', getArrowText());
+    html += row('Размер', state.size);
+    html += row('Ширина', c.dimensions.width + ' мм');
+    html += row('Высота', c.dimensions.height + ' мм');
+    html += row('Исполнение', c.execution.label);
+    html += row('Ламинация', state.execution === 'individual' ? 'уточняется менеджером' : c.execution.debugLamination);
+    html += row('Количество', c.qty + ' шт.');
+    html += row('Площадь 1 шт.', formatNumber(c.areaOne, 6) + ' м²');
+    html += row('Периметр 1 шт.', formatNumber(c.perimeterOne, 3) + ' м');
+    html += row('Площадь всего', formatNumber(c.areaTotal, 4) + ' м²');
+    html += row('Периметр всего', formatNumber(c.perimeterTotal, 3) + ' м');
+    html += row('Базовая ставка', formatMoney(config.base_area_rate_m2, false) + '/м²');
+
+    if(state.execution === 'individual'){
+      html += row('Коэффициент', '—');
+      html += row('Стоимость', 'расчёт менеджером');
+      html += '</table>';
+      html += '<div class="ac-total">Автоматический расчёт отключён.</div>';
+      byId('priceDebug').innerHTML = html;
+      return;
+    }
+
+    html += row('Коэффициент исполнения', formatNumber(c.execution.coeff, 2));
+    html += row('База 1 шт.', formatMoney(c.basePiece, true));
+    html += row('Стоимость до сбора', formatMoney(c.costBeforeFee, true));
+    html += row('Сбор за позицию', formatMoney(config.position_fee, true));
+    html += row('Цена 1 шт. расчётная', formatMoney(c.calculatedPiece, true));
+    html += row('Минимальная цена', formatMoney(c.execution.minPiece, true));
+    html += row('Цена 1 шт. без округления', formatMoney(c.rawPiece, true));
+    html += row('Шаг округления', formatMoney(c.roundStep, false));
+    html += row('Цена 1 шт. после округления', formatMoney(c.pricePiece, false));
+    html += '</table>';
+
+    if(valid && c.qty > 0){
+      html += '<div class="ac-total">Итого: <span class="ac-total-price">' + formatMoney(c.finalTotal, false) + '</span><br>' +
+        formatMoney(c.pricePiece, false) + ' × ' + c.qty + ' шт.</div>';
+    }else{
+      html += '<div class="ac-total">Расчёт приостановлен: исправьте значения.</div>';
+    }
+    byId('priceDebug').innerHTML = html;
+  }
+
+  function update(){
+    byId('customTextBlock').classList.toggle('ac-hidden', state.arrow_type !== 'custom');
+    byId('customSizeBlock').classList.toggle('ac-hidden', state.size !== 'custom');
+    byId('individualBlock').classList.toggle('ac-hidden', state.execution !== 'individual');
+
+    const valid = validate();
+    const c = calculate();
+    renderCurrentTexts();
+    renderDescription(c);
+    renderPrice(c, valid);
+    renderDebug(c, valid);
+  }
+
+  ['arrow_type','size','execution'].forEach(function(attr){
+    document.querySelectorAll('[data-' + attr + ']').forEach(function(el){
+      el.addEventListener('click', function(){
+        state[attr] = el.getAttribute('data-' + attr);
+        setActive(attr, state[attr]);
+        update();
+      });
+    });
+  });
+
+  ['customText','customWidth','customHeight','qty','comment'].forEach(function(id){
+    byId(id).addEventListener('input', update);
+  });
+
+  update();
+})();
+</script>
+
+</body>
+</html>
