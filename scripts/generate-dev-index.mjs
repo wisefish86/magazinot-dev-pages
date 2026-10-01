@@ -89,15 +89,19 @@ function renderNode(n, depth = 0) {
 }
 
 function injectDocumentTitle(page) {
-  const source = fs.readFileSync(page.file || path.join(pagesDir, page.slug + '.html'), 'utf8');
+  const target = page.file || path.join(pagesDir, page.slug + '.html');
+  const source = fs.readFileSync(target, 'utf8');
   const browserTitle = (page.titleFinal ? '' : '⏳ ') + page.title + ' | MagazinOT DEV';
-  const script = '<script data-dev-document-title>document.title=' + JSON.stringify(browserTitle) + ';<\\/script>';
+  const script = '<script data-dev-document-title>document.title=' + JSON.stringify(browserTitle) + ';</script>';
 
   if (source.includes('data-dev-document-title')) return;
-  if (/<\\/body\\s*>/i.test(source)) {
-    fs.writeFileSync(page.file || path.join(pagesDir, page.slug + '.html'), source.replace(/<\\/body\\s*>/i, script + '\\n</body>'), 'utf8');
+
+  const lower = source.toLowerCase();
+  const bodyClose = lower.lastIndexOf('</body>');
+  if (bodyClose >= 0) {
+    fs.writeFileSync(target, source.slice(0, bodyClose) + script + '\n' + source.slice(bodyClose), 'utf8');
   } else {
-    fs.writeFileSync(page.file || path.join(pagesDir, page.slug + '.html'), source + '\\n' + script + '\\n', 'utf8');
+    fs.writeFileSync(target, source + '\n' + script + '\n', 'utf8');
   }
 }
 
@@ -125,7 +129,7 @@ const html = `<!-- Служебная страница-хаб. Намеренн�
 <div id="dev-index-gpt">
 ${renderNode(root)}
 </div>
-<script data-dev-document-title>document.title='DEV-каталог MagazinOT';<\/script>
+<script data-dev-document-title>document.title='DEV-каталог MagazinOT';</script>
 `;
 
 fs.writeFileSync(outputFile, html, 'utf8');
