@@ -14,6 +14,8 @@
   --c-soft:#f5f9fb;
   --c-blue:#0b7f9f;
   --c-blue-dark:#075d76;
+  --c-link:#0a6f89;
+  --c-link-hover:#07576d;
   --c-orange:#ef6a4b;
   --c-dark:#173642;
   color:var(--c-text);
@@ -26,18 +28,18 @@
 .pipehub p a,
 .pipehub li a,
 .pipehub__inline-link{
-  color:var(--c-blue-dark);
+  color:var(--c-link);
   text-decoration-line:underline;
   text-decoration-thickness:1px;
   text-underline-offset:3px;
-  text-decoration-color:rgba(7,93,118,.42);
+  text-decoration-color:rgba(10,111,137,.34);
   transition:text-decoration-color .18s ease,color .18s ease;
 }
 .pipehub p a:hover,
 .pipehub li a:hover,
 .pipehub__inline-link:hover{
-  color:var(--c-blue);
-  text-decoration-color:currentColor;
+  color:var(--c-link-hover);
+  text-decoration-color:rgba(7,87,109,.78);
 }
 .pipehub svg{display:block;stroke:currentColor}
 
@@ -103,10 +105,16 @@
 }
 .pipehub__lead{
   max-width:670px;
-  margin:0 0 20px;
+  margin:0 0 8px;
   color:#4f626e;
   font-size:15px;
   line-height:1.55;
+}
+.pipehub__help-link{
+  margin:0 0 18px;
+  color:#6a7982;
+  font-size:14px;
+  line-height:1.5;
 }
 .pipehub__actions{
   display:flex;
@@ -553,6 +561,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
     <div class="pipehub__eyebrow">Маркировка трубопроводов и воздуховодов</div>
     <h1>Маркировка трубопроводов</h1>
     <p class="pipehub__lead">Готовая маркировка для быстрого заказа и изготовление по вашей спецификации.</p>
+    <p class="pipehub__help-link">Не уверены, какой вариант нужен? <a class="pipehub__inline-link" href="#how-to-choose">Посмотрите краткую схему подбора</a>.</p>
 
     <div class="pipehub__actions">
       <a class="pipehub__btn pipehub__btn--primary" href="#catalog">
@@ -660,7 +669,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
     </div>
   </section>
 
-  <section class="pipehub__section">
+  <section class="pipehub__section" id="how-to-choose">
     <div class="pipehub__section-head">
       <h2 class="pipehub__section-title">Как подобрать маркировку</h2>
       <p class="pipehub__section-intro">Для первого шага достаточно определить вид изделия, основные параметры и понять, подходит ли готовая позиция.</p>
