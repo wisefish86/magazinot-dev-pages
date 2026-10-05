@@ -171,6 +171,7 @@
 }
 .pipehub__cat{
   display:grid;
+  cursor:pointer;
   grid-template-columns:96px 1fr 22px;
   gap:14px;
   align-items:center;
@@ -185,9 +186,14 @@
 }
 a.pipehub__cat:hover{
   transform:translateY(-2px);
-  border-color:#bfd4dd;
-  box-shadow:0 10px 25px rgba(28,43,54,.08);
+  border-color:#a9cbd8;
+  background:#fbfdfe;
+  box-shadow:0 10px 25px rgba(28,43,54,.09);
   color:inherit;
+}
+a.pipehub__cat:hover .pipehub__cat-arrow{
+  color:var(--c-blue);
+  transform:translateX(2px);
 }
 .pipehub__cat-media{
   display:flex;
@@ -226,9 +232,10 @@ a.pipehub__cat:hover{
   width:28px;
   height:28px;
   color:#78909b;
+  transition:.18s ease;
 }
 .pipehub__cat-arrow svg{width:22px;height:22px;stroke-width:1.8}
-.pipehub__cat--future .pipehub__cat-arrow{opacity:.3}
+.pipehub__cat--future .pipehub__cat-arrow{opacity:1}
 
 /* Подбор */
 .pipehub__steps{
@@ -274,12 +281,21 @@ a.pipehub__cat:hover{
 }
 .pipehub__docs-main{
   display:grid;
+  cursor:pointer;
+  color:inherit;
+  text-decoration:none!important;
+  transition:.18s ease;
   grid-template-columns:52px 1fr;
   gap:15px;
   align-items:center;
   padding:20px;
   border-bottom:1px solid var(--c-line);
   background:#f4fafc;
+}
+a.pipehub__docs-main:hover{
+  background:#edf8fb;
+  box-shadow:inset 0 0 0 1px #c8e0e8;
+  color:inherit;
 }
 .pipehub__doc-icon{
   display:flex;
@@ -311,6 +327,10 @@ a.pipehub__cat:hover{
 }
 .pipehub__docrow{
   display:grid;
+  cursor:pointer;
+  color:inherit;
+  text-decoration:none!important;
+  transition:.18s ease;
   grid-template-columns:34px 1fr;
   gap:12px;
   align-items:center;
@@ -319,7 +339,16 @@ a.pipehub__cat:hover{
   border-bottom:1px solid #edf1f3;
 }
 .pipehub__docrow:nth-child(odd){border-right:1px solid #edf1f3}
-.pipehub__docrow:nth-last-child(-n+2){border-bottom:none}
+.pipehub__docrow:last-child{border-bottom:none}
+a.pipehub__docrow:hover{
+  background:#f7fbfc;
+  box-shadow:inset 0 0 0 1px #d7e8ee;
+  color:inherit;
+}
+a.pipehub__docrow:hover .pipehub__docrow-icon,
+a.pipehub__docs-main:hover .pipehub__doc-icon{
+  color:var(--c-blue);
+}
 .pipehub__docrow-icon{
   display:flex;
   align-items:center;
