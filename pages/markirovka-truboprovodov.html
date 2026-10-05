@@ -2,431 +2,539 @@
 <!-- dev-title-state: final -->
 <!-- dev-path: Маркировка/Маркировка трубопроводов -->
 <!-- dev-status: Рабочая -->
-<!-- dev-description: Новый хаб направления: быстрый выбор готовой маркировки и проектный заказ. -->
+<!-- dev-description: Хаб направления: категории, нормативная документация и проектный заказ. -->
 <!-- dev-order: 10 -->
 
 <style>
-.pipe-hub{
-  --ph-text:#182633;
-  --ph-muted:#5f6f7d;
-  --ph-line:#dfe8ee;
-  --ph-soft:#f5f9fb;
-  --ph-blue:#087ea4;
-  --ph-blue-dark:#075b79;
-  --ph-orange:#f06445;
-  --ph-green:#2c8a6b;
-  --ph-shadow:0 12px 34px rgba(24,38,51,.08);
-  color:var(--ph-text);
-  font-size:16px;
-  line-height:1.58;
-}
-.pipe-hub *{box-sizing:border-box}
-.pipe-hub a{text-decoration:none}
-.pipe-hub__hero{
-  position:relative;
-  overflow:hidden;
-  margin:0 0 28px;
-  padding:34px;
-  border:1px solid var(--ph-line);
-  border-radius:24px;
-  background:
-    radial-gradient(circle at 90% 10%,rgba(8,126,164,.15),transparent 30%),
-    linear-gradient(135deg,#f7fbfd 0%,#fff 64%);
-  box-shadow:var(--ph-shadow);
-}
-.pipe-hub__hero:after{
-  content:"";
-  position:absolute;
-  right:-80px;
-  bottom:-110px;
-  width:310px;
-  height:310px;
-  border:40px solid rgba(8,126,164,.055);
-  border-radius:50%;
-}
-.pipe-hub__eyebrow{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
-  margin:0 0 14px;
-  padding:7px 11px;
-  border-radius:999px;
-  background:#eaf6fa;
-  color:var(--ph-blue-dark);
-  font-size:13px;
-  font-weight:700;
-  letter-spacing:.02em;
-}
-.pipe-hub h1{
-  position:relative;
-  z-index:1;
-  max-width:720px;
-  margin:0 0 13px;
-  font-size:36px;
-  line-height:1.12;
-  letter-spacing:-.025em;
-  color:#14212c;
-}
-.pipe-hub__lead{
-  position:relative;
-  z-index:1;
-  max-width:720px;
-  margin:0 0 22px;
-  color:#435563;
-  font-size:18px;
+.ph2{
+  --ph2-text:#1c2b36;
+  --ph2-muted:#64737e;
+  --ph2-line:#dde6eb;
+  --ph2-soft:#f6f9fb;
+  --ph2-blue:#0b7f9f;
+  --ph2-blue-dark:#075c74;
+  --ph2-orange:#ef6a4b;
+  --ph2-green:#2d8b69;
+  --ph2-shadow:0 8px 24px rgba(28,43,54,.07);
+  color:var(--ph2-text);
+  font-size:15px;
   line-height:1.55;
 }
-.pipe-hub__actions{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:10px;margin-bottom:22px}
-.pipe-hub__btn{
+.ph2 *{box-sizing:border-box}
+.ph2 a{text-decoration:none}
+.ph2 svg{display:block;stroke:currentColor}
+
+.ph2__hero{
+  margin:0 0 28px;
+  padding:8px 0 24px;
+  border-bottom:1px solid var(--ph2-line);
+}
+.ph2__eyebrow{
+  display:inline-block;
+  margin:0 0 10px;
+  color:var(--ph2-blue-dark);
+  font-size:12px;
+  line-height:1.2;
+  font-weight:800;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+}
+.ph2 h1{
+  margin:0 0 9px;
+  font-size:32px;
+  line-height:1.12;
+  letter-spacing:-.02em;
+  color:#15232d;
+}
+.ph2__lead{
+  max-width:650px;
+  margin:0 0 16px;
+  color:#52636f;
+  font-size:15px;
+  line-height:1.5;
+}
+.ph2__actions{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:15px}
+.ph2__btn{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:46px;
-  padding:0 18px;
-  border-radius:12px;
-  font-weight:700;
+  gap:8px;
+  min-height:42px;
+  padding:0 15px;
+  border-radius:10px;
+  font-size:14px;
+  font-weight:800;
   transition:.18s ease;
 }
-.pipe-hub__btn--primary{background:var(--ph-blue);color:#fff}
-.pipe-hub__btn--primary:hover{background:var(--ph-blue-dark);color:#fff;transform:translateY(-1px)}
-.pipe-hub__btn--secondary{border:1px solid #b8d4df;background:#fff;color:var(--ph-blue-dark)}
-.pipe-hub__btn--secondary:hover{border-color:var(--ph-blue);background:#f8fcfd;color:var(--ph-blue-dark)}
-.pipe-hub__facts{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:8px}
-.pipe-hub__fact{
-  padding:7px 10px;
-  border:1px solid #dce8ed;
+.ph2__btn svg{width:17px;height:17px;stroke-width:1.9}
+.ph2__btn--primary{background:var(--ph2-blue);color:#fff}
+.ph2__btn--primary:hover{background:var(--ph2-blue-dark);color:#fff;transform:translateY(-1px)}
+.ph2__btn--secondary{border:1px solid #bfd4dd;background:#fff;color:var(--ph2-blue-dark)}
+.ph2__btn--secondary:hover{border-color:var(--ph2-blue);background:#f8fcfd;color:var(--ph2-blue-dark)}
+.ph2__facts{display:flex;flex-wrap:wrap;gap:7px}
+.ph2__fact{
+  padding:5px 9px;
   border-radius:999px;
-  background:rgba(255,255,255,.78);
-  color:#536572;
-  font-size:13px;
-  font-weight:600;
-}
-
-.pipe-hub__section{margin:34px 0}
-.pipe-hub__section-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:16px}
-.pipe-hub__section h2{margin:0 0 7px;font-size:25px;line-height:1.2;letter-spacing:-.015em;color:#17232d}
-.pipe-hub__section-intro{max-width:780px;margin:0;color:var(--ph-muted)}
-
-.pipe-hub__solutions{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.pipe-hub__solution{
-  position:relative;
-  overflow:hidden;
-  min-height:280px;
-  padding:25px;
-  border:1px solid var(--ph-line);
-  border-radius:20px;
-  background:#fff;
-  box-shadow:0 8px 24px rgba(24,38,51,.055);
-  transition:.2s ease;
-}
-.pipe-hub__solution:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(24,38,51,.10);border-color:#cbdce4}
-.pipe-hub__solution-tag{
-  display:inline-flex;
-  margin-bottom:18px;
-  padding:6px 9px;
-  border-radius:999px;
-  background:#eef7fa;
-  color:var(--ph-blue-dark);
+  background:#f3f7f9;
+  color:#60717c;
   font-size:12px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.04em;
-}
-.pipe-hub__solution h3{max-width:360px;margin:0 0 10px;font-size:22px;line-height:1.2;color:#17232d}
-.pipe-hub__solution p{max-width:430px;margin:0 0 18px;color:#5b6c79}
-.pipe-hub__link{display:inline-flex;align-items:center;gap:7px;color:var(--ph-blue-dark);font-weight:800}
-.pipe-hub__link:after{content:"→";font-size:18px;transition:.18s ease}
-.pipe-hub__solution:hover .pipe-hub__link:after{transform:translateX(3px)}
-.pipe-hub__visual{
-  position:absolute;
-  right:-12px;
-  bottom:-18px;
-  width:190px;
-  height:120px;
-  opacity:.96;
-}
-.pipe-hub__pipe{
-  position:absolute;
-  left:18px;
-  right:0;
-  top:46px;
-  height:40px;
-  border-radius:20px 0 0 20px;
-  background:linear-gradient(180deg,#e7edf0,#c9d3d8 48%,#eef3f5);
-  box-shadow:inset 0 2px 2px rgba(255,255,255,.9),inset 0 -2px 3px rgba(0,0,0,.08);
-}
-.pipe-hub__arrow{
-  position:absolute;
-  left:42px;
-  top:49px;
-  width:104px;
-  height:34px;
-  border-radius:4px;
-  background:#167d4d;
-  box-shadow:0 3px 8px rgba(0,0,0,.14);
-}
-.pipe-hub__arrow:after{
-  content:"";
-  position:absolute;
-  right:-19px;
-  top:0;
-  width:0;height:0;
-  border-top:17px solid transparent;
-  border-bottom:17px solid transparent;
-  border-left:20px solid #167d4d;
-}
-.pipe-hub__arrow:before{
-  content:"ВОДА";
-  position:absolute;
-  left:17px;top:7px;
-  color:#fff;
-  font-size:13px;
-  line-height:1;
-  font-weight:800;
-  letter-spacing:.05em;
-}
-.pipe-hub__tape{
-  position:absolute;
-  left:28px;
-  top:45px;
-  width:136px;
-  height:42px;
-  border-radius:6px;
-  background:
-    repeating-linear-gradient(90deg,#f0c500 0 30px,#111 30px 44px,#f0c500 44px 74px);
-  box-shadow:0 3px 8px rgba(0,0,0,.14);
-}
-.pipe-hub__tape:before{
-  content:"ПАР  →";
-  position:absolute;
-  left:30px;top:11px;
-  padding:2px 7px;
-  border-radius:4px;
-  background:#fff;
-  color:#242424;
-  font-size:11px;
-  font-weight:800;
+  line-height:1.2;
+  font-weight:700;
 }
 
-.pipe-hub__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-.pipe-hub__step{padding:20px;border:1px solid var(--ph-line);border-radius:17px;background:var(--ph-soft)}
-.pipe-hub__step-num{
-  width:34px;height:34px;display:flex;align-items:center;justify-content:center;
-  margin-bottom:13px;border-radius:10px;background:#e2f2f7;color:var(--ph-blue-dark);font-weight:900
+.ph2__section{margin:30px 0}
+.ph2__section-head{margin-bottom:14px}
+.ph2__section h2{
+  margin:0 0 6px;
+  font-size:22px;
+  line-height:1.25;
+  letter-spacing:-.012em;
+  color:#172731;
 }
-.pipe-hub__step h3{margin:0 0 7px;font-size:17px;color:#1b2a35}
-.pipe-hub__step p{margin:0;color:#61717e;font-size:14px}
+.ph2__section-intro{max-width:760px;margin:0;color:var(--ph2-muted);font-size:14px}
 
-.pipe-hub__norm{
+.ph2__catalog{
   display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:20px;
-  padding:26px;
-  border:1px solid #d6e7ee;
-  border-radius:20px;
-  background:linear-gradient(135deg,#f6fbfd,#fff);
+  grid-template-columns:1fr 1fr;
+  gap:13px;
 }
-.pipe-hub__norm p{margin:0 0 10px}
-.pipe-hub__norm-note{color:var(--ph-muted);font-size:14px}
-.pipe-hub__badge{
-  display:flex;
+.ph2__cat{
+  display:grid;
+  grid-template-columns:106px 1fr;
+  gap:15px;
+  align-items:center;
   min-height:150px;
+  padding:13px;
+  border:1px solid var(--ph2-line);
+  border-radius:16px;
+  background:#fff;
+  color:inherit;
+  box-shadow:0 4px 14px rgba(28,43,54,.04);
+  transition:.18s ease;
+}
+a.ph2__cat:hover{
+  transform:translateY(-2px);
+  border-color:#c8d9e1;
+  box-shadow:var(--ph2-shadow);
+  color:inherit;
+}
+.ph2__cat--soon{background:#fbfcfd}
+.ph2__media{
+  display:flex;
   align-items:center;
   justify-content:center;
-  padding:20px;
-  border-radius:17px;
-  background:#0b789b;
-  color:#fff;
-  text-align:center;
+  width:106px;
+  height:106px;
+  overflow:hidden;
+  border-radius:13px;
+  background:linear-gradient(145deg,#f1f7f9,#e8f1f4);
+  color:#167c99;
 }
-.pipe-hub__badge strong{display:block;font-size:24px;line-height:1.15;margin-bottom:7px}
-.pipe-hub__badge span{font-size:13px;opacity:.86}
-
-.pipe-hub__project{
-  display:grid;
-  grid-template-columns:1.35fr .65fr;
-  gap:24px;
+.ph2__media--amber{background:linear-gradient(145deg,#fff8e9,#f8edcd);color:#a97600}
+.ph2__media--green{background:linear-gradient(145deg,#eef9f4,#def1e8);color:#2e8668}
+.ph2__media--slate{background:linear-gradient(145deg,#f2f5f7,#e8edef);color:#62717c}
+.ph2__media--coral{background:linear-gradient(145deg,#fff3ef,#f8e4df);color:#c35f49}
+.ph2__media svg{width:46px;height:46px;stroke-width:1.55}
+.ph2__status{
+  display:inline-flex;
+  width:max-content;
+  margin-bottom:7px;
+  padding:4px 7px;
+  border-radius:999px;
+  background:#eaf5f8;
+  color:var(--ph2-blue-dark);
+  font-size:10px;
+  line-height:1;
+  font-weight:900;
+  letter-spacing:.035em;
+  text-transform:uppercase;
+}
+.ph2__status--soon{background:#f0f3f5;color:#6b7881}
+.ph2__cat h3{margin:0 0 6px;font-size:17px;line-height:1.25;color:#1a2a35}
+.ph2__cat p{margin:0 0 9px;color:#677681;font-size:13px;line-height:1.45}
+.ph2__cat-link{
+  display:inline-flex;
   align-items:center;
-  padding:28px;
-  border-radius:22px;
-  background:#172f3d;
-  color:#fff;
-  box-shadow:var(--ph-shadow);
+  gap:6px;
+  color:var(--ph2-blue-dark);
+  font-size:13px;
+  font-weight:800;
 }
-.pipe-hub__project h2{color:#fff}
-.pipe-hub__project p{margin:0 0 15px;color:#d5e2e8}
-.pipe-hub__project ul{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px;margin:0;padding:0;list-style:none}
-.pipe-hub__project li{position:relative;padding-left:18px;color:#e8f0f3;font-size:14px}
-.pipe-hub__project li:before{content:"✓";position:absolute;left:0;color:#7fd3ba;font-weight:900}
-.pipe-hub__project-card{padding:18px;border:1px solid rgba(255,255,255,.16);border-radius:16px;background:rgba(255,255,255,.07)}
-.pipe-hub__project-card strong{display:block;margin-bottom:6px;font-size:17px}
-.pipe-hub__project-card span{display:block;margin-bottom:14px;color:#c9d8de;font-size:13px}
-.pipe-hub__project-card .pipe-hub__btn{width:100%;background:var(--ph-orange);color:#fff}
-.pipe-hub__project-card .pipe-hub__btn:hover{background:#d95134;color:#fff}
+.ph2__cat-link svg{width:15px;height:15px;stroke-width:2}
+.ph2__soon-text{color:#89949b;font-size:12px;font-weight:700}
 
-.pipe-hub__next{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.pipe-hub__next-item{padding:14px;border:1px dashed #cad9df;border-radius:14px;background:#fbfdfe;color:#61717e;font-size:13px}
-.pipe-hub__next-item strong{display:block;margin-bottom:3px;color:#364955;font-size:14px}
+.ph2__steps{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-top:1px solid var(--ph2-line);
+  border-bottom:1px solid var(--ph2-line);
+}
+.ph2__step{padding:18px 18px 18px 0}
+.ph2__step+.ph2__step{padding-left:18px;border-left:1px solid var(--ph2-line)}
+.ph2__step-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;height:34px;
+  margin-bottom:10px;
+  border-radius:10px;
+  background:#edf7fa;
+  color:var(--ph2-blue-dark);
+}
+.ph2__step-icon svg{width:18px;height:18px;stroke-width:1.8}
+.ph2__step h3{margin:0 0 5px;font-size:15px;color:#223540}
+.ph2__step p{margin:0;color:#6b7a84;font-size:12.5px;line-height:1.45}
 
-.pipe-hub__faq{border-top:1px solid var(--ph-line)}
-.pipe-hub__faq details{border-bottom:1px solid var(--ph-line);padding:15px 2px}
-.pipe-hub__faq summary{cursor:pointer;font-weight:750;color:#263844}
-.pipe-hub__faq p{margin:10px 0 0;color:#60717d}
+.ph2__docs{
+  overflow:hidden;
+  border:1px solid var(--ph2-line);
+  border-radius:17px;
+  background:#fff;
+}
+.ph2__docs-main{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:13px;
+  align-items:center;
+  padding:16px 17px;
+  background:#f5fafc;
+  border-bottom:1px solid var(--ph2-line);
+}
+.ph2__doc-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:38px;height:38px;
+  border-radius:10px;
+  background:#e4f3f7;
+  color:var(--ph2-blue-dark);
+}
+.ph2__doc-icon svg{width:20px;height:20px;stroke-width:1.75}
+.ph2__docs-main strong{display:block;margin-bottom:2px;font-size:15px;color:#21333e}
+.ph2__docs-main span{display:block;color:#687882;font-size:12.5px}
+.ph2__doc-pending{
+  padding:5px 8px;
+  border-radius:999px;
+  background:#eef2f4;
+  color:#74818a;
+  font-size:10px;
+  font-weight:800;
+  white-space:nowrap;
+}
+.ph2__docs-list{display:grid;grid-template-columns:1fr 1fr}
+.ph2__docrow{
+  display:grid;
+  grid-template-columns:auto 1fr auto;
+  gap:10px;
+  align-items:center;
+  min-height:58px;
+  padding:11px 15px;
+  border-bottom:1px solid #edf1f3;
+}
+.ph2__docrow:nth-child(odd){border-right:1px solid #edf1f3}
+.ph2__docrow:nth-last-child(-n+2){border-bottom:none}
+.ph2__docrow-icon{color:#7f909a}
+.ph2__docrow-icon svg{width:17px;height:17px;stroke-width:1.7}
+.ph2__docrow strong{display:block;color:#344954;font-size:13px;line-height:1.3}
+.ph2__docrow small{display:block;margin-top:2px;color:#8a969d;font-size:10.5px}
+.ph2__docrow .ph2__mini{color:#a1abb1;font-size:10px;font-weight:700;white-space:nowrap}
 
-@media(max-width:820px){
-  .pipe-hub__hero{padding:26px 22px}
-  .pipe-hub h1{font-size:30px}
-  .pipe-hub__lead{font-size:16px}
-  .pipe-hub__solutions,.pipe-hub__norm,.pipe-hub__project{grid-template-columns:1fr}
-  .pipe-hub__steps{grid-template-columns:1fr}
-  .pipe-hub__next{grid-template-columns:1fr 1fr}
-  .pipe-hub__project ul{grid-template-columns:1fr}
+.ph2__project{
+  display:grid;
+  grid-template-columns:1.4fr .6fr;
+  gap:22px;
+  align-items:center;
+  padding:24px;
+  border-radius:17px;
+  background:#183542;
+  color:#fff;
+}
+.ph2__project h2{color:#fff}
+.ph2__project p{margin:0 0 13px;color:#d8e3e7;font-size:13.5px}
+.ph2__project-points{display:grid;grid-template-columns:1fr 1fr;gap:7px 18px}
+.ph2__point{display:flex;gap:7px;align-items:flex-start;color:#eaf0f2;font-size:12px}
+.ph2__point svg{flex:0 0 auto;width:15px;height:15px;margin-top:1px;color:#7dd2b5;stroke-width:2.2}
+.ph2__project-card{padding:15px;border:1px solid rgba(255,255,255,.15);border-radius:13px;background:rgba(255,255,255,.065)}
+.ph2__project-card strong{display:block;margin-bottom:4px;font-size:15px}
+.ph2__project-card span{display:block;margin-bottom:11px;color:#c7d6dc;font-size:11.5px}
+.ph2__project-card .ph2__btn{width:100%;background:var(--ph2-orange);color:#fff}
+.ph2__project-card .ph2__btn:hover{background:#d65337;color:#fff}
+
+.ph2__faq{border-top:1px solid var(--ph2-line)}
+.ph2__faq details{border-bottom:1px solid var(--ph2-line);padding:13px 1px}
+.ph2__faq summary{cursor:pointer;font-size:13px;font-weight:800;color:#2c414d}
+.ph2__faq p{margin:8px 0 0;color:#6a7882;font-size:12.5px}
+
+@media(max-width:850px){
+  .ph2__catalog{grid-template-columns:1fr}
+  .ph2__project{grid-template-columns:1fr}
+}
+@media(max-width:700px){
+  .ph2__steps{grid-template-columns:1fr;border-bottom:0}
+  .ph2__step{padding:14px 0;border-bottom:1px solid var(--ph2-line)}
+  .ph2__step+.ph2__step{padding-left:0;border-left:0}
+  .ph2__docs-list{grid-template-columns:1fr}
+  .ph2__docrow:nth-child(odd){border-right:0}
+  .ph2__docrow:nth-last-child(-n+2){border-bottom:1px solid #edf1f3}
+  .ph2__docrow:last-child{border-bottom:0}
 }
 @media(max-width:520px){
-  .pipe-hub__hero{padding:22px 17px;border-radius:18px}
-  .pipe-hub h1{font-size:27px}
-  .pipe-hub__solution{min-height:305px;padding:20px}
-  .pipe-hub__visual{opacity:.75}
-  .pipe-hub__next{grid-template-columns:1fr}
-  .pipe-hub__btn{width:100%}
+  .ph2 h1{font-size:28px}
+  .ph2__cat{grid-template-columns:88px 1fr;gap:12px}
+  .ph2__media{width:88px;height:88px}
+  .ph2__media svg{width:39px;height:39px}
+  .ph2__docs-main{grid-template-columns:auto 1fr}
+  .ph2__docs-main .ph2__doc-pending{grid-column:2}
+  .ph2__project-points{grid-template-columns:1fr}
+  .ph2__btn{width:100%}
 }
 </style>
 
-<div class="pipe-hub">
-
-  <section class="pipe-hub__hero">
-    <div class="pipe-hub__eyebrow">Маркировка трубопроводов и воздуховодов</div>
+<div class="ph2">
+  <section class="ph2__hero">
+    <div class="ph2__eyebrow">Маркировка трубопроводов и воздуховодов</div>
     <h1>Маркировка трубопроводов</h1>
-    <p class="pipe-hub__lead">Готовая маркировка для быстрого заказа и изготовление по вашей спецификации. Начните с нужного типа изделия — сейчас доступны маркировочные стрелки и ленты.</p>
-    <div class="pipe-hub__actions">
-      <a class="pipe-hub__btn pipe-hub__btn--primary" href="#solutions">Выбрать маркировку</a>
-      <a class="pipe-hub__btn pipe-hub__btn--secondary" href="#project">Заказать по проекту</a>
-    </div>
-    <div class="pipe-hub__facts">
-      <span class="pipe-hub__fact">Собственное производство</span>
-      <span class="pipe-hub__fact">Заказ от 1 штуки</span>
-      <span class="pipe-hub__fact">Стандартные и индивидуальные надписи</span>
-      <span class="pipe-hub__fact">Доставка по России</span>
-    </div>
-  </section>
+    <p class="ph2__lead">Готовая маркировка для быстрого заказа и изготовление по вашей спецификации.</p>
 
-  <section class="pipe-hub__section" id="solutions">
-    <div class="pipe-hub__section-head">
-      <div>
-        <h2>Выберите тип маркировки</h2>
-        <p class="pipe-hub__section-intro">Сначала выберите изделие. На следующем шаге можно подобрать вариант по назначению, размеру и другим доступным параметрам.</p>
-      </div>
-    </div>
-
-    <div class="pipe-hub__solutions">
-      <a class="pipe-hub__solution" href="/markirovochnye-strelki-na-truboprovod--uid-00071818/">
-        <span class="pipe-hub__solution-tag">Готовый раздел</span>
-        <h3>Маркировочные стрелки на трубопровод</h3>
-        <p>Самоклеящиеся маркеры с наименованием среды и направлением движения. Можно выбрать готовый вариант или заказать индивидуальную надпись.</p>
-        <span class="pipe-hub__link">Перейти к стрелкам</span>
-        <span class="pipe-hub__visual" aria-hidden="true">
-          <span class="pipe-hub__pipe"></span>
-          <span class="pipe-hub__arrow"></span>
-        </span>
+    <div class="ph2__actions">
+      <a class="ph2__btn ph2__btn--primary" href="#catalog">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Выбрать маркировку
       </a>
-
-      <a class="pipe-hub__solution" href="/markirovochnaya-lenta-na-truboprovod--uid-0002217800/">
-        <span class="pipe-hub__solution-tag">Готовый раздел</span>
-        <h3>Маркировочные ленты</h3>
-        <p>Ленты для маркировки трубопроводов. Выберите подходящий вариант в каталоге или отправьте требования для нестандартного исполнения.</p>
-        <span class="pipe-hub__link">Перейти к лентам</span>
-        <span class="pipe-hub__visual" aria-hidden="true">
-          <span class="pipe-hub__pipe"></span>
-          <span class="pipe-hub__tape"></span>
-        </span>
+      <a class="ph2__btn ph2__btn--secondary" href="#project">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7zM14 3v5h5M10 13h5M10 17h5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Заказать по проекту
       </a>
     </div>
-  </section>
 
-  <section class="pipe-hub__section">
-    <h2>Как начать подбор</h2>
-    <p class="pipe-hub__section-intro">Не нужно заранее разбираться во всех вариантах маркировки. Для первого шага достаточно трёх решений.</p>
-    <div class="pipe-hub__steps">
-      <div class="pipe-hub__step">
-        <div class="pipe-hub__step-num">1</div>
-        <h3>Выберите тип изделия</h3>
-        <p>Маркировочная стрелка или лента. Остальные способы маркировки будут добавляться в этот раздел по мере подготовки.</p>
-      </div>
-      <div class="pipe-hub__step">
-        <div class="pipe-hub__step-num">2</div>
-        <h3>Уточните параметры</h3>
-        <p>Наименование среды, размеры, условия применения и другие характеристики, которые доступны для выбранного изделия.</p>
-      </div>
-      <div class="pipe-hub__step">
-        <div class="pipe-hub__step-num">3</div>
-        <h3>Готовое или индивидуальное</h3>
-        <p>Если готового варианта нет, пришлите техническое задание или спецификацию — подготовим индивидуальное исполнение.</p>
-      </div>
+    <div class="ph2__facts">
+      <span class="ph2__fact">Собственное производство</span>
+      <span class="ph2__fact">Заказ от 1 штуки</span>
+      <span class="ph2__fact">Индивидуальные надписи</span>
+      <span class="ph2__fact">Доставка по России</span>
     </div>
   </section>
 
-  <section class="pipe-hub__section">
-    <div class="pipe-hub__norm">
-      <div>
-        <h2>Маркировка по актуальным требованиям</h2>
-        <p>При проектировании маркировки трубопроводов ориентируемся на действующий <strong>ГОСТ Р 71918-2024</strong>, который заменил ГОСТ 14202-69.</p>
-        <p>Стандарт задаёт общие требования к опознавательной окраске, предупреждающим знакам и маркировочным щиткам. Конкретное решение зависит от объекта, рабочей среды и применяемого способа маркировки.</p>
-        <p class="pipe-hub__norm-note"><strong>Документы:</strong> в рабочей версии раздела будет отдельный блок с проверенными нормативными файлами и памяткой по выбору маркировки.</p>
-      </div>
-      <div class="pipe-hub__badge">
+  <section class="ph2__section" id="catalog">
+    <div class="ph2__section-head">
+      <h2>Выберите вид маркировки</h2>
+      <p class="ph2__section-intro">Все направления собраны в одном месте. Готовые категории уже ведут в каталог, остальные будут подключаться по мере подготовки страниц.</p>
+    </div>
+
+    <div class="ph2__catalog">
+      <a class="ph2__cat" href="/markirovochnye-strelki-na-truboprovod--uid-00071818/">
+        <div class="ph2__media">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 8h10v-3l6 7-6 7v-3H4z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
         <div>
-          <strong>ГОСТ Р<br>71918-2024</strong>
-          <span>актуальный ориентир для раздела</span>
+          <span class="ph2__status">Готовый раздел</span>
+          <h3>Маркировочные стрелки</h3>
+          <p>Самоклеящиеся маркеры с наименованием среды и направлением движения потока.</p>
+          <span class="ph2__cat-link">Перейти в раздел
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <a class="ph2__cat" href="/markirovochnaya-lenta-na-truboprovod--uid-0002217800/">
+        <div class="ph2__media ph2__media--amber">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="3" y="7" width="18" height="10" rx="2" stroke="currentColor"/>
+            <path d="M7 7v4M11 7v2M15 7v4M19 7v2" stroke="currentColor" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="ph2__status">Готовый раздел</span>
+          <h3>Маркировочные ленты</h3>
+          <p>Ленты с цветовой идентификацией, текстом и вариантами исполнения для трубопроводов.</p>
+          <span class="ph2__cat-link">Перейти в раздел
+            <svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </a>
+
+      <div class="ph2__cat ph2__cat--soon">
+        <div class="ph2__media ph2__media--green">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor"/>
+            <circle cx="9" cy="10" r="2" stroke="currentColor"/>
+            <path d="M13 9h4M13 13h4M7 16h10" stroke="currentColor" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="ph2__status ph2__status--soon">Готовим страницу</span>
+          <h3>Идентификаторы трубопровода</h3>
+          <p>Комплексная идентификация трубопровода с набором обязательной информации.</p>
+          <span class="ph2__soon-text">Скоро появится в каталоге</span>
+        </div>
+      </div>
+
+      <div class="ph2__cat ph2__cat--soon">
+        <div class="ph2__media ph2__media--slate">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-linecap="round"/>
+            <path d="M7 5v4M12 10v4M17 15v4" stroke="currentColor" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="ph2__status ph2__status--soon">Готовим страницу</span>
+          <h3>Комбинированные ленты</h3>
+          <p>Маркировка, объединяющая цветовую идентификацию, текст и дополнительные элементы.</p>
+          <span class="ph2__soon-text">Скоро появится в каталоге</span>
+        </div>
+      </div>
+
+      <div class="ph2__cat ph2__cat--soon">
+        <div class="ph2__media ph2__media--coral">
+          <svg viewBox="0 0 24 24" fill="none">
+            <path d="M12 3c3 3 6 5.8 6 9a6 6 0 1 1-12 0c0-3.2 3-6 6-9z" stroke="currentColor" stroke-linejoin="round"/>
+            <path d="M9 15c1 .9 2 .9 3 .9s2 0 3-.9" stroke="currentColor" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="ph2__status ph2__status--soon">Готовим страницу</span>
+          <h3>Опознавательная окраска и кольца</h3>
+          <p>Цветовая идентификация трубопроводов и предупреждающие кольца для обозначения среды.</p>
+          <span class="ph2__soon-text">Скоро появится в каталоге</span>
+        </div>
+      </div>
+
+      <div class="ph2__cat ph2__cat--soon">
+        <div class="ph2__media">
+          <svg viewBox="0 0 24 24" fill="none">
+            <rect x="4" y="5" width="16" height="14" rx="2" stroke="currentColor"/>
+            <path d="M8 9h8M8 13h5M8 17h8" stroke="currentColor" stroke-linecap="round"/>
+            <path d="M7 3v2M17 3v2" stroke="currentColor" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div>
+          <span class="ph2__status ph2__status--soon">Готовим страницу</span>
+          <h3>Маркировочные щитки</h3>
+          <p>Щитки и таблички для размещения информации там, где самоклеящаяся маркировка не подходит.</p>
+          <span class="ph2__soon-text">Скоро появится в каталоге</span>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="pipe-hub__section pipe-hub__project" id="project">
+  <section class="ph2__section">
+    <div class="ph2__section-head">
+      <h2>Как подобрать маркировку</h2>
+      <p class="ph2__section-intro">Для начала достаточно определить тип изделия, основные параметры и понять, подходит ли готовая позиция.</p>
+    </div>
+
+    <div class="ph2__steps">
+      <div class="ph2__step">
+        <div class="ph2__step-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 7h14M5 12h9M5 17h6" stroke="currentColor" stroke-linecap="round"/></svg>
+        </div>
+        <h3>1. Выберите вид изделия</h3>
+        <p>Стрелка, лента, идентификатор, кольца или щиток.</p>
+      </div>
+      <div class="ph2__step">
+        <div class="ph2__step-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M4 17h16M6 17V7h12v10M9 7V4h6v3M9 11h6M9 14h4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>2. Уточните параметры</h3>
+        <p>Среда, размер, условия применения и необходимые элементы маркировки.</p>
+      </div>
+      <div class="ph2__step">
+        <div class="ph2__step-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3>3. Выберите готовое или заказное</h3>
+        <p>Если нужной позиции нет, изготовим индивидуальный вариант по вашему заданию.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="ph2__section" id="docs">
+    <div class="ph2__section-head">
+      <h2>Нормативная документация</h2>
+      <p class="ph2__section-intro">Отдельный блок для стандартов и отраслевых документов. Сейчас закладываем структуру; ссылки подключим после проверки и подготовки нашей нормативной базы.</p>
+    </div>
+
+    <div class="ph2__docs">
+      <div class="ph2__docs-main">
+        <div class="ph2__doc-icon">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M7 3h7l4 4v14H7zM14 3v5h5M10 12h5M10 16h5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <strong>ГОСТ Р 71918-2024</strong>
+          <span>Основной стандарт по опознавательной окраске, предупреждающим знакам и маркировочным щиткам; введён взамен ГОСТ 14202-69.</span>
+        </div>
+        <span class="ph2__doc-pending">PDF после проверки</span>
+      </div>
+
+      <div class="ph2__docs-list">
+        <div class="ph2__docrow">
+          <span class="ph2__docrow-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 20V9l8-5 8 5v11M8 20v-6h8v6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Объекты ЖКХ</strong><small>Нормативные документы по маркировке трубопроводов</small></div>
+          <span class="ph2__mini">готовим список</span>
+        </div>
+        <div class="ph2__docrow">
+          <span class="ph2__docrow-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 20V8h10v12M9 8V4h6v4M5 20h14M9 12h6M9 16h6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Теплоснабжение</strong><small>Котельные, тепловые пункты и связанные объекты</small></div>
+          <span class="ph2__mini">готовим список</span>
+        </div>
+        <div class="ph2__docrow">
+          <span class="ph2__docrow-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M3 20V9l6 3V8l6 4V5l6 4v11M7 17h2M12 17h2M17 17h2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Промышленные объекты</strong><small>Предприятия и производственные площадки</small></div>
+          <span class="ph2__mini">готовим список</span>
+        </div>
+        <div class="ph2__docrow">
+          <span class="ph2__docrow-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c3 4 5 6.5 5 9a5 5 0 0 1-10 0c0-2.5 2-5 5-9zM5 20h14" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Нефтегазовая отрасль</strong><small>Документы для объектов нефти и газа</small></div>
+          <span class="ph2__mini">готовим список</span>
+        </div>
+        <div class="ph2__docrow">
+          <span class="ph2__docrow-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3c1 3-1 4-1 6 0 1 1 2 2 1 1-1 1-3 1-4 3 3 5 6 5 9a7 7 0 1 1-14 0c0-3 2-6 5-9 0 2 0 4 2 5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <div><strong>Пожаротушение</strong><small>Маркировка трубопроводов систем пожаротушения</small></div>
+          <span class="ph2__mini">готовим список</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ph2__section ph2__project" id="project">
     <div>
       <h2>Нужно промаркировать объект целиком?</h2>
-      <p>Не обязательно подбирать каждую позицию вручную. Пришлите спецификацию, перечень трубопроводов или техническое задание — разберём исходные данные и подготовим предложение.</p>
-      <ul>
-        <li>проверим перечень позиций</li>
-        <li>уточним необходимые параметры</li>
-        <li>подберём подходящие изделия</li>
-        <li>учтём индивидуальные надписи</li>
-      </ul>
+      <p>Пришлите спецификацию, перечень трубопроводов или техническое задание. Подберём подходящие изделия и подготовим предложение без ручного поиска каждой позиции.</p>
+      <div class="ph2__project-points">
+        <span class="ph2__point"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Проверим перечень позиций</span>
+        <span class="ph2__point"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Уточним необходимые параметры</span>
+        <span class="ph2__point"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Подберём подходящие изделия</span>
+        <span class="ph2__point"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12l4 4 10-10" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>Учтём индивидуальные надписи</span>
+      </div>
     </div>
-    <div class="pipe-hub__project-card">
+
+    <div class="ph2__project-card">
       <strong>Проектный заказ</strong>
       <span>Excel, PDF, ТЗ или обычный перечень в письме.</span>
-      <a class="pipe-hub__btn" href="/?go=email_order" onclick="if(window.uh_pages){uh_pages(this);return false;}">Отправить спецификацию</a>
+      <a class="ph2__btn" href="/?go=email_order" onclick="if(window.uh_pages){uh_pages(this);return false;}">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 6h16v12H4zM4 7l8 6 8-6" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Отправить спецификацию
+      </a>
     </div>
   </section>
 
-  <section class="pipe-hub__section">
-    <h2>Следующие направления</h2>
-    <p class="pipe-hub__section-intro">Не создаём пустые каталоги заранее. Новые направления будут появляться здесь только после проработки ассортимента и содержания страницы.</p>
-    <div class="pipe-hub__next">
-      <div class="pipe-hub__next-item"><strong>Идентификаторы трубопровода</strong>в подготовке</div>
-      <div class="pipe-hub__next-item"><strong>Комбинированные ленты</strong>в подготовке</div>
-      <div class="pipe-hub__next-item"><strong>Опознавательная окраска и кольца</strong>в подготовке</div>
-      <div class="pipe-hub__next-item"><strong>Маркировочные щитки</strong>в подготовке</div>
-    </div>
-  </section>
-
-  <section class="pipe-hub__section">
+  <section class="ph2__section">
     <h2>Частые вопросы</h2>
-    <div class="pipe-hub__faq">
+    <div class="ph2__faq">
       <details>
         <summary>Можно заказать одну маркировочную стрелку?</summary>
-        <p>Да, существующий ассортимент MagazinOT позволяет заказывать готовую маркировку поштучно. Для крупных и нестандартных заказов используйте проектный сценарий.</p>
+        <p>Да, готовую маркировку можно заказывать поштучно. Для крупных и нестандартных заказов удобнее использовать проектный сценарий.</p>
       </details>
       <details>
         <summary>Что делать, если нужной надписи нет в каталоге?</summary>
         <p>Отправьте требуемое наименование и параметры. Индивидуальные позиции можно изготовить по техническому заданию.</p>
       </details>
       <details>
-        <summary>Где посмотреть требования ГОСТ?</summary>
-        <p>Мы готовим отдельный блок с проверенными нормативными документами. До его публикации требования к конкретному объекту лучше сверять по официальному тексту применимого стандарта.</p>
+        <summary>Где будут размещены нормативные документы?</summary>
+        <p>На этой странице уже предусмотрен отдельный раздел. Ссылки на проверенные документы подключим после формирования нашей нормативной базы.</p>
       </details>
     </div>
   </section>
-
 </div>
