@@ -79,7 +79,9 @@ jobs:
               await page.evaluate(async () => { if (document.fonts?.ready) await document.fonts.ready; });
               await page.waitForTimeout(1000);
               await page.screenshot({
-                path: `visual-snapshots/markirovka-truboprovodov-${shot.name}.png`,
+                path: `visual-snapshots/markirovka-truboprovodov-${shot.name}.jpg`,
+                type: 'jpeg',
+                quality: 72,
                 fullPage: true,
               });
               await context.close();
