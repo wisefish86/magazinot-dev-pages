@@ -518,7 +518,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 }
 .pipehub__faq summary{
   display:grid;
-  grid-template-columns:minmax(0,1fr) 22px;
+  grid-template-columns:22px minmax(0,1fr);
   gap:var(--space-3);
   align-items:center;
   min-height:54px;
@@ -543,6 +543,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 }
 .pipehub__faq-chevron{
   display:flex;
+  order:-1;
   align-items:center;
   justify-content:center;
   width:22px;
@@ -558,18 +559,10 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
   color:var(--c-blue);
 }
 .pipehub__faq-panel{
-  display:grid!important;
-  grid-template-rows:0fr;
-  opacity:0;
-  transition:grid-template-rows .28s cubic-bezier(.2,.7,.2,1),opacity .2s ease;
-}
-.pipehub__faq details[open] .pipehub__faq-panel{
-  grid-template-rows:1fr;
-  opacity:1;
+  display:block!important;
 }
 .pipehub__faq-panel-inner{
   min-height:0;
-  overflow:hidden;
 }
 .pipehub__faq p{
   margin:0;
@@ -857,5 +850,73 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
       </details>
     </div>
   </section>
+
+<script>
+(function pipehubFaqInit(){
+  const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll('.pipehub__faq details').forEach((details) => {
+    const summary = details.querySelector('summary');
+    if (!summary || details.dataset.animated === '1') return;
+    details.dataset.animated = '1';
+
+    let animation = null;
+
+    function finish(open) {
+      animation = null;
+      details.style.height = '';
+      details.style.overflow = '';
+      if (!open) details.removeAttribute('open');
+    }
+
+    function expand() {
+      if (animation) animation.cancel();
+      const startHeight = details.offsetHeight;
+      details.setAttribute('open', '');
+      const endHeight = details.offsetHeight;
+
+      if (reduceMotion) {
+        finish(true);
+        return;
+      }
+
+      details.style.height = startHeight + 'px';
+      details.style.overflow = 'hidden';
+      animation = details.animate(
+        { height: [startHeight + 'px', endHeight + 'px'] },
+        { duration: 280, easing: 'cubic-bezier(.2,.7,.2,1)' }
+      );
+      animation.onfinish = () => finish(true);
+      animation.oncancel = () => { animation = null; };
+    }
+
+    function collapse() {
+      if (animation) animation.cancel();
+      const startHeight = details.offsetHeight;
+      const endHeight = summary.offsetHeight;
+
+      if (reduceMotion) {
+        finish(false);
+        return;
+      }
+
+      details.style.height = startHeight + 'px';
+      details.style.overflow = 'hidden';
+      animation = details.animate(
+        { height: [startHeight + 'px', endHeight + 'px'] },
+        { duration: 240, easing: 'cubic-bezier(.2,.7,.2,1)' }
+      );
+      animation.onfinish = () => finish(false);
+      animation.oncancel = () => { animation = null; };
+    }
+
+    summary.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (details.open) collapse();
+      else expand();
+    });
+  });
+})();
+</script>
 
 </div>
