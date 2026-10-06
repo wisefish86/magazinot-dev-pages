@@ -518,8 +518,8 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 }
 .pipehub__faq summary{
   display:grid;
-  grid-template-columns:22px minmax(0,1fr);
-  gap:var(--space-3);
+  grid-template-columns:18px minmax(0,1fr);
+  gap:7px;
   align-items:center;
   min-height:54px;
   padding:14px 4px;
@@ -546,17 +546,21 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
   order:-1;
   align-items:center;
   justify-content:center;
-  width:22px;
-  height:22px;
+  width:18px;
+  height:18px;
   color:#83949e;
   transform:rotate(0deg);
   transform-origin:center;
   transition:transform .24s cubic-bezier(.2,.7,.2,1),color .18s ease;
 }
-.pipehub__faq-chevron svg{width:19px;height:19px;stroke-width:1.8}
-.pipehub__faq details[open] .pipehub__faq-chevron{
+.pipehub__faq-chevron svg{width:18px;height:18px;stroke-width:1.8}
+.pipehub__faq details[open]:not(.is-closing) .pipehub__faq-chevron{
   transform:rotate(90deg);
   color:var(--c-blue);
+}
+.pipehub__faq details.is-closing .pipehub__faq-chevron{
+  transform:rotate(0deg);
+  color:#83949e;
 }
 .pipehub__faq-panel{
   display:block!important;
@@ -867,10 +871,12 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
       details.style.height = '';
       details.style.overflow = '';
       if (!open) details.removeAttribute('open');
+      details.classList.remove('is-closing');
     }
 
     function expand() {
       if (animation) animation.cancel();
+      details.classList.remove('is-closing');
       const startHeight = details.offsetHeight;
       details.setAttribute('open', '');
       const endHeight = details.offsetHeight;
@@ -892,6 +898,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 
     function collapse() {
       if (animation) animation.cancel();
+      details.classList.add('is-closing');
       const startHeight = details.offsetHeight;
       const endHeight = summary.offsetHeight;
 
