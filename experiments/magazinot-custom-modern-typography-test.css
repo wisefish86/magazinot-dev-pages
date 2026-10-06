@@ -1,0 +1,144 @@
+/* =========================================================
+   MAGAZINOT — MODERN TYPOGRAPHY TEST
+   ВРЕМЕННЫЙ БЛОК. Можно удалить целиком от START до END.
+   Не содержит стили карточек/hero/FAQ — только общую типографику и текстовые ссылки.
+   ========================================================= */
+
+/* ===== START: MODERN TYPOGRAPHY TEST ===== */
+
+@font-face{
+  font-family:"Manrope Variable";
+  font-style:normal;
+  font-display:swap;
+  font-weight:200 800;
+  src:url("https://cdn.jsdelivr.net/fontsource/fonts/manrope:vf@5.3.0/cyrillic-wght-normal.woff2") format("woff2-variations");
+  unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116;
+}
+@font-face{
+  font-family:"Manrope Variable";
+  font-style:normal;
+  font-display:swap;
+  font-weight:200 800;
+  src:url("https://cdn.jsdelivr.net/fontsource/fonts/manrope:vf@5.3.0/latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root{
+  --mo-font:"Manrope Variable","PT Sans",Arial,sans-serif;
+  --mo-heading:#21313b;
+  --mo-text:#4f626e;
+  --mo-muted:#687984;
+  --mo-link:#0a6f89;
+  --mo-link-hover:#07576d;
+}
+
+/* Один шрифт для сайта и элементов интерфейса */
+html,
+body,
+button,
+input,
+textarea,
+select{
+  font-family:var(--mo-font)!important;
+}
+
+/* Базовый текст */
+body{
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* Новая иерархия заголовков */
+h1,h2,h3,h4{
+  font-family:var(--mo-font)!important;
+  color:var(--mo-heading)!important;
+  font-style:normal!important;
+  padding-left:0;
+}
+
+h1{
+  font-size:30px!important;
+  line-height:1.18!important;
+  font-weight:700!important;
+  letter-spacing:-.018em!important;
+  margin-bottom:18px!important;
+}
+h2{
+  font-size:24px!important;
+  line-height:1.25!important;
+  font-weight:700!important;
+  letter-spacing:-.012em!important;
+  margin-bottom:6px!important;
+}
+h3{
+  font-size:17px!important;
+  line-height:1.35!important;
+  font-weight:600!important;
+  margin-bottom:5px!important;
+}
+h4{
+  font-size:16px!important;
+  line-height:1.4!important;
+  font-weight:600!important;
+  margin-bottom:5px!important;
+}
+
+/* Основной текст в старых контентных конструкциях */
+.content-text p,
+.content-block__description p,
+.content-info__text p{
+  font-family:var(--mo-font)!important;
+  font-size:15px!important;
+  line-height:1.6!important;
+  color:var(--mo-text);
+}
+
+/* Второстепенный текст можно помечать этим классом на новых страницах */
+.mo-muted{
+  color:var(--mo-muted)!important;
+  font-size:14px!important;
+  line-height:1.5!important;
+}
+
+/* Убираем известные старые декоративные маркеры у контентных заголовков */
+.content-text h1::before,
+.content-text h2::before,
+.content-text h3::before,
+.content-text h4::before,
+.content-block__description h2::before,
+.content-info__text h2::before,
+.pe-choice-page h3::before{
+  content:none!important;
+  display:none!important;
+}
+
+/* Современные inline-ссылки.
+   Не трогаем меню, кнопки и карточки: только ссылки внутри текстового контента. */
+.content-text p a,
+.content-block__description p a,
+.content-info__text p a,
+.list-all a{
+  color:var(--mo-link)!important;
+  text-decoration-line:underline!important;
+  text-decoration-thickness:1px!important;
+  text-underline-offset:3px!important;
+  text-decoration-color:rgba(10,111,137,.34)!important;
+  transition:color .18s ease,text-decoration-color .18s ease;
+}
+.content-text p a:hover,
+.content-block__description p a:hover,
+.content-info__text p a:hover,
+.list-all a:hover{
+  color:var(--mo-link-hover)!important;
+  text-decoration-color:rgba(7,87,109,.78)!important;
+}
+
+/* Мобильная шкала */
+@media(max-width:700px){
+  h1{font-size:28px!important;line-height:1.2!important}
+  h2{font-size:22px!important}
+  h3{font-size:17px!important}
+  h4{font-size:16px!important}
+}
+
+/* ===== END: MODERN TYPOGRAPHY TEST ===== */
