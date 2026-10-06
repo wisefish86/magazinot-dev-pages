@@ -30,6 +30,16 @@
   font-family:"Manrope Variable","Manrope","PT Sans",Arial,sans-serif;
 }
 .pipehub *{box-sizing:border-box}
+.pipehub-dev-h1{
+  margin:0 0 18px!important;
+  padding:0!important;
+  color:#21313b!important;
+  font-family:"Manrope Variable","Manrope","PT Sans",Arial,sans-serif!important;
+  font-size:30px!important;
+  line-height:1.18!important;
+  font-weight:700!important;
+  letter-spacing:-.018em!important;
+}
 .pipehub a{text-decoration:none}
 .pipehub p a,
 .pipehub li a,
@@ -51,7 +61,7 @@
 
 .pipehub__hero{
   margin:0 0 34px;
-  padding:26px 28px;
+  padding:22px 28px;
   border:1px solid #d8e7ed;
   border-radius:22px;
   background:
@@ -110,10 +120,10 @@
   font-weight:600;
 }
 .pipehub__lead{
-  max-width:670px;
+  max-width:720px;
   margin:0 0 8px;
-  color:#4f626e;
-  font-size:15px;
+  color:#435761;
+  font-size:16px;
   line-height:1.55;
 }
 .pipehub__help-link{
@@ -316,7 +326,7 @@ a.pipehub__cat:hover .pipehub__cat-arrow{
   color:inherit;
   text-decoration:none!important;
   transition:.18s ease;
-  grid-template-columns:52px 1fr;
+  grid-template-columns:52px minmax(0,1fr) 22px;
   gap:15px;
   align-items:center;
   padding:20px;
@@ -327,6 +337,20 @@ a.pipehub__docs-main:hover{
   background:#edf8fb;
   box-shadow:inset 0 0 0 1px #c8e0e8;
   color:inherit;
+}
+.pipehub__docs-main-chevron{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:22px;
+  height:22px;
+  color:#81939d;
+  transition:transform .18s ease,color .18s ease;
+}
+.pipehub__docs-main-chevron svg{width:20px;height:20px;stroke-width:1.8}
+a.pipehub__docs-main:hover .pipehub__docs-main-chevron{
+  color:var(--c-blue);
+  transform:translateX(2px);
 }
 .pipehub__doc-icon{
   display:flex;
@@ -610,8 +634,6 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 <div class="pipehub">
 
   <section class="pipehub__hero">
-    <div class="pipehub__eyebrow">Маркировка трубопроводов и воздуховодов</div>
-    <h1>Маркировка трубопроводов</h1>
     <p class="pipehub__lead">Готовая маркировка для быстрого заказа и изготовление по вашей спецификации.</p>
     <p class="pipehub__help-link">Не уверены, какой вариант нужен? <a class="pipehub__inline-link" href="#how-to-choose">Посмотрите краткую схему подбора</a>.</p>
 
@@ -769,6 +791,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
           <strong>ГОСТ Р 71918-2024</strong>
           <span>Основной стандарт по опознавательной окраске, предупреждающим знакам и маркировочным щиткам; введён взамен ГОСТ 14202-69.</span>
         </div>
+        <span class="pipehub__docs-main-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </a>
 
       <div class="pipehub__docs-list">
@@ -856,6 +879,15 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
   </section>
 
 <script>
+(function pipehubPreviewTitleInit(){
+  const titles = Array.from(document.querySelectorAll('h1'));
+  const previewTitle = titles.find(el => el.textContent.trim() === 'dev_preview');
+  if (previewTitle) {
+    previewTitle.textContent = 'Маркировка трубопроводов';
+    previewTitle.classList.add('pipehub-dev-h1');
+  }
+})();
+
 (function pipehubFaqInit(){
   const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
