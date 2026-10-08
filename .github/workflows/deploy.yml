@@ -7,6 +7,7 @@ on:
       - 'pages/**'
       - 'scripts/**'
       - 'magazinot_gen.css'
+      - 'magazinot_gen.js'
       - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
@@ -41,18 +42,19 @@ jobs:
           server-dir: /pages/
           dangerous-clean-slate: false
 
-      - name: Prepare stylesheet
+      - name: Prepare shared frontend assets
         run: |
-          mkdir -p deploy-css
-          cp magazinot_gen.css deploy-css/magazinot_gen.css
+          mkdir -p deploy-assets
+          cp magazinot_gen.css deploy-assets/magazinot_gen.css
+          cp magazinot_gen.js deploy-assets/magazinot_gen.js
 
-      - name: Deploy stylesheet
+      - name: Deploy shared frontend assets
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ env.FTP_SERVER }}
           username: ${{ env.FTP_USERNAME }}
           password: ${{ env.FTP_PASSWORD }}
-          local-dir: ./deploy-css/
+          local-dir: ./deploy-assets/
           server-dir: /
           dangerous-clean-slate: false
 
