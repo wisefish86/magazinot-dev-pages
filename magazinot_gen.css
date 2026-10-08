@@ -509,16 +509,16 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 .doc-table-wrap{
   position:relative;
   max-width:100%;
-  margin:12px 0 26px;
+  margin:14px 0 26px;
   overflow-x:auto;
   overscroll-behavior-inline:contain;
   -webkit-overflow-scrolling:touch;
-  border:1px solid #cfdee4;
+  border:1px solid #c8d7de;
   border-radius:14px;
   background:#fff;
   box-shadow:0 3px 12px rgba(28,43,54,.035);
 }
-.doc-table{
+.mk-ui .doc-table{
   width:100%;
   min-width:680px;
   border-collapse:separate;
@@ -526,34 +526,43 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   color:#314550;
   font-size:13.5px;
   line-height:1.5;
+  background:#fff;
 }
-.doc-table th,
-.doc-table td{
+.mk-ui .doc-table th,
+.mk-ui .doc-table td{
   padding:11px 13px;
   vertical-align:top;
   text-align:left;
-  border-right:1px solid #d9e5ea;
-  border-bottom:1px solid #d9e5ea;
+  background:#fff;
+  color:#314550;
+  font-weight:400;
+  border-right:1px solid #cbd9df;
+  border-bottom:1px solid #cbd9df;
+}
+.mk-ui .doc-table tr > th:last-child,
+.mk-ui .doc-table tr > td:last-child{border-right:0}
+.mk-ui .doc-table tbody > tr:last-child > th,
+.mk-ui .doc-table tbody > tr:last-child > td{border-bottom:0}
+.mk-ui .doc-table tbody > tr:nth-child(even) > td,
+.mk-ui .doc-table tbody > tr:nth-child(even) > th{background:#fbfcfd}
+
+/* Выделяем только настоящую строку заголовков. */
+.mk-ui .doc-table--headed tbody > tr:first-child > th{
+  background:#eaf2f5;
+  color:#29434f;
+  font-weight:650;
+  border-right-color:#bdcfd7;
+  border-bottom:1px solid #b9ccd4;
+}
+.mk-ui .doc-table--headed tbody > tr:first-child > th:first-child{border-top-left-radius:13px}
+.mk-ui .doc-table--headed tbody > tr:first-child > th:last-child{border-top-right-radius:13px}
+
+/* Обычные th из исходника не выглядят как шапка таблицы. */
+.mk-ui .doc-table:not(.doc-table--headed) th{
   background:#fff;
   color:#314550;
   font-weight:400;
 }
-.doc-table tr:last-child > td,
-.doc-table tr:last-child > th{border-bottom:0}
-.doc-table th:last-child,
-.doc-table td:last-child{border-right:0}
-.doc-table tbody tr:nth-child(even) > td,
-.doc-table tbody tr:nth-child(even) > th{background:#fcfdfd}
-
-/* Header tint only for tables where the source really contains a header row. */
-.doc-table--headed tbody > tr:first-child > th{
-  background:#eef5f7;
-  color:#29434f;
-  font-weight:650;
-  border-bottom-color:#cbdde4;
-}
-.doc-table--headed tbody > tr:first-child > th:first-child{border-top-left-radius:13px}
-.doc-table--headed tbody > tr:first-child > th:last-child{border-top-right-radius:13px}
 
 .doc-table-wrap:focus-visible{
   outline:2px solid rgba(11,127,159,.35);
