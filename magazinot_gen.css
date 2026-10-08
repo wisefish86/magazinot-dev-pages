@@ -200,6 +200,9 @@
   font-size:15px;
   line-height:1.55;
 }
+.pipehub__section-intro + .pipehub__section-intro{
+  margin-top:10px;
+}
 
 /* Категории: один и тот же шаблон для всех */
 .pipehub__catalog{
