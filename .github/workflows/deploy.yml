@@ -31,6 +31,9 @@ jobs:
       - name: Generate DEV catalog
         run: node scripts/generate-dev-index.mjs
 
+      - name: Prepare GOST assets
+        run: node scripts/extract-gost-r-71918-2024-assets.mjs
+
       - name: Deploy pages
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
