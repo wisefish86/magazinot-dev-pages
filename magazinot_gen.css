@@ -605,16 +605,6 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   box-shadow:0 3px 12px rgba(28,43,54,.035);
   text-align:center;
 }
-.docpage__image-link{
-  display:block;
-  border-radius:10px;
-  cursor:zoom-in;
-  outline:none;
-}
-.docpage__image-link:focus-visible{
-  outline:2px solid rgba(11,127,159,.35);
-  outline-offset:3px;
-}
 .docpage__img--figure{
   display:block;
   width:auto;
