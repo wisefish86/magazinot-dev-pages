@@ -245,9 +245,17 @@ a.pipehub__cat:hover .pipehub__cat-arrow{
   color:var(--c-blue);
 }
 .pipehub__cat-media img{
+  display:block;
   width:100%;
   height:100%;
   object-fit:cover;
+  transform:scale(1);
+  transform-origin:center;
+  transition:transform .24s ease;
+}
+a.pipehub__cat:hover .pipehub__cat-media img,
+a.pipehub__cat:focus-visible .pipehub__cat-media img{
+  transform:scale(1.05);
 }
 .pipehub__cat-media svg{
   width:42px;
