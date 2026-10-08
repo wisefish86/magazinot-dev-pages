@@ -242,7 +242,13 @@ a.pipehub__cat:hover .pipehub__cat-arrow{
   overflow:hidden;
   border-radius:15px;
   background:linear-gradient(145deg,#eef7fa,#e5f0f4);
+  box-shadow:inset 0 0 0 1px rgba(23,54,66,.08);
   color:var(--c-blue);
+  transition:box-shadow .24s ease;
+}
+a.pipehub__cat:hover .pipehub__cat-media,
+a.pipehub__cat:focus-visible .pipehub__cat-media{
+  box-shadow:inset 0 0 0 1px rgba(23,54,66,.14);
 }
 .pipehub__cat-media img{
   display:block;
