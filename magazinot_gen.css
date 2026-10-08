@@ -204,6 +204,38 @@
   margin-top:14px;
 }
 
+/* Кратко о стандарте */
+.pipehub__standard{
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr);
+  gap:16px;
+  align-items:start;
+  padding:20px;
+  border:1px solid var(--c-line);
+  border-radius:18px;
+  background:#f7fbfc;
+}
+.pipehub__standard-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;
+  height:52px;
+  border-radius:14px;
+  background:#e4f3f7;
+  color:var(--c-blue-dark);
+}
+.pipehub__standard-icon svg{width:27px;height:27px;stroke-width:1.7}
+.pipehub__standard-content p{
+  max-width:900px;
+  margin:0 0 14px;
+  color:#647680;
+  font-size:15px;
+  line-height:1.55;
+}
+.pipehub__standard-content .pipehub__facts{margin:0 0 12px}
+.pipehub__standard-content .pipehub__inline-link{font-size:14px;font-weight:600}
+
 /* Категории: один и тот же шаблон для всех */
 .pipehub__catalog{
   display:grid;
@@ -616,6 +648,8 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 }
 
 @media(max-width:820px){
+  .pipehub__standard{grid-template-columns:1fr}
+  .pipehub__standard-icon{width:44px;height:44px}
   .pipehub__catalog{grid-template-columns:1fr}
   .pipehub__steps{grid-template-columns:1fr}
   .pipehub__step{min-height:auto}
