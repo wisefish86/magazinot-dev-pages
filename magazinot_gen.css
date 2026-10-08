@@ -531,8 +531,8 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 .mk-ui .doc-table th,
 .mk-ui .doc-table td{
-  padding:11px 13px;
-  vertical-align:top;
+  padding:8px 13px;
+  vertical-align:middle;
   text-align:left;
   background:#fff;
   color:#314550;
@@ -563,6 +563,15 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   background:#fff;
   color:#314550;
   font-weight:400;
+}
+
+.mk-ui .doc-table th > p,
+.mk-ui .doc-table td > p{
+  margin:0!important;
+}
+.mk-ui .doc-table th > p + p,
+.mk-ui .doc-table td > p + p{
+  margin-top:4px!important;
 }
 
 .doc-table-wrap:focus-visible{
@@ -639,7 +648,7 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   .docpage__paragraph,
   .docpage__clause{font-size:14px;line-height:1.62}
   .doc-table{min-width:640px;font-size:12.5px}
-  .doc-table th,.doc-table td{padding:9px 10px}
+  .doc-table th,.doc-table td{padding:7px 10px}
   .doc-table-wrap{
     margin-left:-2px;
     margin-right:-2px;
@@ -950,7 +959,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
 }
 @media(max-width:560px){
   .doc-table{min-width:620px;font-size:13px}
-  .doc-table th,.doc-table td{padding:9px 10px}
+  .doc-table th,.doc-table td{padding:7px 10px}
   .docpage__toc{padding:14px}
 
   .mk-ui h1{font-size:28px;line-height:1.2}
