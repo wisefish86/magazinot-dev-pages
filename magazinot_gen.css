@@ -345,6 +345,7 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   align-items:center;
   padding:20px;
   border-bottom:1px solid var(--c-line);
+  border-radius:17px 17px 0 0;
   background:#f4fafc;
 }
 a.pipehub__docs-main:hover{
