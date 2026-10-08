@@ -468,6 +468,14 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   line-height:1.4;
   font-weight:700;
 }
+.docpage__math{
+  white-space:nowrap;
+  font-variant-numeric:lining-nums;
+}
+.docpage__math sup,
+.docpage__math sub{
+  line-height:0;
+}
 .docpage__section-title{
   scroll-margin-top:90px;
   margin:32px 0 12px!important;
