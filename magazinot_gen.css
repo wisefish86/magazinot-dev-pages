@@ -261,7 +261,7 @@ a.pipehub__cat:focus-visible .pipehub__cat-media{
 }
 a.pipehub__cat:hover .pipehub__cat-media img,
 a.pipehub__cat:focus-visible .pipehub__cat-media img{
-  transform:scale(1.05);
+  transform:scale(1.10);
 }
 .pipehub__cat-media svg{
   width:42px;
