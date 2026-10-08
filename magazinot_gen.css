@@ -595,7 +595,8 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 .doc-table td .docpage__table-img,
 .doc-table th .docpage__table-img{max-height:340px}
 .docpage__figure-media{
-  width:min(100%,820px);
+  width:fit-content;
+  max-width:100%;
   margin:18px auto 10px;
   padding:12px;
   border:1px solid #d3e0e5;
@@ -616,7 +617,8 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 .docpage__img--figure{
   display:block;
-  width:100%;
+  width:auto;
+  max-width:100%;
   height:auto;
   margin:0 auto;
   object-fit:contain;
