@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 
-const SOURCE_URL = "https://allgosts.ru/23/040/gost_r_71918-2024";
+const SOURCE_URL = "https://allgosts.ru/amp/23/040/gost_r_71918-2024";
 const OUT_DIR = path.resolve("pages/assets/gost-r-71918-2024");
 
 const names = [
@@ -58,12 +58,21 @@ if (!response.ok) throw new Error(`Failed to fetch ГОСТ source: ${response.s
 
 const html = await response.text();
 
-const articleMatch = html.match(/<article\b[^>]*\bid=(?:"article"|'article'|article)[^>]*>/i);
-if (!articleMatch || articleMatch.index == null) throw new Error("Article block not found");
+const articleMatch = html.match(/<(?:article|div)\b[^>]*\bid=(?:"article"|'article'|article)[^>]*>/i);
+let articleStart;
+let articleEnd;
 
-const articleStart = articleMatch.index;
-const articleEnd = html.indexOf("</article>", articleStart);
-if (articleEnd < 0) throw new Error("Article end not found");
+if (articleMatch && articleMatch.index != null) {
+  articleStart = articleMatch.index;
+  articleEnd = html.indexOf("</article>", articleStart);
+  if (articleEnd < 0) articleEnd = html.indexOf("</main>", articleStart);
+} else {
+  const marker = "Текст ГОСТ Р 71918-2024";
+  articleStart = html.indexOf(marker);
+  articleEnd = html.indexOf("</main>", articleStart);
+}
+
+if (articleStart < 0 || articleEnd < 0) throw new Error("ГОСТ content block not found");
 
 const article = html.slice(articleStart, articleEnd);
 const imageSources = [...article.matchAll(/<img\b[^>]*?\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/gi)]
