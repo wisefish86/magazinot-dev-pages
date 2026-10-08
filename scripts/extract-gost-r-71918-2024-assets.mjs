@@ -57,24 +57,45 @@ const response = await fetch(SOURCE_URL, {
 if (!response.ok) throw new Error(`Failed to fetch ГОСТ source: ${response.status}`);
 
 const html = await response.text();
-const articleStart = html.indexOf('<article id="article"');
+
+const articleMatch = html.match(/<article\b[^>]*\bid=(?:"article"|'article'|article)[^>]*>/i);
+if (!articleMatch || articleMatch.index == null) throw new Error("Article block not found");
+
+const articleStart = articleMatch.index;
 const articleEnd = html.indexOf("</article>", articleStart);
-if (articleStart < 0 || articleEnd < 0) throw new Error("Article block not found");
+if (articleEnd < 0) throw new Error("Article end not found");
 
 const article = html.slice(articleStart, articleEnd);
-const images = [...article.matchAll(/<img\b[^>]*?src=(?:"|')?(data:image\/png;base64,[A-Za-z0-9+/=]+)(?:"|')?/gi)]
-  .map(match => match[1]);
+const imageSources = [...article.matchAll(/<img\b[^>]*?\bsrc=(?:"([^"]+)"|'([^']+)'|([^\s>]+))/gi)]
+  .map(match => match[1] || match[2] || match[3])
+  .filter(Boolean);
 
-if (images.length !== names.length) {
-  throw new Error(`Expected ${names.length} ГОСТ images, found ${images.length}. Source layout may have changed.`);
+if (imageSources.length !== names.length) {
+  throw new Error(`Expected ${names.length} ГОСТ images, found ${imageSources.length}. Source layout may have changed.`);
 }
 
 await fs.rm(OUT_DIR, { recursive: true, force: true });
 await fs.mkdir(OUT_DIR, { recursive: true });
 
-for (let i = 0; i < images.length; i++) {
-  const base64 = images[i].slice(images[i].indexOf(",") + 1);
-  await fs.writeFile(path.join(OUT_DIR, names[i]), Buffer.from(base64, "base64"));
+for (let i = 0; i < imageSources.length; i++) {
+  const src = imageSources[i];
+  let buffer;
+
+  if (src.startsWith("data:image/")) {
+    const base64 = src.slice(src.indexOf(",") + 1);
+    buffer = Buffer.from(base64, "base64");
+  } else {
+    const imageUrl = new URL(src, SOURCE_URL);
+    const imageResponse = await fetch(imageUrl, {
+      headers: { "user-agent": "Mozilla/5.0 (compatible; MagazinOT-DEV/1.0)" }
+    });
+    if (!imageResponse.ok) {
+      throw new Error(`Failed to fetch image ${imageUrl}: ${imageResponse.status}`);
+    }
+    buffer = Buffer.from(await imageResponse.arrayBuffer());
+  }
+
+  await fs.writeFile(path.join(OUT_DIR, names[i]), buffer);
 }
 
 const manifest = {
