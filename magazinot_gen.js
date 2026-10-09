@@ -1,4 +1,29 @@
 (function(){
+  function initDocTables(){
+    document.querySelectorAll('.doc-table').forEach(table => {
+      const rows = Array.from(table.rows);
+      if (!rows.length) return;
+
+      const colCount = Math.max(...rows.map(row => row.cells.length));
+      for (let col = 0; col < colCount; col++) {
+        const cells = rows
+          .map(row => row.cells[col])
+          .filter(Boolean)
+          .filter(cell => Number(cell.colSpan || 1) === 1);
+
+        if (cells.length < 2) continue;
+
+        const compact = cells.every(cell => {
+          if (cell.querySelector('img, svg, input, textarea, select, button')) return false;
+          const text = cell.textContent.replace(/\s+/g,' ').trim();
+          return text.length > 0 && text.length <= 14 && !text.includes('\n');
+        });
+
+        if (compact) cells.forEach(cell => cell.classList.add('doc-table__compact-col'));
+      }
+    });
+  }
+
   function initDocLightbox(){
     const pages = Array.from(document.querySelectorAll('.docpage'));
     if (!pages.length || document.querySelector('.doc-lightbox')) return;
@@ -104,9 +129,14 @@
     requestAnimationFrame(refreshZoomability);
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDocLightbox, {once:true});
-  } else {
+  function initDocUi(){
+    initDocTables();
     initDocLightbox();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDocUi, {once:true});
+  } else {
+    initDocUi();
   }
 })();
