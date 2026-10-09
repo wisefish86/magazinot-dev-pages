@@ -556,9 +556,10 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   transition:opacity .18s ease;
 }
 .doc-table-shell::before{
-  left:1px;
+  left:-14px;
+  width:60px;
   border-radius:12px 0 0 12px;
-  background:linear-gradient(90deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.58) 28%,rgba(255,255,255,.32) 62%,rgba(255,255,255,0) 100%);
+  background:linear-gradient(90deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.58) 38%,rgba(255,255,255,.32) 68%,rgba(255,255,255,0) 100%);
 }
 .doc-table-shell::after{
   right:1px;
