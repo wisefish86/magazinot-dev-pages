@@ -504,15 +504,21 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   font-size:14px;
   font-weight:700;
 }
-.docpage__note{
+/* Универсальный информационный блок для примечаний в контенте. */
+.content-note{
   max-width:940px;
   margin:14px 0 18px;
   padding:11px 13px;
   border-left:3px solid #a8c6cf;
+  border-radius:0 10px 10px 0;
   background:#f7fafb;
   color:#5c6f79;
   font-size:13px;
   line-height:1.6;
+}
+.doc-table .content-note{
+  max-width:none;
+  margin:0;
 }
 
 .doc-table-shell{
