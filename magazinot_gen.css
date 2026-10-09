@@ -515,6 +515,25 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   line-height:1.6;
 }
 
+.doc-table-shell{
+  position:relative;
+  max-width:100%;
+}
+.doc-table-shell::after{
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:1px;
+  right:1px;
+  bottom:27px;
+  width:26px;
+  pointer-events:none;
+  border-radius:0 13px 13px 0;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.92));
+  opacity:0;
+  transition:opacity .18s ease;
+}
+.doc-table-shell.is-scrollable:not(.is-at-end)::after{opacity:1}
 .doc-table-wrap{
   position:relative;
   max-width:100%;
