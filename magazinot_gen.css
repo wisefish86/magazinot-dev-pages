@@ -328,7 +328,11 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 
 /* Документационные страницы и единые таблицы */
-.docpage{max-width:100%}
+.docpage{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+}
 .docpage__meta-bar{
   display:flex;
   flex-wrap:wrap;
@@ -412,11 +416,17 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 
 .docpage__paper{
+  width:100%;
   max-width:100%;
+  min-width:0;
   margin:0;
   padding:0;
 }
-.docpage__standard-text{max-width:100%}
+.docpage__standard-text{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+}
 .docpage__flow{display:contents}
 .docpage__standard-code{
   margin:0 0 6px;
@@ -523,26 +533,32 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 
 .doc-table-shell{
   position:relative;
+  width:100%;
   max-width:100%;
+  min-width:0;
+  overflow:hidden;
 }
 .doc-table-shell::after{
   content:"";
   position:absolute;
-  z-index:2;
+  z-index:3;
   top:1px;
   right:1px;
-  bottom:27px;
-  width:26px;
+  bottom:1px;
+  width:30px;
   pointer-events:none;
   border-radius:0 13px 13px 0;
-  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.92));
+  background:linear-gradient(90deg,rgba(247,251,252,0),rgba(247,251,252,.72) 48%,rgba(247,251,252,.98));
+  box-shadow:inset -1px 0 0 rgba(168,190,199,.18);
   opacity:0;
   transition:opacity .18s ease;
 }
 .doc-table-shell.is-scrollable:not(.is-at-end)::after{opacity:1}
 .doc-table-wrap{
   position:relative;
+  width:100%;
   max-width:100%;
+  min-width:0;
   margin:14px 0 26px;
   overflow-x:auto;
   overscroll-behavior-inline:contain;
