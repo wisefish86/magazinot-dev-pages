@@ -48,6 +48,17 @@
 
       wrap.addEventListener('scroll', updateScrollHint, {passive:true});
       window.addEventListener('resize', updateScrollHint);
+
+      if ('ResizeObserver' in window) {
+        const observer = new ResizeObserver(updateScrollHint);
+        observer.observe(wrap);
+        observer.observe(table);
+      }
+
+      table.querySelectorAll('img').forEach(img => {
+        if (!img.complete) img.addEventListener('load', updateScrollHint, {once:true});
+      });
+
       requestAnimationFrame(() => requestAnimationFrame(updateScrollHint));
     });
   }
