@@ -37,7 +37,7 @@
       }
 
       function updateScrollHint(){
-        const overflow = wrap.scrollWidth > wrap.clientWidth + 2;
+        const overflow = Math.ceil(wrap.scrollWidth) > Math.floor(wrap.clientWidth) + 1;
         const atStart = wrap.scrollLeft <= 2;
         const atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 2;
 
@@ -48,7 +48,7 @@
 
       wrap.addEventListener('scroll', updateScrollHint, {passive:true});
       window.addEventListener('resize', updateScrollHint);
-      requestAnimationFrame(updateScrollHint);
+      requestAnimationFrame(() => requestAnimationFrame(updateScrollHint));
     });
   }
 
@@ -59,7 +59,7 @@
     function getCandidates(){
       return pages
         .flatMap(page => Array.from(page.querySelectorAll('.docpage__figure-media img, .doc-table img')))
-        .filter(img => !/\/[^/]*color-[^/]*\.(?:png|webp|jpe?g|gif|svg)$/i.test(img.currentSrc || img.src));
+        .filter(Boolean);
     }
 
     let candidates = getCandidates();
