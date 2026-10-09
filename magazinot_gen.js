@@ -1,26 +1,54 @@
 (function(){
   function initDocTables(){
-    document.querySelectorAll('.doc-table').forEach(table => {
+    const wraps = Array.from(document.querySelectorAll('.doc-table-wrap'));
+
+    wraps.forEach(wrap => {
+      const table = wrap.querySelector('.doc-table');
+      if (!table) return;
+
       const rows = Array.from(table.rows);
-      if (!rows.length) return;
+      if (rows.length) {
+        const colCount = Math.max(...rows.map(row => row.cells.length));
 
-      const colCount = Math.max(...rows.map(row => row.cells.length));
-      for (let col = 0; col < colCount; col++) {
-        const cells = rows
-          .map(row => row.cells[col])
-          .filter(Boolean)
-          .filter(cell => Number(cell.colSpan || 1) === 1);
+        for (let col = 0; col < colCount; col++) {
+          const cells = rows
+            .map(row => row.cells[col])
+            .filter(Boolean)
+            .filter(cell => Number(cell.colSpan || 1) === 1);
 
-        if (cells.length < 2) continue;
+          if (cells.length < 2) continue;
 
-        const compact = cells.every(cell => {
-          if (cell.querySelector('img, svg, input, textarea, select, button')) return false;
-          const text = cell.textContent.replace(/\s+/g,' ').trim();
-          return text.length > 0 && text.length <= 14 && !text.includes('\n');
-        });
+          const compact = cells.every(cell => {
+            if (cell.querySelector('img, svg, input, textarea, select, button')) return false;
+            const text = cell.textContent.replace(/\s+/g,' ').trim();
+            return text.length > 0 && text.length <= 14;
+          });
 
-        if (compact) cells.forEach(cell => cell.classList.add('doc-table__compact-col'));
+          if (compact) cells.forEach(cell => cell.classList.add('doc-table__compact-col'));
+        }
       }
+
+      let shell = wrap.parentElement;
+      if (!shell || !shell.classList.contains('doc-table-shell')) {
+        shell = document.createElement('div');
+        shell.className = 'doc-table-shell';
+        wrap.parentNode.insertBefore(shell, wrap);
+        shell.appendChild(wrap);
+      }
+
+      function updateScrollHint(){
+        const overflow = wrap.scrollWidth > wrap.clientWidth + 2;
+        const atStart = wrap.scrollLeft <= 2;
+        const atEnd = wrap.scrollLeft + wrap.clientWidth >= wrap.scrollWidth - 2;
+
+        shell.classList.toggle('is-scrollable', overflow);
+        shell.classList.toggle('is-at-start', !overflow || atStart);
+        shell.classList.toggle('is-at-end', !overflow || atEnd);
+      }
+
+      wrap.addEventListener('scroll', updateScrollHint, {passive:true});
+      window.addEventListener('resize', updateScrollHint);
+      requestAnimationFrame(updateScrollHint);
     });
   }
 
@@ -28,10 +56,13 @@
     const pages = Array.from(document.querySelectorAll('.docpage'));
     if (!pages.length || document.querySelector('.doc-lightbox')) return;
 
-    const candidates = pages
-      .flatMap(page => Array.from(page.querySelectorAll('.docpage__figure-media img, .doc-table img')))
-      .filter(img => !/\/[^/]*color-[^/]*\.(?:png|webp|jpe?g|gif|svg)$/i.test(img.currentSrc || img.src));
+    function getCandidates(){
+      return pages
+        .flatMap(page => Array.from(page.querySelectorAll('.docpage__figure-media img, .doc-table img')))
+        .filter(img => !/\/[^/]*color-[^/]*\.(?:png|webp|jpe?g|gif|svg)$/i.test(img.currentSrc || img.src));
+    }
 
+    let candidates = getCandidates();
     if (!candidates.length) return;
 
     let lastTrigger = null;
@@ -56,6 +87,7 @@
     }
 
     function refreshZoomability(){
+      candidates = getCandidates();
       candidates.forEach(img => {
         const zoomable = isReduced(img);
         img.classList.toggle('docpage__zoomable', zoomable);
@@ -96,20 +128,25 @@
       if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
     }
 
-    candidates.forEach(img => {
-      if (!img.complete) img.addEventListener('load', refreshZoomability, {once:true});
-
-      img.addEventListener('click', () => {
-        if (img.classList.contains('docpage__zoomable')) openLightbox(img);
+    pages.forEach(page => {
+      page.addEventListener('click', event => {
+        const img = event.target.closest('.docpage__figure-media img, .doc-table img');
+        if (!img || !img.classList.contains('docpage__zoomable')) return;
+        openLightbox(img);
       });
 
-      img.addEventListener('keydown', event => {
-        if (!img.classList.contains('docpage__zoomable')) return;
+      page.addEventListener('keydown', event => {
+        const img = event.target.closest('.docpage__figure-media img, .doc-table img');
+        if (!img || !img.classList.contains('docpage__zoomable')) return;
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
           openLightbox(img);
         }
       });
+    });
+
+    candidates.forEach(img => {
+      if (!img.complete) img.addEventListener('load', refreshZoomability, {once:true});
     });
 
     closeButton.addEventListener('click', closeLightbox);
