@@ -123,7 +123,7 @@
     overlay.setAttribute('aria-modal', 'true');
     overlay.setAttribute('aria-label', 'Просмотр изображения');
     overlay.setAttribute('aria-hidden', 'true');
-    overlay.innerHTML = '<button class="doc-lightbox__close" type="button" aria-label="Закрыть">×</button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div>';
+    overlay.innerHTML = '<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div>';
     document.body.appendChild(overlay);
 
     const modalImage = overlay.querySelector('.doc-lightbox__image');
