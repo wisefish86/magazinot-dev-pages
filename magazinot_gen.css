@@ -529,7 +529,8 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 .mk-ui .doc-table{
   width:100%;
-  min-width:680px;
+  min-width:0;
+  table-layout:auto;
   border-collapse:separate;
   border-spacing:0;
   color:#314550;
@@ -580,6 +581,11 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 .mk-ui .doc-table th > p + p,
 .mk-ui .doc-table td > p + p{
   margin-top:4px!important;
+}
+
+.mk-ui .doc-table .doc-table__compact-col{
+  width:1%;
+  white-space:nowrap;
 }
 
 .doc-table-wrap:focus-visible{
@@ -1040,7 +1046,7 @@ a.pipehub__docrow:hover .pipehub__doc-chevron{
   .pipehub__project{grid-template-columns:1fr}
 }
 @media(max-width:560px){
-  .doc-table{min-width:620px;font-size:13px}
+  .doc-table{width:100%;min-width:0;font-size:13px}
   .doc-table th,.doc-table td{padding:7px 10px}
   .docpage__toc{padding:14px}
 
