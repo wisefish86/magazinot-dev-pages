@@ -743,10 +743,28 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   border-radius:50%;
   background:rgba(17,34,43,.72);
   color:#fff;
-  font:400 30px/1 Arial,sans-serif;
   cursor:pointer;
   transition:background .18s ease,transform .18s ease;
 }
+.doc-lightbox__close span{
+  position:relative;
+  display:block;
+  width:18px;
+  height:18px;
+}
+.doc-lightbox__close span::before,
+.doc-lightbox__close span::after{
+  content:"";
+  position:absolute;
+  left:8px;
+  top:0;
+  width:2px;
+  height:18px;
+  border-radius:2px;
+  background:#fff;
+}
+.doc-lightbox__close span::before{transform:rotate(45deg)}
+.doc-lightbox__close span::after{transform:rotate(-45deg)}
 .doc-lightbox__close:hover{
   background:rgba(17,34,43,.92);
   transform:scale(1.04);
