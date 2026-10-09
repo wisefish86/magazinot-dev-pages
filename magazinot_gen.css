@@ -538,7 +538,10 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   min-width:0;
   margin:14px 0 26px;
   overflow:hidden;
+  border:1px solid #c8d7de;
   border-radius:14px;
+  background:#fff;
+  box-shadow:0 3px 12px rgba(28,43,54,.035);
 }
 .doc-table-shell::before,
 .doc-table-shell::after{
@@ -554,17 +557,22 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 }
 .doc-table-shell::before{
   left:1px;
-  border-radius:13px 0 0 13px;
+  border-radius:12px 0 0 12px;
   background:linear-gradient(90deg,#fff 0%,#fff 22%,rgba(255,255,255,.92) 42%,rgba(255,255,255,.55) 70%,rgba(255,255,255,0) 100%);
 }
 .doc-table-shell::after{
   right:1px;
-  border-radius:0 13px 13px 0;
+  border-radius:0 12px 12px 0;
   background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 30%,rgba(255,255,255,.92) 58%,#fff 78%,#fff 100%);
 }
 .doc-table-shell.is-scrollable:not(.is-at-start)::before{opacity:1}
 .doc-table-shell.is-scrollable:not(.is-at-end)::after{opacity:1}
-.doc-table-shell > .doc-table-wrap{margin:0}
+.doc-table-shell > .doc-table-wrap{
+  margin:0;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+}
 .doc-table-wrap{
   position:relative;
   width:100%;
