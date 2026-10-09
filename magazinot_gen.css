@@ -549,7 +549,7 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   position:absolute;
   z-index:4;
   top:1px;
-  bottom:1px;
+  bottom:14px;
   width:46px;
   pointer-events:none;
   opacity:0;
