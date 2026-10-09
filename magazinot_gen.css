@@ -558,12 +558,12 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
 .doc-table-shell::before{
   left:1px;
   border-radius:12px 0 0 12px;
-  background:linear-gradient(90deg,#fff 0%,#fff 22%,rgba(255,255,255,.92) 42%,rgba(255,255,255,.55) 70%,rgba(255,255,255,0) 100%);
+  background:linear-gradient(90deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.58) 28%,rgba(255,255,255,.32) 62%,rgba(255,255,255,0) 100%);
 }
 .doc-table-shell::after{
   right:1px;
   border-radius:0 12px 12px 0;
-  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 30%,rgba(255,255,255,.92) 58%,#fff 78%,#fff 100%);
+  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.32) 38%,rgba(255,255,255,.58) 72%,rgba(255,255,255,.72) 100%);
 }
 .doc-table-shell.is-scrollable:not(.is-at-start)::before{opacity:1}
 .doc-table-shell.is-scrollable:not(.is-at-end)::after{opacity:1}
