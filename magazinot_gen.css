@@ -562,9 +562,10 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   background:linear-gradient(90deg,rgba(255,255,255,.72) 0%,rgba(255,255,255,.58) 38%,rgba(255,255,255,.32) 68%,rgba(255,255,255,0) 100%);
 }
 .doc-table-shell::after{
-  right:1px;
+  right:-14px;
+  width:60px;
   border-radius:0 12px 12px 0;
-  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.32) 38%,rgba(255,255,255,.58) 72%,rgba(255,255,255,.72) 100%);
+  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.32) 32%,rgba(255,255,255,.58) 62%,rgba(255,255,255,.72) 100%);
 }
 .doc-table-shell.is-scrollable:not(.is-at-start)::before{opacity:1}
 .doc-table-shell.is-scrollable:not(.is-at-end)::after{opacity:1}
