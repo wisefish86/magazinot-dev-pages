@@ -1,0 +1,60 @@
+name: MagazinOT visual QA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  visual-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+
+      - name: Capture visual snapshots
+        run: |
+          mkdir -p visual-snapshots
+          node <<'NODE'
+          const { chromium } = require('playwright');
+
+          (async () => {
+            const url = 'https://magazinot.ru/dev-preview--uid-0002286147/?page=markirovka-truboprovodov';
+            const browser = await chromium.launch({ headless: true });
+
+            for (const shot of [
+              { name: 'desktop', viewport: { width: 1440, height: 1000 } },
+              { name: 'mobile', viewport: { width: 390, height: 844 } },
+            ]) {
+              const context = await browser.newContext({ viewport: shot.viewport, deviceScaleFactor: 1 });
+              const page = await context.newPage();
+              await page.goto(url, { waitUntil: 'networkidle', timeout: 60000 });
+              await page.evaluate(async () => { if (document.fonts?.ready) await document.fonts.ready; });
+              await page.waitForTimeout(1000);
+              await page.screenshot({
+                path: `visual-snapshots/markirovka-truboprovodov-${shot.name}.jpg`,
+                type: 'jpeg',
+                quality: 72,
+                fullPage: true,
+              });
+              await context.close();
+            }
+
+            await browser.close();
+          })();
+          NODE
+
+      - name: Commit visual snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add visual-snapshots/
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: update visual snapshots [skip ci]"
+            git push
+          fi
