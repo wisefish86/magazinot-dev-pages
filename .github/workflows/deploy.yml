@@ -36,6 +36,9 @@ jobs:
       - name: Inject shared UI
         run: node scripts/inject-magazinot-ui.mjs
 
+      - name: Validate shared UI
+        run: node scripts/validate-magazinot-ui.mjs
+
       - name: Generate DEV catalog
         run: node scripts/generate-dev-index.mjs
 
