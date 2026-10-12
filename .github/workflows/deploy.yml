@@ -6,6 +6,7 @@ on:
     paths:
       - 'pages/**'
       - 'scripts/**'
+      - 'data/**'
       - 'magazinot_gen.css'
       - 'magazinot_gen.js'
       - '.github/workflows/deploy.yml'
@@ -28,6 +29,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Generate pipeline marking normative navigation
+        run: node scripts/generate-markirovka-normdocs.mjs
 
       - name: Generate DEV catalog
         run: node scripts/generate-dev-index.mjs
