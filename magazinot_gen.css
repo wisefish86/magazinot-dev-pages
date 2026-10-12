@@ -18,9 +18,12 @@
   --c-surface:#fff;
   --c-accent:#0b7f9f;
   --c-accent-dark:#075d76;
+  --c-blue:var(--c-accent);
+  --c-blue-dark:var(--c-accent-dark);
   --c-link:#0a6f89;
   --c-link-hover:#07576d;
   --c-cta:#ef6a4b;
+  --c-orange:var(--c-cta);
   --c-dark:#173642;
   --text-xs:12px;
   --text-sm:13px;
