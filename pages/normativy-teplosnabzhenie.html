@@ -6,7 +6,7 @@
 <!-- dev-order: 22 -->
 
 <div class="mk-ui docpage normpage">
-  <div class="docpage__meta-bar" aria-label="Сведения о подборке">
+  <div class="ui-meta" aria-label="Сведения о подборке">
     <span><strong>Теплоснабжение</strong></span>
     <span>9 документов</span>
     <span>Маркировка трубопроводов</span>
@@ -25,7 +25,7 @@
     <span class="pipehub__docs-main-chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
   </a>
 
-  <p class="content-note">Перед применением документа в проекте рекомендуется проверить его действующий статус и актуальную редакцию. Ниже текст выдержек сохранён без перефразирования.</p>
+  <p class="ui-note">Перед применением документа в проекте рекомендуется проверить его действующий статус и актуальную редакцию. Ниже текст выдержек сохранён без перефразирования.</p>
 
   <nav class="docpage__toc" aria-label="Содержание страницы">
     <div class="docpage__toc-title">Содержание</div>
@@ -159,13 +159,3 @@
   <!-- Генерируется при деплое из data/markirovka-normdocs.json -->
   <!-- /AUTO:MARKIROVKA_NORMDOCS:RELATED -->
 
-<script>
-(function normPreviewTitleInit(){
-  const titles = Array.from(document.querySelectorAll('h1'));
-  const previewTitle = titles.find(el => el.textContent.trim() === 'dev_preview');
-  if (previewTitle) {
-    previewTitle.textContent = 'Краткий обзор нормативной документации по маркировке трубопроводов на объектах теплоснабжения';
-    previewTitle.classList.add('pipehub-dev-h1');
-  }
-})();
-</script>
