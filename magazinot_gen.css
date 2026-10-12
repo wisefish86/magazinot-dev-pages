@@ -71,9 +71,9 @@
 .ui-dev-h1{
   margin:0 0 18px!important;
   padding:0!important;
-  color:var(--c-heading)!important;
-  font-family:var(--font-sans)!important;
-  font-size:var(--text-h1)!important;
+  color:var(--c-heading,#21313b)!important;
+  font-family:var(--font-sans,"Manrope Variable","Manrope","PT Sans",Arial,sans-serif)!important;
+  font-size:var(--text-h1,30px)!important;
   line-height:1.18!important;
   font-weight:700!important;
   letter-spacing:-.018em!important;
@@ -815,6 +815,7 @@ a.ui-media-card:focus-visible .ui-media-card__media img{
   outline-offset:3px;
 }
 @media(max-width:560px){
+  .ui-dev-h1{font-size:28px!important;line-height:1.2!important}
   .doc-lightbox{padding:14px}
   .doc-lightbox__image{
     max-width:calc(100vw - 28px);
