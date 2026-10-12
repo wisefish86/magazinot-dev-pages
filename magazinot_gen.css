@@ -348,15 +348,9 @@ a.ui-media-card:focus-visible .ui-media-card__media img{
   opacity:.72;
   filter:grayscale(.35) saturate(.65);
 }
-.ui-media-card--coming-soon .ui-media-card__arrow{
-  width:auto;
-  height:auto;
-  transform:none;
-  color:#6e8089;
-}
-.ui-media-card--coming-soon .ui-media-card__arrow svg{display:none}
-.ui-media-card--coming-soon .ui-media-card__arrow::after{
-  content:"Скоро";
+.ui-media-card--coming-soon .ui-media-card__arrow{display:none}
+.ui-media-card__status{display:none}
+.ui-media-card--coming-soon .ui-media-card__status{
   display:inline-flex;
   align-items:center;
   min-height:26px;
@@ -386,10 +380,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__media img,
 a.ui-media-card--coming-soon:focus-visible .ui-media-card__media img{
   transform:scale(1);
 }
-a.ui-media-card--coming-soon:hover .ui-media-card__arrow{
-  color:#6e8089;
-  transform:none;
-}
+a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
 
 /* Подбор */
 .ui-steps{
