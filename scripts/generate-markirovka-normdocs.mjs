@@ -36,32 +36,32 @@ function svg(pathData) {
 
 function primaryCard(related = false) {
   const item = registry.primary;
-  return `<a class="pipehub__docs-main" href="${href(item.slug)}">
-        <div class="pipehub__doc-icon">
+  return `<a class="ui-link-panel__featured" href="${href(item.slug)}">
+        <div class="ui-link-panel__featured-icon">
           ${svg(item.iconPath)}
         </div>
         <div>
           <strong>${esc(item.title)}</strong>
           <span>${esc(related ? item.relatedSummary : item.summary)}</span>
         </div>
-        <span class="pipehub__docs-main-chevron" aria-hidden="true">${svg('M8 5l7 7-7 7')}</span>
+        <span class="ui-link-panel__featured-chevron" aria-hidden="true">${svg('M8 5l7 7-7 7')}</span>
       </a>`;
 }
 
 function sectorRow(item) {
-  return `<a class="pipehub__docrow" href="${href(item.slug)}">
-          <span class="pipehub__docrow-icon">${svg(item.iconPath)}</span>
+  return `<a class="ui-link-panel__row" href="${href(item.slug)}">
+          <span class="ui-link-panel__row-icon">${svg(item.iconPath)}</span>
           <div><strong>${esc(item.title)}</strong><span>${esc(item.summary)}</span></div>
-          <span class="pipehub__doc-count">${countLabel(item.count)}</span>
-          <span class="pipehub__doc-chevron">${svg('M8 5l7 7-7 7')}</span>
+          <span class="ui-badge">${countLabel(item.count)}</span>
+          <span class="ui-link-panel__row-chevron">${svg('M8 5l7 7-7 7')}</span>
         </a>`;
 }
 
 function docsBlock(items, related = false) {
-  return `<div class="pipehub__docs">
+  return `<div class="ui-link-panel">
       ${primaryCard(related)}
 
-      <div class="pipehub__docs-list">
+      <div class="ui-link-panel__list">
         ${items.map(sectorRow).join('\n        ')}
       </div>
     </div>`;
@@ -70,7 +70,7 @@ function docsBlock(items, related = false) {
 function relatedBlock(currentSlug) {
   const items = registry.sectors.filter(item => item.slug !== currentSlug);
   return `<section class="normpage__related" aria-labelledby="related-docs">
-    <h2 id="related-docs" class="docpage__section-title">Дополнительная документация по маркировке трубопроводов</h2>
+    <h2 id="related-docs" class="ui-content-title">Дополнительная документация по маркировке трубопроводов</h2>
     ${docsBlock(items, true)}
   </section>`;
 }

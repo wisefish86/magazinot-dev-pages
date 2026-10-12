@@ -33,6 +33,9 @@ jobs:
       - name: Generate pipeline marking normative navigation
         run: node scripts/generate-markirovka-normdocs.mjs
 
+      - name: Inject shared UI
+        run: node scripts/inject-magazinot-ui.mjs
+
       - name: Generate DEV catalog
         run: node scripts/generate-dev-index.mjs
 
