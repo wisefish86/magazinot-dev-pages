@@ -331,7 +331,65 @@ a.ui-media-card:focus-visible .ui-media-card__media img{
   transition:var(--motion-fast) ease;
 }
 .ui-media-card__arrow svg{width:22px;height:22px;stroke-width:1.8}
-.ui-media-card--future .ui-media-card__arrow{opacity:1}
+.ui-media-card--coming-soon{
+  grid-template-columns:96px minmax(0,1fr) auto;
+  cursor:default;
+  border-color:#e1e8eb;
+  background:#fafcfc;
+  box-shadow:none;
+}
+.ui-media-card--coming-soon h3{color:#5f7079}
+.ui-media-card--coming-soon p{color:#7c8b93}
+.ui-media-card--coming-soon .ui-media-card__media{
+  background:#f1f4f5;
+  box-shadow:inset 0 0 0 1px rgba(23,54,66,.055);
+}
+.ui-media-card--coming-soon .ui-media-card__media img{
+  opacity:.72;
+  filter:grayscale(.35) saturate(.65);
+}
+.ui-media-card--coming-soon .ui-media-card__arrow{
+  width:auto;
+  height:auto;
+  transform:none;
+  color:#6e8089;
+}
+.ui-media-card--coming-soon .ui-media-card__arrow svg{display:none}
+.ui-media-card--coming-soon .ui-media-card__arrow::after{
+  content:"Скоро";
+  display:inline-flex;
+  align-items:center;
+  min-height:26px;
+  padding:4px 8px;
+  border:1px solid #d8e2e6;
+  border-radius:var(--radius-pill);
+  background:#eef3f5;
+  color:#667983;
+  font-size:var(--text-xs);
+  line-height:1;
+  font-weight:650;
+  white-space:nowrap;
+}
+a.ui-media-card--coming-soon:hover,
+a.ui-media-card--coming-soon:focus-visible{
+  transform:none;
+  border-color:#e1e8eb;
+  background:#fafcfc;
+  box-shadow:none;
+  color:inherit;
+}
+a.ui-media-card--coming-soon:hover .ui-media-card__media,
+a.ui-media-card--coming-soon:focus-visible .ui-media-card__media{
+  box-shadow:inset 0 0 0 1px rgba(23,54,66,.055);
+}
+a.ui-media-card--coming-soon:hover .ui-media-card__media img,
+a.ui-media-card--coming-soon:focus-visible .ui-media-card__media img{
+  transform:scale(1);
+}
+a.ui-media-card--coming-soon:hover .ui-media-card__arrow{
+  color:#6e8089;
+  transform:none;
+}
 
 /* Подбор */
 .ui-steps{

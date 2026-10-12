@@ -60,6 +60,11 @@
 
   function initLegacyActions(){
     document.addEventListener('click',event => {
+      const unavailableCard = event.target.closest('a.ui-media-card--coming-soon');
+      if (unavailableCard) {
+        event.preventDefault();
+        return;
+      }
       const link = event.target.closest('[data-ui-email-order]');
       if (!link || typeof window.uh_pages !== 'function') return;
       event.preventDefault();
