@@ -245,14 +245,17 @@
     requestAnimationFrame(refreshZoomability);
   }
 
-  function initDocUi(){
+  function initUi(){
+    initPageTitle();
+    initAccordion();
+    initLegacyActions();
     initDocTables();
     initDocLightbox();
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDocUi, {once:true});
+    document.addEventListener('DOMContentLoaded', initUi, {once:true});
   } else {
-    initDocUi();
+    initUi();
   }
 })();
