@@ -825,6 +825,99 @@ a.pipehub__cat:focus-visible .pipehub__cat-media img{
   .docpage__figure-media{padding:9px}
 }
 
+/* Отраслевые страницы нормативной документации */
+.normpage__lead{
+  margin-bottom:16px;
+  color:#566a75;
+}
+.normpage__primary{
+  margin:0 0 14px;
+  border:1px solid #d7e5ea;
+  border-radius:16px!important;
+}
+.normpage__list{
+  display:grid;
+  gap:14px;
+  margin-top:26px;
+}
+.normpage__item{
+  display:grid;
+  grid-template-columns:42px minmax(0,1fr);
+  gap:14px;
+  scroll-margin-top:90px;
+  padding:18px;
+  border:1px solid #d8e4e9;
+  border-radius:16px;
+  background:#fff;
+  box-shadow:0 4px 14px rgba(28,43,54,.035);
+}
+.normpage__num{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:36px;
+  height:30px;
+  border-radius:9px;
+  background:#edf5f7;
+  color:#607782;
+  font-size:12px;
+  line-height:1;
+  font-weight:700;
+}
+.normpage__body{min-width:0}
+.normpage__body h2{
+  margin:0 0 6px!important;
+  padding:0!important;
+  border:0!important;
+  background:none!important;
+  color:#273e49!important;
+  font-size:18px!important;
+  line-height:1.42!important;
+  font-weight:680!important;
+  letter-spacing:0!important;
+}
+.normpage__body p{
+  max-width:940px;
+  margin:0 0 9px;
+  color:#425863;
+  font-size:14px;
+  line-height:1.62;
+}
+.normpage__body p:last-child{margin-bottom:0}
+.normpage__meta{
+  margin-bottom:13px!important;
+  color:#71818a!important;
+  font-size:13px!important;
+}
+.normpage__center{text-align:center}
+.normpage__related{
+  margin-top:34px;
+}
+.normpage__related .docpage__section-title{
+  margin-bottom:14px!important;
+}
+@media(max-width:640px){
+  .normpage__item{
+    grid-template-columns:1fr;
+    gap:9px;
+    padding:14px;
+    border-radius:14px;
+  }
+  .normpage__num{
+    width:32px;
+    height:27px;
+    border-radius:8px;
+  }
+  .normpage__body h2{
+    font-size:16px!important;
+    line-height:1.4!important;
+  }
+  .normpage__body p{
+    font-size:14px;
+    line-height:1.58;
+  }
+}
+
 /* Нормативка */
 .pipehub__docs{
   overflow:hidden;
