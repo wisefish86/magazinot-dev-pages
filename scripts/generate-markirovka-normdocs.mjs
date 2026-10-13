@@ -17,8 +17,8 @@ function esc(value = '') {
     .replaceAll('"', '&quot;');
 }
 
-function href(slug) {
-  return esc(registry.previewBase + slug);
+function href(item) {
+  return esc(item.url || (registry.previewBase + item.slug));
 }
 
 function countLabel(n) {
@@ -36,7 +36,7 @@ function svg(pathData) {
 
 function primaryCard(related = false) {
   const item = registry.primary;
-  return `<a class="ui-link-panel__featured" href="${href(item.slug)}">
+  return `<a class="ui-link-panel__featured" href="${href(item)}">
         <div class="ui-link-panel__featured-icon">
           ${svg(item.iconPath)}
         </div>
@@ -49,7 +49,7 @@ function primaryCard(related = false) {
 }
 
 function sectorRow(item) {
-  return `<a class="ui-link-panel__row" href="${href(item.slug)}">
+  return `<a class="ui-link-panel__row" href="${href(item)}">
           <span class="ui-link-panel__row-icon">${svg(item.iconPath)}</span>
           <div><strong>${esc(item.title)}</strong><span>${esc(item.summary)}</span></div>
           <span class="ui-badge">${countLabel(item.count)}</span>
