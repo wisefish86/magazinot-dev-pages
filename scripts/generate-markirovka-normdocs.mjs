@@ -3,7 +3,7 @@ import path from 'node:path';
 
 const root = process.cwd();
 const pagesDir = path.join(root, 'pages');
-const registryPath = path.join(root, 'data', 'markirovka-normdocs.json');
+const registryPath = path.join(root, 'site-assets', 'markirovka', 'markirovka-normdocs.json');
 const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
 
 const relatedMarker = /<!-- AUTO:MARKIROVKA_NORMDOCS:RELATED slug=([a-z0-9-]+) -->[\s\S]*?<!-- \/AUTO:MARKIROVKA_NORMDOCS:RELATED -->/;
