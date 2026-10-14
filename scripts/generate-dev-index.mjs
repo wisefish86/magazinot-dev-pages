@@ -47,6 +47,7 @@ function pageInfo(file) {
     title: meta.title || titleFrom(html, fallback),
     pathParts: (meta.path || 'Прочее').split('/').map((x) => x.trim()).filter(Boolean),
     status: meta.status || '',
+    liveUrl: meta['live-url'] || '',
     titleFinal: isFinalTitle(meta),
     order: Number.isFinite(Number(meta.order)) ? Number(meta.order) : 999,
     slug,
@@ -72,8 +73,14 @@ for (const file of walk(pagesDir)) {
 function pageHtml(page) {
   const href = previewBase + '?page=' + encodeURIComponent(page.slug);
   const temporary = page.titleFinal ? '' : '<span class="dev-index-temp" title="Предварительное название">⏳</span> ';
-  const badge = page.status ? ` <span class="dev-index-status">${esc(page.status)}</span>` : '';
-  return `<li>${temporary}<a href="${href}">${esc(page.title)}</a>${badge}</li>`;
+  const workBadge = page.status ? ` <span class="dev-index-status">${esc(page.status)}</span>` : '';
+  const publicationBadge = page.liveUrl
+    ? ' <span class="dev-index-pub is-live">Опубликовано</span>'
+    : ' <span class="dev-index-pub is-dev">Не опубликовано</span>';
+  const liveLink = page.liveUrl
+    ? ` <a class="dev-index-live-link" href="${esc(page.liveUrl)}" target="_blank" rel="noopener">Боевая</a>`
+    : '';
+  return `<li>${temporary}<a href="${href}">${esc(page.title)}</a>${workBadge}${publicationBadge}${liveLink}</li>`;
 }
 
 function renderNode(n, depth = 0) {
@@ -112,6 +119,15 @@ for (const file of walk(pagesDir)) {
   injectDocumentTitle(page);
 }
 
+const allPages = [];
+function collectPages(n) {
+  allPages.push(...n.pages);
+  for (const child of n.children.values()) collectPages(child);
+}
+collectPages(root);
+const publishedCount = allPages.filter(page => page.liveUrl).length;
+const unpublishedCount = allPages.length - publishedCount;
+
 const html = `<!-- Служебная страница-хаб. Намеренно без общей HTML-обёртки. -->
 <style>
 #dev-index-gpt{max-width:980px;margin:0 auto;padding:8px 0 24px;font-family:Arial,sans-serif;color:#222}
@@ -123,10 +139,21 @@ const html = `<!-- Служебная страница-хаб. Намеренн�
 #dev-index-gpt a{color:#185abc;text-decoration:none}
 #dev-index-gpt a:hover{text-decoration:underline}
 #dev-index-gpt .dev-index-status{font-size:12px;color:#777}
+#dev-index-gpt .dev-index-pub{display:inline-block;margin-left:6px;padding:2px 7px;border-radius:999px;font-size:11px;font-weight:700;vertical-align:1px}
+#dev-index-gpt .dev-index-pub.is-live{background:#e7f6ec;color:#24713a}
+#dev-index-gpt .dev-index-pub.is-dev{background:#f1f3f5;color:#6b7280}
+#dev-index-gpt .dev-index-live-link{margin-left:6px;font-size:12px}
+#dev-index-gpt .dev-index-summary{display:flex;gap:8px;flex-wrap:wrap;margin:4px 0 18px}
+#dev-index-gpt .dev-index-summary span{padding:5px 9px;border-radius:999px;background:#f4f6f8;font-size:12px}
 #dev-index-gpt .dev-index-temp{font-size:13px}
 @media(max-width:640px){#dev-index-gpt .dev-index-group{padding-left:calc(var(--dev-depth) * 12px)}}
 </style>
 <div id="dev-index-gpt">
+  <div class="dev-index-summary">
+    <span>Всего: ${allPages.length}</span>
+    <span>Опубликовано: ${publishedCount}</span>
+    <span>Не опубликовано: ${unpublishedCount}</span>
+  </div>
 ${renderNode(root)}
 </div>
 <script data-dev-document-title>document.title='DEV-каталог MagazinOT';</script>
