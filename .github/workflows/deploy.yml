@@ -6,7 +6,7 @@ on:
     paths:
       - 'pages/**'
       - 'scripts/**'
-      - 'data/**'
+      - 'site-assets/**'
       - 'magazinot_gen.css'
       - 'magazinot_gen.js'
       - '.github/workflows/deploy.yml'
@@ -26,6 +26,7 @@ jobs:
       FTP_SERVER: magazinot.ru
       FTP_USERNAME: dev_pages
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+      RUNTIME_ASSETS_SERVER_DIR: /site-assets/
 
     steps:
       - uses: actions/checkout@v4
@@ -66,4 +67,14 @@ jobs:
           password: ${{ env.FTP_PASSWORD }}
           local-dir: ./deploy-assets/
           server-dir: /
+          dangerous-clean-slate: false
+
+      - name: Deploy page-specific runtime assets
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ env.FTP_SERVER }}
+          username: ${{ env.FTP_USERNAME }}
+          password: ${{ env.FTP_PASSWORD }}
+          local-dir: ./site-assets/
+          server-dir: ${{ env.RUNTIME_ASSETS_SERVER_DIR }}
           dangerous-clean-slate: false
