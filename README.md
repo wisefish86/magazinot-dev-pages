@@ -46,5 +46,5 @@ Optional metadata can be placed in HTML comments at the top of any page:
 - Every deploy uploads the full `site-assets/` tree to the FTP directory configured by `RUNTIME_ASSETS_SERVER_DIR`.
 - Current temporary target: `/site-assets/` inside the DEV FTP account.
 - When a permanent production assets directory is provided, change only `RUNTIME_ASSETS_SERVER_DIR`; keep the repository structure and file names stable.
-- Normative navigation registry: `site-assets/markirovka/markirovka-normdocs.json`.
-- New rare JS/CSS/JSON or other page-specific assets should be placed under a stable feature folder, e.g. `site-assets/markirovka/<feature>/...`, rather than scattered across pages.
+- Normative navigation registry: `site-assets/data/markirovka/markirovka-normdocs.json`.
+- New page-specific assets should follow `site-assets/<type>/<feature>/...`, e.g. `site-assets/js/markirovka/...`, `site-assets/css/markirovka/...`, `site-assets/data/markirovka/...`, `site-assets/img/markirovka/...`, `site-assets/docs/markirovka/...`.
