@@ -26,7 +26,9 @@ jobs:
       FTP_SERVER: magazinot.ru
       FTP_USERNAME: dev_pages
       FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-      RUNTIME_ASSETS_SERVER_DIR: /site-assets/
+      ASSETS_FTP_SERVER: magazinot.ru
+      ASSETS_FTP_USERNAME: assets
+      ASSETS_FTP_PASSWORD: ${{ secrets.ASSETS_FTP_PASSWORD }}
 
     steps:
       - uses: actions/checkout@v4
@@ -72,9 +74,9 @@ jobs:
       - name: Deploy page-specific runtime assets
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
-          server: ${{ env.FTP_SERVER }}
-          username: ${{ env.FTP_USERNAME }}
-          password: ${{ env.FTP_PASSWORD }}
+          server: ${{ env.ASSETS_FTP_SERVER }}
+          username: ${{ env.ASSETS_FTP_USERNAME }}
+          password: ${{ env.ASSETS_FTP_PASSWORD }}
           local-dir: ./site-assets/
-          server-dir: ${{ env.RUNTIME_ASSETS_SERVER_DIR }}
+          server-dir: /
           dangerous-clean-slate: false
