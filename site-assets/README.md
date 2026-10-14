@@ -1,0 +1,27 @@
+# Site assets
+
+Runtime assets that must be deployed to the server together with DEV pages.
+
+Recommended structure:
+
+- `data/<feature>/` — JSON and other data files.
+- `js/<feature>/` — page-specific JavaScript used in the browser.
+- `css/<feature>/` — page-specific styles that are not part of the global design system.
+- `img/<feature>/` — images for the new design.
+- `docs/<feature>/` — downloadable documents and other static files.
+
+Examples:
+
+- `data/markirovka/markirovka-normdocs.json`
+- `js/markirovka/<feature>.js`
+- `css/markirovka/<feature>.css`
+- `img/markirovka/...`
+- `docs/markirovka/...`
+
+Global shared files remain separate while the legacy site is being migrated:
+- `magazinot_gen.css`
+- `magazinot_gen.js`
+
+Do not duplicate files between GitHub folders. GitHub is the source; GitHub Actions deploys `site-assets/**` to the server.
+
+When a permanent assets directory is provided by the site programmer, change only the deployment target `RUNTIME_ASSETS_SERVER_DIR`. Keep asset paths and filenames stable.
