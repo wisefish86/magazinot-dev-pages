@@ -37,3 +37,14 @@ Optional metadata can be placed in HTML comments at the top of any page:
 - Final browser titles use the normal page name.
 - For visible content, use the same convention: prefix a provisional page-level H1 with **⏳**.
 - Do not prefix H2/H3 automatically unless that specific heading is itself provisional.
+
+
+## Runtime assets
+
+- Shared global frontend files remain at repository root: `magazinot_gen.css`, `magazinot_gen.js`.
+- Page-specific/runtime files live under `site-assets/**`.
+- Every deploy uploads the full `site-assets/` tree to the FTP directory configured by `RUNTIME_ASSETS_SERVER_DIR`.
+- Current temporary target: `/site-assets/` inside the DEV FTP account.
+- When a permanent production assets directory is provided, change only `RUNTIME_ASSETS_SERVER_DIR`; keep the repository structure and file names stable.
+- Normative navigation registry: `site-assets/markirovka/markirovka-normdocs.json`.
+- New rare JS/CSS/JSON or other page-specific assets should be placed under a stable feature folder, e.g. `site-assets/markirovka/<feature>/...`, rather than scattered across pages.
