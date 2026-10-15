@@ -1613,26 +1613,28 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-file__action{color:var(--c-accent);font-size:var(--text-sm);font-weight:650;transition:color var(--motion-fast),text-decoration-color var(--motion-fast)}
 .ui-file:hover .ui-file__action{color:var(--c-accent-dark);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 
-/* Compact document actions: same buttons as the rest of the UI Kit. */
-.ui-download-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:14px 0 24px}
-.ui-download-actions__label{color:var(--c-heading);font-weight:650}
+/* Document actions: single link or disclosure menu, shared button language. */
+.ui-download-actions{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:14px 0 22px}
 .ui-download-actions .ui-btn{width:auto;flex:none;min-height:36px;padding:0 13px;white-space:nowrap}
-.ui-download-actions .ui-btn--primary:not(:disabled):hover,
-.ui-download-actions .ui-btn--primary:not(:disabled):focus-visible{color:#fff!important}
-.ui-download-actions .ui-btn:disabled{opacity:1;cursor:default;background:var(--c-accent);color:#fff!important}
-.ui-download-actions__ext{font-size:11px;opacity:.8;font-weight:700}
+.ui-download-actions .ui-btn--primary,
+.ui-download-actions .ui-btn--primary:hover,
+.ui-download-actions .ui-btn--primary:focus-visible{color:#fff!important}
 .ui-download-menu{position:relative;max-width:100%}
-.ui-download-menu__trigger{list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:7px 10px;border:1px solid var(--c-line);border-radius:var(--radius-sm);color:var(--c-heading);background:#fff;font-weight:650;cursor:pointer}
+.ui-download-menu__trigger{list-style:none;display:inline-flex;align-items:center;gap:8px;min-height:36px;padding:7px 11px;border:1px solid var(--c-line);border-radius:var(--radius-sm);color:var(--c-heading);background:#fff;font-weight:650;cursor:pointer}
 .ui-download-menu__trigger::-webkit-details-marker{display:none}
-.ui-download-menu__trigger:hover{border-color:var(--c-accent);background:var(--c-soft);color:var(--c-heading)}
-.ui-download-menu__trigger .ui-icon{height:17px;width:17px}
+.ui-download-menu__trigger:not(.ui-btn):hover{border-color:var(--c-accent);background:var(--c-soft);color:var(--c-heading)}
+.ui-download-menu__trigger.ui-btn--primary,
+.ui-download-menu__trigger.ui-btn--primary:hover,
+.ui-download-menu__trigger.ui-btn--primary:focus-visible{background:var(--c-blue);color:#fff!important;border-color:transparent;text-decoration:none}
+.ui-download-menu__trigger.ui-btn--primary:hover{background:var(--c-blue-dark)}
+.ui-download-menu__trigger .ui-icon{height:16px;width:16px}
 .ui-download-menu[open] .ui-download-menu__chevron{transform:rotate(180deg)}
-.ui-download-menu__panel{position:absolute;left:0;top:calc(100% + 6px);z-index:30;width:min(400px,calc(100vw - 45px));max-height:min(390px,65vh);overflow-y:auto;padding:14px;border:1px solid var(--c-line);border-radius:var(--radius-md);background:#fff;box-shadow:0 9px 25px rgba(0,0,0,.12)}
-.ui-download-menu__heading{display:block;margin-bottom:8px;font-size:var(--text-sm);font-weight:700;color:var(--c-heading)}
-.ui-download-menu__links{margin:0 0 8px;padding:0;list-style:none}
-.ui-download-menu__links li{padding:8px 4px;border-bottom:1px solid var(--c-line-soft);color:var(--c-heading)}
-.ui-download-menu__panel small{color:var(--c-muted)}
-@media(max-width:600px){.ui-download-actions{align-items:flex-start;gap:10px}.ui-download-actions__label{flex-basis:100%}.ui-download-menu__panel{position:relative;top:5px;left:0;width:min(400px,calc(100vw - 45px))}}
+.ui-download-menu__panel{position:absolute;left:0;top:calc(100% + 6px);z-index:40;width:max-content;min-width:240px;max-width:min(400px,calc(100vw - 32px));max-height:min(390px,65vh);overflow-y:auto;padding:6px;border:1px solid var(--c-line);border-radius:var(--radius-md);background:#fff;box-shadow:0 10px 28px rgba(0,0,0,.14)}
+.ui-download-menu__heading{display:block;padding:8px 10px 6px;font-size:var(--text-sm);font-weight:700;color:var(--c-muted)}
+.ui-download-menu__link{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px;border-radius:6px;color:var(--c-heading)!important;text-decoration:none!important;font-size:max(14px,var(--text-sm));line-height:1.4}
+.ui-download-menu__link:hover,.ui-download-menu__link:focus-visible{background:var(--c-soft);color:var(--c-accent-dark)!important;text-decoration:none!important}
+.ui-download-menu__link small{flex:none;color:var(--c-muted)}
+@media(max-width:600px){.ui-download-menu__panel{width:min(340px,calc(100vw - 32px))}}
 
 /* Search / filters */
 .ui-search{position:relative}
