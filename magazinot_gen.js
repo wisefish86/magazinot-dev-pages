@@ -729,6 +729,30 @@
     requestAnimationFrame(refreshZoomability);
   }
 
+  function initDownloadMenus(){
+    if (document.documentElement.dataset.downloadMenusReady) return;
+    document.documentElement.dataset.downloadMenusReady='1';
+    document.addEventListener('click', event => {
+      document.querySelectorAll('details[data-ui-download-menu][open]').forEach(menu => {
+        if (!menu.contains(event.target) || event.target.closest('.ui-download-menu__link')) menu.open=false;
+      });
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key !== 'Escape') return;
+      document.querySelectorAll('details[data-ui-download-menu][open]').forEach(menu => {
+        menu.open=false;
+        menu.querySelector('summary')?.focus();
+      });
+    });
+    document.addEventListener('toggle', event => {
+      const menu=event.target;
+      if (!menu.matches?.('details[data-ui-download-menu]') || !menu.open) return;
+      document.querySelectorAll('details[data-ui-download-menu][open]').forEach(other => {
+        if (other !== menu) other.open=false;
+      });
+    },true);
+  }
+
   function initUi(){
     initPageTitle();
     initAccordion();
@@ -738,6 +762,7 @@
     initDialogs();
     initPopovers();
     initSelectboxes();
+    initDownloadMenus();
     initSegmentedControls();
     initRemovableChips();
     initUploads();
