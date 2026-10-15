@@ -403,6 +403,25 @@
             chip.className='ui-marker-catalog__label'+(item.highlight || item.alert ? ' ui-marker-catalog__label--warning' : '');
             chip.textContent=safe(item.name);
             label.appendChild(chip);
+          } else {
+            const blank=document.createElement('span');
+            blank.className='ui-marker-catalog__blank';
+            blank.setAttribute('aria-label','Пустой маркер без надписи');
+            label.appendChild(blank);
+            const info=document.createElement('span');
+            info.className='ui-marker-catalog__info ui-tooltip';
+            const trigger=document.createElement('button');
+            trigger.type='button';
+            trigger.className='ui-marker-catalog__info-trigger';
+            trigger.setAttribute('aria-label','Что означает пустой маркер?');
+            trigger.setAttribute('aria-describedby','marker-blank-help');
+            trigger.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7.7" r="1.1" fill="currentColor"/><path d="M12 11v5.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+            const hint=document.createElement('span');
+            hint.className='ui-tooltip__bubble';
+            hint.id='marker-blank-help';
+            hint.textContent='Пустой маркер — надпись можно нанести самостоятельно.';
+            info.append(trigger,hint);
+            label.appendChild(info);
           }
           const danger = document.createElement('td');
           danger.className = 'ui-marker-catalog__hazard-cell';
