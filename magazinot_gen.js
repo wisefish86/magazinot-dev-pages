@@ -372,6 +372,79 @@
     });
   }
 
+  function initMarkerCatalogs(){
+    document.querySelectorAll('[data-ui-marker-catalog]').forEach(catalog => {
+      if (catalog.dataset.readyMarkerCatalog) return;
+      catalog.dataset.readyMarkerCatalog = '1';
+      const source = catalog.dataset.source;
+      if (!source) return;
+
+      const tabs = catalog.querySelector('[data-marker-tabs]');
+      const intro = catalog.querySelector('[data-marker-intro]');
+      const preview = catalog.querySelector('[data-marker-preview]');
+      const meta = catalog.querySelector('[data-marker-meta]');
+      const body = catalog.querySelector('[data-marker-body]');
+      if (!tabs || !intro || !preview || !meta || !body) return;
+
+      function articles(prefix,code){
+        return Array.from({length:6},(_,i)=>'F0'+(i+1)+'-'+code);
+      }
+
+      function renderCategory(category){
+        catalog.style.setProperty('--marker-color',category.color);
+        catalog.style.setProperty('--marker-text',category.textColor || '#fff');
+        catalog.style.setProperty('--marker-soft',category.color + '12');
+        intro.textContent = category.description || '';
+        preview.innerHTML = '<div class="ui-marker-catalog__arrow"><span></span></div>';
+        const previewLabel = preview.querySelector('span');
+        if (previewLabel) previewLabel.textContent = category.items?.[0]?.name || category.label;
+        meta.innerHTML = '<strong>'+category.label+'</strong><span>'+(category.items?.length || 0)+' наименований в демонстрационной выборке</span>';
+
+        body.innerHTML = '';
+        (category.items || []).forEach(item => {
+          const tr = document.createElement('tr');
+          const codes = articles(category.prefix,item.code);
+          tr.innerHTML = '<td><strong>'+item.name+'</strong></td><td><div class="ui-marker-catalog__hazard"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg></div></td>'+codes.map(code=>'<td class="ui-marker-catalog__articles">'+code+'</td>').join('');
+          body.appendChild(tr);
+        });
+
+        tabs.querySelectorAll('[role="tab"]').forEach(button => {
+          const active = button.dataset.category === category.id;
+          button.setAttribute('aria-selected',active ? 'true' : 'false');
+          button.style.setProperty('--marker-tab-color',category.color);
+          button.style.setProperty('--marker-tab-text',category.textColor || '#fff');
+        });
+      }
+
+      fetch(source,{credentials:'same-origin'})
+        .then(response => {
+          if (!response.ok) throw new Error('HTTP '+response.status);
+          return response.json();
+        })
+        .then(data => {
+          const categories = Array.isArray(data.categories) ? data.categories : [];
+          tabs.innerHTML = '';
+          categories.forEach((category,index) => {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'ui-marker-catalog__tab';
+            button.setAttribute('role','tab');
+            button.setAttribute('aria-selected',index === 0 ? 'true' : 'false');
+            button.dataset.category = category.id;
+            button.textContent = category.label;
+            button.style.setProperty('--marker-tab-color',category.color);
+            button.style.setProperty('--marker-tab-text',category.textColor || '#fff');
+            button.addEventListener('click',() => renderCategory(category));
+            tabs.appendChild(button);
+          });
+          if (categories[0]) renderCategory(categories[0]);
+        })
+        .catch(() => {
+          intro.textContent = 'Не удалось загрузить данные демонстрационного каталога.';
+        });
+    });
+  }
+
   function initQuantityControls(){
     document.querySelectorAll('.ui-quantity').forEach(control => {
       if (control.dataset.uiQuantityReady === '1') return;
@@ -580,6 +653,7 @@
     initRemovableChips();
     initUploads();
     initVariantSelectors();
+    initMarkerCatalogs();
     initQuantityControls();
     initDocTables();
     initLightbox();
