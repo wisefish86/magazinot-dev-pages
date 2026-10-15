@@ -850,6 +850,25 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Структура разделов и специальные нормативные элементы</h2>
+    <p class="ui-kit__hint">Переиспользуемые блоки разделов, контрольного списка, шагов и нормативных рисунков. Данные и тексты заменяются на уровне страницы; стили остаются общими.</p>
+    <div class="ui-kit__example">
+      <section class="ui-section">
+        <div class="ui-section__head"><h3 class="ui-section__title">Стандартный заголовок раздела</h3><p class="ui-section__intro">Описание раздела, собранное из общего компонента.</p></div>
+        <div class="ui-check-grid"><div class="ui-check">Проверка нормативной документации</div><div class="ui-check">Подбор маркировки</div></div>
+        <div class="ui-steps"><div class="ui-step"><div class="ui-step__icon" aria-hidden="true">1</div><h4>Подбор исполнения</h4><p>Первый шаг.</p></div></div>
+      </section>
+    </div>
+    <div class="ui-kit__example mk-ui docpage normpage">
+      <div class="normpage__center"><p class="docpage__paragraph">Центрированный нормативный блок.</p></div>
+      <figure class="docpage__figure-media">
+        <img class="docpage__img--figure" src="/assets/img/markirovka/docs/gost-r-71918-2024/table-1-color-green.png" alt="Образец зелёного цвета из стандарта" loading="lazy" decoding="async">
+        <figcaption class="docpage__figure-caption">Нормативное изображение в собственном размере.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Что проверять дальше</h2>
     <div class="ui-note ui-note--info"><strong>Структурное покрытие v1 закрыто.</strong> Следующие расширения добавляем только после проверки на реальных страницах MagazinOT и примерах конкурентов: сначала пытаемся собрать сценарий из существующих блоков, затем — modifier, и только потом новый универсальный компонент.</div>
   </section>
