@@ -981,7 +981,6 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
     font-size:var(--text-md);
     line-height:1.62  }
    .doc-table {
-    min-width:640px;
     font-size:12.5px  }
    .doc-table th,.doc-table td {
     padding:7px 10px  }
@@ -3392,21 +3391,11 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   --marker-text:#fff;
   min-width:0}
 .ui-kit .ui-marker-catalog__tabs {
-  display:flex;
-  flex-wrap:wrap;
-  align-items:stretch;
-  gap:4px;
   margin-bottom:0}
 .ui-kit .ui-marker-catalog__tab {
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-height:42px;
-  padding:10px 14px;
-  border:1px solid var(--c-line);
-  border-radius:8px 8px 0 0;
-  background:var(--marker-tab-color);
-  color:var(--marker-tab-text);
   font:750 12px/1.25 var(--font-sans);
   text-transform:uppercase;
   cursor:pointer;
@@ -3416,10 +3405,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-kit .ui-marker-catalog__tab[aria-selected="true"] {
   position:relative;
   z-index:1;
-  border-color:var(--marker-tab-color);
   box-shadow:inset 0 -4px 0 currentColor}
 .ui-kit .ui-marker-catalog__tab:focus-visible {
-  outline:3px solid var(--c-accent);
   outline-offset:2px;
   z-index:2}
 .ui-kit .ui-marker-catalog__intro {
@@ -3439,14 +3426,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   color:var(--c-muted);
   font-size:12px}
 .ui-kit .ui-marker-catalog__table {
-  max-width:100%;
-  overflow-x:auto;
   -webkit-overflow-scrolling:touch;
   border:1px solid var(--c-line);
   border-radius:8px}
 .ui-kit .ui-marker-catalog__matrix {
-  width:100%;
-  min-width:770px;
   border-collapse:collapse;
   border-spacing:0;
   table-layout:fixed;
@@ -4152,7 +4135,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   transition:background var(--motion-fast),color var(--motion-fast),box-shadow var(--motion-fast)}
 @media(max-width:560px) {
    .ui-pagination a,.ui-pagination span {
-    min-width:44px;
     height:44px  }
 }
 .docpage__figure-media--plain {
@@ -4377,10 +4359,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   text-align:center;
   white-space:nowrap}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign {
-  display:inline-block;
-  vertical-align:middle;
-  width:32px;
-  height:30px;
   margin:0 2px;
   overflow:hidden}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__blank {
@@ -4471,15 +4449,9 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   min-width:1120px;
   table-layout:auto}
 .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
-  min-width:390px;
-  white-space:nowrap;
   text-align:left}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
    display:inline-block;
-  width:max-content;
-  max-width:none;
-   white-space:nowrap;
-  overflow-wrap:normal;
    padding:7px 10px;
   box-sizing:border-box;
 }
@@ -4504,8 +4476,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
    .ui-kit .ui-marker-catalog__table {
     overflow-x:visible  }
    .ui-kit .ui-marker-catalog__matrix {
-    width:100%;
-    min-width:0;
     table-layout:fixed  }
    .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
     min-width:0;
@@ -4518,10 +4488,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
    .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child {
     width:56%  }
    .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
-    width:max-content;
-    max-width:min(100%, 205px);
-    white-space:normal;
-    overflow-wrap:normal;
     text-wrap:balance  }
    .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
     padding:9px 5px  }
