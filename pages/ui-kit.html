@@ -187,12 +187,66 @@
 
   <section class="ui-kit__group">
     <h2>Формы</h2>
-    <div class="ui-kit__example">
+    <div class="ui-kit__example ui-stack">
       <div class="ui-grid">
-        <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"></div>
+        <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"><span class="ui-field__help">Короткое пояснение под полем.</span></div>
         <div class="ui-field"><label for="kit-type">Тип</label><select class="ui-select" id="kit-type"><option>Маркировочная стрелка</option><option>Лента</option></select></div>
       </div>
-      <div class="ui-field ui-kit__spaced"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
+      <div class="ui-field"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
+      <div class="ui-grid">
+        <div class="ui-field is-error"><label for="kit-error">Поле с ошибкой</label><input class="ui-input" id="kit-error" type="text" value="Некорректное значение" aria-invalid="true" aria-describedby="kit-error-text"><span class="ui-field__error" id="kit-error-text">Проверьте введённые данные.</span></div>
+        <div class="ui-field"><label for="kit-disabled">Недоступное поле</label><input class="ui-input" id="kit-disabled" type="text" value="Недоступно" disabled></div>
+      </div>
+      <div class="ui-grid">
+        <fieldset class="ui-field"><legend>Checkbox</legend><div class="ui-choice-group"><label class="ui-choice"><input type="checkbox" checked><span>Первый вариант</span></label><label class="ui-choice"><input type="checkbox"><span>Второй вариант</span></label></div></fieldset>
+        <fieldset class="ui-field"><legend>Radio</legend><div class="ui-choice-group"><label class="ui-choice"><input type="radio" name="kit-radio" checked><span>Вариант A</span></label><label class="ui-choice"><input type="radio" name="kit-radio"><span>Вариант B</span></label></div></fieldset>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Цитата, code и клавиши</h2>
+    <div class="ui-grid">
+      <blockquote class="ui-quote"><p>Короткая цитата или важная выдержка не должна выглядеть как alert.</p><footer>Источник или пояснение</footer></blockquote>
+      <div class="ui-kit__example"><p>Inline-сочетание: нажмите <kbd class="ui-kbd">Ctrl</kbd> + <kbd class="ui-kbd">Enter</kbd>.</p><pre class="ui-code"><code>.ui-card {
+  border-radius: var(--radius-lg);
+}</code></pre></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Файлы / downloads</h2>
+    <div class="ui-download-list">
+      <a class="ui-file" href="#"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><span><span class="ui-file__title">Техническое описание.pdf</span><span class="ui-file__meta">PDF · 1,8 МБ</span></span><span class="ui-file__action">Скачать</span></a>
+      <a class="ui-file" href="#"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg></span><span><span class="ui-file__title">Шаблон заказа.xlsx</span><span class="ui-file__meta">XLSX · 84 КБ</span></span><span class="ui-file__action">Скачать</span></a>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Search / filters</h2>
+    <div class="ui-filter-bar">
+      <div class="ui-field"><label for="kit-search">Поиск</label><div class="ui-search"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#search"></use></svg><input class="ui-input" id="kit-search" type="search" placeholder="Название или артикул"></div></div>
+      <div class="ui-field"><label for="kit-filter">Категория</label><select class="ui-select" id="kit-filter"><option>Все категории</option><option>Стрелки</option><option>Ленты</option></select></div>
+      <button class="ui-btn ui-btn--secondary" type="button">Применить</button>
+    </div>
+    <div class="ui-active-filters"><span class="ui-chip">Стрелки</span><span class="ui-chip">В наличии</span></div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Сравнение</h2>
+    <div class="ui-compare">
+      <article class="ui-compare__item"><h3>Базовый</h3><p>Простой вариант для стандартного сценария.</p></article>
+      <article class="ui-compare__item is-recommended"><span class="ui-compare__label">Рекомендуем</span><h3>Оптимальный</h3><p>Лучший баланс возможностей и сложности.</p></article>
+      <article class="ui-compare__item"><h3>Расширенный</h3><p>Для задач, где действительно нужны дополнительные возможности.</p></article>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Empty / error / loading states</h2>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-state"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><h3>Ничего не найдено</h3><p>Измените фильтры или поисковый запрос.</p></div>
+      <div class="ui-state ui-state--error"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg><h3>Не удалось загрузить</h3><p>Показываем понятное состояние и следующее действие.</p></div>
+      <div class="ui-skeleton" aria-label="Загрузка" aria-busy="true"><span class="ui-skeleton__line ui-skeleton__line--lg"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line ui-skeleton__line--sm"></span></div>
     </div>
   </section>
 
