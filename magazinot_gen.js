@@ -58,7 +58,48 @@
     });
   }
 
-  function initLegacyActions(){
+  function initTabs(){
+    document.querySelectorAll('.ui-tabs').forEach(tabs => {
+      if (tabs.dataset.uiTabsReady === '1') return;
+      const tablist = tabs.querySelector('[role="tablist"]');
+      if (!tablist) return;
+      const buttons = Array.from(tablist.querySelectorAll('[role="tab"]'));
+      const panels = buttons
+        .map(button => document.getElementById(button.getAttribute('aria-controls')))
+        .filter(Boolean);
+      if (!buttons.length || panels.length !== buttons.length) return;
+
+      tabs.dataset.uiTabsReady = '1';
+
+      function activate(button, moveFocus = false){
+        buttons.forEach((item,index) => {
+          const selected = item === button;
+          item.setAttribute('aria-selected', selected ? 'true' : 'false');
+          item.tabIndex = selected ? 0 : -1;
+          panels[index].hidden = !selected;
+        });
+        if (moveFocus) button.focus();
+      }
+
+      buttons.forEach((button,index) => {
+        button.addEventListener('click',() => activate(button));
+        button.addEventListener('keydown',event => {
+          let next = null;
+          if (event.key === 'ArrowRight') next = buttons[(index + 1) % buttons.length];
+          if (event.key === 'ArrowLeft') next = buttons[(index - 1 + buttons.length) % buttons.length];
+          if (event.key === 'Home') next = buttons[0];
+          if (event.key === 'End') next = buttons[buttons.length - 1];
+          if (!next) return;
+          event.preventDefault();
+          activate(next,true);
+        });
+      });
+
+      activate(buttons.find(button => button.getAttribute('aria-selected') === 'true') || buttons[0]);
+    });
+  }
+
+
     document.addEventListener('click',event => {
       const unavailableCard = event.target.closest('a.ui-media-card--coming-soon');
       if (unavailableCard) {
@@ -253,6 +294,7 @@
   function initUi(){
     initPageTitle();
     initAccordion();
+    initTabs();
     initLegacyActions();
     initDocTables();
     initDocLightbox();
