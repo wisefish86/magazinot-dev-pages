@@ -1965,6 +1965,11 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-popover__panel::before{content:"";position:absolute;left:22px;bottom:100%;width:10px;height:10px;border-left:1px solid var(--c-line);border-top:1px solid var(--c-line);background:#fff;transform:translateY(5px) rotate(45deg)}
 .ui-popover__panel[hidden]{display:none}
 
+/* Viewport-level tooltips: never inherit positioning or clipping from their cards. */
+.ui-tooltip__bubble.ui-tooltip__bubble--portal{position:fixed!important;z-index:10050!important;transform:none!important;pointer-events:none;box-sizing:border-box;white-space:normal}
+.ui-tooltip__bubble--portal::after{left:var(--tip-arrow-left,50%)!important;transform:translateX(-50%)}
+.ui-tooltip__bubble--portal[data-placement="below"]::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#17373a}
+
 /* Progress / meter */
 .ui-progress-list{display:grid;gap:13px}
 .ui-progress__head{display:flex;justify-content:space-between;gap:12px;margin-bottom:6px;color:var(--c-heading);font-size:var(--text-sm)}
