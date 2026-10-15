@@ -375,97 +375,86 @@
   function initMarkerCatalogs(){
     document.querySelectorAll('[data-ui-marker-catalog]').forEach(catalog => {
       if (catalog.dataset.readyMarkerCatalog) return;
-      catalog.dataset.readyMarkerCatalog = '1';
       const tabs = catalog.querySelector('[data-marker-tabs]');
       const intro = catalog.querySelector('[data-marker-intro]');
       const body = catalog.querySelector('[data-marker-body]');
-      const count = catalog.querySelector('[data-marker-count]');
       if (!tabs || !intro || !body) return;
-      const source = catalog.dataset.source;
-
-      function render(category){
-        catalog.style.setProperty('--marker-color', category.color);
-        catalog.style.setProperty('--marker-text', category.textColor || '#fff');
+      catalog.dataset.readyMarkerCatalog = '1';
+      const matrix = catalog.classList.contains('ui-marker-catalog--matrix');
+      const colors = {water:['#398000','#fff'],steam:['#ed2024','#fff'],air:['#73c7f6','#0e2633'],gas:['#ffda24','#1f272a'],acid:['#fb9018','#1c252b'],alkali:['#be94e3','#251b30'],liquid:['#b84200','#fff'],other:['#aaa','#17252d']};
+      const names = {water:'ВОДА',steam:'ПАР',air:'ВОЗДУХ',gas:'ГАЗЫ',acid:'КИСЛОТЫ',alkali:'ЩЕЛОЧИ',liquid:'ЖИДКОСТИ',other:'ПРОЧИЕ ВЕЩЕСТВА'};
+      const safe = value => String(value == null ? '' : value);
+      function renderCategory(category){
+        const [color,ink] = colors[category.id] || [category.color || '#287c84',category.textColor || '#fff'];
+        catalog.style.setProperty('--marker-color',color);
+        catalog.style.setProperty('--marker-text',ink);
+        catalog.style.setProperty('--marker-soft',color+'18');
         intro.textContent = category.description || '';
-        if (count) count.textContent = String(category.items.length) + ' вариантов';
         body.replaceChildren();
-        const fragment = document.createDocumentFragment();
-        category.items.forEach(item => {
-          const row = document.createElement('tr');
-          if (item.highlight) row.classList.add('ui-marker-catalog__row--warning');
-          const label = document.createElement('th');
-          label.scope = 'row';
-          label.textContent = item.name || '';
-          row.appendChild(label);
-          const hazard = document.createElement('td');
-          hazard.className = 'ui-marker-catalog__hazard';
-          hazard.textContent = item.hazard || '';
-          row.appendChild(hazard);
-          const codes = Array.isArray(item.codes) && item.codes.length === 6
-            ? item.codes : Array.from({length:6}, (_,i) => 'F0'+(i+1)+'-'+item.code);
-          codes.forEach(code => {
-            const td = document.createElement('td');
-            td.className = 'ui-marker-catalog__articles';
-            td.textContent = code;
-            row.appendChild(td);
+        const items = category.items || [];
+        items.forEach(item => {
+          const tr = document.createElement('tr');
+          if (item.alert) tr.classList.add('ui-marker-catalog__alert');
+          const label = document.createElement('td');
+          label.textContent = safe(item.name);
+          const danger = document.createElement('td');
+          danger.className = 'ui-marker-catalog__hazard-cell';
+          if (Array.isArray(item.hazards)) danger.textContent = item.hazards.join(' ');
+          tr.append(label,danger);
+          const articles = Array.isArray(item.articles) && item.articles.length === 6
+            ? item.articles : Array.from({length:6},(_,i) => 'F0'+(i+1)+'-'+safe(item.code));
+          articles.forEach(article => {
+            const cell = document.createElement('td');
+            cell.className = 'ui-marker-catalog__articles';
+            cell.textContent = safe(article);
+            tr.appendChild(cell);
           });
-          fragment.appendChild(row);
+          body.appendChild(tr);
         });
-        body.appendChild(fragment);
-        tabs.querySelectorAll('[role="tab"]').forEach(button => {
-          const active = button.dataset.category === category.id;
-          button.setAttribute('aria-selected', active ? 'true' : 'false');
-          button.tabIndex = active ? 0 : -1;
+        tabs.querySelectorAll('[role="tab"]').forEach(tab => {
+          const active = tab.dataset.category === category.id;
+          tab.setAttribute('aria-selected',active ? 'true' : 'false');
+          tab.tabIndex = active ? 0 : -1;
         });
       }
-
-      fetch(source,{credentials:'same-origin'})
-        .then(response => {
-          if (!response.ok) throw new Error('HTTP '+response.status);
-          return response.json();
-        })
-        .then(data => {
-          const categories = Array.isArray(data.categories) ? data.categories : [];
-          tabs.replaceChildren();
-          if (!categories.length) throw new Error('Empty catalog');
-          categories.forEach((category,index) => {
-            const button = document.createElement('button');
-            button.type = 'button';
-            button.className = 'ui-marker-catalog__tab';
-            button.setAttribute('role','tab');
-            button.setAttribute('aria-selected',index === 0 ? 'true' : 'false');
-            button.setAttribute('aria-controls','ui-marker-results');
-            button.tabIndex = index === 0 ? 0 : -1;
-            button.dataset.category = category.id;
-            button.textContent = category.label;
-            button.style.setProperty('--marker-tab-color',category.color);
-            button.style.setProperty('--marker-tab-text',category.textColor || '#fff');
-            button.addEventListener('click',() => render(category));
-            button.addEventListener('keydown',event => {
-              let next = index;
-              if (event.key === 'ArrowRight') next = (index + 1) % categories.length;
-              else if (event.key === 'ArrowLeft') next = (index - 1 + categories.length) % categories.length;
-              else if (event.key === 'Home') next = 0;
-              else if (event.key === 'End') next = categories.length - 1;
-              else return;
-              event.preventDefault();
-              const target = tabs.querySelectorAll('[role="tab"]')[next];
-              target.focus();
-              target.click();
-            });
-            tabs.appendChild(button);
-          });
-          render(categories[0]);
-        })
-        .catch(() => {
-          intro.textContent = 'Не удалось загрузить каталог. Обновите страницу.';
-          body.replaceChildren();
-          const row = document.createElement('tr'), cell = document.createElement('td');
-          cell.colSpan = 8;
-          cell.textContent = 'Данные временно недоступны';
-          row.appendChild(cell);
-          body.appendChild(row);
+      function install(categories){
+        tabs.replaceChildren();
+        categories.forEach((category,index) => {
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'ui-marker-catalog__tab';
+          button.role = 'tab';
+          button.id = 'marker-tab-'+category.id;
+          button.dataset.category = category.id;
+          button.textContent = names[category.id] || category.label;
+          const [color,ink] = colors[category.id] || [category.color,category.textColor];
+          button.style.setProperty('--marker-tab-color',color);
+          button.style.setProperty('--marker-tab-text',ink);
+          button.setAttribute('aria-selected',index===0 ? 'true':'false');
+          button.tabIndex = index===0 ? 0 : -1;
+          button.addEventListener('click',()=>renderCategory(category));
+          tabs.appendChild(button);
         });
+        tabs.addEventListener('keydown',event => {
+          if (!['ArrowRight','ArrowLeft','Home','End'].includes(event.key)) return;
+          const buttons = Array.from(tabs.querySelectorAll('[role="tab"]'));
+          const current = buttons.indexOf(document.activeElement);
+          let next = event.key==='Home' ? 0 : event.key==='End' ? buttons.length-1 :
+            (current+(event.key==='ArrowRight' ? 1 : -1)+buttons.length)%buttons.length;
+          event.preventDefault();
+          buttons[next].focus();
+          renderCategory(categories[next]);
+        });
+        if (categories.length) renderCategory(categories[0]);
+        else intro.textContent = 'Нет данных для отображения.';
+      }
+      fetch(catalog.dataset.source,{credentials:'same-origin'}).then(response=>{
+        if (!response.ok) throw new Error('HTTP '+response.status);
+        return response.json();
+      }).then(data=>install(Array.isArray(data.categories) ? data.categories : [])).catch(()=>{
+        intro.textContent='Не удалось загрузить каталог. Обновите страницу.';
+        body.replaceChildren();
+      });
     });
   }
 
