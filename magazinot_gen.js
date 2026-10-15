@@ -885,8 +885,18 @@
       update();
     };
     selectors.forEach(([selector,inner])=>{
-      document.querySelectorAll(selector).forEach(host=>{
-        const scroller=host.matches(inner)?host:host.querySelector(inner);
+      document.querySelectorAll(selector).forEach(element=>{
+        let host=element;
+        if(selector==='.ui-table-wrap'){
+          if(!element.parentElement.classList.contains('ui-table-scroll-shell')){
+            const shell=document.createElement('div');
+            shell.className='ui-table-scroll-shell';
+            element.before(shell);
+            shell.appendChild(element);
+          }
+          host=element.parentElement;
+        }
+        const scroller=selector==='.ui-table-wrap'?element:(host.matches(inner)?host:host.querySelector(inner));
         if(scroller)register(host,scroller);
       });
     });
