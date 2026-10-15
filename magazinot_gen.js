@@ -337,6 +337,41 @@
     });
   }
 
+  function initVariantSelectors(){
+    document.querySelectorAll('[data-ui-variant-selector]').forEach(selector => {
+      if (selector.dataset.readyVariant) return;
+      selector.dataset.readyVariant = '1';
+
+      selector.addEventListener('click',event => {
+        const typeButton = event.target.closest('[data-variant-type]');
+        const colorButton = event.target.closest('[data-variant-color]');
+
+        if (typeButton) {
+          selector.querySelectorAll('[data-variant-type]').forEach(button => button.setAttribute('aria-pressed',button === typeButton ? 'true' : 'false'));
+          const output = selector.querySelector('[data-ui-variant-type-value]');
+          if (output) output.textContent = typeButton.dataset.variantType || typeButton.textContent.trim();
+        }
+
+        if (colorButton) {
+          selector.querySelectorAll('[data-variant-color]').forEach(button => button.setAttribute('aria-pressed',button === colorButton ? 'true' : 'false'));
+          const preview = selector.querySelector('[data-ui-variant-preview]');
+          const label = selector.querySelector('[data-ui-variant-label]');
+          const output = selector.querySelector('[data-ui-variant-color-value]');
+          if (preview) preview.style.setProperty('--variant-color',colorButton.dataset.variantColor || '#168446');
+          if (label) label.textContent = colorButton.dataset.variantLabel || colorButton.textContent.trim();
+          if (output) output.textContent = colorButton.dataset.variantName || colorButton.textContent.trim();
+        }
+
+        if (typeButton || colorButton) {
+          const selectedType = selector.querySelector('[data-variant-type][aria-pressed="true"]');
+          const selectedColor = selector.querySelector('[data-variant-color][aria-pressed="true"]');
+          const caption = selector.querySelector('[data-ui-variant-caption]');
+          if (caption && selectedType && selectedColor) caption.textContent = selectedType.dataset.variantType + ' · ' + selectedColor.dataset.variantName;
+        }
+      });
+    });
+  }
+
   function initQuantityControls(){
     document.querySelectorAll('.ui-quantity').forEach(control => {
       if (control.dataset.uiQuantityReady === '1') return;
@@ -544,6 +579,7 @@
     initSegmentedControls();
     initRemovableChips();
     initUploads();
+    initVariantSelectors();
     initQuantityControls();
     initDocTables();
     initLightbox();
