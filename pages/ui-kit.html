@@ -1,0 +1,172 @@
+<!-- dev-title: UI Kit / Конструктор сайта -->
+<!-- dev-title-state: final -->
+<!-- dev-path: Система/UI Kit -->
+<!-- dev-status: В разработке -->
+<!-- dev-description: Живая витрина универсальной дизайн-системы MagazinOT. -->
+<!-- dev-order: 1 -->
+
+<div class="mk-ui ui-kit" data-ui-page-title="UI Kit / Конструктор сайта">
+  <section class="ui-hero">
+    <p class="ui-hero__lead">Единая библиотека компонентов нового MagazinOT: минимум устойчивых паттернов, максимум повторного использования.</p>
+    <p class="ui-hero__help">Эта страница — живая витрина. Все новые страницы должны по возможности собираться из этих компонентов без локального CSS.</p>
+    <div class="ui-chips">
+      <span class="ui-chip">Petrol + нейтрали</span>
+      <span class="ui-chip">Manrope</span>
+      <span class="ui-chip">Outline icons</span>
+      <span class="ui-chip">Accessible by default</span>
+    </div>
+  </section>
+
+  <p class="ui-kit__intro">Первая версия конструктора объединяет уже используемые блоки и новые универсальные primitives. Палитра на этой странице намеренно изолирована от опубликованных страниц: сначала согласуем систему здесь, затем переносим токены в общий дизайн.</p>
+
+  <section class="ui-kit__group">
+    <h2>Цветовая система</h2>
+    <p class="ui-kit__hint">80–85% интерфейса — нейтрали. Petrol отвечает за бренд и интерактивность. Тёплый акцент используется редко — только для сильного CTA.</p>
+    <div class="ui-swatch-grid">
+      <div class="ui-swatch" style="--swatch:#0F6B6D"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Primary petrol</span><span class="ui-swatch__value">#0F6B6D</span></div></div>
+      <div class="ui-swatch" style="--swatch:#0A5356"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Primary dark</span><span class="ui-swatch__value">#0A5356</span></div></div>
+      <div class="ui-swatch" style="--swatch:#A84E2F"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Warm CTA</span><span class="ui-swatch__value">#A84E2F</span></div></div>
+      <div class="ui-swatch" style="--swatch:#1F2D33"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Text</span><span class="ui-swatch__value">#1F2D33</span></div></div>
+      <div class="ui-swatch" style="--swatch:#60727A"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Muted</span><span class="ui-swatch__value">#60727A</span></div></div>
+      <div class="ui-swatch" style="--swatch:#F5F8F7"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Soft surface</span><span class="ui-swatch__value">#F5F8F7</span></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Типографика</h2>
+    <div class="ui-kit__example">
+      <h1>Заголовок H1</h1>
+      <h2>Заголовок H2</h2>
+      <h3>Заголовок H3</h3>
+      <h4>Заголовок H4</h4>
+      <p>Основной текст страницы. <a href="#" class="ui-inline-link">Ссылка внутри текста</a> должна быть заметной, но не кричащей.</p>
+      <p class="ui-section__intro">Вторичный текст и пояснения используют muted-цвет и более спокойный визуальный вес.</p>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Кнопки, chips и состояния</h2>
+    <div class="ui-kit__example ui-stack">
+      <div class="ui-cluster">
+        <a class="ui-btn ui-btn--primary" href="#">Основное действие</a>
+        <a class="ui-btn ui-btn--secondary" href="#">Вторичное действие</a>
+      </div>
+      <div class="ui-chips">
+        <span class="ui-chip">Нейтральный</span>
+        <span class="ui-badge">Статус</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Layout primitives</h2>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-card"><h3>Колонка 1</h3><p>Один универсальный grid.</p></div>
+      <div class="ui-card"><h3>Колонка 2</h3><p>Адаптивный переход на mobile.</p></div>
+      <div class="ui-card"><h3>Колонка 3</h3><p>Без page-specific CSS.</p></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Карточки</h2>
+    <div class="ui-grid ui-grid--3">
+      <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-linecap="round"/></svg></div><h3>Обычная карточка</h3><p>Текст, преимущество или небольшой самостоятельный смысловой блок.</p></article>
+      <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18l5-5 4 4 7-8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Feature card</h3><p>Используем тот же каркас, меняя содержание, а не визуальный язык.</p></article>
+      <article class="ui-card"><h3>Без иконки</h3><p>Иконка необязательна. Карточка не должна зависеть от конкретной тематики.</p></article>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Активная и недоступная media-card</h2>
+    <div class="ui-media-grid">
+      <a class="ui-media-card" href="#"><div class="ui-media-card__media"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5zM8 15l3-3 2 2 3-4 2 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>Активная карточка</h3><p>Тот же паттерн, который уже используется на странице маркировки.</p></div><span class="ui-media-card__arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      <a class="ui-media-card ui-media-card--coming-soon" href="#" aria-disabled="true" tabindex="-1"><div class="ui-media-card__media"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5z" stroke="currentColor"/></svg></div><div><h3>Недоступная карточка</h3><p>Состояние «Скоро» — это modifier существующего компонента.</p></div><span class="ui-media-card__status">Скоро</span></a>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Списки и характеристики</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><h3>Checklist</h3><ul class="ui-list ui-list--check"><li>Единый компонент</li><li>Переиспользуемые токены</li><li>Никакого локального CSS</li></ul></div>
+      <div class="ui-kit__example"><h3>Параметр — значение</h3><dl class="ui-specs"><div class="ui-specs__row"><dt>Материал</dt><dd>Самоклеящаяся плёнка</dd></div><div class="ui-specs__row"><dt>Исполнение</dt><dd>Для помещения и улицы</dd></div><div class="ui-specs__row"><dt>Срок изготовления</dt><dd>от 1 рабочего дня</dd></div></dl></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Notes / alerts</h2>
+    <div class="ui-stack">
+      <div class="ui-note ui-note--info"><strong>Информация.</strong> Спокойный информационный блок.</div>
+      <div class="ui-note ui-note--success"><strong>Готово.</strong> Позитивный статус без ярко-зелёной заливки.</div>
+      <div class="ui-note ui-note--warning"><strong>Важно.</strong> Предупреждение с приглушённым янтарным оттенком.</div>
+      <div class="ui-note ui-note--danger"><strong>Ошибка.</strong> Красный используется только по смыслу.</div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Шаги</h2>
+    <div class="ui-steps">
+      <article class="ui-step"><h3>1. Выберите</h3><p>Определите тип решения.</p></article>
+      <article class="ui-step"><h3>2. Уточните</h3><p>Проверьте параметры.</p></article>
+      <article class="ui-step"><h3>3. Закажите</h3><p>Получите готовый результат.</p></article>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Accordion / FAQ</h2>
+    <div class="ui-accordion">
+      <details><summary>Когда использовать accordion?<span class="ui-accordion__chevron" aria-hidden="true"></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Когда пользователь может осознанно раскрыть дополнительную информацию. Не использовать просто ради сокращения длины страницы.</div></div></details>
+      <details><summary>FAQ — отдельный компонент?<span class="ui-accordion__chevron" aria-hidden="true"></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Нет. Это та же механика accordion с другой семантикой контента.</div></div></details>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Tabs</h2>
+    <div class="ui-tabs">
+      <div class="ui-tabs__list" role="tablist" aria-label="Пример вкладок">
+        <button class="ui-tabs__tab" type="button" role="tab" id="tab-a" aria-controls="panel-a" aria-selected="true">Описание</button>
+        <button class="ui-tabs__tab" type="button" role="tab" id="tab-b" aria-controls="panel-b" aria-selected="false">Характеристики</button>
+        <button class="ui-tabs__tab" type="button" role="tab" id="tab-c" aria-controls="panel-c" aria-selected="false">Документы</button>
+      </div>
+      <div class="ui-tabs__panel" role="tabpanel" id="panel-a" aria-labelledby="tab-a">Tabs используем только для альтернативных представлений одного контента.</div>
+      <div class="ui-tabs__panel" role="tabpanel" id="panel-b" aria-labelledby="tab-b" hidden>Параметры удобно показывать через единый ui-specs.</div>
+      <div class="ui-tabs__panel" role="tabpanel" id="panel-c" aria-labelledby="tab-c" hidden>Документы могут быть отдельным download-list или link-panel.</div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Статистика</h2>
+    <div class="ui-stats"><div class="ui-stat"><span class="ui-stat__value">24 ч</span><span class="ui-stat__label">типовой срок производства</span></div><div class="ui-stat"><span class="ui-stat__value">1 шт.</span><span class="ui-stat__label">минимальный заказ</span></div><div class="ui-stat"><span class="ui-stat__value">РФ</span><span class="ui-stat__label">доставка по России</span></div></div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Формы</h2>
+    <div class="ui-kit__example">
+      <div class="ui-grid">
+        <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"></div>
+        <div class="ui-field"><label for="kit-type">Тип</label><select class="ui-select" id="kit-type"><option>Маркировочная стрелка</option><option>Лента</option></select></div>
+      </div>
+      <div class="ui-field" style="margin-top:14px"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Навигация</h2>
+    <div class="ui-kit__example ui-stack">
+      <nav class="ui-breadcrumbs" aria-label="Хлебные крошки"><a href="#">Главная</a><span class="ui-breadcrumbs__sep">/</span><a href="#">Маркировка</a><span class="ui-breadcrumbs__sep">/</span><span>Стрелки</span></nav>
+      <nav class="ui-pagination" aria-label="Пагинация"><span class="is-disabled">Назад</span><span class="is-current" aria-current="page">1</span><a href="#">2</a><a href="#">3</a><a href="#">Далее</a></nav>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>CTA</h2>
+    <div class="ui-cta">
+      <div><h2>Нужен нестандартный вариант?</h2><p>Пришлите спецификацию — подготовим решение под ваш проект.</p></div>
+      <div class="ui-cta__side"><a class="ui-btn ui-btn--primary" href="#">Отправить запрос</a></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Следующая волна компонентов</h2>
+    <div class="ui-note ui-note--info">Дальше сюда добавим gallery/lightbox, carousel, comparison, download-list, search/filter, empty/error/loading states, modal и tooltip/popover — только там, где они действительно полезны и не дублируют уже существующий паттерн.</div>
+  </section>
+</div>
