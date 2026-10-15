@@ -206,6 +206,78 @@
   }
 
 
+  function initSelectboxes(){
+    document.querySelectorAll('[data-ui-selectbox]').forEach(selectbox => {
+      if (selectbox.dataset.uiSelectboxReady === '1') return;
+      const button = selectbox.querySelector('.ui-selectbox__button');
+      const list = selectbox.querySelector('.ui-selectbox__list');
+      const value = selectbox.querySelector('[data-ui-selectbox-value]');
+      const input = selectbox.querySelector('[data-ui-selectbox-input]');
+      const options = Array.from(selectbox.querySelectorAll('.ui-selectbox__option'));
+      if (!button || !list || !value || !options.length) return;
+      selectbox.dataset.uiSelectboxReady = '1';
+
+      function setOpen(open){
+        selectbox.classList.toggle('is-open',open);
+        list.hidden = !open;
+        button.setAttribute('aria-expanded',open ? 'true' : 'false');
+        if (open) {
+          const selected = options.find(item => item.getAttribute('aria-selected') === 'true') || options[0];
+          options.forEach(item => item.classList.toggle('is-active',item === selected));
+        }
+      }
+
+      function selectOption(option,focusButton=true){
+        options.forEach(item => {
+          const selected = item === option;
+          item.setAttribute('aria-selected',selected ? 'true' : 'false');
+          item.classList.toggle('is-active',selected);
+        });
+        value.textContent = option.textContent.trim();
+        if (input) {
+          input.value = option.dataset.value || option.textContent.trim();
+          input.dispatchEvent(new Event('change',{bubbles:true}));
+        }
+        setOpen(false);
+        if (focusButton) button.focus();
+      }
+
+      function move(delta){
+        const current = options.findIndex(item => item.classList.contains('is-active'));
+        const next = options[(Math.max(0,current) + delta + options.length) % options.length];
+        options.forEach(item => item.classList.toggle('is-active',item === next));
+        next.scrollIntoView({block:'nearest'});
+      }
+
+      button.addEventListener('click',() => setOpen(list.hidden));
+      button.addEventListener('keydown',event => {
+        if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+          event.preventDefault();
+          if (list.hidden) setOpen(true); else move(event.key === 'ArrowDown' ? 1 : -1);
+        }
+        if (event.key === 'Enter' || event.key === ' ') {
+          if (!list.hidden) {
+            event.preventDefault();
+            const active = options.find(item => item.classList.contains('is-active'));
+            if (active) selectOption(active);
+          }
+        }
+        if (event.key === 'Escape' && !list.hidden) {
+          event.preventDefault();
+          setOpen(false);
+        }
+      });
+      options.forEach(option => {
+        option.tabIndex = -1;
+        option.addEventListener('click',() => selectOption(option));
+        option.addEventListener('mousemove',() => options.forEach(item => item.classList.toggle('is-active',item === option)));
+      });
+      document.addEventListener('click',event => {
+        if (!selectbox.contains(event.target)) setOpen(false);
+      });
+    });
+  }
+
   function initSegmentedControls(){
     document.querySelectorAll('.ui-segmented').forEach(group => {
       if (group.dataset.uiSegmentedReady === '1') return;
@@ -468,6 +540,7 @@
     initCarousels();
     initDialogs();
     initPopovers();
+    initSelectboxes();
     initSegmentedControls();
     initRemovableChips();
     initUploads();
