@@ -1370,7 +1370,13 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-kit__example + .ui-kit__example{margin-top:12px}
 .ui-swatch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
 .ui-swatch{overflow:hidden;border:1px solid var(--c-line);border-radius:14px;background:#fff}
-.ui-swatch__color{height:68px;background:var(--swatch)}
+.ui-swatch__color{height:68px;background:var(--swatch,transparent)}
+.ui-swatch--primary{--swatch:#0f6b6d}
+.ui-swatch--primary-dark{--swatch:#0a5356}
+.ui-swatch--cta{--swatch:#a84e2f}
+.ui-swatch--text{--swatch:#1f2d33}
+.ui-swatch--muted{--swatch:#60727a}
+.ui-swatch--surface{--swatch:#f5f8f7}
 .ui-swatch__meta{padding:10px 12px}
 .ui-swatch__name{display:block;color:var(--c-heading);font-size:var(--text-md);font-weight:700}
 .ui-swatch__value{display:block;margin-top:2px;color:var(--c-muted);font-size:var(--text-sm);font-family:ui-monospace,SFMono-Regular,Consolas,monospace}
