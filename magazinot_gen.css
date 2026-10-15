@@ -5025,8 +5025,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   padding:5px 9px;
   border:1px solid var(--marker-color);
   border-radius:7px;
-  background:var(--c-surface,#fff);
-  color:var(--marker-color);
+  background:var(--marker-color);
+  color:var(--marker-text);
   font-weight:750;
   font-size:12px;
   line-height:1.4;
