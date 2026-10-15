@@ -2172,3 +2172,14 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 @media(max-width:700px){
  .ui-kit .ui-marker-catalog__matrix{min-width:1120px}
 }
+
+/* Hazard artwork is a real clipped image, never a CSS background only. */
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign{
+  position:relative;display:inline-block;flex:none;
+  width:32px;height:30px;overflow:hidden;
+  background:none;vertical-align:middle;
+}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign-image{
+  display:block;position:absolute;left:0;width:32px;min-width:32px;
+  height:210px;max-width:none;max-height:none;
+}
