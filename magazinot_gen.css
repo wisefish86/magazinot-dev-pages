@@ -1822,26 +1822,31 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 @container (max-width:520px){.ui-kit .ui-variant-selector__summary{grid-template-columns:1fr}.ui-kit .ui-variant-selector__marker{height:60px}.ui-kit .ui-variant-selector__marker::after{right:-30px;border-top-width:30px;border-bottom-width:30px;border-left-width:30px}}
 
 /* Pipeline marker catalog demo */
-.ui-marker-catalog{display:grid;gap:14px}
-.ui-marker-catalog__tabs{display:flex;flex-wrap:wrap;gap:6px}
-.ui-marker-catalog__tab{min-height:var(--control-h-compact);padding:0 12px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-heading);font:650 var(--text-sm)/1 var(--font-sans);cursor:pointer;transition:background var(--motion-fast),border-color var(--motion-fast),color var(--motion-fast)}
-.ui-marker-catalog__tab:hover{border-color:#a9c9c5;background:#f3f8f7}
-.ui-marker-catalog__tab[aria-selected="true"]{border-color:transparent;background:var(--marker-tab-color,var(--c-accent));color:var(--marker-tab-text,#fff)}
-.ui-marker-catalog__intro{padding:12px 14px;border-radius:12px;background:var(--marker-soft,#f4f8f7);color:var(--c-text);font-size:var(--text-sm);line-height:1.5}
-.ui-marker-catalog__preview{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.7fr);gap:14px}
-.ui-marker-catalog__sample{display:grid;place-items:center;min-height:150px;padding:18px;border:1px solid var(--c-line);border-radius:14px;background:#fff}
-.ui-marker-catalog__arrow{position:relative;width:min(420px,calc(100% - 42px));height:64px;border-radius:8px 0 0 8px;background:var(--marker-color,#2f7d00)}
-.ui-marker-catalog__arrow::after{content:"";position:absolute;top:0;right:-32px;border-top:32px solid transparent;border-bottom:32px solid transparent;border-left:32px solid var(--marker-color,#2f7d00)}
-.ui-marker-catalog__arrow span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 14px;color:var(--marker-text,#fff);font-size:17px;font-weight:760;letter-spacing:.02em}
-.ui-marker-catalog__meta{display:grid;align-content:center;gap:8px;padding:14px;border:1px solid var(--c-line);border-radius:14px;background:var(--c-soft)}
-.ui-marker-catalog__meta strong{font-size:var(--text-lg)}
-.ui-marker-catalog__meta span{color:var(--c-muted);font-size:var(--text-sm)}
-.ui-marker-catalog__table .ui-table{min-width:760px}
-.ui-marker-catalog__table td,.ui-marker-catalog__table th{vertical-align:middle}
-.ui-marker-catalog__hazard{display:flex;align-items:center;justify-content:center;min-height:34px}
-.ui-marker-catalog__hazard .ui-icon{width:22px;height:22px;color:var(--c-muted-soft)}
-.ui-marker-catalog__articles{font-size:12px;white-space:nowrap}
-@container (max-width:760px){.ui-kit .ui-marker-catalog__preview{grid-template-columns:1fr}.ui-kit .ui-marker-catalog__tabs{flex-wrap:nowrap;overflow:auto;padding-bottom:2px}}
+/* Product reference matrix — one shared, data-driven component */
+.ui-marker-catalog{display:grid;gap:0;--marker-color:#397e00;--marker-text:#fff;min-width:0}
+.ui-kit .ui-marker-catalog__tabs{display:flex;flex-wrap:wrap;align-items:stretch;gap:4px;margin-bottom:0}
+.ui-kit .ui-marker-catalog__tab{display:inline-flex;align-items:center;justify-content:center;min-height:42px;padding:10px 14px;border:1px solid var(--c-line);border-radius:8px 8px 0 0;background:var(--marker-tab-color);color:var(--marker-tab-text);font:750 12px/1.25 var(--font-sans);text-transform:uppercase;cursor:pointer;transition:filter var(--motion-fast),transform var(--motion-fast)}
+.ui-kit .ui-marker-catalog__tab:hover{filter:brightness(.94)}
+.ui-kit .ui-marker-catalog__tab[aria-selected="true"]{position:relative;z-index:1;border-color:var(--marker-tab-color);box-shadow:inset 0 -4px 0 currentColor}
+.ui-kit .ui-marker-catalog__tab:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px;z-index:2}
+.ui-kit .ui-marker-catalog__intro{padding:14px 16px;border-radius:0;background:var(--marker-color);color:var(--marker-text);font-size:13px;line-height:1.5;font-weight:600}
+.ui-kit .ui-marker-catalog__tools{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px;padding:9px 2px;color:var(--c-muted);font-size:12px}
+.ui-kit .ui-marker-catalog__table{max-width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--c-line);border-radius:8px}
+.ui-kit .ui-marker-catalog__matrix{width:100%;min-width:770px;border-collapse:collapse;border-spacing:0;table-layout:fixed;margin:0}
+.ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td{padding:11px 9px;border:1px solid rgba(20,40,48,.24);background:var(--marker-color);color:var(--marker-text);font-family:var(--font-sans);line-height:1.4;vertical-align:middle}
+.ui-kit .ui-marker-catalog__matrix thead th{font-size:12px;font-weight:750;text-align:center}
+.ui-kit .ui-marker-catalog__matrix thead th:first-child{text-align:left}
+.ui-kit .ui-marker-catalog__matrix thead th:first-child,.ui-kit .ui-marker-catalog__matrix tbody th{width:32%}
+.ui-kit .ui-marker-catalog__matrix thead th:nth-child(2){width:12%}
+.ui-kit .ui-marker-catalog__matrix tbody th{font-size:12px;font-weight:700;text-align:left;overflow-wrap:anywhere}
+.ui-kit .ui-marker-catalog__matrix tbody td{text-align:center;font-size:11px;font-weight:650}
+.ui-kit .ui-marker-catalog__matrix tbody tr:hover>th,.ui-kit .ui-marker-catalog__matrix tbody tr:hover>td{filter:brightness(.96)}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles{white-space:nowrap;font-variant-numeric:tabular-nums}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__hazard{font-size:11px;overflow-wrap:anywhere}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__row--warning>th,.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__row--warning>td{background:#e82730;color:#fff}
+.ui-kit .ui-marker-catalog__hint{margin:8px 0 0;color:var(--c-muted);font-size:12px;line-height:1.5}
+@media(max-width:700px){.ui-kit .ui-marker-catalog__tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin;padding:2px 0 0}.ui-kit .ui-marker-catalog__tab{flex:0 0 auto;min-height:44px;padding:10px 12px}.ui-kit .ui-marker-catalog__intro{padding:12px}.ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td{padding:9px 8px}}
+@media(prefers-reduced-motion:reduce){.ui-kit .ui-marker-catalog__tab{transition:none}}
 
 /* Figure / gallery */
 .ui-figure{margin:0;overflow:hidden;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:#fff}
