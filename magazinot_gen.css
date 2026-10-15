@@ -943,28 +943,12 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   .ui-meta > span:not(:last-child)::after {
     display:none
   }
-  .ui-content-title {
-    scroll-margin-top:90px;
-    margin:32px 0 12px!important;
-    padding:0!important;
-    border:0!important;
-    border-radius:0!important;
-    background:none!important;
-    color:var(--c-heading)!important;
-    font-size:var(--text-h2)!important;
-    line-height:1.25!important;
-    font-weight:700!important;
-    letter-spacing:-.012em!important;
-  }
   .docpage__paragraph, .docpage__clause {
     font-size:var(--text-md);
     line-height:1.62
   }
   .doc-table {
     font-size:12.5px
-  }
-  .doc-table th,.doc-table td {
-    padding:7px 10px
   }
   .doc-table-wrap {
     margin-left:-2px;
@@ -4904,9 +4888,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   border:0;
   background:#ff1010;
   color:#fff;
-}
-.ui-kit .ui-marker-catalog__matrix tbody td:first-child {
-  text-align:left
 }
 /* Marker matrix: preserve table-cell layout for hazard signs and blank products. */
 .ui-kit .ui-marker-catalog__matrix td.ui-marker-catalog__hazard-list {
