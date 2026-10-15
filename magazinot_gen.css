@@ -373,8 +373,10 @@ a.ui-media-card:focus-visible .ui-media-card__media img{
 .ui-media-card--coming-soon .ui-media-card__status{
   display:inline-flex;
   align-items:center;
+  justify-content:center;
+  text-align:center;
   min-height:26px;
-  padding:4px 8px;
+  padding:4px 12px;
   border:1px solid #d8e2e6;
   border-radius:var(--radius-pill);
   background:#eef3f5;
@@ -2368,6 +2370,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 /* Scroll affordances: gradient edges follow the actual overflow state. */
 .ui-kit .ui-scroll-cue{position:relative;min-width:0;max-width:100%;--ui-fade-size:20px}
 .ui-kit .ui-scroll-cue::before,.ui-kit .ui-scroll-cue::after{content:"";position:absolute;z-index:5;top:0;bottom:0;width:var(--ui-fade-size);pointer-events:none;opacity:0;transition:opacity .15s ease}
+/* Table scroll surfaces contain sticky columns: never paint a traveling fade over cells. */
+.ui-kit .ui-table-wrap.ui-scroll-cue::before,.ui-kit .ui-table-wrap.ui-scroll-cue::after{display:none}
+.ui-kit .ui-table-wrap.ui-scroll-cue{scrollbar-width:thin;scrollbar-color:var(--c-line-strong) transparent}
 .ui-kit .ui-scroll-cue::before{left:0;background:linear-gradient(to right,var(--ui-fade-bg,#fff),transparent)}
 .ui-kit .ui-scroll-cue::after{right:0;background:linear-gradient(to left,var(--ui-fade-bg,#fff),transparent)}
 .ui-kit .ui-scroll-cue[data-scroll-left="true"]::before,.ui-kit .ui-scroll-cue[data-scroll-right="true"]::after{opacity:1}
