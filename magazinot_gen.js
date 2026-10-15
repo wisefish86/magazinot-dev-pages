@@ -897,24 +897,45 @@
       const trigger=root.querySelector('button'),bubble=root.querySelector('.ui-tooltip__bubble');
       if(!trigger||!bubble)return;
       root.dataset.boundedReady='1';
+      let visible=false;
       function place(){
+        if(!visible)return;
         const rect=trigger.getBoundingClientRect();
         const width=Math.min(240,window.innerWidth-24);
-        bubble.style.position='fixed';
         bubble.style.width=width+'px';
         bubble.style.maxWidth='none';
-        bubble.style.left=Math.max(12,Math.min(rect.left+rect.width/2-width/2,window.innerWidth-width-12))+'px';
+        const left=Math.max(12,Math.min(rect.left+rect.width/2-width/2,window.innerWidth-width-12));
+        bubble.style.left=left+'px';
         bubble.style.bottom='auto';
-        bubble.style.transform='none';
-        bubble.style.zIndex='160';
-        const h=bubble.getBoundingClientRect().height;
-        bubble.style.top=(rect.top>h+14?rect.top-h-9:rect.bottom+9)+'px';
+        const height=bubble.getBoundingClientRect().height;
+        const above=rect.top>height+18;
+        bubble.style.top=(above?rect.top-height-10:rect.bottom+10)+'px';
+        bubble.style.setProperty('--tip-arrow-left',Math.max(12,Math.min(rect.left+rect.width/2-left,width-12))+'px');
+        bubble.dataset.placement=above?'above':'below';
       }
-      trigger.addEventListener('mouseenter',place);
-      trigger.addEventListener('focus',place);
-      trigger.addEventListener('click',place);
+      function show(){
+        if(visible)return;
+        visible=true;
+        document.body.appendChild(bubble);
+        bubble.classList.add('ui-tooltip__bubble--portal');
+        bubble.style.opacity='1';
+        bubble.style.visibility='visible';
+        place();
+      }
+      function hide(){
+        if(!visible)return;
+        visible=false;
+        bubble.style.opacity='0';
+        bubble.classList.remove('ui-tooltip__bubble--portal');
+        root.appendChild(bubble);
+      }
+      trigger.addEventListener('mouseenter',show);
+      trigger.addEventListener('mouseleave',hide);
+      trigger.addEventListener('focus',show);
+      trigger.addEventListener('blur',hide);
+      trigger.addEventListener('keydown',event=>{if(event.key==='Escape')hide()});
       window.addEventListener('resize',place,{passive:true});
-      window.addEventListener('scroll',place,{passive:true});
+      window.addEventListener('scroll',()=>{if(visible)hide()},{passive:true});
     });
   }
 
