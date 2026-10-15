@@ -1613,6 +1613,20 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-file__action{color:var(--c-accent);font-size:var(--text-sm);font-weight:650;transition:color var(--motion-fast),text-decoration-color var(--motion-fast)}
 .ui-file:hover .ui-file__action{color:var(--c-accent-dark);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 
+/* Featured document cards reuse .ui-file rather than a separate download primitive. */
+.ui-download-featured{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:14px 0 18px}
+.ui-file.ui-file--featured{grid-template-columns:74px minmax(0,1fr);grid-template-rows:1fr auto;align-items:center;column-gap:18px;row-gap:10px;min-height:162px;padding:18px;border-radius:var(--radius-lg);background:linear-gradient(115deg,#f4f9f8,#fff);cursor:default}
+.ui-file--featured .ui-file__cover{grid-row:1/3;align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:118px;border-radius:8px;background:linear-gradient(155deg,#fff,#e5f0ed);border:1px solid var(--c-line);box-shadow:3px 4px 0 rgba(30,69,67,.09);color:var(--c-accent-dark);font-size:12px;font-weight:800;letter-spacing:.07em}
+.ui-file--featured .ui-file__cover .ui-icon{width:32px;height:32px}
+.ui-file--featured .ui-file__content{align-self:end;min-width:0}
+.ui-file--featured .ui-file__eyebrow{display:block;margin-bottom:5px;color:var(--c-muted);font-size:var(--text-sm)}
+.ui-file--featured .ui-file__title{font-size:calc(var(--text-md) + 2px);line-height:1.3}
+.ui-file--featured .ui-file__action--button{grid-column:2;justify-self:start;display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--radius-sm);background:var(--c-accent);color:#fff;font-weight:700;text-decoration:none}
+.ui-file--featured .ui-file__action--button .ui-icon{width:16px;height:16px}
+.ui-file--featured.ui-file--featured-alt{background:linear-gradient(115deg,#f7f8fa,#fff)}
+@media(max-width:760px){.ui-download-featured{grid-template-columns:1fr}}
+@media(max-width:400px){.ui-file.ui-file--featured{grid-template-columns:60px minmax(0,1fr);column-gap:12px;padding:12px}.ui-file--featured .ui-file__cover{min-height:100px}}
+
 /* Search / filters */
 .ui-search{position:relative}
 .ui-search .ui-icon{position:absolute;left:12px;top:50%;width:18px;height:18px;color:var(--c-muted-soft);transform:translateY(-50%);pointer-events:none}
