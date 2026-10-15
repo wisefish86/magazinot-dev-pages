@@ -1350,8 +1350,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   border-radius:15px;
   background:rgba(255,255,255,.065);
 }
-.ui-cta__side strong {
-  color:#fff;
+.mk-ui .ui-cta .ui-cta__side > strong {
+  color:#fff!important;
   display:block;
   margin-bottom:5px;
   font-size:var(--text-lg);
@@ -5738,6 +5738,21 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .ui-kit .ui-table-wrap .ui-table {
   width:100%
 }
+/* Fit-content table variant: retain the narrow shell even when scroll cues wrap the table. */
+.ui-kit .ui-table-scroll-shell:has(> .ui-table-wrap--fit) {
+  width:max-content;
+  max-width:100%;
+}
+.ui-kit .ui-table-wrap--fit {
+  width:max-content;
+  max-width:100%;
+}
+.ui-kit .ui-table-wrap--fit .ui-table--fit {
+  width:max-content;
+  min-width:0;
+  table-layout:auto;
+}
+
 .ui-kit .ui-table--normative {
   width:max-content;
   min-width:min(100%,270px)
