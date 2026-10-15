@@ -380,7 +380,7 @@
       const body = catalog.querySelector('[data-marker-body]');
       if (!tabs || !intro || !body) return;
       catalog.dataset.readyMarkerCatalog = '1';
-      const matrix = catalog.classList.contains('ui-marker-catalog--matrix');
+      const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.ui-marker-catalog__matrix');
       const colors = {water:['#398000','#fff'],steam:['#ed2024','#fff'],air:['#73c7f6','#0e2633'],gas:['#ffda24','#1f272a'],acid:['#fb9018','#1c252b'],alkali:['#be94e3','#251b30'],liquid:['#b84200','#fff'],other:['#aaa','#17252d']};
       const names = {water:'ВОДА',steam:'ПАР',air:'ВОЗДУХ',gas:'ГАЗЫ',acid:'КИСЛОТЫ',alkali:'ЩЕЛОЧИ',liquid:'ЖИДКОСТИ',other:'ПРОЧИЕ ВЕЩЕСТВА'};
       const safe = value => String(value == null ? '' : value);
@@ -399,7 +399,7 @@
           label.textContent = safe(item.name);
           const danger = document.createElement('td');
           danger.className = 'ui-marker-catalog__hazard-cell';
-          if (Array.isArray(item.hazards)) danger.textContent = item.hazards.join(' ');
+          if (Array.isArray(item.hazards)) danger.textContent = item.hazards.join(' '); else if (item.hazard) danger.textContent = safe(item.hazard);
           tr.append(label,danger);
           const articles = Array.isArray(item.codes) && item.codes.length === 6
             ? item.codes : Array.from({length:6},(_,i) => 'F0'+(i+1)+'-'+safe(item.code));
@@ -411,6 +411,8 @@
           });
           body.appendChild(tr);
         });
+        const count = catalog.querySelector('[data-marker-count]');
+        if (count) count.textContent = items.length+' позиций';
         tabs.querySelectorAll('[role="tab"]').forEach(tab => {
           const active = tab.dataset.category === category.id;
           tab.setAttribute('aria-selected',active ? 'true' : 'false');
@@ -451,27 +453,7 @@
       fetch(catalog.dataset.source,{credentials:'same-origin'}).then(response=>{
         if (!response.ok) throw new Error('HTTP '+response.status);
         return response.json();
-      }).then(async data => {
-        let categories = Array.isArray(data.categories) ? data.categories : [];
-        if (data.archiveSource && data.archiveSource.encoding === 'deflate-base64' && typeof DecompressionStream !== 'undefined') {
-          try {
-            const bytes = Uint8Array.from(atob(data.archiveSource.payload),char=>char.charCodeAt(0));
-            const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate'));
-            const content = await new Response(stream).text();
-            const groups = JSON.parse(content);
-            categories = groups.map(([id,description,rows]) => ({
-              id,label:names[id] || id,description,
-              items:rows.map(([name,code,override,flag]) => ({
-                name,code,articles:override ? override.split(',') : undefined,
-                alert:flag === 'red'
-              }))
-            }));
-          } catch (error) {
-            console.warn('Pipe marker archive data unavailable; using basic catalogue.',error);
-          }
-        }
-        install(categories);
-      }).catch(()=>{
+      }).then(data=>install(Array.isArray(data.categories) ? data.categories : []))      }).catch(()=>{
         intro.textContent='Не удалось загрузить каталог. Обновите страницу.';
         body.replaceChildren();
       });
