@@ -19,8 +19,17 @@
   </section>
 
   <p class="ui-kit__intro">Первая версия конструктора объединяет уже используемые блоки и новые универсальные primitives. Палитра на этой странице намеренно изолирована от опубликованных страниц: сначала согласуем систему здесь, затем переносим токены в общий дизайн.</p>
+  <nav class="ui-kit__nav" aria-label="Разделы UI Kit">
+    <a class="_anker" href="#kit-foundation">Основы</a>
+    <a class="_anker" href="#kit-components">Компоненты</a>
+    <a class="_anker" href="#kit-content">Контент</a>
+    <a class="_anker" href="#kit-forms">Формы</a>
+    <a class="_anker" href="#kit-feedback">Состояния</a>
+    <a class="_anker" href="#kit-navigation">Навигация</a>
+    <a class="_anker" href="#kit-commerce">Коммерция</a>
+  </nav>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-foundation">
     <h2>Цветовая система</h2>
     <p class="ui-kit__hint">80–85% интерфейса — нейтрали. Petrol отвечает за бренд и интерактивность. Тёплый акцент используется редко — только для сильного CTA.</p>
     <div class="ui-swatch-grid">
@@ -49,14 +58,40 @@
     <h2>Библиотека стандартных иконок</h2>
     <p class="ui-kit__hint">Повторяемые интерфейсные иконки берутся только из <code>/assets/icons/ui-icons.svg</code> по стабильному id. Уникальные иллюстрации сюда не добавляются.</p>
     <div class="ui-kit__example ui-cluster">
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg>&nbsp;chevron-left</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg>&nbsp;chevron-right</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg>&nbsp;chevron-down</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#arrow-right"></use></svg>&nbsp;arrow-right</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check"></use></svg>&nbsp;check</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg>&nbsp;check-circle</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>&nbsp;info</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg>&nbsp;warning</span>
-      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg>&nbsp;download</span>
-      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg>&nbsp;external-link</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg>&nbsp;alert-circle</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#search"></use></svg>&nbsp;search</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#filter"></use></svg>&nbsp;filter</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#menu"></use></svg>&nbsp;menu</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#plus"></use></svg>&nbsp;plus</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#minus"></use></svg>&nbsp;minus</span>
       <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg>&nbsp;close</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg>&nbsp;download</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#upload"></use></svg>&nbsp;upload</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg>&nbsp;external-link</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg>&nbsp;file</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg>&nbsp;image</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>&nbsp;cart</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#phone"></use></svg>&nbsp;phone</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#mail"></use></svg>&nbsp;mail</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#location"></use></svg>&nbsp;location</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#clock"></use></svg>&nbsp;clock</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#calendar"></use></svg>&nbsp;calendar</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#user"></use></svg>&nbsp;user</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#play"></use></svg>&nbsp;play</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#copy"></use></svg>&nbsp;copy</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#edit"></use></svg>&nbsp;edit</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#trash"></use></svg>&nbsp;trash</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#zoom-in"></use></svg>&nbsp;zoom-in</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lock"></use></svg>&nbsp;lock</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#settings"></use></svg>&nbsp;settings</span>
     </div>
   </section>
 
@@ -102,11 +137,11 @@
     </div>
   </section>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-components">
     <h2>Карточки</h2>
     <div class="ui-grid ui-grid--3">
-      <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-linecap="round"/></svg></div><h3>Обычная карточка</h3><p>Текст, преимущество или небольшой самостоятельный смысловой блок.</p></article>
-      <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18l5-5 4 4 7-8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Feature card</h3><p>Используем тот же каркас, меняя содержание, а не визуальный язык.</p></article>
+      <article class="ui-card"><div class="ui-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#plus"></use></svg></div><h3>Обычная карточка</h3><p>Текст, преимущество или небольшой самостоятельный смысловой блок.</p></article>
+      <article class="ui-card"><div class="ui-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#arrow-up-right"></use></svg></div><h3>Feature card</h3><p>Используем тот же каркас, меняя содержание, а не визуальный язык.</p></article>
       <article class="ui-card"><h3>Без иконки</h3><p>Иконка необязательна. Карточка не должна зависеть от конкретной тематики.</p></article>
     </div>
   </section>
@@ -123,8 +158,8 @@
   <section class="ui-kit__group">
     <h2>Активная и недоступная media-card</h2>
     <div class="ui-media-grid">
-      <a class="ui-media-card" href="#"><div class="ui-media-card__media"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5zM8 15l3-3 2 2 3-4 2 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h3>Активная карточка</h3><p>Тот же паттерн, который уже используется на странице маркировки.</p></div><span class="ui-media-card__arrow"><svg viewBox="0 0 24 24" fill="none"><path d="M8 5l7 7-7 7" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
-      <a class="ui-media-card ui-media-card--coming-soon" href="#" aria-disabled="true" tabindex="-1"><div class="ui-media-card__media"><svg viewBox="0 0 24 24" fill="none"><path d="M5 5h14v14H5z" stroke="currentColor"/></svg></div><div><h3>Недоступная карточка</h3><p>Состояние «Скоро» — это modifier существующего компонента.</p></div><span class="ui-media-card__status">Скоро</span></a>
+      <a class="ui-media-card" href="#"><div class="ui-media-card__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div><div><h3>Активная карточка</h3><p>Тот же паттерн, который уже используется на странице маркировки.</p></div><span class="ui-media-card__arrow"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></a>
+      <a class="ui-media-card ui-media-card--coming-soon" href="#" aria-disabled="true" tabindex="-1"><div class="ui-media-card__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div><div><h3>Недоступная карточка</h3><p>Состояние «Скоро» — это modifier существующего компонента.</p></div><span class="ui-media-card__status">Скоро</span></a>
     </div>
   </section>
 
@@ -213,7 +248,7 @@
     <div class="ui-stats"><div class="ui-stat"><span class="ui-stat__value">24 ч</span><span class="ui-stat__label">типовой срок производства</span></div><div class="ui-stat"><span class="ui-stat__value">1 шт.</span><span class="ui-stat__label">минимальный заказ</span></div><div class="ui-stat"><span class="ui-stat__value">РФ</span><span class="ui-stat__label">доставка по России</span></div></div>
   </section>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-forms">
     <h2>Формы</h2>
     <div class="ui-kit__example ui-stack">
       <div class="ui-grid">
@@ -226,13 +261,17 @@
         <div class="ui-field"><label for="kit-disabled">Недоступное поле</label><input class="ui-input" id="kit-disabled" type="text" value="Недоступно" disabled></div>
       </div>
       <div class="ui-grid">
+        <div class="ui-field is-success"><label for="kit-success">Корректное поле</label><input class="ui-input" id="kit-success" type="text" value="Подтверждено" aria-describedby="kit-success-text"><span class="ui-field__success" id="kit-success-text">Данные проверены.</span></div>
+        <label class="ui-upload"><input type="file"><span class="ui-upload__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#upload"></use></svg></span><span class="ui-upload__title">Добавить файл</span><span class="ui-upload__meta">Нажмите или перетащите сюда PDF, JPG, PNG</span></label>
+      </div>
+      <div class="ui-grid">
         <fieldset class="ui-field"><legend>Checkbox</legend><div class="ui-choice-group"><label class="ui-choice"><input type="checkbox" checked><span>Первый вариант</span></label><label class="ui-choice"><input type="checkbox"><span>Второй вариант</span></label></div></fieldset>
         <fieldset class="ui-field"><legend>Radio</legend><div class="ui-choice-group"><label class="ui-choice"><input type="radio" name="kit-radio" checked><span>Вариант A</span></label><label class="ui-choice"><input type="radio" name="kit-radio"><span>Вариант B</span></label></div></fieldset>
       </div>
     </div>
   </section>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-content">
     <h2>Цитата, code и клавиши</h2>
     <div class="ui-grid">
       <blockquote class="ui-quote"><p>Короткая цитата или важная выдержка не должна выглядеть как alert.</p><footer>Источник или пояснение</footer></blockquote>
@@ -257,7 +296,7 @@
       <div class="ui-field"><label for="kit-filter">Категория</label><select class="ui-select" id="kit-filter"><option>Все категории</option><option>Стрелки</option><option>Ленты</option></select></div>
       <button class="ui-btn ui-btn--secondary" type="button">Применить</button>
     </div>
-    <div class="ui-active-filters"><span class="ui-chip">Стрелки</span><span class="ui-chip">В наличии</span></div>
+    <div class="ui-active-filters"><span class="ui-chip ui-chip--removable">Стрелки<button class="ui-chip__remove" type="button" aria-label="Убрать фильтр Стрелки"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></span><span class="ui-chip ui-chip--removable">В наличии<button class="ui-chip__remove" type="button" aria-label="Убрать фильтр В наличии"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></span></div>
   </section>
 
   <section class="ui-kit__group">
@@ -269,7 +308,7 @@
     </div>
   </section>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-feedback">
     <h2>Empty / error / loading states</h2>
     <div class="ui-grid ui-grid--3">
       <div class="ui-state"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><h3>Ничего не найдено</h3><p>Измените фильтры или поисковый запрос.</p></div>
@@ -320,7 +359,7 @@
     </div>
   </section>
 
-  <section class="ui-kit__group">
+  <section class="ui-kit__group" id="kit-commerce">
     <h2>Product / commerce summary</h2>
     <div class="ui-product-summary">
       <div class="ui-product-summary__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div>
@@ -421,6 +460,15 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Toast / snackbar</h2>
+    <p class="ui-kit__hint">Короткая обратная связь после действия: добавление в корзину, сохранение формы, копирование. Не заменяет важные ошибки внутри самой формы.</p>
+    <div class="ui-stack">
+      <div class="ui-toast" role="status"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><span class="ui-toast__text">Изменения сохранены.</span><button class="ui-toast__action" type="button">Отменить</button></div>
+      <div class="ui-toast ui-toast--danger" role="alert"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg></span><span class="ui-toast__text">Не удалось выполнить действие.</span><button class="ui-toast__action" type="button">Повторить</button></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group" id="kit-navigation">
     <h2>Навигация</h2>
     <div class="ui-kit__example ui-stack">
       <nav class="ui-breadcrumbs" aria-label="Хлебные крошки"><a href="#">Главная</a><span class="ui-breadcrumbs__sep">/</span><a href="#">Маркировка</a><span class="ui-breadcrumbs__sep">/</span><span>Стрелки</span></nav>
