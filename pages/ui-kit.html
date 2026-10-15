@@ -46,6 +46,21 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Библиотека стандартных иконок</h2>
+    <p class="ui-kit__hint">Повторяемые интерфейсные иконки берутся только из <code>/assets/icons/ui-icons.svg</code> по стабильному id. Уникальные иллюстрации сюда не добавляются.</p>
+    <div class="ui-kit__example ui-cluster">
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg>&nbsp;chevron-right</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg>&nbsp;check-circle</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>&nbsp;info</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg>&nbsp;warning</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg>&nbsp;download</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg>&nbsp;external-link</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#search"></use></svg>&nbsp;search</span>
+      <span class="ui-chip"><svg class="ui-icon ui-icon--sm" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg>&nbsp;close</span>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Кнопки, chips и состояния</h2>
     <div class="ui-kit__example ui-stack">
       <div class="ui-cluster">
@@ -87,9 +102,40 @@
 
   <section class="ui-kit__group">
     <h2>Списки и характеристики</h2>
-    <div class="ui-grid">
-      <div class="ui-kit__example"><h3>Checklist</h3><ul class="ui-list ui-list--check"><li>Единый компонент</li><li>Переиспользуемые токены</li><li>Никакого локального CSS</li></ul></div>
-      <div class="ui-kit__example"><h3>Параметр — значение</h3><dl class="ui-specs"><div class="ui-specs__row"><dt>Материал</dt><dd>Самоклеящаяся плёнка</dd></div><div class="ui-specs__row"><dt>Исполнение</dt><dd>Для помещения и улицы</dd></div><div class="ui-specs__row"><dt>Срок изготовления</dt><dd>от 1 рабочего дня</dd></div></dl></div>
+    <p class="ui-kit__hint">Обычные смысловые списки остаются семантическими <code>ul</code>/<code>ol</code>. Checklist и icon-list используют канонические иконки из общего SVG-sprite, а не рисуют новые локальные версии.</p>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-kit__example">
+        <h3>Маркированный список</h3>
+        <ul class="ui-list ui-list--bullet"><li>Первый смысловой пункт</li><li>Второй пункт с более длинным пояснением</li><li>Третий пункт</li></ul>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Нумерованный список</h3>
+        <ol class="ui-list ui-list--ordered"><li>Определить задачу</li><li>Выбрать подходящий компонент</li><li>Проверить результат</li></ol>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Checklist</h3>
+        <ul class="ui-list ui-list--check">
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Единый компонент</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Переиспользуемые токены</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Никакого локального CSS</span></li>
+        </ul>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Список с иконками</h3>
+        <ul class="ui-list ui-list--icon">
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg><span>Документы и файлы</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg><span>Материалы для скачивания</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg><span>Внешние связанные ресурсы</span></li>
+        </ul>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Компактный список</h3>
+        <ul class="ui-list ui-list--bullet ui-list--compact"><li>Короткий пункт</li><li>Короткий пункт</li><li>Короткий пункт</li></ul>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Параметр — значение</h3>
+        <dl class="ui-specs"><div class="ui-specs__row"><dt>Материал</dt><dd>Самоклеящаяся плёнка</dd></div><div class="ui-specs__row"><dt>Исполнение</dt><dd>Для помещения и улицы</dd></div><div class="ui-specs__row"><dt>Срок изготовления</dt><dd>от 1 рабочего дня</dd></div></dl>
+      </div>
     </div>
   </section>
 
@@ -115,8 +161,8 @@
   <section class="ui-kit__group">
     <h2>Accordion / FAQ</h2>
     <div class="ui-accordion">
-      <details><summary>Когда использовать accordion?<span class="ui-accordion__chevron" aria-hidden="true"></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Когда пользователь может осознанно раскрыть дополнительную информацию. Не использовать просто ради сокращения длины страницы.</div></div></details>
-      <details><summary>FAQ — отдельный компонент?<span class="ui-accordion__chevron" aria-hidden="true"></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Нет. Это та же механика accordion с другой семантикой контента.</div></div></details>
+      <details><summary>Когда использовать accordion?<span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Когда пользователь может осознанно раскрыть дополнительную информацию. Не использовать просто ради сокращения длины страницы.</div></div></details>
+      <details><summary>FAQ — отдельный компонент?<span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Нет. Это та же механика accordion с другой семантикой контента.</div></div></details>
     </div>
   </section>
 
