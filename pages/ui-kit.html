@@ -108,19 +108,6 @@
   </section>
 
     <section class="ui-kit__group">
-    <h2>Высоты интерактивных элементов</h2>
-    <p class="ui-kit__hint">Единая шкала высот: chip 28 px, compact navigation 36 px, стандартная кнопка/tab 40 px, touch/form control 44 px. На mobile интерактивные элементы поднимаются до touch-safe 44 px.</p>
-    <div class="ui-kit__example">
-      <div class="ui-control-size-demo">
-        <span class="ui-control-size-demo__chip">Chip · 28</span>
-        <span class="ui-control-size-demo__compact">Compact · 36</span>
-        <span class="ui-control-size-demo__default">Default · 40</span>
-        <span class="ui-control-size-demo__touch">Touch / form · 44</span>
-      </div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group">
     <h2>Кнопки, chips и состояния</h2>
     <div class="ui-kit__example ui-stack">
       <div class="ui-cluster">
@@ -374,39 +361,6 @@
     <div class="ui-stats"><div class="ui-stat"><span class="ui-stat__value">24 ч</span><span class="ui-stat__label">типовой срок производства</span></div><div class="ui-stat"><span class="ui-stat__value">1 шт.</span><span class="ui-stat__label">минимальный заказ</span></div><div class="ui-stat"><span class="ui-stat__value">РФ</span><span class="ui-stat__label">доставка по России</span></div></div>
   </section>
 
-  <section class="ui-kit__group" id="kit-forms">
-    <h2>Формы</h2>
-    <div class="ui-kit__example ui-stack">
-      <div class="ui-grid">
-        <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"><span class="ui-field__help">Короткое пояснение под полем.</span></div>
-        <div class="ui-field"><label id="kit-type-label">Тип</label><div class="ui-selectbox" data-ui-selectbox><button class="ui-selectbox__button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="kit-type-label kit-type-value"><span id="kit-type-value" data-ui-selectbox-value>Маркировочная стрелка</span><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></button><ul class="ui-selectbox__list" role="listbox" hidden><li class="ui-selectbox__option" role="option" aria-selected="true" data-value="arrow">Маркировочная стрелка</li><li class="ui-selectbox__option" role="option" aria-selected="false" data-value="tape">Лента</li></ul><input type="hidden" name="kit-type" value="arrow" data-ui-selectbox-input></div></div>
-      </div>
-      <div class="ui-field"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
-      <div class="ui-grid">
-        <div class="ui-field is-error"><label for="kit-error">Поле с ошибкой</label><input class="ui-input" id="kit-error" type="text" value="Некорректное значение" aria-invalid="true" aria-describedby="kit-error-text"><span class="ui-field__error" id="kit-error-text">Проверьте введённые данные.</span></div>
-        <div class="ui-field"><label for="kit-disabled">Недоступное поле</label><input class="ui-input" id="kit-disabled" type="text" value="Недоступно" disabled></div>
-      </div>
-      <div class="ui-grid">
-        <div class="ui-field is-success"><label for="kit-success">Корректное поле</label><input class="ui-input" id="kit-success" type="text" value="Подтверждено" aria-describedby="kit-success-text"><span class="ui-field__success" id="kit-success-text">Данные проверены.</span></div>
-        <label class="ui-upload"><input type="file"><span class="ui-upload__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#upload"></use></svg></span><span class="ui-upload__title">Добавить файл</span><span class="ui-upload__meta">Нажмите или перетащите сюда PDF, JPG, PNG</span></label>
-      </div>
-      <div class="ui-grid">
-        <fieldset class="ui-field"><legend>Checkbox</legend><div class="ui-choice-group"><label class="ui-choice"><input type="checkbox" checked><span>Первый вариант</span></label><label class="ui-choice"><input type="checkbox"><span>Второй вариант</span></label></div></fieldset>
-        <fieldset class="ui-field"><legend>Radio</legend><div class="ui-choice-group"><label class="ui-choice"><input type="radio" name="kit-radio" checked><span>Вариант A</span></label><label class="ui-choice"><input type="radio" name="kit-radio"><span>Вариант B</span></label></div></fieldset>
-      </div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group" id="kit-content">
-    <h2>Цитата, code и клавиши</h2>
-    <div class="ui-grid">
-      <blockquote class="ui-quote"><p>Короткая цитата или важная выдержка не должна выглядеть как alert.</p><footer>Источник или пояснение</footer></blockquote>
-      <div class="ui-kit__example"><p>Inline-сочетание: нажмите <kbd class="ui-kbd">Ctrl</kbd> + <kbd class="ui-kbd">Enter</kbd>.</p><pre class="ui-code"><code>.ui-card {
-  border-radius: var(--radius-lg);
-}</code></pre></div>
-    </div>
-  </section>
-
   <section class="ui-kit__group">
     <h2>Файлы / downloads</h2>
     <div class="ui-download-actions" aria-label="Варианты ссылок на документы">
@@ -456,38 +410,19 @@
     </div>
   </section>
 
-  <section class="ui-kit__group" id="kit-feedback">
-    <h2>Empty / error / loading states</h2>
-    <div class="ui-grid ui-grid--3">
-      <div class="ui-state"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><h3>Ничего не найдено</h3><p>Измените фильтры или поисковый запрос.</p></div>
-      <div class="ui-state ui-state--error"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg><h3>Не удалось загрузить</h3><p>Показываем понятное состояние и следующее действие.</p></div>
-      <div class="ui-skeleton" aria-label="Загрузка" aria-busy="true"><span class="ui-skeleton__line ui-skeleton__line--lg"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line ui-skeleton__line--sm"></span></div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group">
-    <h2>Statuses / badges</h2>
-    <div class="ui-kit__example ui-stack">
-      <div class="ui-cluster"><span class="ui-badge ui-badge--accent">Акцент</span><span class="ui-badge ui-badge--success">Готово</span><span class="ui-badge ui-badge--warning">Нужна проверка</span><span class="ui-badge ui-badge--danger">Ошибка</span><span class="ui-badge ui-badge--muted">Архив</span></div>
-      <div class="ui-cluster"><span class="ui-status-dot ui-status-dot--success">Онлайн</span><span class="ui-status-dot ui-status-dot--warning">Ожидает</span><span class="ui-status-dot ui-status-dot--danger">Недоступно</span></div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group">
-    <h2>Switch / range / segmented</h2>
-    <div class="ui-grid ui-grid--3">
-      <div class="ui-kit__example"><h3>Switch</h3><label class="ui-switch"><input type="checkbox" checked><span class="ui-switch__track" aria-hidden="true"></span><span>Показывать только доступные позиции</span></label></div>
-      <div class="ui-kit__example"><h3>Range</h3><label class="ui-range">Количество<input type="range" min="1" max="100" value="45"><span class="ui-field__help">Пример диапазона 1–100.</span></label></div>
-      <div class="ui-kit__example"><h3>Segmented control</h3><div class="ui-segmented" aria-label="Вид"><button type="button" aria-pressed="true">Карточки</button><button type="button" aria-pressed="false">Список</button></div></div>
-    </div>
-  </section>
-
   <section class="ui-kit__group">
     <h2>Timeline</h2>
     <ol class="ui-timeline">
       <li class="ui-timeline__item is-active"><span class="ui-timeline__marker">1</span><div class="ui-timeline__content"><strong>Заявка принята</strong><span>Исходные данные и требования получены.</span></div></li>
       <li class="ui-timeline__item"><span class="ui-timeline__marker">2</span><div class="ui-timeline__content"><strong>Подготовка макета</strong><span>Дизайнер готовит вариант на согласование.</span></div></li>
       <li class="ui-timeline__item"><span class="ui-timeline__marker">3</span><div class="ui-timeline__content"><strong>Производство</strong><span>После подтверждения заказ передаётся в работу.</span></div></li>
+    </ol>
+    <p class="ui-kit__hint">Горизонтальная шкала — компактный обзор статуса проекта или заказа. Для длинных названий и мобильных экранов используйте вертикальную.</p>
+    <ol class="ui-timeline ui-timeline--horizontal">
+      <li class="ui-timeline__item is-active"><span class="ui-timeline__marker">1</span><div class="ui-timeline__content"><strong>Запрос</strong><span>Получили задачу</span></div></li>
+      <li class="ui-timeline__item"><span class="ui-timeline__marker">2</span><div class="ui-timeline__content"><strong>Согласование</strong><span>Уточняем параметры</span></div></li>
+      <li class="ui-timeline__item"><span class="ui-timeline__marker">3</span><div class="ui-timeline__content"><strong>Изготовление</strong><span>Выполняем заказ</span></div></li>
+      <li class="ui-timeline__item"><span class="ui-timeline__marker">4</span><div class="ui-timeline__content"><strong>Готово</strong><span>Передаём результат</span></div></li>
     </ol>
   </section>
 
@@ -569,45 +504,17 @@
     <h2>Чередующиеся секции: фотография и текст</h2>
     <p class="ui-kit__hint">Используется для преимуществ, технологий и процесса монтажа. Один компонент <code>ui-split</code> меняет расположение изображения классом <code>ui-split--reverse</code>. На мобильных экранах секции складываются в одну колонку.</p>
     <div class="ui-kit__split-examples">
-      <div class="ui-split"><div class="ui-split__media"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=900&amp;q=80" alt="Промышленное производство" loading="lazy"></div><div class="ui-readable"><h3>Высокое качество</h3><p>Фотография помогает показать реальные материалы и условия применения, а короткий текст объясняет преимущество.</p></div></div>
-      <div class="ui-split ui-split--reverse"><div class="ui-split__media"><img src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?w=900&amp;q=80" alt="Промышленные коммуникации" loading="lazy"></div><div class="ui-readable"><h3>Широкий ассортимент</h3><p>Чередование направления создаёт ритм на длинной странице без дополнительных декоративных блоков.</p></div></div>
+      <div class="ui-split"><div class="ui-split__media"><div class="ui-figure__placeholder ui-image-placeholder" role="img" aria-label="Место для фотографии"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Фотография</span></div></div><div class="ui-readable"><h3>Высокое качество</h3><p>Фотография помогает показать реальные материалы и условия применения, а короткий текст объясняет преимущество.</p></div></div>
+      <div class="ui-split ui-split--reverse"><div class="ui-split__media"><div class="ui-figure__placeholder ui-image-placeholder" role="img" aria-label="Место для фотографии"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Фотография</span></div></div><div class="ui-readable"><h3>Широкий ассортимент</h3><p>Чередование направления создаёт ритм на длинной странице без дополнительных декоративных блоков.</p></div></div>
     </div>
   </section>
 
-
-  <section class="ui-kit__group">
-    <h2>Dialog / modal</h2>
-    <div class="ui-kit__example">
-      <button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-open="kit-dialog">Открыть пример dialog</button>
-      <dialog class="ui-dialog" id="kit-dialog">
-        <div class="ui-dialog__head"><div><h3>Подтверждение действия</h3></div><button class="ui-icon-btn ui-dialog__close" type="button" data-ui-dialog-close aria-label="Закрыть"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></div>
-        <div class="ui-dialog__body">Modal используем только там, где пользователь действительно должен завершить отдельное действие или принять решение. Простую информацию показываем inline.</div>
-        <div class="ui-dialog__actions"><button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-close>Отмена</button><button class="ui-btn ui-btn--primary" type="button" data-ui-dialog-close>Подтвердить</button></div>
-      </dialog>
-    </div>
-  </section>
 
   <section class="ui-kit__group">
     <h2>Tooltip / popover</h2>
     <div class="ui-kit__example ui-cluster">
       <span class="ui-tooltip"><button class="ui-icon-btn" type="button" aria-describedby="kit-tooltip"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><span class="visually-hidden">Подсказка</span></button><span class="ui-tooltip__bubble" role="tooltip" id="kit-tooltip">Короткая дополнительная информация.</span></span>
       <div class="ui-popover" data-ui-popover><button class="ui-btn ui-btn--secondary" type="button" data-ui-popover-toggle aria-expanded="false">Открыть popover</button><div class="ui-popover__panel" hidden>Небольшой интерактивный контент: фильтры, действия или пояснение. Критическую информацию сюда не прячем.</div></div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group">
-    <h2>Progress / meter</h2>
-    <div class="ui-grid">
-      <div class="ui-kit__example"><h3>Progress</h3><div class="ui-progress-list"><div class="ui-progress"><div class="ui-progress__head"><span>Подготовка макета</span><strong>72%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><div class="ui-progress__bar" style="width:72%"></div></div></div><div class="ui-progress"><div class="ui-progress__head"><span>Проверка</span><strong>38%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38"><div class="ui-progress__bar" style="width:38%"></div></div></div></div></div>
-      <div class="ui-kit__example"><h3>Meter</h3><div class="ui-meter"><label for="kit-meter">Заполнение лимита</label><meter id="kit-meter" min="0" max="100" value="64">64%</meter><span class="ui-field__help">Для измерения значения в известном диапазоне, а не этапа процесса.</span></div></div>
-    </div>
-  </section>
-
-  <section class="ui-kit__group">
-    <h2>Media object / avatar</h2>
-    <div class="ui-grid">
-      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-avatar" aria-hidden="true">АК</div><div><span class="ui-media-object__title">Алексей К.</span><span class="ui-media-object__meta">Менеджер проекта · сегодня, 10:24</span><p>Короткий комментарий, контакт или авторский блок без отдельной карточной системы.</p></div></div></div>
-      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-avatar ui-avatar--placeholder" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#file"></use></svg></div><div><span class="ui-media-object__title">Документ обновлён</span><span class="ui-media-object__meta">Системное событие</span><p>Тот же паттерн подходит для небольших activity/feed элементов.</p></div></div></div>
     </div>
   </section>
 
@@ -697,15 +604,6 @@
     <div class="ui-before-after"><article class="ui-before-after__item"><span class="ui-before-after__label">До</span><div class="ui-before-after__body">Разрозненные стили, разные кнопки и иконки на каждой странице.</div></article><article class="ui-before-after__item"><span class="ui-before-after__label">После</span><div class="ui-before-after__body">Один UI Kit, токены и повторно используемые компоненты.</div></article></div>
   </section>
 
-  <section class="ui-kit__group">
-    <h2>Toast / snackbar</h2>
-    <p class="ui-kit__hint">Короткая обратная связь после действия: добавление в корзину, сохранение формы, копирование. Не заменяет важные ошибки внутри самой формы.</p>
-    <div class="ui-stack">
-      <div class="ui-toast" role="status"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><span class="ui-toast__text">Изменения сохранены.</span><button class="ui-toast__action" type="button">Отменить</button></div>
-      <div class="ui-toast ui-toast--danger" role="alert"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg></span><span class="ui-toast__text">Не удалось выполнить действие.</span><button class="ui-toast__action" type="button">Повторить</button></div>
-    </div>
-  </section>
-
   <section class="ui-kit__group" id="kit-navigation">
     <h2>Навигация</h2>
     <div class="ui-kit__example ui-stack">
@@ -738,6 +636,116 @@
     <div class="ui-cta">
       <div><h2>Нужен нестандартный вариант?</h2><p>Пришлите спецификацию — подготовим решение под ваш проект.</p></div>
       <div class="ui-cta__side"><a class="ui-btn ui-btn--primary" href="#">Отправить запрос</a></div>
+    </div>
+  </section>
+
+  <div class="ui-kit__secondary-divider" role="separator"><span>Дополнительные компоненты · личный кабинет и специальные сценарии</span></div>
+  <section class="ui-kit__group">
+    <h2>Высоты интерактивных элементов</h2>
+    <p class="ui-kit__hint">Единая шкала высот: chip 28 px, compact navigation 36 px, стандартная кнопка/tab 40 px, touch/form control 44 px. На mobile интерактивные элементы поднимаются до touch-safe 44 px.</p>
+    <div class="ui-kit__example">
+      <div class="ui-control-size-demo">
+        <span class="ui-control-size-demo__chip">Chip · 28</span>
+        <span class="ui-control-size-demo__compact">Compact · 36</span>
+        <span class="ui-control-size-demo__default">Default · 40</span>
+        <span class="ui-control-size-demo__touch">Touch / form · 44</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group" id="kit-forms">
+    <h2>Формы</h2>
+    <div class="ui-kit__example ui-stack">
+      <div class="ui-grid">
+        <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"><span class="ui-field__help">Короткое пояснение под полем.</span></div>
+        <div class="ui-field"><label id="kit-type-label">Тип</label><div class="ui-selectbox" data-ui-selectbox><button class="ui-selectbox__button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="kit-type-label kit-type-value"><span id="kit-type-value" data-ui-selectbox-value>Маркировочная стрелка</span><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></button><ul class="ui-selectbox__list" role="listbox" hidden><li class="ui-selectbox__option" role="option" aria-selected="true" data-value="arrow">Маркировочная стрелка</li><li class="ui-selectbox__option" role="option" aria-selected="false" data-value="tape">Лента</li></ul><input type="hidden" name="kit-type" value="arrow" data-ui-selectbox-input></div></div>
+      </div>
+      <div class="ui-field"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
+      <div class="ui-grid">
+        <div class="ui-field is-error"><label for="kit-error">Поле с ошибкой</label><input class="ui-input" id="kit-error" type="text" value="Некорректное значение" aria-invalid="true" aria-describedby="kit-error-text"><span class="ui-field__error" id="kit-error-text">Проверьте введённые данные.</span></div>
+        <div class="ui-field"><label for="kit-disabled">Недоступное поле</label><input class="ui-input" id="kit-disabled" type="text" value="Недоступно" disabled></div>
+      </div>
+      <div class="ui-grid">
+        <div class="ui-field is-success"><label for="kit-success">Корректное поле</label><input class="ui-input" id="kit-success" type="text" value="Подтверждено" aria-describedby="kit-success-text"><span class="ui-field__success" id="kit-success-text">Данные проверены.</span></div>
+        <label class="ui-upload"><input type="file"><span class="ui-upload__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#upload"></use></svg></span><span class="ui-upload__title">Добавить файл</span><span class="ui-upload__meta">Нажмите или перетащите сюда PDF, JPG, PNG</span></label>
+      </div>
+      <div class="ui-grid">
+        <fieldset class="ui-field"><legend>Checkbox</legend><div class="ui-choice-group"><label class="ui-choice"><input type="checkbox" checked><span>Первый вариант</span></label><label class="ui-choice"><input type="checkbox"><span>Второй вариант</span></label></div></fieldset>
+        <fieldset class="ui-field"><legend>Radio</legend><div class="ui-choice-group"><label class="ui-choice"><input type="radio" name="kit-radio" checked><span>Вариант A</span></label><label class="ui-choice"><input type="radio" name="kit-radio"><span>Вариант B</span></label></div></fieldset>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group" id="kit-content">
+    <h2>Цитата, code и клавиши</h2>
+    <div class="ui-grid">
+      <blockquote class="ui-quote"><p>Короткая цитата или важная выдержка не должна выглядеть как alert.</p><footer>Источник или пояснение</footer></blockquote>
+      <div class="ui-kit__example"><p>Inline-сочетание: нажмите <kbd class="ui-kbd">Ctrl</kbd> + <kbd class="ui-kbd">Enter</kbd>.</p><pre class="ui-code"><code>.ui-card {
+  border-radius: var(--radius-lg);
+}</code></pre></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group" id="kit-feedback">
+    <h2>Empty / error / loading states</h2>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-state"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><h3>Ничего не найдено</h3><p>Измените фильтры или поисковый запрос.</p></div>
+      <div class="ui-state ui-state--error"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg><h3>Не удалось загрузить</h3><p>Показываем понятное состояние и следующее действие.</p></div>
+      <div class="ui-skeleton" aria-label="Загрузка" aria-busy="true"><span class="ui-skeleton__line ui-skeleton__line--lg"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line"></span><span class="ui-skeleton__line ui-skeleton__line--sm"></span></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Statuses / badges</h2>
+    <div class="ui-kit__example ui-stack">
+      <div class="ui-cluster"><span class="ui-badge ui-badge--accent">Акцент</span><span class="ui-badge ui-badge--success">Готово</span><span class="ui-badge ui-badge--warning">Нужна проверка</span><span class="ui-badge ui-badge--danger">Ошибка</span><span class="ui-badge ui-badge--muted">Архив</span></div>
+      <div class="ui-cluster"><span class="ui-status-dot ui-status-dot--success">Онлайн</span><span class="ui-status-dot ui-status-dot--warning">Ожидает</span><span class="ui-status-dot ui-status-dot--danger">Недоступно</span></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Switch / range / segmented</h2>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-kit__example"><h3>Switch</h3><label class="ui-switch"><input type="checkbox" checked><span class="ui-switch__track" aria-hidden="true"></span><span>Показывать только доступные позиции</span></label></div>
+      <div class="ui-kit__example"><h3>Range</h3><label class="ui-range">Количество<input type="range" min="1" max="100" value="45"><span class="ui-field__help">Пример диапазона 1–100.</span></label></div>
+      <div class="ui-kit__example"><h3>Segmented control</h3><div class="ui-segmented" aria-label="Вид"><button type="button" aria-pressed="true">Карточки</button><button type="button" aria-pressed="false">Список</button></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Dialog / modal</h2>
+    <div class="ui-kit__example">
+      <button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-open="kit-dialog">Открыть пример dialog</button>
+      <dialog class="ui-dialog" id="kit-dialog">
+        <div class="ui-dialog__head"><div><h3>Подтверждение действия</h3></div><button class="ui-icon-btn ui-dialog__close" type="button" data-ui-dialog-close aria-label="Закрыть"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></div>
+        <div class="ui-dialog__body">Modal используем только там, где пользователь действительно должен завершить отдельное действие или принять решение. Простую информацию показываем inline.</div>
+        <div class="ui-dialog__actions"><button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-close>Отмена</button><button class="ui-btn ui-btn--primary" type="button" data-ui-dialog-close>Подтвердить</button></div>
+      </dialog>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Progress / meter</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><h3>Progress</h3><div class="ui-progress-list"><div class="ui-progress"><div class="ui-progress__head"><span>Подготовка макета</span><strong>72%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><div class="ui-progress__bar" style="width:72%"></div></div></div><div class="ui-progress"><div class="ui-progress__head"><span>Проверка</span><strong>38%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38"><div class="ui-progress__bar" style="width:38%"></div></div></div></div></div>
+      <div class="ui-kit__example"><h3>Meter</h3><div class="ui-meter"><label for="kit-meter">Заполнение лимита</label><meter id="kit-meter" min="0" max="100" value="64">64%</meter><span class="ui-field__help">Для измерения значения в известном диапазоне, а не этапа процесса.</span></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Media object / avatar</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-avatar" aria-hidden="true">АК</div><div><span class="ui-media-object__title">Алексей К.</span><span class="ui-media-object__meta">Менеджер проекта · сегодня, 10:24</span><p>Короткий комментарий, контакт или авторский блок без отдельной карточной системы.</p></div></div></div>
+      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-avatar ui-avatar--placeholder" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#file"></use></svg></div><div><span class="ui-media-object__title">Документ обновлён</span><span class="ui-media-object__meta">Системное событие</span><p>Тот же паттерн подходит для небольших activity/feed элементов.</p></div></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Toast / snackbar</h2>
+    <p class="ui-kit__hint">Короткая обратная связь после действия: добавление в корзину, сохранение формы, копирование. Не заменяет важные ошибки внутри самой формы.</p>
+    <div class="ui-stack">
+      <div class="ui-toast" role="status"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><span class="ui-toast__text">Изменения сохранены.</span><button class="ui-toast__action" type="button">Отменить</button></div>
+      <div class="ui-toast ui-toast--danger" role="alert"><span class="ui-toast__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#alert-circle"></use></svg></span><span class="ui-toast__text">Не удалось выполнить действие.</span><button class="ui-toast__action" type="button">Повторить</button></div>
     </div>
   </section>
 
