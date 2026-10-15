@@ -2295,3 +2295,15 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-split__media img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:var(--radius-md)}
 @media(max-width:760px){.ui-split--reverse .ui-split__media{order:0}.ui-kit__directory{padding:14px}.ui-photo-slider__slide figcaption{padding:26px 55px 12px;font-size:13px}}
 @media(prefers-reduced-motion:reduce){.ui-photo-slider__dot:before,.ui-photo-slider__arrow{transition:none}}
+
+/* Shared media placeholder for all UI Kit examples without real assets. */
+.ui-kit .ui-image-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;min-height:180px;aspect-ratio:4/3;width:100%;border:1px solid var(--c-line);border-radius:var(--radius-md);background:var(--c-soft);color:var(--c-muted)}
+.ui-kit .ui-image-placeholder .ui-icon{width:40px;height:40px;color:var(--c-muted-soft)}
+.ui-kit__secondary-divider{display:flex;align-items:center;gap:16px;margin:48px 0 28px;font-size:15px;font-weight:700;color:var(--c-muted)}
+.ui-kit__secondary-divider::before,.ui-kit__secondary-divider::after{content:"";height:1px;background:var(--c-line);flex:1}
+.ui-timeline.ui-timeline--horizontal{grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:22px}
+.ui-timeline--horizontal::before{left:15px;right:15px;top:15px;bottom:auto;width:auto;height:1px}
+.ui-timeline--horizontal .ui-timeline__item{display:block;padding:0 10px 0 0;min-width:0}
+.ui-timeline--horizontal .ui-timeline__marker{margin:0 0 12px}
+.ui-timeline--horizontal .ui-timeline__content{padding:0}
+@media(max-width:620px){.ui-timeline.ui-timeline--horizontal{grid-template-columns:1fr;gap:0}.ui-timeline--horizontal::before{left:14px;top:16px;bottom:16px;right:auto;width:1px;height:auto}.ui-timeline--horizontal .ui-timeline__item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:0 0 16px}.ui-timeline--horizontal .ui-timeline__marker{margin:0}}
