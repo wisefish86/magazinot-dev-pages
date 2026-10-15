@@ -1762,7 +1762,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-price__old{color:var(--c-muted-soft);font-size:var(--text-sm);text-decoration:line-through}
 .ui-product-summary__meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
 .ui-quantity{display:inline-grid;grid-template-columns:42px 54px 42px;align-items:center;border:1px solid var(--c-line-strong);border-radius:10px;overflow:hidden;background:#fff}
-.ui-quantity button{height:42px;border:0;background:#f1f5f4;color:var(--c-heading);font-size:19px;font-weight:650;cursor:pointer;transition:background var(--motion-fast),color var(--motion-fast)}
+.ui-quantity button{display:flex;align-items:center;justify-content:center;height:42px;border:0;background:#f1f5f4;color:var(--c-heading);cursor:pointer;transition:background var(--motion-fast),color var(--motion-fast)}
+.ui-quantity button .ui-icon{display:block;width:16px;height:16px;transform:translateY(1px);stroke-width:1.8}
 .ui-quantity button:hover{background:#e7efed;color:var(--c-accent-dark)}
 .ui-quantity button:focus-visible{position:relative;z-index:2;outline:2px solid var(--c-accent);outline-offset:-2px}
 .ui-quantity input{width:54px;height:42px;padding:0;border:0;border-left:1px solid var(--c-line-strong);border-right:1px solid var(--c-line-strong);background:#fff;text-align:center;font:650 var(--text-md)/1 var(--font-sans);appearance:textfield}
