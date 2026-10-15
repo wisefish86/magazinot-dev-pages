@@ -776,11 +776,12 @@
       'Empty / error / loading states':'Пустые состояния, ошибки и загрузка',
       'Файлы / downloads':'Файлы и скачивание','Carousel':'Карусель карточек'
     };
-    const groups=[
-      ['Основа дизайна',0,7],['Карточки и контент',7,18],
-      ['Формы и действия',18,27],['Медиа и галереи',27,38],
-      ['Таблицы и навигация',38,47],['Дополнительные элементы',47,100]
-    ];
+    const supplementary=new Set(['Формы','Переключатели и ползунки','Индикаторы прогресса','Медиаобъект и аватар','Диалоговые окна','Краткие уведомления','Цитата, code и клавиши','Высоты интерактивных элементов','Пустые состояния, ошибки и загрузка','Статусы и метки']);
+    const foundation=new Set(['Цветовая система','Типографика','Библиотека стандартных иконок','Кнопки, chips и состояния','Сетки и компоновка']);
+    const media=new Set(['Изображения и галерея','Карусель карточек','Фотослайдер с автопереключением','Чередующиеся секции: фотография и текст','Оформление изображений','Адаптивное видео и встроенный контент','До и после']);
+    const commerce=new Set(['Карточки','Карточки преимуществ и товаров','Активная и недоступная media-card','Товар и оформление заказа','Сравнение','Поиск и фильтры','Файлы и скачивание','Призыв к действию','Первый экран и баннеры','Отзывы и доверие']);
+    const classify=name=>supplementary.has(name)?'Дополнительные элементы':foundation.has(name)?'Основы дизайна':media.has(name)?'Фотографии и медиа':commerce.has(name)?'Магазин и товары':'Контент и навигация';
+    const groupNames=['Основы дизайна','Магазин и товары','Фотографии и медиа','Контент и навигация','Дополнительные элементы'];
     const headings=Array.from(document.querySelectorAll('.ui-kit__group > h2'));
     headings.forEach((heading,i)=>{
       const label=heading.textContent.trim();
@@ -793,12 +794,13 @@
         heading.after(hint);
       }
     });
-    groups.forEach(([name,from,to])=>{
-      if(from>=headings.length)return;
+    groupNames.forEach(name=>{
+      const items=headings.filter(heading=>classify(heading.textContent.trim())===name);
+      if(!items.length)return;
       const section=document.createElement('section');section.className='ui-kit__directory-group';
       const title=document.createElement('h3');title.textContent=name;section.appendChild(title);
       const list=document.createElement('ul');
-      headings.slice(from,to).forEach(heading=>{
+      items.forEach(heading=>{
         const li=document.createElement('li'),link=document.createElement('a');
         link.href='#'+heading.parentElement.id;link.textContent=heading.textContent;li.appendChild(link);list.appendChild(li);
       });
