@@ -71,6 +71,26 @@ jobs:
           server-dir: /
           dangerous-clean-slate: false
 
+      - name: Checkout source reference assets
+        uses: actions/checkout@v4
+        with:
+          repository: wisefish86/andrey-local
+          ref: 745b8082a5e33b233e2e954da4a93e4aa6cea288
+          path: source-reference
+          sparse-checkout: |
+            reference/magazinot/pipemarkers/hazards
+          persist-credentials: false
+
+      - name: Stage original hazard pictograms
+        run: |
+          set -euo pipefail
+          source_dir="source-reference/reference/magazinot/pipemarkers/hazards"
+          destination="site-assets/img/pipemarkers/hazards"
+          test "$(find "$source_dir" -maxdepth 1 -type f -name 'w??-32x30.png' | wc -l)" -eq 8
+          mkdir -p "$destination"
+          cp "$source_dir"/w??-32x30.png "$destination"/
+          test "$(find "$destination" -maxdepth 1 -type f -name 'w??-32x30.png' | wc -l)" -eq 8
+
       - name: Deploy page-specific runtime assets
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
