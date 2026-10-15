@@ -251,6 +251,91 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Figure / gallery</h2>
+    <p class="ui-kit__hint">Один базовый figure для изображения с подписью и grid-галерея для нескольких материалов. Реальные контентные изображения могут подключаться без изменения каркаса.</p>
+    <div class="ui-gallery">
+      <figure class="ui-figure"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Изображение / схема</span></div></div><figcaption>Подпись к изображению или источник.</figcaption></figure>
+      <figure class="ui-figure"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Фотография товара</span></div></div><figcaption>Короткая информативная подпись.</figcaption></figure>
+      <figure class="ui-figure"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Пример применения</span></div></div><figcaption>Третье изображение в той же системе.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Carousel</h2>
+    <p class="ui-kit__hint">Горизонтальная последовательность карточек без автопрокрутки. На desktop, где всё помещается, карусель не должна навязывать лишнюю механику.</p>
+    <div class="ui-carousel" data-ui-carousel>
+      <div class="ui-carousel__viewport" tabindex="0" aria-label="Пример карусели">
+        <div class="ui-carousel__track">
+          <article class="ui-card ui-carousel__item"><h3>Карточка 1</h3><p>Первый элемент последовательности.</p></article>
+          <article class="ui-card ui-carousel__item"><h3>Карточка 2</h3><p>Второй элемент последовательности.</p></article>
+          <article class="ui-card ui-carousel__item"><h3>Карточка 3</h3><p>Третий элемент последовательности.</p></article>
+          <article class="ui-card ui-carousel__item"><h3>Карточка 4</h3><p>Четвёртый элемент последовательности.</p></article>
+        </div>
+      </div>
+      <div class="ui-carousel__controls">
+        <button class="ui-icon-btn ui-icon-btn--prev" type="button" data-ui-carousel-prev aria-label="Назад"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button>
+        <button class="ui-icon-btn" type="button" data-ui-carousel-next aria-label="Вперёд"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Dialog / modal</h2>
+    <div class="ui-kit__example">
+      <button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-open="kit-dialog">Открыть пример dialog</button>
+      <dialog class="ui-dialog" id="kit-dialog">
+        <div class="ui-dialog__head"><div><h3>Подтверждение действия</h3></div><button class="ui-icon-btn ui-dialog__close" type="button" data-ui-dialog-close aria-label="Закрыть"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></div>
+        <div class="ui-dialog__body">Modal используем только там, где пользователь действительно должен завершить отдельное действие или принять решение. Простую информацию показываем inline.</div>
+        <div class="ui-dialog__actions"><button class="ui-btn ui-btn--secondary" type="button" data-ui-dialog-close>Отмена</button><button class="ui-btn ui-btn--primary" type="button" data-ui-dialog-close>Подтвердить</button></div>
+      </dialog>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Tooltip / popover</h2>
+    <div class="ui-kit__example ui-cluster">
+      <span class="ui-tooltip"><button class="ui-icon-btn" type="button" aria-describedby="kit-tooltip"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg><span class="visually-hidden">Подсказка</span></button><span class="ui-tooltip__bubble" role="tooltip" id="kit-tooltip">Короткая дополнительная информация.</span></span>
+      <div class="ui-popover" data-ui-popover><button class="ui-btn ui-btn--secondary" type="button" data-ui-popover-toggle aria-expanded="false">Открыть popover</button><div class="ui-popover__panel" hidden>Небольшой интерактивный контент: фильтры, действия или пояснение. Критическую информацию сюда не прячем.</div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Progress / meter</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><h3>Progress</h3><div class="ui-progress-list"><div class="ui-progress"><div class="ui-progress__head"><span>Подготовка макета</span><strong>72%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><div class="ui-progress__bar" style="width:72%"></div></div></div><div class="ui-progress"><div class="ui-progress__head"><span>Проверка</span><strong>38%</strong></div><div class="ui-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="38"><div class="ui-progress__bar" style="width:38%"></div></div></div></div></div>
+      <div class="ui-kit__example"><h3>Meter</h3><div class="ui-meter"><label for="kit-meter">Заполнение лимита</label><meter id="kit-meter" min="0" max="100" value="64">64%</meter><span class="ui-field__help">Для измерения значения в известном диапазоне, а не этапа процесса.</span></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Media object / avatar</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-avatar" aria-hidden="true">АК</div><div><span class="ui-media-object__title">Алексей К.</span><span class="ui-media-object__meta">Менеджер проекта · сегодня, 10:24</span><p>Короткий комментарий, контакт или авторский блок без отдельной карточной системы.</p></div></div></div>
+      <div class="ui-kit__example"><div class="ui-media-object"><div class="ui-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></div><div><span class="ui-media-object__title">Документ обновлён</span><span class="ui-media-object__meta">Системное событие</span><p>Тот же паттерн подходит для небольших activity/feed элементов.</p></div></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Data table</h2>
+    <div class="ui-table-wrap">
+      <table class="ui-table">
+        <thead><tr><th>Позиция</th><th>Материал</th><th>Статус</th><th class="ui-table__num">Кол-во</th></tr></thead>
+        <tbody><tr><td>Стрелка 01</td><td>Плёнка</td><td><span class="ui-badge">В работе</span></td><td class="ui-table__num">24</td></tr><tr><td>Лента 02</td><td>ПВХ</td><td><span class="ui-badge">Готово</span></td><td class="ui-table__num">120</td></tr><tr><td>Табличка 03</td><td>Пластик</td><td><span class="ui-badge">Черновик</span></td><td class="ui-table__num">8</td></tr></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>TOC / anchor navigation</h2>
+    <nav class="ui-toc" aria-label="Содержание раздела"><span class="ui-toc__title">На этой странице</span><ul class="ui-toc__list"><li><a class="_anker" href="#kit-a">Описание</a></li><li><a class="_anker" href="#kit-b">Характеристики</a></li><li><a class="_anker" href="#kit-c">Документы</a></li><li><a class="_anker" href="#kit-d">FAQ</a></li></ul></nav>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Before / after</h2>
+    <div class="ui-before-after"><article class="ui-before-after__item"><span class="ui-before-after__label">До</span><div class="ui-before-after__body">Разрозненные стили, разные кнопки и иконки на каждой странице.</div></article><article class="ui-before-after__item"><span class="ui-before-after__label">После</span><div class="ui-before-after__body">Один UI Kit, токены и повторно используемые компоненты.</div></article></div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Навигация</h2>
     <div class="ui-kit__example ui-stack">
       <nav class="ui-breadcrumbs" aria-label="Хлебные крошки"><a href="#">Главная</a><span class="ui-breadcrumbs__sep">/</span><a href="#">Маркировка</a><span class="ui-breadcrumbs__sep">/</span><span>Стрелки</span></nav>
@@ -268,6 +353,6 @@
 
   <section class="ui-kit__group">
     <h2>Следующая волна компонентов</h2>
-    <div class="ui-note ui-note--info">Дальше сюда добавим gallery/lightbox, carousel, comparison, download-list, search/filter, empty/error/loading states, modal и tooltip/popover — только там, где они действительно полезны и не дублируют уже существующий паттерн.</div>
+    <div class="ui-note ui-note--info">Дальше: полноценный image lightbox для универсального ui-gallery, range/switch controls, toast/notification pattern, timeline, pricing/product composition, responsive embed/video, более полная таблица сравнений и финальная ревизия на предмет дублей. Добавлять будем только те паттерны, которые реально расширяют покрытие конструктора.</div>
   </section>
 </div>
