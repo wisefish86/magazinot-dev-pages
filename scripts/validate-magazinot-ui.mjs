@@ -39,6 +39,9 @@ const deprecated=[
   'pipehub__faq-panel-inner'
 ];
 
+// Shared SVG symbols are canonical: page references must resolve to an existing ID.
+const iconSource=fs.readFileSync(path.join(root,'site-assets/icons/ui-icons.svg'),'utf8');
+const iconIds=new Set([...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]));
 const errors=[];
 for(const file of walk(pagesDir)){
   const html=fs.readFileSync(file,'utf8');
@@ -51,6 +54,10 @@ for(const file of walk(pagesDir)){
   const withoutInjected=html.replace(/<!-- AUTO:MAGAZINOT_UI_JS -->[\s\S]*?<!-- \/AUTO:MAGAZINOT_UI_JS -->/g,'');
   if(/<script\b/i.test(withoutInjected)) errors.push(rel+': contains page-local <script>');
   if(/<style\b/i.test(html)) errors.push(rel+': contains page-local <style>');
+
+  for(const m of html.matchAll(/ui-icons\\.svg#([a-z0-9-]+)/gi)){
+    if(!iconIds.has(m[1])) errors.push(rel+': missing shared icon '+m[1]);
+  }
 
   for(const cls of deprecated){
     if(html.includes(cls)) errors.push(rel+': deprecated reusable class '+cls);
