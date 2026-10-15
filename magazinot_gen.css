@@ -2328,7 +2328,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit__secondary-divider{display:flex;align-items:center;gap:16px;margin:48px 0 28px;font-size:15px;font-weight:700;color:var(--c-muted)}
 .ui-kit__secondary-divider::before,.ui-kit__secondary-divider::after{content:"";height:1px;background:var(--c-line);flex:1}
 .ui-timeline.ui-timeline--horizontal{--timeline-count:4;grid-template-columns:repeat(var(--timeline-count,4),minmax(0,1fr));gap:0;margin-top:22px}
-.ui-timeline--horizontal::before{left:14.5px;right:calc((100% - 29px) / var(--timeline-count,4) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
+.ui-timeline--horizontal::before{left:14.5px;right:calc(var(--timeline-last-col,25%) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
 .ui-timeline--horizontal .ui-timeline__item{display:block;padding:0 10px 0 0;min-width:0}
 .ui-timeline--horizontal .ui-timeline__marker{margin:0 0 12px}
 .ui-timeline--horizontal .ui-timeline__content{padding:0}
