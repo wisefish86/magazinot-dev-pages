@@ -495,6 +495,72 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Документ / нормативная литература</h2>
+    <p class="ui-kit__hint">Повторяемые элементы нормативных страниц входят в общую дизайн-систему: метаданные документа, содержание, таблицы и рисунки должны выглядеть одинаково во всех стандартах и справочных материалах.</p>
+    <div class="ui-doc-patterns">
+      <div>
+        <p class="ui-doc-patterns__label">Метаданные документа</p>
+        <div class="ui-meta"><span><strong>Национальный стандарт Российской Федерации</strong></span><span>Дата введения 01.03.2025</span><span>Введён впервые</span></div>
+      </div>
+      <div class="ui-doc-toc">
+        <div class="ui-doc-toc__title">Содержание</div>
+        <div class="ui-doc-toc__grid">
+          <a href="#"><span>01</span><span>Область применения</span></a>
+          <a href="#"><span>02</span><span>Нормативные ссылки</span></a>
+          <a href="#"><span>03</span><span>Термины и определения</span></a>
+          <a href="#"><span>04</span><span>Общие положения</span></a>
+          <a href="#"><span>05</span><span>Опознавательная окраска</span></a>
+          <a href="#"><span>А</span><span>Приложение А</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Table variants</h2>
+    <p class="ui-kit__hint">Не все таблицы должны выглядеть одинаково. Нормативная таблица сохраняет строгую сетку; обычные продуктовые/справочные таблицы могут быть значительно легче.</p>
+    <div class="ui-stack">
+      <div>
+        <p class="ui-table-caption">1. Формальная / нормативная</p>
+        <div class="ui-table-wrap">
+          <table class="ui-table ui-table--striped">
+            <thead><tr><th>Группа</th><th>Наименование</th><th>Цвет</th></tr></thead>
+            <tbody><tr><td>1</td><td>Вода</td><td>Зелёный</td></tr><tr><td>2</td><td>Пар</td><td>Красный</td></tr><tr><td>3</td><td>Воздух</td><td>Синий</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p class="ui-table-caption">2. Лёгкая / справочная</p>
+        <div class="ui-table-wrap">
+          <table class="ui-table ui-table--light">
+            <thead><tr><th>Параметр</th><th>Значение</th><th>Комментарий</th></tr></thead>
+            <tbody><tr><td>Материал</td><td>ПВХ</td><td>Для помещения</td></tr><tr><td>Толщина</td><td>0,7 мм</td><td>Стандарт</td></tr><tr><td>Срок</td><td>1 день</td><td>При наличии</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <p class="ui-table-caption">3. Компактная по содержимому</p>
+        <div class="ui-table-wrap ui-table-wrap--fit">
+          <table class="ui-table ui-table--light ui-table--fit">
+            <thead><tr><th>Размер</th><th>Цена</th></tr></thead>
+            <tbody><tr><td>100 × 30 мм</td><td>290 &#8381;</td></tr><tr><td>150 × 50 мм</td><td>390 &#8381;</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Image / figure modes</h2>
+    <p class="ui-kit__hint">Рамка нужна не всегда. Для схем, чертежей и нормативных рисунков она помогает отделить изображение от текста. Для обычной фотографии или иллюстрации чаще лучше plain-режим. Zoom/lightbox включаем только у изображений, где деталь действительно важна.</p>
+    <div class="ui-figure-demo-row">
+      <figure class="ui-figure ui-figure--framed ui-figure--center ui-figure--compact"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Схема / чертёж</span></div></div><figcaption>Framed + centered — для нормативных рисунков.</figcaption></figure>
+      <figure class="ui-figure ui-figure--plain ui-figure--left ui-figure--compact"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Фото / иллюстрация</span></div></div><figcaption>Plain + left — когда рамка не нужна.</figcaption></figure>
+      <figure class="ui-figure ui-figure--wide ui-figure--compact"><div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#zoom-in"></use></svg><span>Широкое изображение</span></div></div><figcaption>Wide — для схем, сравнений и контента, которому нужна ширина.</figcaption></figure>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Data table</h2>
     <div class="ui-table-wrap">
       <table class="ui-table">
