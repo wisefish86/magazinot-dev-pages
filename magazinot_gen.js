@@ -376,43 +376,46 @@
     document.querySelectorAll('[data-ui-marker-catalog]').forEach(catalog => {
       if (catalog.dataset.readyMarkerCatalog) return;
       catalog.dataset.readyMarkerCatalog = '1';
-      const source = catalog.dataset.source;
-      if (!source) return;
-
       const tabs = catalog.querySelector('[data-marker-tabs]');
       const intro = catalog.querySelector('[data-marker-intro]');
-      const preview = catalog.querySelector('[data-marker-preview]');
-      const meta = catalog.querySelector('[data-marker-meta]');
       const body = catalog.querySelector('[data-marker-body]');
-      if (!tabs || !intro || !preview || !meta || !body) return;
+      const count = catalog.querySelector('[data-marker-count]');
+      if (!tabs || !intro || !body) return;
+      const source = catalog.dataset.source;
 
-      function articles(prefix,code){
-        return Array.from({length:6},(_,i)=>'F0'+(i+1)+'-'+code);
-      }
-
-      function renderCategory(category){
-        catalog.style.setProperty('--marker-color',category.color);
-        catalog.style.setProperty('--marker-text',category.textColor || '#fff');
-        catalog.style.setProperty('--marker-soft',category.color + '12');
+      function render(category){
+        catalog.style.setProperty('--marker-color', category.color);
+        catalog.style.setProperty('--marker-text', category.textColor || '#fff');
         intro.textContent = category.description || '';
-        preview.innerHTML = '<div class="ui-marker-catalog__arrow"><span></span></div>';
-        const previewLabel = preview.querySelector('span');
-        if (previewLabel) previewLabel.textContent = category.items?.[0]?.name || category.label;
-        meta.innerHTML = '<strong>'+category.label+'</strong><span>'+(category.items?.length || 0)+' наименований в демонстрационной выборке</span>';
-
-        body.innerHTML = '';
-        (category.items || []).forEach(item => {
-          const tr = document.createElement('tr');
-          const codes = articles(category.prefix,item.code);
-          tr.innerHTML = '<td><strong>'+item.name+'</strong></td><td><div class="ui-marker-catalog__hazard"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg></div></td>'+codes.map(code=>'<td class="ui-marker-catalog__articles">'+code+'</td>').join('');
-          body.appendChild(tr);
+        if (count) count.textContent = String(category.items.length) + ' вариантов';
+        body.replaceChildren();
+        const fragment = document.createDocumentFragment();
+        category.items.forEach(item => {
+          const row = document.createElement('tr');
+          if (item.highlight) row.classList.add('ui-marker-catalog__row--warning');
+          const label = document.createElement('th');
+          label.scope = 'row';
+          label.textContent = item.name || '';
+          row.appendChild(label);
+          const hazard = document.createElement('td');
+          hazard.className = 'ui-marker-catalog__hazard';
+          hazard.textContent = item.hazard || '';
+          row.appendChild(hazard);
+          const codes = Array.isArray(item.codes) && item.codes.length === 6
+            ? item.codes : Array.from({length:6}, (_,i) => 'F0'+(i+1)+'-'+item.code);
+          codes.forEach(code => {
+            const td = document.createElement('td');
+            td.className = 'ui-marker-catalog__articles';
+            td.textContent = code;
+            row.appendChild(td);
+          });
+          fragment.appendChild(row);
         });
-
+        body.appendChild(fragment);
         tabs.querySelectorAll('[role="tab"]').forEach(button => {
           const active = button.dataset.category === category.id;
-          button.setAttribute('aria-selected',active ? 'true' : 'false');
-          button.style.setProperty('--marker-tab-color',category.color);
-          button.style.setProperty('--marker-tab-text',category.textColor || '#fff');
+          button.setAttribute('aria-selected', active ? 'true' : 'false');
+          button.tabIndex = active ? 0 : -1;
         });
       }
 
@@ -423,24 +426,45 @@
         })
         .then(data => {
           const categories = Array.isArray(data.categories) ? data.categories : [];
-          tabs.innerHTML = '';
+          tabs.replaceChildren();
+          if (!categories.length) throw new Error('Empty catalog');
           categories.forEach((category,index) => {
             const button = document.createElement('button');
             button.type = 'button';
             button.className = 'ui-marker-catalog__tab';
             button.setAttribute('role','tab');
             button.setAttribute('aria-selected',index === 0 ? 'true' : 'false');
+            button.setAttribute('aria-controls','ui-marker-results');
+            button.tabIndex = index === 0 ? 0 : -1;
             button.dataset.category = category.id;
             button.textContent = category.label;
             button.style.setProperty('--marker-tab-color',category.color);
             button.style.setProperty('--marker-tab-text',category.textColor || '#fff');
-            button.addEventListener('click',() => renderCategory(category));
+            button.addEventListener('click',() => render(category));
+            button.addEventListener('keydown',event => {
+              let next = index;
+              if (event.key === 'ArrowRight') next = (index + 1) % categories.length;
+              else if (event.key === 'ArrowLeft') next = (index - 1 + categories.length) % categories.length;
+              else if (event.key === 'Home') next = 0;
+              else if (event.key === 'End') next = categories.length - 1;
+              else return;
+              event.preventDefault();
+              const target = tabs.querySelectorAll('[role="tab"]')[next];
+              target.focus();
+              target.click();
+            });
             tabs.appendChild(button);
           });
-          if (categories[0]) renderCategory(categories[0]);
+          render(categories[0]);
         })
         .catch(() => {
-          intro.textContent = 'Не удалось загрузить данные демонстрационного каталога.';
+          intro.textContent = 'Не удалось загрузить каталог. Обновите страницу.';
+          body.replaceChildren();
+          const row = document.createElement('tr'), cell = document.createElement('td');
+          cell.colSpan = 8;
+          cell.textContent = 'Данные временно недоступны';
+          row.appendChild(cell);
+          body.appendChild(row);
         });
     });
   }
