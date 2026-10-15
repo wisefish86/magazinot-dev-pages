@@ -862,6 +862,7 @@
   function initScrollCues(){
     const selectors=[
       ['.ui-kit__nav','.ui-kit__nav'],
+      ['.ui-tabs__list','.ui-tabs__list'],
       ['.ui-carousel','.ui-carousel__viewport'],
       ['.ui-table-wrap','.ui-table-wrap']
     ];
