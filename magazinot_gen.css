@@ -1890,9 +1890,6 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-kit .ui-marker-catalog__matrix tbody td{text-align:center;font-size:11px;font-weight:650}
 .ui-kit .ui-marker-catalog__matrix tbody tr:hover>th,.ui-kit .ui-marker-catalog__matrix tbody tr:hover>td{filter:brightness(.96)}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles{white-space:nowrap;font-variant-numeric:tabular-nums}
-.ui-kit .ui-marker-catalog__article-link{color:var(--c-accent-dark);text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px;font:inherit}
-.ui-kit .ui-marker-catalog__article-link:hover,.ui-kit .ui-marker-catalog__article-link:focus-visible{color:var(--c-accent-dark);text-decoration-color:currentColor}
-.ui-kit .ui-marker-catalog__article-link:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px;border-radius:2px}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__hazard{font-size:11px;overflow-wrap:anywhere}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__row--warning>th,.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__row--warning>td{background:#e82730;color:#fff}
 .ui-kit .ui-marker-catalog__hint{margin:8px 0 0;color:var(--c-muted);font-size:12px;line-height:1.5}
@@ -2345,9 +2342,11 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 
 /* Marker catalogue mobile layout: horizontal article matrix with anchored names. */
 @media(max-width:700px){
- .ui-kit .ui-marker-catalog__tabs{max-width:100%;flex-wrap:wrap;overflow-x:visible;gap:4px;min-height:0;align-items:flex-end}
- .ui-kit .ui-marker-catalog__tab{flex:0 0 auto;white-space:nowrap;min-height:32px;padding:5px 9px}
- .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{min-height:38px}
+ .ui-kit .ui-marker-catalog__tabs{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:8px 0;max-width:100%;min-height:0;overflow:visible}
+ .ui-kit .ui-marker-catalog__tab,
+ .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{position:relative;flex:0 0 auto;min-height:34px;height:auto;margin:0;padding:7px 10px;border:2px solid transparent;border-radius:9px;box-shadow:none;white-space:nowrap;line-height:1.2;transition:filter var(--motion-fast)}
+ .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{border-color:var(--marker-tab-text);outline:2px solid var(--marker-tab-color);outline-offset:1px;font-weight:800}
+ .ui-kit .ui-marker-catalog__tab:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px}
  .ui-kit .ui-marker-catalog__tools{font-size:12px}
  .ui-kit .ui-marker-catalog__table{position:relative;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
  .ui-kit .ui-marker-catalog__matrix{width:100%;min-width:860px;table-layout:fixed}
