@@ -5107,8 +5107,10 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 /* Marker tabs: full color, raised active tab attached to description panel. */
 .ui-kit .ui-marker-catalog__tabs {
   align-items:flex-end;
-  gap:5px;
-  min-height:40px
+  gap:7px;
+  min-height:40px;
+  padding:0;
+  margin-bottom:0
 }
 .ui-kit .ui-marker-catalog__tab {
   min-height:32px;
@@ -5195,9 +5197,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 /* Responsive catalogue table: full width on desktop, scroll only on narrow screens. */
 @media(min-width:901px) {
   .ui-kit .ui-marker-catalog__table {
-    overflow-x:visible
+    overflow-x:visible;
+    width:100%;
+    max-width:100%
   }
   .ui-kit .ui-marker-catalog__matrix {
+    width:100%;
+    min-width:0;
+    max-width:100%;
     table-layout:fixed
   }
   .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
