@@ -1405,7 +1405,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
   --ui-gap:16px;
 }
 .ui-kit__intro{max-width:820px;margin:0 0 18px;color:var(--c-muted);font-size:var(--text-lg);line-height:1.65}
-.ui-kit__nav{display:flex;flex-wrap:nowrap;gap:7px;margin:0 0 30px;padding:10px;border:1px solid var(--c-line);border-radius:14px;background:var(--c-soft);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
+.ui-kit__nav{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 30px;padding:10px;border:1px solid var(--c-line);border-radius:14px;background:var(--c-soft);overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin}
 .ui-kit__nav a{display:inline-flex;align-items:center;min-height:34px;padding:5px 10px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-heading);font-size:var(--text-sm);font-weight:600;text-decoration:none!important}
 .ui-kit__nav a:hover{border-color:var(--c-line-strong);color:var(--c-accent)}
 .ui-kit__nav a:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
@@ -2323,7 +2323,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit__secondary-divider{display:flex;align-items:center;gap:16px;margin:48px 0 28px;font-size:15px;font-weight:700;color:var(--c-muted)}
 .ui-kit__secondary-divider::before,.ui-kit__secondary-divider::after{content:"";height:1px;background:var(--c-line);flex:1}
 .ui-timeline.ui-timeline--horizontal{--timeline-count:4;grid-template-columns:repeat(var(--timeline-count,4),minmax(0,1fr));gap:0;margin-top:22px}
-.ui-timeline--horizontal::before{left:14.5px;right:calc(100% / var(--timeline-count,4) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
+.ui-timeline--horizontal::before{left:14.5px;right:calc((100% / var(--timeline-count,4)) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
 .ui-timeline--horizontal .ui-timeline__item{display:block;padding:0 10px 0 0;min-width:0}
 .ui-timeline--horizontal .ui-timeline__marker{margin:0 0 12px}
 .ui-timeline--horizontal .ui-timeline__content{padding:0}
@@ -2391,4 +2391,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-embed__caption{position:relative;border-radius:0 0 var(--radius-lg) var(--radius-lg)}
 .ui-kit .ui-kit__nav a{flex:0 0 auto;white-space:nowrap}
 .ui-kit .ui-tabs__tab{white-space:nowrap}
-@media(max-width:620px){.ui-kit .ui-kit__nav{flex-wrap:nowrap}.ui-kit .ui-tabs__list{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}.ui-kit .ui-table--normative th:first-child,.ui-kit .ui-table--normative td:first-child{width:65px}}
+@media(max-width:620px){.ui-kit .ui-kit__nav{flex-wrap:wrap;overflow:visible}.ui-kit .ui-tabs__list--wrap{flex-wrap:wrap;overflow:visible}.ui-kit .ui-table--normative th:first-child,.ui-kit .ui-table--normative td:first-child{width:65px}}
+
+/* Wrap navigation and demo tabs instead of clipped horizontal scrollers on mobile. */
+.ui-kit .ui-kit__nav,.ui-kit .ui-tabs__list--wrap{display:flex;flex-wrap:wrap;overflow:visible}
+.ui-kit .ui-kit__nav.ui-scroll-cue::before,.ui-kit .ui-kit__nav.ui-scroll-cue::after,.ui-kit .ui-tabs__list--wrap.ui-scroll-cue::before,.ui-kit .ui-tabs__list--wrap.ui-scroll-cue::after{display:none}
+.ui-kit .ui-table--wide{min-width:640px;width:max-content}
+.ui-kit .ui-table-wrap:has(.ui-table--wide){overflow-x:auto}
