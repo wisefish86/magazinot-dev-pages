@@ -2027,3 +2027,4 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 }
 
 .ui-list--ordered-alpha > li > .ui-list__row{grid-template-columns:18px minmax(0,1fr)!important}
+.ui-list--ordered-alpha > li > .ui-list__row > .ui-list__num{justify-self:start!important}
