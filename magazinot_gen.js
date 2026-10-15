@@ -386,8 +386,7 @@
       const safe = value => String(value == null ? '' : value);
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
       const hazardMap = {"water":{"1021":"16","1048":"05"},"air":{"3033":"11"},"gas":{"4002":"01","4005":"03","4008":"01","4010":"01","4011":"01","4012":"01","4013":"01,03","4014":"01","4022":"01,18","4023":"03","4025":"01","4028":"11","4030":"01","4032":"03","4033":"01,03","4038":"01","4039":"01","4041":"01","4042":"01","4043":"01","4044":"01,03","4054":"03,04","4055":"03,04","4057":"03","4058":"01,18","4059":"04","4060":"01","4061":"03","4062":"01","4066":"01","4067":"01"},"acid":{"5002":"04,11","5003":"04","5004":"01,03","5005":"18","5006":"04","5008":"04","5011":"03","5013":"18","5014":"04","5015":"04","5016":"04","5017":"04,03","5019":"04","5020":"04","5021":"04","5022":"04","5023":"04","5024":"01,03","5025":"03","5026":"04","5028":"04","5029":"04","5030":"04","5031":"18","5032":"18","5033":"04,11","5034":"04","5035":"04","5036":"03","5037":"18"},"alkali":{"6002":"04","6003":"03","6004":"04","6005":"03","6006":"18","6007":"04","6008":"04,18","6009":"04","6010":"04","6011":"04","6012":"04","6013":"04","6014":"01,18","6016":"04","6017":"04","6018":"03,11","6020":"01,18"},"liquid":{"7002":"01,03","7003":"03","7004":"01,18","7005":"01","7006":"01,03","7007":"18","7009":"01,03","7011":"01,18","7012":"18","7014":"01","7015":"01,18","7021":"01","7023":"01","7025":"18","7029":"01","7030":"01,03","7036":"03","7037":"01,18","7043":"01","7044":"01","7045":"04,11","7046":"01","7048":"01","7052":"01,03","7059":"18","7060":"01,18","7062":"18","7063":"18","7065":"03","7074":"01,18","7075":"01","7076":"18","7079":"01"}};
-      // Original hazard icon artwork is embedded so signs do not depend on external image URLs or deployment paths.
-      const hazardSprite='data:image/png;base64,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';
+      // The original PNG files are deployed to /assets/img/pipemarkers/hazards/.
       function renderCategory(category){
         const [color,ink] = colors[category.id] || [category.color || '#287c84',category.textColor || '#fff'];
         catalog.style.setProperty('--marker-color',color);
@@ -463,20 +462,15 @@
           if (signs.length) {
             danger.classList.add('ui-marker-catalog__hazard-list');
             signs.forEach(sign => {
-              const frame=document.createElement('span');
-              frame.className='ui-marker-catalog__sign';
-              frame.setAttribute('role','img');
-              frame.setAttribute('aria-label','Знак опасности W'+sign);
               const image=document.createElement('img');
-              image.src=hazardSprite;
-              image.alt='';
+              image.className='ui-marker-catalog__sign';
+              image.src='/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png';
+              image.alt='Знак опасности W'+sign;
               image.width=32;
-              image.height=210;
+              image.height=30;
+              image.loading='lazy';
               image.decoding='async';
-              image.className='ui-marker-catalog__sign-image';
-              image.style.top=String(-30*['01','03','04','05','11','16','18'].indexOf(sign))+'px';
-              frame.appendChild(image);
-              danger.appendChild(frame);
+              danger.appendChild(image);
             });
           }
           tr.append(label,danger);
