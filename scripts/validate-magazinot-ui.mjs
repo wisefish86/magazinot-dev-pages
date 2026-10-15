@@ -74,6 +74,25 @@ for(const required of ['function initPageTitle','function initAccordion','initPa
   if(!js.includes(required)) errors.push('magazinot_gen.js: missing '+required);
 }
 
+// Every reusable class found on a page must also be demonstrated in the living UI Kit.
+// Inspect source HTML only, not the auto-injected shared JS bundle.
+const uiKit=fs.readFileSync(path.join(pagesDir,'ui-kit.html'),'utf8');
+const kitClasses=new Set([...uiKit.matchAll(/class="([^"]+)"/g)].flatMap(match=>match[1].split(/\s+/)));
+for(const file of walk(pagesDir)){
+  if(path.basename(file)==='ui-kit.html') continue;
+  const html=fs.readFileSync(file,'utf8').replace(/<!-- AUTO:MAGAZINOT_UI_JS -->[\s\S]*?<!-- \/AUTO:MAGAZINOT_UI_JS -->/g,'');
+  if(!/class="[^"]*\bmk-ui\b/.test(html)) continue;
+  const found=new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap(match=>match[1].split(/\s+/)));
+  for(const className of found){
+    if(/^(?:ui-|docpage|normpage)/.test(className) && !kitClasses.has(className)){
+      errors.push(path.relative(root,file)+': component class missing from UI Kit: '+className);
+    }
+  }
+}
+if(/\.docpage__toc(?:\b|[-_])/.test(css)){
+  errors.push('magazinot_gen.css: legacy docpage__toc selector must not return');
+}
+
 if(errors.length){
   console.error('UI validation failed:\n- '+errors.join('\n- '));
   process.exit(1);
