@@ -185,7 +185,20 @@
       function setOpen(open){
         panel.hidden = !open;
         toggle.setAttribute('aria-expanded',open ? 'true' : 'false');
+        if(!open)return;
+        const rect=toggle.getBoundingClientRect();
+        const width=Math.min(320,window.innerWidth-24);
+        const topPreferred=rect.bottom+10;
+        panel.style.width=width+'px';
+        panel.style.left=Math.max(12,Math.min(rect.left,window.innerWidth-width-12))+'px';
+        panel.style.top=topPreferred+'px';
+        const height=panel.getBoundingClientRect().height;
+        if(topPreferred+height>window.innerHeight-12 && rect.top>=height+10){
+          panel.style.top=(rect.top-height-10)+'px';
+        }
       }
+      window.addEventListener('resize',()=>{if(!panel.hidden)setOpen(true)},{passive:true});
+      window.addEventListener('scroll',()=>{if(!panel.hidden)setOpen(false)},{passive:true});
 
       toggle.addEventListener('click',event => {
         event.stopPropagation();
@@ -846,12 +859,72 @@
     });
   }
 
+  function initScrollCues(){
+    const selectors=[
+      ['.ui-kit__nav','.ui-kit__nav'],
+      ['.ui-carousel','.ui-carousel__viewport'],
+      ['.ui-table-wrap','.ui-table-wrap']
+    ];
+    const register=(host,scroller)=>{
+      if(host.dataset.scrollCueReady)return;
+      host.dataset.scrollCueReady='1';
+      host.classList.add('ui-scroll-cue');
+      const update=()=>{
+        const max=Math.max(0,scroller.scrollWidth-scroller.clientWidth);
+        host.dataset.scrollLeft=String(scroller.scrollLeft>3);
+        host.dataset.scrollRight=String(scroller.scrollLeft<max-3);
+      };
+      scroller.addEventListener('scroll',update,{passive:true});
+      window.addEventListener('resize',update,{passive:true});
+      if('ResizeObserver' in window){
+        const observer=new ResizeObserver(update);
+        observer.observe(scroller);
+        if(scroller.firstElementChild)observer.observe(scroller.firstElementChild);
+      }
+      update();
+    };
+    selectors.forEach(([selector,inner])=>{
+      document.querySelectorAll(selector).forEach(host=>{
+        const scroller=host.matches(inner)?host:host.querySelector(inner);
+        if(scroller)register(host,scroller);
+      });
+    });
+  }
+  function initBoundedTooltips(){
+    document.querySelectorAll('.ui-kit .ui-tooltip:not(.ui-marker-catalog__info)').forEach(root=>{
+      if(root.dataset.boundedReady)return;
+      const trigger=root.querySelector('button'),bubble=root.querySelector('.ui-tooltip__bubble');
+      if(!trigger||!bubble)return;
+      root.dataset.boundedReady='1';
+      function place(){
+        const rect=trigger.getBoundingClientRect();
+        const width=Math.min(240,window.innerWidth-24);
+        bubble.style.position='fixed';
+        bubble.style.width=width+'px';
+        bubble.style.maxWidth='none';
+        bubble.style.left=Math.max(12,Math.min(rect.left+rect.width/2-width/2,window.innerWidth-width-12))+'px';
+        bubble.style.bottom='auto';
+        bubble.style.transform='none';
+        bubble.style.zIndex='160';
+        const h=bubble.getBoundingClientRect().height;
+        bubble.style.top=(rect.top>h+14?rect.top-h-9:rect.bottom+9)+'px';
+      }
+      trigger.addEventListener('mouseenter',place);
+      trigger.addEventListener('focus',place);
+      trigger.addEventListener('click',place);
+      window.addEventListener('resize',place,{passive:true});
+      window.addEventListener('scroll',place,{passive:true});
+    });
+  }
+
   function initUi(){
     initPageTitle();
     initAccordion();
     initTabs();
     initLegacyActions();
     initCarousels();
+    initScrollCues();
+    initBoundedTooltips();
     initPhotoSliders();
     initUiKitDirectory();
     initDialogs();
