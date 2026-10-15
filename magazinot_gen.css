@@ -1446,7 +1446,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-breadcrumbs a{color:var(--c-link)}
 .ui-breadcrumbs__sep{color:#a8b6ba}
 .ui-pagination{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.ui-pagination a,.ui-pagination span{display:inline-flex;align-items:center;justify-content:center;min-width:36px;height:36px;padding:0 10px;border:1px solid var(--c-line);border-radius:10px;background:#fff;color:var(--c-heading);font-size:var(--text-md);text-decoration:none}
+.ui-pagination a,.ui-pagination span{display:inline-flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 11px;border:1px solid var(--c-line);border-radius:10px;background:#fff;color:var(--c-heading);font-size:var(--text-md);text-decoration:none}
 .ui-pagination .is-current{border-color:var(--c-accent);background:var(--c-accent);color:#fff}
 .ui-pagination .is-disabled{opacity:.45;pointer-events:none}
 
@@ -1462,7 +1462,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 
 .ui-tabs{border:1px solid var(--c-line);border-radius:var(--radius-lg);background:#fff;overflow:hidden}
 .ui-tabs__list{display:flex;gap:4px;padding:6px;border-bottom:1px solid var(--c-line);background:var(--c-soft);overflow:auto}
-.ui-tabs__tab{flex:0 0 auto;min-height:38px;padding:0 12px;border:0;border-radius:9px;background:transparent;color:var(--c-muted);font:inherit;font-size:var(--text-md);font-weight:650;cursor:pointer}
+.ui-tabs__tab{flex:0 0 auto;min-height:44px;padding:0 12px;border:0;border-radius:9px;background:transparent;color:var(--c-muted);font:inherit;font-size:var(--text-md);font-weight:650;cursor:pointer}
 .ui-tabs__tab[aria-selected="true"]{background:#fff;color:var(--c-accent-dark);box-shadow:0 1px 4px rgba(31,45,51,.08)}
 .ui-tabs__tab:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
 .ui-tabs__panel{padding:16px}
@@ -1496,7 +1496,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 
 /* Removable chip */
 .ui-chip--removable{gap:5px;padding-right:7px}
-.ui-chip__remove{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;margin:-2px -2px -2px 0;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer}
+.ui-chip__remove{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin:-5px -4px -5px 0;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer}
 .ui-chip__remove:hover{background:rgba(31,45,51,.08)}
 .ui-chip__remove .ui-icon{width:14px;height:14px}
 
@@ -1626,7 +1626,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-range{display:grid;gap:6px}
 .ui-range input[type="range"]{width:100%;accent-color:var(--c-accent)}
 .ui-segmented{display:inline-flex;gap:3px;padding:3px;border:1px solid var(--c-line);border-radius:11px;background:var(--c-soft)}
-.ui-segmented button{min-height:34px;padding:0 10px;border:0;border-radius:8px;background:transparent;color:var(--c-muted);font:600 var(--text-sm)/1 var(--font-sans);cursor:pointer}
+.ui-segmented button{min-height:42px;padding:0 12px;border:0;border-radius:8px;background:transparent;color:var(--c-muted);font:600 var(--text-sm)/1 var(--font-sans);cursor:pointer}
 .ui-segmented button[aria-pressed="true"]{background:#fff;color:var(--c-accent-dark);box-shadow:0 1px 4px rgba(31,45,51,.08)}
 .ui-segmented button:focus-visible{outline:2px solid var(--c-accent);outline-offset:1px}
 
@@ -1670,9 +1670,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-price{color:var(--c-heading);font-size:28px;font-weight:760;letter-spacing:-.02em}
 .ui-price__old{color:var(--c-muted-soft);font-size:var(--text-sm);text-decoration:line-through}
 .ui-product-summary__meta{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px}
-.ui-quantity{display:inline-grid;grid-template-columns:38px 48px 38px;align-items:center;border:1px solid var(--c-line-strong);border-radius:11px;overflow:hidden;background:#fff}
-.ui-quantity button{height:38px;border:0;background:#fff;color:var(--c-heading);font-size:20px;cursor:pointer}
-.ui-quantity input{width:48px;height:38px;padding:0;border:0;border-left:1px solid var(--c-line);border-right:1px solid var(--c-line);text-align:center;font:600 var(--text-md)/1 var(--font-sans);appearance:textfield}
+.ui-quantity{display:inline-grid;grid-template-columns:44px 52px 44px;align-items:center;border:1px solid var(--c-line-strong);border-radius:11px;overflow:hidden;background:#fff}
+.ui-quantity button{height:44px;border:0;background:#fff;color:var(--c-heading);font-size:20px;cursor:pointer}
+.ui-quantity input{width:52px;height:44px;padding:0;border:0;border-left:1px solid var(--c-line);border-right:1px solid var(--c-line);text-align:center;font:600 var(--text-md)/1 var(--font-sans);appearance:textfield}
 .ui-quantity input::-webkit-outer-spin-button,.ui-quantity input::-webkit-inner-spin-button{appearance:none;margin:0}
 .ui-product-summary__actions{display:flex;flex-wrap:wrap;gap:9px;align-items:center}
 
@@ -1746,7 +1746,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-toc{padding:14px;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:var(--c-soft)}
 .ui-toc__title{display:block;margin-bottom:8px;color:var(--c-heading);font-size:var(--text-sm);font-weight:700}
 .ui-toc__list{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0;list-style:none}
-.ui-toc__list a{display:inline-flex;align-items:center;min-height:34px;padding:5px 9px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-heading);font-size:var(--text-sm);text-decoration:none!important}
+.ui-toc__list a{display:inline-flex;align-items:center;min-height:44px;padding:7px 10px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-heading);font-size:var(--text-sm);text-decoration:none!important}
 .ui-toc__list a:hover{border-color:var(--c-line-strong);color:var(--c-accent)}
 
 /* Before / after */
@@ -1800,4 +1800,9 @@ fieldset.ui-field{min-width:0;margin:0;padding:0;border:0}
   .ui-kit .ui-icon-library{grid-template-columns:repeat(3,minmax(0,1fr))}
   .ui-kit__group{padding:28px 0}
   .ui-kit__example{padding:14px}
+}
+
+@container (max-width:520px){
+  .ui-kit .ui-chip--removable{min-height:38px}
+  .ui-kit .ui-chip__remove{width:34px;height:34px;margin:-4px -5px -4px 0}
 }
