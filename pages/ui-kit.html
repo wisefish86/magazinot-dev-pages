@@ -381,29 +381,31 @@
 
   <section class="ui-kit__group">
     <h2>Файлы / downloads</h2>
-    <p class="ui-kit__hint">Компактные элементы для страницы: прайс-лист в Excel и выбор сертификата без лишнего перехода. Демонстрация — ссылки на файлы подключаются после утверждения.</p>
-    <div class="ui-download-actions">
-      <span class="ui-download-actions__label">Прайс-лист</span>
-      <button class="ui-btn ui-btn--primary ui-btn--sm" type="button" disabled title="Демонстрация: файл пока не подключён"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg> Скачать прайс-лист <span class="ui-download-actions__ext">XLS</span></button>
-      <details class="ui-download-menu">
+    <div class="ui-download-actions" aria-label="Варианты ссылок на документы">
+      <a class="ui-btn ui-btn--primary ui-btn--sm ui-download-direct" href="?page=ui-kit" aria-label="Скачать прайс-лист"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg> Скачать прайс-лист</a>
+      <details class="ui-download-menu" data-ui-download-menu>
+        <summary class="ui-download-menu__trigger ui-btn ui-btn--primary ui-btn--sm"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg> Скачать прайс-лист <svg class="ui-icon ui-download-menu__chevron" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></summary>
+        <div class="ui-download-menu__panel">
+          <a href="?page=ui-kit" class="ui-download-menu__link">Прайс-лист всего раздела <small>XLS</small></a>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Прайс-лист этой категории <small>XLS</small></a>
+        </div>
+      </details>
+      <details class="ui-download-menu" data-ui-download-menu>
         <summary class="ui-download-menu__trigger"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg> Сертификаты соответствия <svg class="ui-icon ui-download-menu__chevron" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></summary>
         <div class="ui-download-menu__panel">
-          <span class="ui-download-menu__heading">Выберите категорию сертификата</span>
-          <ul class="ui-download-menu__links">
-            <li><span>Полиграфическая деятельность</span></li>
-            <li><span>Производство знаков и плакатов безопасности</span></li>
-            <li><span>Световозвращающие и флуоресцентные материалы</span></li>
-            <li><span>Фотолюминесцентные знаки</span></li>
-            <li><span>Знаки опасных грузов</span></li>
-          </ul>
-          <small>Демо: реальные ссылки появятся после подключения разделов сайта.</small>
+          <span class="ui-download-menu__heading">Выберите сертификат</span>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Полиграфическая деятельность</a>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Производство знаков и плакатов безопасности</a>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Световозвращающие и флуоресцентные материалы</a>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Фотолюминесцентные знаки</a>
+          <a href="?page=ui-kit" class="ui-download-menu__link">Знаки опасных грузов</a>
         </div>
       </details>
     </div>
-    <p class="ui-table-caption">Дополнительно: компактный список отдельных файлов</p>
+    <p class="ui-table-caption">Компактный список отдельных файлов</p>
     <div class="ui-download-list">
-      <div class="ui-file"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><span><span class="ui-file__title">Техническое описание</span><span class="ui-file__meta">PDF · демонстрация</span></span></div>
-      <div class="ui-file"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg></span><span><span class="ui-file__title">Шаблон заказа</span><span class="ui-file__meta">XLSX · демонстрация</span></span></div>
+      <div class="ui-file"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><span><span class="ui-file__title">Техническое описание</span><span class="ui-file__meta">PDF</span></span></div>
+      <div class="ui-file"><span class="ui-file__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg></span><span><span class="ui-file__title">Шаблон заказа</span><span class="ui-file__meta">XLSX</span></span></div>
     </div>
   </section>
 
