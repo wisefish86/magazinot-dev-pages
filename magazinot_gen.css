@@ -5106,13 +5106,18 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 /* Marker tabs: full color, raised active tab attached to description panel. */
 .ui-kit .ui-marker-catalog__tabs {
+  display:flex;
+  flex-wrap:wrap;
   align-items:flex-end;
-  gap:7px;
+  column-gap:7px;
+  row-gap:0;
   min-height:40px;
   padding:0;
-  margin-bottom:0
+  margin:0;
+  border:0
 }
 .ui-kit .ui-marker-catalog__tab {
+  flex:0 0 auto;
   min-height:32px;
   margin:0;
   padding:5px 12px;
@@ -5137,7 +5142,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   font-weight:800;
 }
 .ui-kit .ui-marker-catalog__intro {
-  margin:-1px 0 0;
+  margin:0;
+  border:0;
   border-radius:0
 }
 @media(max-width:700px) {
