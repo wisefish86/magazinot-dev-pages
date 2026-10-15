@@ -2155,3 +2155,20 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-marker-catalog__matrix thead tr:first-child>th:not(:first-child),
 .ui-kit .ui-marker-catalog__matrix thead tr:nth-child(2)>th,
 .ui-kit .ui-marker-catalog__matrix tbody>tr>td:not(:first-child){text-align:center}
+
+/* Catalogue cells: content-sized labels and visible source safety pictograms. */
+.ui-kit .ui-marker-catalog__matrix{min-width:1120px;table-layout:auto}
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child{min-width:390px;white-space:nowrap;text-align:left}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label{
+  display:inline-block;width:max-content;max-width:none;
+  white-space:nowrap;overflow-wrap:normal;
+  padding:7px 10px;box-sizing:border-box;
+}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__hazard-cell{min-width:105px;text-align:center}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign{
+  display:inline-block;width:32px;min-width:32px;height:30px;
+  background-repeat:no-repeat;vertical-align:middle;
+}
+@media(max-width:700px){
+ .ui-kit .ui-marker-catalog__matrix{min-width:1120px}
+}
