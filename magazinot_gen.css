@@ -1623,7 +1623,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-toast--danger .ui-toast__icon{color:#f0aaa5}
 
 /* Removable chip */
-.ui-chip--removable{display:inline-flex;align-items:center;gap:9px;padding-left:13px;padding-right:9px;min-height:36px;white-space:nowrap}
+.ui-chip--removable{display:inline-flex;align-items:center;gap:3px;padding-left:12px;padding-right:4px;min-height:34px;white-space:nowrap}
 .ui-chip__remove{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;margin:-5px -4px -5px 0;border:0;border-radius:50%;background:transparent;color:inherit;cursor:pointer}
 .ui-chip__remove:hover{background:rgba(31,45,51,.08)}
 .ui-chip__remove .ui-icon{width:14px;height:14px}
@@ -2328,11 +2328,11 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit__secondary-divider{display:flex;align-items:center;gap:16px;margin:48px 0 28px;font-size:15px;font-weight:700;color:var(--c-muted)}
 .ui-kit__secondary-divider::before,.ui-kit__secondary-divider::after{content:"";height:1px;background:var(--c-line);flex:1}
 .ui-timeline.ui-timeline--horizontal{--timeline-count:4;grid-template-columns:repeat(var(--timeline-count,4),minmax(0,1fr));gap:0;margin-top:22px}
-.ui-timeline--horizontal::before{left:14.5px;right:calc((100% / var(--timeline-count,4)) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
+.ui-timeline--horizontal::before{left:14.5px;right:calc((100% - 29px) / var(--timeline-count,4) - 14.5px);top:14.5px;bottom:auto;width:auto;height:1px}
 .ui-timeline--horizontal .ui-timeline__item{display:block;padding:0 10px 0 0;min-width:0}
 .ui-timeline--horizontal .ui-timeline__marker{margin:0 0 12px}
 .ui-timeline--horizontal .ui-timeline__content{padding:0}
-@media(max-width:620px){.ui-timeline.ui-timeline--horizontal{grid-template-columns:1fr;gap:0}.ui-timeline--horizontal::before{left:14px;top:16px;bottom:16px;right:auto;width:1px;height:auto}.ui-timeline--horizontal .ui-timeline__item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:0 0 16px}.ui-timeline--horizontal .ui-timeline__marker{margin:0}}
+@media(max-width:620px){.ui-timeline.ui-timeline--horizontal{grid-template-columns:1fr;gap:0}.ui-timeline--horizontal::before{display:none}.ui-timeline--horizontal .ui-timeline__item{display:grid;grid-template-columns:30px minmax(0,1fr);gap:12px;padding:0 0 16px}.ui-timeline--horizontal .ui-timeline__marker{margin:0}}
 
 /* Compact category links: existing navigation semantics without image tiles. */
 .ui-category-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0 22px}
@@ -2403,3 +2403,25 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-kit__nav.ui-scroll-cue::before,.ui-kit .ui-kit__nav.ui-scroll-cue::after,.ui-kit .ui-tabs__list--wrap.ui-scroll-cue::before,.ui-kit .ui-tabs__list--wrap.ui-scroll-cue::after{display:none}
 .ui-kit .ui-table--wide{min-width:640px;width:max-content}
 .ui-kit .ui-table-wrap:has(.ui-table--wide){overflow-x:auto}
+
+/* Mobile timeline connector belongs to each step, never beyond the last marker. */
+@media(max-width:620px){
+ .ui-timeline--horizontal .ui-timeline__item{position:relative}
+ .ui-timeline--horizontal .ui-timeline__item:not(:last-child)::after{content:"";position:absolute;left:14px;top:29px;bottom:-1px;width:1px;background:var(--c-line)}
+ .ui-timeline--horizontal .ui-timeline__item:last-child::after{display:none}
+}
+/* Selection highlight maintains padding on each wrapped line. */
+.ui-highlight,.ui-readable mark{box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 5px;border-radius:3px}
+.ui-kit code:not(pre code){box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:2px 5px}
+/* Carousel affordance uses partially visible next card and dedicated arrow controls, no overlay. */
+.ui-kit .ui-carousel.ui-scroll-cue::before,.ui-kit .ui-carousel.ui-scroll-cue::after{display:none}
+.ui-kit .ui-carousel__controls{position:relative;z-index:7}
+.ui-kit .ui-carousel__controls .ui-icon-btn:disabled{opacity:.35}
+.ui-kit .ui-carousel__controls .ui-icon-btn:not(:disabled){opacity:1}
+/* Scroll gradients are drawn on a stationary shell, outside the moving table. */
+.ui-kit .ui-table-scroll-shell{position:relative;max-width:100%;min-width:0}
+.ui-kit .ui-table-scroll-shell::before,.ui-kit .ui-table-scroll-shell::after{content:"";position:absolute;top:0;bottom:0;width:22px;z-index:5;pointer-events:none;opacity:0;transition:opacity .15s ease}
+.ui-kit .ui-table-scroll-shell::before{left:0;background:linear-gradient(to right,#fff,rgba(255,255,255,0))}
+.ui-kit .ui-table-scroll-shell::after{right:0;background:linear-gradient(to left,#fff,rgba(255,255,255,0))}
+.ui-kit .ui-table-scroll-shell[data-scroll-left="true"]::before,.ui-kit .ui-table-scroll-shell[data-scroll-right="true"]::after{opacity:1}
+.ui-kit .ui-table-scroll-shell .ui-table-wrap{position:relative;width:100%}
