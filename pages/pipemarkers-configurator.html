@@ -2,67 +2,28 @@
 <!-- dev-title-state: draft -->
 <!-- dev-path: Эксперименты/Маркировка трубопроводов -->
 <!-- dev-status: В разработке -->
-<!-- dev-description: Отдельный прототип универсального selector/catalog для маркировочных стрелок. -->
+<!-- dev-description: Справочник самоклеящихся маркеров по группам сред и артикулам P1–P6. -->
 <!-- dev-order: 40 -->
 
-<div class="mk-ui ui-kit" data-ui-page-title="Конфигуратор маркировочных стрелок">
-  <section class="ui-hero">
-    <p class="ui-hero__lead">Прототип отдельного универсального модуля: категории сред, preview, наименования и исполнения P1–P6. Данные отделены от интерфейса и позже будут заменены полным справочником.</p>
-    <div class="ui-chips">
-      <span class="ui-chip">Data-driven</span>
-      <span class="ui-chip">Tabs / categories</span>
-      <span class="ui-chip">Preview</span>
-      <span class="ui-chip">P1–P6</span>
-    </div>
-  </section>
-
+<div class="mk-ui ui-kit" data-ui-page-title="Самоклеящиеся маркеры трубопроводов">
   <section class="ui-section">
     <div class="ui-section__head">
-      <h2 class="ui-section__title">Каталог вариантов</h2>
-      <p class="ui-section__intro">Пока загружена демонстрационная выборка по воде, пару и воздуху. Архитектура рассчитана на полный набор категорий и наименований.</p>
+      <h2 class="ui-section__title">Самоклеящиеся маркеры трубопроводов</h2>
+      <p class="ui-section__intro">Выберите группу транспортируемой среды и найдите наименование и артикул для исполнения Р.1–Р.6. Цвет таблицы соответствует выбранной группе.</p>
     </div>
-
-    <div class="ui-marker-catalog" data-ui-marker-catalog data-source="/assets/data/pipemarkers-demo.json">
-      <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Категории маркировочных стрелок" data-marker-tabs>
-        <span class="ui-chip">Загрузка…</span>
+    <div class="ui-marker-catalog ui-marker-catalog--matrix" data-ui-marker-catalog data-source="/assets/data/pipemarkers-demo.json">
+      <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Группы транспортируемых сред" data-marker-tabs>
+        <span class="ui-chip">Загрузка каталога…</span>
       </div>
-
-      <div class="ui-marker-catalog__intro" data-marker-intro>Загрузка данных каталога…</div>
-
-      <div class="ui-marker-catalog__preview">
-        <div class="ui-marker-catalog__sample" data-marker-preview>
-          <div class="ui-empty-state">Preview будет загружен вместе с выбранной категорией.</div>
-        </div>
-        <div class="ui-marker-catalog__meta" data-marker-meta>
-          <strong>Категория</strong>
-          <span>Выберите вкладку после загрузки данных.</span>
-        </div>
-      </div>
-
-      <div class="ui-table-wrap ui-marker-catalog__table">
+      <p class="ui-marker-catalog__intro" data-marker-intro role="status">Загрузка данных каталога…</p>
+      <div class="ui-table-wrap ui-marker-catalog__table" tabindex="0" role="region" aria-label="Таблица артикулов маркеров; на узком экране прокручивается горизонтально">
         <table class="ui-table ui-table--normative">
-          <thead>
-            <tr>
-              <th rowspan="2">Наименование</th>
-              <th rowspan="2">Знаки опасности</th>
-              <th colspan="6">Исполнения / артикулы</th>
-            </tr>
-            <tr>
-              <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
-            </tr>
-          </thead>
-          <tbody data-marker-body>
-            <tr><td colspan="8">Загрузка…</td></tr>
-          </tbody>
+          <thead><tr><th rowspan="2" scope="col">Наименование</th><th rowspan="2" scope="col">Знаки опасности</th><th colspan="6" scope="colgroup">Артикул для заказа</th></tr>
+            <tr><th scope="col">Р.1</th><th scope="col">Р.2</th><th scope="col">Р.3</th><th scope="col">Р.4</th><th scope="col">Р.5</th><th scope="col">Р.6</th></tr></thead>
+          <tbody data-marker-body><tr><td colspan="8">Загрузка…</td></tr></tbody>
         </table>
       </div>
-    </div>
-  </section>
-
-  <section class="ui-section">
-    <div class="ui-callout ui-callout--idea">
-      <span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lightbulb"></use></svg></span>
-      <div><span class="ui-callout__title">Следующая итерация</span><p class="ui-callout__text">Подставить полный справочник из архива конкурента, реальные изображения знаков опасности и решить, оставляем ли матрицу P1–P6 или заменяем её более удобным выбором исполнения.</p></div>
+      <p class="ui-marker-catalog__footnote">Обозначения Р.1–Р.6 соответствуют исполнениям маркеров. Выбор размера и материала уточняется при заказе.</p>
     </div>
   </section>
 </div>
