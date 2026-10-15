@@ -437,6 +437,18 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
   line-height:1.5;
 }
 
+/* Reusable process compositions and editorial advantage cards */
+.ui-steps--sequence{grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:12px;margin:14px 0 24px}
+.ui-steps--sequence .ui-step{min-height:0;padding:16px;border-radius:var(--radius-md)}
+.ui-step__number{display:inline-grid;place-items:center;width:36px;height:36px;margin-bottom:14px;border-radius:11px;background:var(--c-soft);color:var(--c-accent-dark);font-weight:800;font-variant-numeric:tabular-nums}
+.ui-steps--sequence .ui-step h3{font-size:var(--text-md);line-height:1.4;margin:0 0 8px}
+.ui-steps--sequence .ui-step p{font-size:max(14px,var(--text-sm))}
+.ui-step__duration{display:inline-block;margin:0 0 8px;color:var(--c-accent-dark);font-size:var(--text-sm);font-weight:650}
+.ui-feature-card--editorial{align-items:start}
+.ui-feature-card--editorial .ui-feature-card__icon{width:40px;height:40px}
+@media(max-width:700px){.ui-steps--sequence{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:430px){.ui-steps--sequence{grid-template-columns:1fr}}
+
 /* Документационные страницы и единые таблицы */
 .docpage{
   width:100%;
