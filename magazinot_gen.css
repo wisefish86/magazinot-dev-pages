@@ -5137,7 +5137,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   font-weight:800;
 }
 .ui-kit .ui-marker-catalog__intro {
-  margin:0;
+  margin:-1px 0 0;
   border-radius:0
 }
 @media(max-width:700px) {
