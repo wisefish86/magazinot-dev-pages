@@ -2115,3 +2115,14 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
   border:0;background:#ff1010;color:#fff;
 }
 .ui-kit .ui-marker-catalog__matrix tbody td:first-child{text-align:left}
+
+/* Marker matrix: preserve table-cell layout for hazard signs and blank products. */
+.ui-kit .ui-marker-catalog__matrix td.ui-marker-catalog__hazard-list{display:table-cell;text-align:center;white-space:nowrap}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign{display:inline-block;vertical-align:middle;width:32px;height:30px;margin:0 2px;overflow:hidden}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__blank{display:inline-block;vertical-align:middle;width:86px;height:29px;border-radius:6px;background:#a9abad}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info{display:inline-flex;vertical-align:middle;margin-left:7px}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info-trigger{display:inline-grid;place-items:center;width:25px;height:25px;padding:0;border:0;background:transparent;color:var(--c-muted);cursor:help}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info-trigger svg{width:19px;height:19px;display:block}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info-trigger:hover{color:var(--c-accent)}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info-trigger:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px;border-radius:50%}
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info .ui-tooltip__bubble{white-space:normal;text-align:left;z-index:25}
