@@ -1073,7 +1073,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-chevron{
   line-height:1.3;
   font-weight:650;
 }
-.ui-link-panel__featured span{
+.ui-link-panel__featured-copy > span{
   display:block;
   color:#667782;
   font-size:var(--text-base);
@@ -1125,7 +1125,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-icon{
   line-height:1.35;
   font-weight:600;
 }
-.ui-link-panel__row span{
+.ui-link-panel__row-copy > span{
   display:block;
   margin-top:3px;
   color:#7a8992;
