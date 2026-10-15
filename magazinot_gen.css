@@ -2127,25 +2127,30 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info-trigger:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px;border-radius:50%}
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info .ui-tooltip__bubble{white-space:normal;text-align:left;z-index:25}
 
-/* Marker category tabs: exact media colors, muted inactive states, no active underline. */
+/* Marker tabs: full color, raised active tab attached to description panel. */
+.ui-kit .ui-marker-catalog__tabs{align-items:flex-end;gap:5px;min-height:52px}
 .ui-kit .ui-marker-catalog__tab{
-  border-color:transparent;
-  background:color-mix(in srgb,var(--marker-tab-color) 44%,white);
-  color:#152832;
-  box-shadow:none;
-  transition:background-color var(--motion-fast),color var(--motion-fast),filter var(--motion-fast);
-}
-.ui-kit .ui-marker-catalog__tab:hover:not([aria-selected="true"]){
-  background:color-mix(in srgb,var(--marker-tab-color) 67%,white);
-  filter:none;
-}
-.ui-kit .ui-marker-catalog__tab[aria-selected="true"]{
+  min-height:44px;margin:0;padding:11px 14px;
+  border:0;border-radius:9px 9px 0 0;
   background:var(--marker-tab-color);
   color:var(--marker-tab-text);
-  border-color:transparent;
-  box-shadow:none;
-  font-weight:800;
+  box-shadow:none;filter:none;
+  transition:min-height var(--motion-fast),filter var(--motion-fast);
 }
+.ui-kit .ui-marker-catalog__tab:hover:not([aria-selected="true"]){background:var(--marker-tab-color);filter:brightness(.96)}
+.ui-kit .ui-marker-catalog__tab[aria-selected="true"]{
+  min-height:52px;
+  background:var(--marker-tab-color);
+  color:var(--marker-tab-text);
+  border:0;box-shadow:none;font-weight:800;
+}
+.ui-kit .ui-marker-catalog__intro{margin:0;border-radius:0}
+@media(max-width:700px){
+ .ui-kit .ui-marker-catalog__tabs{align-items:flex-end;min-height:52px}
+ .ui-kit .ui-marker-catalog__tab{min-height:44px}
+ .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{min-height:52px}
+}
+@media(prefers-reduced-motion:reduce){.ui-kit .ui-marker-catalog__tab{transition:none}}
 .ui-kit .ui-marker-catalog__matrix thead tr:first-child>th:first-child{text-align:left}
 .ui-kit .ui-marker-catalog__matrix thead tr:first-child>th:not(:first-child),
 .ui-kit .ui-marker-catalog__matrix thead tr:nth-child(2)>th,
