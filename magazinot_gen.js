@@ -218,6 +218,53 @@
     });
   }
 
+  function initRemovableChips(){
+    document.querySelectorAll('.ui-chip--removable').forEach(chip => {
+      if (chip.dataset.uiChipReady === '1') return;
+      const button = chip.querySelector('.ui-chip__remove');
+      if (!button) return;
+      chip.dataset.uiChipReady = '1';
+      button.addEventListener('click',() => chip.remove());
+    });
+  }
+
+  function initUploads(){
+    document.querySelectorAll('.ui-upload').forEach(upload => {
+      if (upload.dataset.uiUploadReady === '1') return;
+      const input = upload.querySelector('input[type="file"]');
+      if (!input) return;
+      upload.dataset.uiUploadReady = '1';
+
+      function setState(files){
+        upload.classList.toggle('has-files',!!(files && files.length));
+        const meta = upload.querySelector('.ui-upload__meta');
+        if (meta && files && files.length) meta.textContent = files.length === 1 ? files[0].name : files.length + ' файлов выбрано';
+      }
+
+      input.addEventListener('change',() => setState(input.files));
+      ['dragenter','dragover'].forEach(type => upload.addEventListener(type,event => {
+        event.preventDefault();
+        upload.classList.add('is-dragover');
+      }));
+      ['dragleave','drop'].forEach(type => upload.addEventListener(type,event => {
+        event.preventDefault();
+        upload.classList.remove('is-dragover');
+      }));
+      upload.addEventListener('drop',event => {
+        const files = event.dataTransfer && event.dataTransfer.files;
+        if (!files || !files.length) return;
+        try {
+          const transfer = new DataTransfer();
+          Array.from(files).forEach(file => transfer.items.add(file));
+          input.files = transfer.files;
+          input.dispatchEvent(new Event('change',{bubbles:true}));
+        } catch (_) {
+          setState(files);
+        }
+      });
+    });
+  }
+
   function initQuantityControls(){
     document.querySelectorAll('.ui-quantity').forEach(control => {
       if (control.dataset.uiQuantityReady === '1') return;
@@ -422,6 +469,8 @@
     initDialogs();
     initPopovers();
     initSegmentedControls();
+    initRemovableChips();
+    initUploads();
     initQuantityControls();
     initDocTables();
     initLightbox();
