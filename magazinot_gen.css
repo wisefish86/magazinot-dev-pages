@@ -2407,7 +2407,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 /* Mobile timeline connector belongs to each step, never beyond the last marker. */
 @media(max-width:620px){
  .ui-timeline--horizontal .ui-timeline__item{position:relative}
- .ui-timeline--horizontal .ui-timeline__item:not(:last-child)::after{content:"";position:absolute;left:14px;top:29px;bottom:-1px;width:1px;background:var(--c-line)}
+ .ui-timeline--horizontal .ui-timeline__item:not(:last-child)::after{content:"";position:absolute;left:14px;top:14px;bottom:-15px;width:1px;background:var(--c-line);z-index:0}
  .ui-timeline--horizontal .ui-timeline__item:last-child::after{display:none}
 }
 /* Selection highlight maintains padding on each wrapped line. */
@@ -2425,3 +2425,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-table-scroll-shell::after{right:0;background:linear-gradient(to left,#fff,rgba(255,255,255,0))}
 .ui-kit .ui-table-scroll-shell[data-scroll-left="true"]::before,.ui-kit .ui-table-scroll-shell[data-scroll-right="true"]::after{opacity:1}
 .ui-kit .ui-table-scroll-shell .ui-table-wrap{position:relative;width:100%}
+/* Straight clipped edges on sides with additional columns; the outer shell owns the fade. */
+.ui-kit .ui-table-scroll-shell[data-scroll-right="true"] .ui-table-wrap{border-top-right-radius:0;border-bottom-right-radius:0}
+.ui-kit .ui-table-scroll-shell[data-scroll-left="true"] .ui-table-wrap{border-top-left-radius:0;border-bottom-left-radius:0}
+.ui-kit .ui-table-scroll-shell[data-scroll-right="true"]{border-top-right-radius:0;border-bottom-right-radius:0}
+.ui-kit .ui-table-scroll-shell[data-scroll-left="true"]{border-top-left-radius:0;border-bottom-left-radius:0}
