@@ -88,10 +88,17 @@
 
   <section class="ui-kit__group">
     <h2>Layout primitives</h2>
-    <div class="ui-grid ui-grid--3">
-      <div class="ui-card"><h3>Колонка 1</h3><p>Один универсальный grid.</p></div>
-      <div class="ui-card"><h3>Колонка 2</h3><p>Адаптивный переход на mobile.</p></div>
-      <div class="ui-card"><h3>Колонка 3</h3><p>Без page-specific CSS.</p></div>
+    <div class="ui-stack">
+      <div class="ui-grid ui-grid--3">
+        <div class="ui-card"><h3>Grid</h3><p>Универсальная 2/3/4-колоночная сетка.</p></div>
+        <div class="ui-card"><h3>Stack</h3><p>Вертикальный ритм через единый gap.</p></div>
+        <div class="ui-card"><h3>Cluster</h3><p>Горизонтальная группа с переносом.</p></div>
+      </div>
+      <div class="ui-split ui-kit__example">
+        <div class="ui-readable"><h3>Split layout</h3><p>Типовой паттерн «текст + медиа» или две смысловые колонки. <code>ui-readable</code> ограничивает длину строки длинного текста, чтобы не ухудшать читаемость.</p><div class="ui-cluster"><span class="ui-chip">ui-split</span><span class="ui-chip">ui-readable</span></div></div>
+        <div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Media area</span></div></div>
+      </div>
+      <hr class="ui-divider">
     </div>
   </section>
 
