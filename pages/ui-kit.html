@@ -345,7 +345,7 @@
   <section class="ui-kit__group">
     <h2>Tabs</h2>
     <div class="ui-tabs">
-      <div class="ui-tabs__list" role="tablist" aria-label="Пример вкладок">
+      <div class="ui-tabs__list ui-tabs__list--wrap" role="tablist" aria-label="Пример вкладок">
         <button class="ui-tabs__tab" type="button" role="tab" id="tab-a" aria-controls="panel-a" aria-selected="true">Описание</button>
         <button class="ui-tabs__tab" type="button" role="tab" id="tab-b" aria-controls="panel-b" aria-selected="false">Характеристики</button>
         <button class="ui-tabs__tab" type="button" role="tab" id="tab-c" aria-controls="panel-c" aria-selected="false">Документы</button>
@@ -424,7 +424,7 @@
     </ol>
     <h3>Горизонтальная временная шкала</h3>
     <p class="ui-kit__hint">Горизонтальная шкала — компактный обзор статуса проекта или заказа. Для длинных названий и мобильных экранов используйте вертикальную.</p>
-    <ol class="ui-timeline ui-timeline--horizontal" style="--timeline-count:4">
+    <ol class="ui-timeline ui-timeline--horizontal">
       <li class="ui-timeline__item is-active"><span class="ui-timeline__marker">1</span><div class="ui-timeline__content"><strong>Запрос</strong><span>Получили задачу</span></div></li>
       <li class="ui-timeline__item"><span class="ui-timeline__marker">2</span><div class="ui-timeline__content"><strong>Согласование</strong><span>Уточняем параметры</span></div></li>
       <li class="ui-timeline__item"><span class="ui-timeline__marker">3</span><div class="ui-timeline__content"><strong>Изготовление</strong><span>Выполняем заказ</span></div></li>
@@ -459,7 +459,7 @@
         <p>Типовая карточка покупки: основная информация, цена, наличие, количество и главные действия.</p>
         <div class="ui-product-summary__price"><span class="ui-price">290 &#8381;</span><span class="ui-price__old">340 &#8381;</span></div>
         <div class="ui-product-summary__meta"><span class="ui-status-dot ui-status-dot--success">В наличии</span><span class="ui-badge ui-badge--muted">Артикул 10482</span></div>
-        <div class="ui-product-summary__actions"><div class="ui-quantity"><button type="button" aria-label="Уменьшить количество"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#minus"></use></svg></button><input type="number" min="1" value="1" aria-label="Количество"><button type="button" aria-label="Увеличить количество"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#plus"></use></svg></button></div><button class="ui-btn ui-btn--primary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#shopping-bag"></use></svg>В корзину</button><button class="ui-btn ui-btn--secondary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#message-circle"></use></svg>Задать вопрос</button></div>
+        <div class="ui-product-summary__actions"><div class="ui-quantity"><button type="button" aria-label="Уменьшить количество"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#minus"></use></svg></button><input type="number" min="1" value="1" aria-label="Количество"><button type="button" aria-label="Увеличить количество"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#plus"></use></svg></button></div><button class="ui-btn ui-btn--primary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#shopping-cart"></use></svg>В корзину</button><button class="ui-btn ui-btn--secondary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#message-circle"></use></svg>Задать вопрос</button></div>
       </div>
     </div>
   </section>
@@ -570,9 +570,9 @@
       <div>
         <p class="ui-table-caption">1. Формальная / нормативная</p>
         <div class="ui-table-wrap">
-          <table class="ui-table ui-table--normative">
-            <thead><tr><th>Группа</th><th>Наименование</th><th>Цвет</th></tr></thead>
-            <tbody><tr><td>1</td><td>Вода</td><td>Зелёный</td></tr><tr><td>2</td><td>Пар</td><td>Красный</td></tr><tr><td>3</td><td>Воздух</td><td>Синий</td></tr></tbody>
+          <table class="ui-table ui-table--normative ui-table--wide">
+            <thead><tr><th>Группа</th><th>Наименование</th><th>Цвет</th><th>Пример среды</th><th>Код группы</th></tr></thead>
+            <tbody><tr><td>1</td><td>Вода</td><td>Зелёный</td><td>Техническая вода</td><td>01</td></tr><tr><td>2</td><td>Пар</td><td>Красный</td><td>Насыщенный пар</td><td>02</td></tr><tr><td>3</td><td>Воздух</td><td>Синий</td><td>Сжатый воздух</td><td>03</td></tr></tbody>
           </table>
         </div>
       </div>
