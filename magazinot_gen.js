@@ -453,7 +453,7 @@
       fetch(catalog.dataset.source,{credentials:'same-origin'}).then(response=>{
         if (!response.ok) throw new Error('HTTP '+response.status);
         return response.json();
-      }).then(data=>install(Array.isArray(data.categories) ? data.categories : []))      }).catch(()=>{
+      }).then(data=>install(Array.isArray(data.categories) ? data.categories : [])).catch(()=>{
         intro.textContent='Не удалось загрузить каталог. Обновите страницу.';
         body.replaceChildren();
       });
