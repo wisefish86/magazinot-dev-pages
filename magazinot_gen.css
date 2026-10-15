@@ -3595,7 +3595,6 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-kit .ui-marker-catalog__matrix {
   border-collapse:collapse;
   border-spacing:0;
-  table-layout:fixed;
   margin:0
 }
 .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
