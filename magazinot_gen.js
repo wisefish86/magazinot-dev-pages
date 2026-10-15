@@ -394,6 +394,9 @@
         catalog.style.setProperty('--marker-soft',color+'18');
         intro.textContent = category.description || '';
         body.replaceChildren();
+        // A new category always starts at the first article; avoid retaining scroll from the previous one.
+        const tableViewport=catalog.querySelector('.ui-marker-catalog__table');
+        if(tableViewport) tableViewport.scrollLeft=0;
         const items = category.items || [];
         items.forEach(item => {
           const tr = document.createElement('tr');
