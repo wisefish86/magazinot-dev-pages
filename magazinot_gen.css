@@ -2347,7 +2347,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-category-visual .ui-image-placeholder{width:100%;min-height:0;aspect-ratio:4/3}
 .ui-category-visual strong{font-size:var(--text-md);line-height:1.35}
 
-/* Marker catalogue mobile layout: horizontal article matrix with anchored names. */
+/* Marker catalogue mobile layout: the entire article matrix scrolls together. */
 @media(max-width:700px){
  .ui-kit .ui-marker-catalog__tabs{display:flex;flex-wrap:wrap;align-items:center;gap:7px;padding:8px 0;max-width:100%;min-height:0;overflow:visible}
  .ui-kit .ui-marker-catalog__tab,
@@ -2363,10 +2363,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
  .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td{padding:9px 7px}
  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child,
  .ui-kit .ui-marker-catalog__matrix tbody tr td:first-child{
-  position:sticky;left:0;z-index:2;min-width:205px;width:205px;max-width:205px;
-  background:#fff;box-shadow:1px 0 0 var(--c-line);
+  position:static;min-width:205px;width:205px;max-width:205px;box-shadow:none;
  }
- .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child{z-index:3;background:#f2f6f7}
  .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even) td:first-child{background:#f9fbfb}
  .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label{max-width:188px;width:fit-content;white-space:normal;overflow-wrap:normal;text-wrap:balance}
  .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles{font-size:12px}
