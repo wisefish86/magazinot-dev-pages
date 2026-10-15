@@ -805,6 +805,16 @@
 
   <section class="ui-kit__group">
     <h2>Компоненты существующих страниц: ГОСТ и нормативные разделы</h2>
+    <p class="ui-kit__hint">Элементы внутри нормативного текста: номера терминов, формулы, примечания и изображения в таблицах. Они используют тот же общий CSS, что и исходная страница ГОСТ.</p>
+    <div class="ui-kit__example mk-ui docpage">
+      <p class="docpage__paragraph"><span class="docpage__term-number">3.1</span> Определение термина и его применение в стандарте.</p>
+      <p class="docpage__note-title">Примечание</p>
+      <p class="docpage__paragraph">Математическое обозначение: <span class="docpage__math">м<sup>2</sup></span>.</p>
+      <div class="docpage__flow"><p class="docpage__paragraph">Пример вложенного нормативного содержания.</p></div>
+      <div class="doc-table-wrap"><table class="doc-table"><tbody><tr><td>Рисунок внутри таблицы</td><td><span class="docpage__table-img">Схема</span></td></tr></tbody></table></div>
+      <div class="normpage__primary">Основной документ нормативного раздела.</div>
+    </div>
+
     <p class="ui-kit__hint">Реальные повторно используемые блоки: нормативный титульный лист, рисунок стандарта, список нормативных документов. CSS расположен только в общем magazinot_gen.css.</p>
     <div class="ui-kit__example mk-ui docpage">
       <article class="docpage__paper"><div class="docpage__standard-text">
