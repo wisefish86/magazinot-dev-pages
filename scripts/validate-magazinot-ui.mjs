@@ -1,10 +1,20 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import {execFileSync} from 'node:child_process';
 
 const root=process.cwd();
 const pagesDir=path.join(root,'pages');
 const css=fs.readFileSync(path.join(root,'magazinot_gen.css'),'utf8');
 const js=fs.readFileSync(path.join(root,'magazinot_gen.js'),'utf8');
+
+// Syntax must be checked before any FTP publish; basic string-presence tests cannot detect a broken bundle.
+try{
+  execFileSync(process.execPath,['--check',path.join(root,'magazinot_gen.js')],{stdio:'pipe'});
+}catch(error){
+  console.error('Shared JavaScript syntax error:\\n'+String(error.stderr || error.message));
+  process.exit(1);
+}
+
 
 function walk(dir){
   return fs.readdirSync(dir,{withFileTypes:true}).flatMap(entry=>{
