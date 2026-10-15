@@ -251,6 +251,63 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Statuses / badges</h2>
+    <div class="ui-kit__example ui-stack">
+      <div class="ui-cluster"><span class="ui-badge ui-badge--accent">Акцент</span><span class="ui-badge ui-badge--success">Готово</span><span class="ui-badge ui-badge--warning">Нужна проверка</span><span class="ui-badge ui-badge--danger">Ошибка</span><span class="ui-badge ui-badge--muted">Архив</span></div>
+      <div class="ui-cluster"><span class="ui-status-dot ui-status-dot--success">Онлайн</span><span class="ui-status-dot ui-status-dot--warning">Ожидает</span><span class="ui-status-dot ui-status-dot--danger">Недоступно</span></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Switch / range / segmented</h2>
+    <div class="ui-grid ui-grid--3">
+      <div class="ui-kit__example"><h3>Switch</h3><label class="ui-switch"><input type="checkbox" checked><span class="ui-switch__track" aria-hidden="true"></span><span>Показывать только доступные позиции</span></label></div>
+      <div class="ui-kit__example"><h3>Range</h3><label class="ui-range">Количество<input type="range" min="1" max="100" value="45"><span class="ui-field__help">Пример диапазона 1–100.</span></label></div>
+      <div class="ui-kit__example"><h3>Segmented control</h3><div class="ui-segmented" aria-label="Вид"><button type="button" aria-pressed="true">Карточки</button><button type="button" aria-pressed="false">Список</button></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Timeline</h2>
+    <ol class="ui-timeline">
+      <li class="ui-timeline__item is-active"><span class="ui-timeline__marker">1</span><div class="ui-timeline__content"><strong>Заявка принята</strong><span>Исходные данные и требования получены.</span></div></li>
+      <li class="ui-timeline__item"><span class="ui-timeline__marker">2</span><div class="ui-timeline__content"><strong>Подготовка макета</strong><span>Дизайнер готовит вариант на согласование.</span></div></li>
+      <li class="ui-timeline__item"><span class="ui-timeline__marker">3</span><div class="ui-timeline__content"><strong>Производство</strong><span>После подтверждения заказ передаётся в работу.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Banner / notification</h2>
+    <div class="ui-stack">
+      <div class="ui-banner"><span class="ui-banner__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg></span><div><span class="ui-banner__title">Информационное сообщение</span><span class="ui-banner__text">Подходит для заметного, но не блокирующего сообщения на странице.</span></div><a class="ui-inline-link" href="#">Подробнее</a></div>
+      <div class="ui-banner ui-banner--warning"><span class="ui-banner__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg></span><div><span class="ui-banner__title">Требуется внимание</span><span class="ui-banner__text">Предупреждение перед действием или о неполных данных.</span></div><button class="ui-btn ui-btn--secondary" type="button">Проверить</button></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Responsive embed / video</h2>
+    <div class="ui-embed">
+      <div class="ui-embed__frame"><div class="ui-embed__placeholder"><div><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Видео / iframe 16:9</span></div></div></div>
+      <div class="ui-embed__caption">Единый responsive-контейнер для видео, карты или внешнего embed.</div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Product / commerce summary</h2>
+    <div class="ui-product-summary">
+      <div class="ui-product-summary__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div>
+      <div>
+        <p class="ui-product-summary__eyebrow">Маркировочные стрелки</p>
+        <h3 class="ui-product-summary__title">Стрелка направления потока</h3>
+        <p>Типовая карточка покупки: основная информация, цена, наличие, количество и главные действия.</p>
+        <div class="ui-product-summary__price"><span class="ui-price">290 ₽</span><span class="ui-price__old">340 ₽</span></div>
+        <div class="ui-product-summary__meta"><span class="ui-status-dot ui-status-dot--success">В наличии</span><span class="ui-badge ui-badge--muted">Артикул 10482</span></div>
+        <div class="ui-product-summary__actions"><div class="ui-quantity"><button type="button" aria-label="Уменьшить количество">−</button><input type="number" min="1" value="1" aria-label="Количество"><button type="button" aria-label="Увеличить количество">+</button></div><button class="ui-btn ui-btn--primary" type="button">В корзину</button><button class="ui-btn ui-btn--secondary" type="button">Задать вопрос</button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Figure / gallery</h2>
     <p class="ui-kit__hint">Один базовый figure для изображения с подписью и grid-галерея для нескольких материалов. Реальные контентные изображения могут подключаться без изменения каркаса.</p>
     <div class="ui-gallery">
