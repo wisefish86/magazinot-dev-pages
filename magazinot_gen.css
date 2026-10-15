@@ -1351,6 +1351,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   background:rgba(255,255,255,.065);
 }
 .ui-cta__side strong {
+  color:#fff;
   display:block;
   margin-bottom:5px;
   font-size:var(--text-lg);
