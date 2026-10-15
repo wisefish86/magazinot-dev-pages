@@ -381,7 +381,7 @@
       if (!tabs || !intro || !body) return;
       catalog.dataset.readyMarkerCatalog = '1';
       const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.ui-marker-catalog__matrix');
-      const colors = {water:['#417e00','#fff'],steam:['#ff0000','#fff'],air:['#73c7ff','#000'],gas:['#ffec0f','#000'],acid:['#ff7a00','#000'],alkali:['#cea4fc','#000'],liquid:['#b44100','#fff'],other:['#a7a7a7','#000']};
+      const colors = {water:['#348313','#fff'],steam:['#e9252b','#fff'],air:['#76c9f4','#10232d'],gas:['#ffe039','#25210a'],acid:['#ff941f','#262012'],alkali:['#cba0f0','#261830'],liquid:['#a64b1c','#fff'],other:['#a9adb0','#17232a']};
       const names = {water:'ВОДА',steam:'ПАР',air:'ВОЗДУХ',gas:'ГАЗЫ',acid:'КИСЛОТЫ',alkali:'ЩЕЛОЧИ',liquid:'ЖИДКОСТИ',other:'ПРОЧИЕ ВЕЩЕСТВА'};
       const safe = value => String(value == null ? '' : value);
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
