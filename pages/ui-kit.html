@@ -92,6 +92,8 @@
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#zoom-in"></use></svg><code>zoom-in</code></div>
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lock"></use></svg><code>lock</code></div>
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#settings"></use></svg><code>settings</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#message-circle"></use></svg><code>message-circle</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lightbulb"></use></svg><code>lightbulb</code></div>
     </div>
   </section>
 
@@ -123,17 +125,23 @@
 
   <section class="ui-kit__group">
     <h2>Layout primitives</h2>
+    <p class="ui-kit__hint">Базовая колоночная сетка: 2–5 колонок. Пять колонок используем только для компактных однотипных блоков; содержательные карточки обычно ограничиваем 2–4.</p>
     <div class="ui-stack">
       <div class="ui-grid ui-grid--3">
-        <div class="ui-card"><h3>Grid</h3><p>Универсальная 2/3/4-колоночная сетка.</p></div>
+        <div class="ui-card"><h3>Grid</h3><p>Универсальная сетка с одинаковой высотой элементов в одном ряду.</p></div>
         <div class="ui-card"><h3>Stack</h3><p>Вертикальный ритм через единый gap.</p></div>
         <div class="ui-card"><h3>Cluster</h3><p>Горизонтальная группа с переносом.</p></div>
       </div>
+      <div class="ui-kit__example">
+        <h3>2 / 3 / 4 / 5 колонок</h3>
+        <div class="ui-grid ui-grid--5" style="--ui-gap:8px">
+          <div class="ui-card"><strong>1</strong></div><div class="ui-card"><strong>2</strong></div><div class="ui-card"><strong>3</strong></div><div class="ui-card"><strong>4</strong></div><div class="ui-card"><strong>5</strong></div>
+        </div>
+      </div>
       <div class="ui-split ui-kit__example">
-        <div class="ui-readable"><h3>Split layout</h3><p>Типовой паттерн «текст + медиа» или две смысловые колонки. <code>ui-readable</code> ограничивает длину строки длинного текста, чтобы не ухудшать читаемость.</p><div class="ui-cluster"><span class="ui-chip">ui-split</span><span class="ui-chip">ui-readable</span></div></div>
+        <div class="ui-readable"><h3>Split layout</h3><p>Типовой паттерн «текст + медиа» или две смысловые колонки. <code>ui-readable</code> ограничивает длину строки длинного текста.</p><div class="ui-cluster"><span class="ui-chip">ui-split</span><span class="ui-chip">ui-readable</span></div></div>
         <div class="ui-figure__media"><div class="ui-figure__placeholder"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg><span>Media area</span></div></div>
       </div>
-      <hr class="ui-divider">
     </div>
   </section>
 
@@ -151,7 +159,7 @@
     <div class="ui-grid ui-grid--3">
       <article class="ui-feature-card"><span class="ui-feature-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><div><h3>Преимущество</h3><p>Компактный блок «иконка + смысл» без лишнего декоративного веса.</p></div></article>
       <article class="ui-stat-card"><span class="ui-stat-card__value">98%</span><span class="ui-stat-card__label">заказов без корректировок после согласования</span><span class="ui-stat-card__delta">+4 п.п.</span></article>
-      <article class="ui-product-card"><div class="ui-product-card__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div><div class="ui-product-card__body"><h3 class="ui-product-card__title">Карточка товара</h3><p class="ui-product-card__text">Для каталога: изображение, название, короткий контекст и цена.</p><div class="ui-product-card__footer"><span class="ui-product-card__price">от 290 ₽</span><span class="ui-status-dot ui-status-dot--success">В наличии</span></div></div></article>
+      <article class="ui-product-card"><div class="ui-product-card__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div><div class="ui-product-card__body"><h3 class="ui-product-card__title">Карточка товара</h3><p class="ui-product-card__text">Для каталога: изображение, название, короткий контекст и цена.</p><div class="ui-product-card__footer"><span class="ui-product-card__price">от 290 &#8381;</span><span class="ui-status-dot ui-status-dot--success">В наличии</span></div></div></article>
     </div>
   </section>
 
@@ -165,30 +173,64 @@
 
   <section class="ui-kit__group">
     <h2>Списки и характеристики</h2>
-    <p class="ui-kit__hint">Обычные смысловые списки остаются семантическими <code>ul</code>/<code>ol</code>. Checklist и icon-list используют канонические иконки из общего SVG-sprite, а не рисуют новые локальные версии.</p>
-    <div class="ui-grid ui-grid--3">
+    <p class="ui-kit__hint">Все типы списков поддерживают до трёх уровней вложенности. Вертикальный ритм намеренно компактный — ближе к Notion: вложенность считывается отступом и маркером, а не большими пустотами.</p>
+    <div class="ui-grid ui-grid--2">
       <div class="ui-kit__example">
         <h3>Маркированный список</h3>
-        <ul class="ui-list ui-list--bullet"><li>Первый смысловой пункт</li><li>Второй пункт с более длинным пояснением</li><li>Третий пункт</li></ul>
+        <ul class="ui-list ui-list--bullet">
+          <li>Первый уровень</li>
+          <li>Пункт с вложенностью
+            <ul>
+              <li>Второй уровень</li>
+              <li>Ещё один пункт
+                <ul><li>Третий уровень</li><li>Компактное пояснение</li></ul>
+              </li>
+            </ul>
+          </li>
+          <li>Следующий пункт первого уровня</li>
+        </ul>
       </div>
       <div class="ui-kit__example">
         <h3>Нумерованный список</h3>
-        <ol class="ui-list ui-list--ordered"><li>Определить задачу</li><li>Выбрать подходящий компонент</li><li>Проверить результат</li></ol>
+        <ol class="ui-list ui-list--ordered">
+          <li>Определить задачу</li>
+          <li>Выбрать решение
+            <ol>
+              <li>Проверить существующий компонент</li>
+              <li>Уточнить вариант
+                <ol><li>Проверить третий уровень</li><li>Зафиксировать решение</li></ol>
+              </li>
+            </ol>
+          </li>
+          <li>Проверить результат</li>
+        </ol>
       </div>
       <div class="ui-kit__example">
         <h3>Checklist</h3>
         <ul class="ui-list ui-list--check">
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Единый компонент</span></li>
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Переиспользуемые токены</span></li>
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Никакого локального CSS</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Первый уровень</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Группа требований</span>
+            <ul class="ui-list ui-list--check">
+              <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Второй уровень</span></li>
+              <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Подгруппа</span>
+                <ul class="ui-list ui-list--check"><li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg><span>Третий уровень</span></li></ul>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div class="ui-kit__example">
         <h3>Список с иконками</h3>
         <ul class="ui-list ui-list--icon">
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg><span>Документы и файлы</span></li>
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg><span>Материалы для скачивания</span></li>
-          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg><span>Внешние связанные ресурсы</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg><span>Документы</span></li>
+          <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#download"></use></svg><span>Материалы</span>
+            <ul class="ui-list ui-list--icon">
+              <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg><span>Второй уровень</span></li>
+              <li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg><span>Связанные ресурсы</span>
+                <ul class="ui-list ui-list--icon"><li><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg><span>Третий уровень</span></li></ul>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <div class="ui-kit__example">
@@ -209,6 +251,17 @@
       <div class="ui-note ui-note--success"><strong>Готово.</strong> Позитивный статус без ярко-зелёной заливки.</div>
       <div class="ui-note ui-note--warning"><strong>Важно.</strong> Предупреждение с приглушённым янтарным оттенком.</div>
       <div class="ui-note ui-note--danger"><strong>Ошибка.</strong> Красный используется только по смыслу.</div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Callout</h2>
+    <p class="ui-kit__hint">Callout — более содержательный блок в духе Notion: иконка + короткий заголовок + пояснение. Используем для идеи, совета, важного контекста или результата, но не вместо каждого абзаца.</p>
+    <div class="ui-grid ui-grid--2">
+      <div class="ui-callout"><span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg></span><div><span class="ui-callout__title">Полезно знать</span><p class="ui-callout__text">Дополнительный контекст, который помогает принять решение.</p></div></div>
+      <div class="ui-callout ui-callout--idea"><span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lightbulb"></use></svg></span><div><span class="ui-callout__title">Идея</span><p class="ui-callout__text">Практический совет или нестандартный вариант решения.</p></div></div>
+      <div class="ui-callout ui-callout--warning"><span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#warning"></use></svg></span><div><span class="ui-callout__title">Обратите внимание</span><p class="ui-callout__text">Важное ограничение или условие перед действием.</p></div></div>
+      <div class="ui-callout ui-callout--success"><span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><div><span class="ui-callout__title">Рекомендация</span><p class="ui-callout__text">Предпочтительный вариант, если нет специальных ограничений.</p></div></div>
     </div>
   </section>
 
@@ -253,7 +306,7 @@
     <div class="ui-kit__example ui-stack">
       <div class="ui-grid">
         <div class="ui-field"><label for="kit-name">Название</label><input class="ui-input" id="kit-name" type="text" placeholder="Например, Азот"><span class="ui-field__help">Короткое пояснение под полем.</span></div>
-        <div class="ui-field"><label for="kit-type">Тип</label><select class="ui-select" id="kit-type"><option>Маркировочная стрелка</option><option>Лента</option></select></div>
+        <div class="ui-field"><label id="kit-type-label">Тип</label><div class="ui-selectbox" data-ui-selectbox><button class="ui-selectbox__button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="kit-type-label kit-type-value"><span id="kit-type-value" data-ui-selectbox-value>Маркировочная стрелка</span><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></button><ul class="ui-selectbox__list" role="listbox" hidden><li class="ui-selectbox__option" role="option" aria-selected="true" data-value="arrow">Маркировочная стрелка</li><li class="ui-selectbox__option" role="option" aria-selected="false" data-value="tape">Лента</li></ul><input type="hidden" name="kit-type" value="arrow" data-ui-selectbox-input></div></div>
       </div>
       <div class="ui-field"><label for="kit-comment">Комментарий</label><textarea class="ui-textarea" id="kit-comment" placeholder="Дополнительные требования"></textarea></div>
       <div class="ui-grid">
@@ -293,7 +346,7 @@
     <h2>Search / filters</h2>
     <div class="ui-filter-bar">
       <div class="ui-field"><label for="kit-search">Поиск</label><div class="ui-search"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#search"></use></svg><input class="ui-input" id="kit-search" type="search" placeholder="Название или артикул"></div></div>
-      <div class="ui-field"><label for="kit-filter">Категория</label><select class="ui-select" id="kit-filter"><option>Все категории</option><option>Стрелки</option><option>Ленты</option></select></div>
+      <div class="ui-field"><label id="kit-filter-label">Категория</label><div class="ui-selectbox" data-ui-selectbox><button class="ui-selectbox__button" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="kit-filter-label kit-filter-value"><span id="kit-filter-value" data-ui-selectbox-value>Все категории</span><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></button><ul class="ui-selectbox__list" role="listbox" hidden><li class="ui-selectbox__option" role="option" aria-selected="true" data-value="all">Все категории</li><li class="ui-selectbox__option" role="option" aria-selected="false" data-value="arrows">Стрелки</li><li class="ui-selectbox__option" role="option" aria-selected="false" data-value="tapes">Ленты</li></ul><input type="hidden" name="kit-filter" value="all" data-ui-selectbox-input></div></div>
       <button class="ui-btn ui-btn--secondary" type="button">Применить</button>
     </div>
     <div class="ui-active-filters"><span class="ui-chip ui-chip--removable">Стрелки<button class="ui-chip__remove" type="button" aria-label="Убрать фильтр Стрелки"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></span><span class="ui-chip ui-chip--removable">В наличии<button class="ui-chip__remove" type="button" aria-label="Убрать фильтр В наличии"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg></button></span></div>
@@ -367,9 +420,9 @@
         <p class="ui-product-summary__eyebrow">Маркировочные стрелки</p>
         <h3 class="ui-product-summary__title">Стрелка направления потока</h3>
         <p>Типовая карточка покупки: основная информация, цена, наличие, количество и главные действия.</p>
-        <div class="ui-product-summary__price"><span class="ui-price">290 ₽</span><span class="ui-price__old">340 ₽</span></div>
+        <div class="ui-product-summary__price"><span class="ui-price">290 &#8381;</span><span class="ui-price__old">340 &#8381;</span></div>
         <div class="ui-product-summary__meta"><span class="ui-status-dot ui-status-dot--success">В наличии</span><span class="ui-badge ui-badge--muted">Артикул 10482</span></div>
-        <div class="ui-product-summary__actions"><div class="ui-quantity"><button type="button" aria-label="Уменьшить количество">−</button><input type="number" min="1" value="1" aria-label="Количество"><button type="button" aria-label="Увеличить количество">+</button></div><button class="ui-btn ui-btn--primary" type="button">В корзину</button><button class="ui-btn ui-btn--secondary" type="button">Задать вопрос</button></div>
+        <div class="ui-product-summary__actions"><div class="ui-quantity"><button type="button" aria-label="Уменьшить количество">&minus;</button><input type="number" min="1" value="1" aria-label="Количество"><button type="button" aria-label="Увеличить количество">+</button></div><button class="ui-btn ui-btn--primary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>В корзину</button><button class="ui-btn ui-btn--secondary" type="button"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#message-circle"></use></svg>Задать вопрос</button></div>
       </div>
     </div>
   </section>
