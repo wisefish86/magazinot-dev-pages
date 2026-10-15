@@ -949,10 +949,21 @@
     });
   }
 
+  function initTimelineConnectors(){
+    document.querySelectorAll('.ui-timeline--horizontal').forEach(line=>{
+      const count=line.querySelectorAll(':scope > .ui-timeline__item').length;
+      if(count>0){
+        line.style.setProperty('--timeline-count',String(count));
+        line.style.setProperty('--timeline-last-col',(100/count)+'%');
+      }
+    });
+  }
+
   function initUi(){
     initPageTitle();
     initAccordion();
     initTabs();
+    initTimelineConnectors();
     initLegacyActions();
     initCarousels();
     initScrollCues();
