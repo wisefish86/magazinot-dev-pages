@@ -1272,6 +1272,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
   transition:transform var(--motion-normal) var(--ease-standard),color var(--motion-fast) ease;
 }
 .ui-accordion__chevron svg{width:16px;height:16px;stroke-width:1.9}
+.ui-accordion__chevron .ui-icon{width:16px;height:16px}
 .ui-accordion details[open]:not(.is-closing) .ui-accordion__chevron{
   transform:rotate(90deg);
   color:var(--c-icon-hover);
@@ -1396,12 +1397,22 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-card h3{margin:0 0 5px}
 .ui-card p{margin:0;color:var(--c-muted);font-size:var(--text-md);line-height:1.55}
 
-.ui-list{margin:0;padding-left:20px}
-.ui-list li{margin:7px 0}
-.ui-list--check{padding:0;list-style:none}
-.ui-list--check li{position:relative;padding-left:27px}
-.ui-list--check li::before{content:"";position:absolute;left:1px;top:.35em;width:15px;height:15px;border:1.5px solid var(--c-accent);border-radius:50%}
-.ui-list--check li::after{content:"";position:absolute;left:5px;top:.52em;width:7px;height:4px;border-left:1.7px solid var(--c-accent);border-bottom:1.7px solid var(--c-accent);transform:rotate(-45deg)}
+.ui-icon{display:inline-block;width:1.2em;height:1.2em;flex:0 0 auto;vertical-align:-.18em;color:currentColor;fill:none}
+.ui-icon--sm{width:18px;height:18px}
+.ui-icon--md{width:22px;height:22px}
+.ui-icon--lg{width:28px;height:28px}
+
+.ui-list{margin:0;padding-left:22px;color:var(--c-text)}
+.ui-list li{margin:8px 0;padding-left:3px;line-height:1.55}
+.ui-list li::marker{color:var(--c-muted-soft)}
+.ui-list--bullet li::marker{color:var(--c-accent)}
+.ui-list--ordered{padding-left:26px}
+.ui-list--ordered li::marker{color:var(--c-accent-dark);font-weight:750}
+.ui-list--check,.ui-list--icon{padding:0;list-style:none}
+.ui-list--check li,.ui-list--icon li{display:grid;grid-template-columns:20px minmax(0,1fr);gap:9px;align-items:start;padding:0}
+.ui-list--check .ui-icon,.ui-list--icon .ui-icon{width:18px;height:18px;margin-top:.2em;color:var(--c-accent)}
+.ui-list--icon .ui-icon{color:var(--c-muted-soft)}
+.ui-list--compact li{margin:5px 0}
 
 .ui-specs{margin:0;border-top:1px solid var(--c-line)}
 .ui-specs__row{display:grid;grid-template-columns:minmax(140px,.7fr) minmax(0,1.3fr);gap:16px;padding:11px 0;border-bottom:1px solid var(--c-line-soft)}
