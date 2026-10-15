@@ -1410,6 +1410,13 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-kit__group{margin:0;padding:34px 0}
 .ui-kit__group + .ui-kit__group{border-top:1px solid var(--c-line-soft)}
 .ui-kit__group > h2{margin:0 0 8px;font-size:clamp(21px,2.1vw,26px);line-height:1.2;letter-spacing:-.015em}
+/* Vertical rhythm for nested UI Kit showcase sections, including galleries and navigation. */
+.ui-kit__group > h3{margin:28px 0 10px;line-height:1.35}
+.ui-kit__group > h3:first-child{margin-top:0}
+.ui-kit__group > .ui-gallery + h3,.ui-kit__group > .ui-grid + h3,.ui-kit__group > .ui-category-links + h3{margin-top:32px}
+.ui-kit__group > .ui-gallery + h3,.ui-kit__group > .ui-grid + h3{clear:both}
+.ui-kit__group > h3 + .ui-kit__hint{margin-top:0;margin-bottom:16px}
+.ui-kit__group > .ui-gallery,.ui-kit__group > .ui-grid,.ui-kit__group > .ui-category-links{margin-bottom:18px}
 .ui-kit__hint{max-width:800px;margin:0 0 18px;color:var(--c-muted);font-size:var(--text-md);line-height:1.55}
 .ui-kit__example{padding:18px;border:1px solid #e4ecea;border-radius:var(--radius-lg);background:#fafcfb}
 /* Heading hierarchy preview follows actual editorial spacing. */
@@ -2331,7 +2338,3 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-category-visual:hover,.ui-category-visual:focus-visible{border-color:var(--c-accent);color:var(--c-accent-dark)!important}
 .ui-category-visual .ui-image-placeholder{width:100%;min-height:0;aspect-ratio:4/3}
 .ui-category-visual strong{font-size:var(--text-md);line-height:1.35}
-.ui-category-endpoint{margin:10px 0 24px;padding:18px;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:#fff}
-.ui-category-endpoint > h3{margin:16px 0 8px;color:var(--c-heading)}
-.ui-category-endpoint > p{margin:0 0 18px;color:var(--c-muted);line-height:1.6}
-@media(max-width:620px){.ui-category-endpoint{padding:12px}}
