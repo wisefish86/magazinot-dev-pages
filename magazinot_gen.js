@@ -109,6 +109,15 @@
         event.preventDefault();
         return;
       }
+      const priceLink=event.target.closest('[data-ui-price-download]');
+      if(priceLink){
+        event.preventDefault();
+        const category=Number(priceLink.dataset.uiPriceDownload);
+        if(Number.isSafeInteger(category)&&category>0&&typeof window.download_price==='function'){
+          window.download_price(priceLink,category);
+        }
+        return;
+      }
       const link = event.target.closest('[data-ui-email-order]');
       if (!link || typeof window.uh_pages !== 'function') return;
       event.preventDefault();
