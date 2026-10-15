@@ -25,3 +25,25 @@ Global shared files remain separate while the legacy site is being migrated:
 Do not duplicate files between GitHub folders. GitHub is the source; GitHub Actions deploys `site-assets/**` to the server.
 
 When a permanent assets directory is provided by the site programmer, change only the deployment target `RUNTIME_ASSETS_SERVER_DIR`. Keep asset paths and filenames stable.
+
+
+## Shared UI icons
+
+Canonical reusable interface icons live in `icons/ui-icons.svg` as named SVG symbols.
+
+Rules:
+- reuse the existing symbol id for the same semantic action;
+- do not redraw common icons locally in page HTML;
+- unique illustrations and page-specific graphics do not belong in the shared sprite;
+- standard icon language: 24×24 viewBox, outline, `currentColor`, about 1.8–1.9 px stroke, round caps/joins.
+
+Current reusable ids:
+`chevron-right`, `check`, `check-circle`, `info`, `warning`, `alert-circle`, `download`, `external-link`, `search`, `close`, `plus`, `file`, `image`, `arrow-up-right`.
+
+Usage:
+
+```html
+<svg class="ui-icon" aria-hidden="true">
+  <use href="/assets/icons/ui-icons.svg#chevron-right"></use>
+</svg>
+```
