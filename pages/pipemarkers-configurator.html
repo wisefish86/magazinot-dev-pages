@@ -1,29 +1,39 @@
-<!-- dev-title: Конфигуратор маркировочных стрелок -->
+<!-- dev-title: Каталог самоклеящихся маркеров для трубопроводов -->
 <!-- dev-title-state: draft -->
 <!-- dev-path: Эксперименты/Маркировка трубопроводов -->
 <!-- dev-status: В разработке -->
-<!-- dev-description: Справочник самоклеящихся маркеров по группам сред и артикулам P1–P6. -->
+<!-- dev-description: Табличный каталог восьми категорий сред и исполнений P1–P6 с артикулами. -->
 <!-- dev-order: 40 -->
 
-<div class="mk-ui ui-kit" data-ui-page-title="Самоклеящиеся маркеры трубопроводов">
+<div class="mk-ui ui-kit" data-ui-page-title="Каталог самоклеящихся маркеров">
   <section class="ui-section">
     <div class="ui-section__head">
-      <h2 class="ui-section__title">Самоклеящиеся маркеры трубопроводов</h2>
-      <p class="ui-section__intro">Выберите группу транспортируемой среды и найдите наименование и артикул для исполнения Р.1–Р.6. Цвет таблицы соответствует выбранной группе.</p>
+      <h2 class="ui-section__title">Самоклеящиеся маркеры для трубопроводов</h2>
+      <p class="ui-section__intro">Выберите среду, чтобы посмотреть наименования маркировки и артикулы для заказа в размерах P1–P6.</p>
     </div>
-    <div class="ui-marker-catalog ui-marker-catalog--matrix" data-ui-marker-catalog data-source="/assets/data/pipemarkers-demo.json">
-      <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Группы транспортируемых сред" data-marker-tabs>
-        <span class="ui-chip">Загрузка каталога…</span>
+    <div class="ui-marker-catalog" data-ui-marker-catalog data-source="/assets/data/pipemarkers-demo.json">
+      <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Категория транспортируемой среды" data-marker-tabs>
+        <span class="ui-chip">Загрузка категорий…</span>
       </div>
-      <p class="ui-marker-catalog__intro" data-marker-intro role="status">Загрузка данных каталога…</p>
-      <div class="ui-table-wrap ui-marker-catalog__table" tabindex="0" role="region" aria-label="Таблица артикулов маркеров; на узком экране прокручивается горизонтально">
-        <table class="ui-table ui-table--normative">
-          <thead><tr><th rowspan="2" scope="col">Наименование</th><th rowspan="2" scope="col">Знаки опасности</th><th colspan="6" scope="colgroup">Артикул для заказа</th></tr>
-            <tr><th scope="col">Р.1</th><th scope="col">Р.2</th><th scope="col">Р.3</th><th scope="col">Р.4</th><th scope="col">Р.5</th><th scope="col">Р.6</th></tr></thead>
+      <div class="ui-marker-catalog__intro" id="ui-marker-description" data-marker-intro aria-live="polite">Загрузка справочника…</div>
+      <div class="ui-marker-catalog__tools"><span data-marker-count></span><span>Размеры P1–P6 · коды артикулов</span></div>
+      <div class="ui-table-wrap ui-marker-catalog__table" role="region" aria-label="Артикулы маркировочных изделий" tabindex="0">
+        <table class="ui-table ui-marker-catalog__matrix" id="ui-marker-results">
+          <thead>
+            <tr>
+              <th scope="col" rowspan="2">Наименование</th>
+              <th scope="col" rowspan="2">Знаки опасности</th>
+              <th scope="colgroup" colspan="6">Артикул для заказа</th>
+            </tr>
+            <tr>
+              <th scope="col">P1</th><th scope="col">P2</th><th scope="col">P3</th>
+              <th scope="col">P4</th><th scope="col">P5</th><th scope="col">P6</th>
+            </tr>
+          </thead>
           <tbody data-marker-body><tr><td colspan="8">Загрузка…</td></tr></tbody>
         </table>
       </div>
-      <p class="ui-marker-catalog__footnote">Обозначения Р.1–Р.6 соответствуют исполнениям маркеров. Выбор размера и материала уточняется при заказе.</p>
+      <p class="ui-marker-catalog__hint">На узких экранах таблицу можно прокручивать по горизонтали. Сведения из каталога производителя используются как справочные и требуют проверки перед заказом.</p>
     </div>
   </section>
 </div>
