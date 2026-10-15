@@ -960,6 +960,10 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   }
 }
 /* Отраслевые страницы нормативной документации */
+.normpage__related .ui-content-title {
+  margin-bottom:14px!important;
+}
+
 .normpage__lead {
   margin-bottom:16px;
   color:#566a75;
