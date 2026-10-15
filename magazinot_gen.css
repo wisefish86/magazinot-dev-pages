@@ -1770,10 +1770,12 @@ fieldset.ui-field{min-width:0;margin:0;padding:0;border:0}
 @container (max-width:760px){
   .ui-kit .ui-grid--3,.ui-kit .ui-grid--4,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery{grid-template-columns:1fr 1fr}
   .ui-kit .ui-carousel__track{grid-auto-columns:minmax(240px,72%)}
-  .ui-kit .ui-product-summary,.ui-kit .ui-hero--media,.ui-kit .ui-split{grid-template-columns:1fr}
+  .ui-kit .ui-product-summary,.ui-kit .ui-hero--media,.ui-kit .ui-split,.ui-kit .ui-cta{grid-template-columns:1fr}
+  .ui-kit .ui-media-grid,.ui-kit .ui-link-panel__list,.ui-kit .ui-check-grid{grid-template-columns:1fr}
+  .ui-kit .ui-link-panel__row:nth-child(odd){border-right:0}
 }
 @container (max-width:520px){
   .ui-kit .ui-grid,.ui-kit .ui-grid--3,.ui-kit .ui-grid--4,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery,.ui-kit .ui-before-after{grid-template-columns:1fr}
   .ui-kit .ui-carousel__track{grid-auto-columns:88%}
-  .ui-kit .ui-swatches-grid{grid-template-columns:1fr}
+  .ui-kit .ui-swatch-grid{grid-template-columns:1fr}
 }
