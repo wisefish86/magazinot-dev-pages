@@ -1578,12 +1578,14 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 /* Downloads */
 .ui-download-list{display:grid;gap:8px}
 .ui-file{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:11px;align-items:center;min-height:62px;padding:10px 12px;border:1px solid var(--c-line);border-radius:var(--radius-md);background:#fff;color:inherit;text-decoration:none!important;transition:border-color var(--motion-fast),background var(--motion-fast),transform var(--motion-fast)}
-.ui-file:hover{border-color:var(--c-line-strong);background:var(--c-soft);transform:translateY(-1px)}
-.ui-file__icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#eaf4f3;color:var(--c-accent-dark)}
+.ui-file:hover{border-color:#b7d0cc;background:#f1f7f6;transform:translateY(-1px)}
+.ui-file__icon{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:10px;background:#eaf4f3;color:var(--c-accent-dark);transition:background var(--motion-fast),color var(--motion-fast),box-shadow var(--motion-fast)}
+.ui-file:hover .ui-file__icon{background:#fff;color:var(--c-accent-dark);box-shadow:0 1px 5px rgba(23,55,58,.08)}
 .ui-file__icon .ui-icon{width:20px;height:20px}
 .ui-file__title{display:block;color:var(--c-heading);font-size:var(--text-md);font-weight:650}
 .ui-file__meta{display:block;margin-top:2px;color:var(--c-muted);font-size:var(--text-sm)}
-.ui-file__action{color:var(--c-accent);font-size:var(--text-sm);font-weight:650}
+.ui-file__action{color:var(--c-accent);font-size:var(--text-sm);font-weight:650;transition:color var(--motion-fast),text-decoration-color var(--motion-fast)}
+.ui-file:hover .ui-file__action{color:var(--c-accent-dark);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
 
 /* Search / filters */
 .ui-search{position:relative}
