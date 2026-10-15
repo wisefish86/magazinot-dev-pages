@@ -1,0 +1,68 @@
+<!-- dev-title: Конфигуратор маркировочных стрелок -->
+<!-- dev-title-state: draft -->
+<!-- dev-path: Эксперименты/Маркировка трубопроводов -->
+<!-- dev-status: В разработке -->
+<!-- dev-description: Отдельный прототип универсального selector/catalog для маркировочных стрелок. -->
+<!-- dev-order: 40 -->
+
+<div class="mk-ui ui-kit" data-ui-page-title="Конфигуратор маркировочных стрелок">
+  <section class="ui-hero">
+    <p class="ui-hero__lead">Прототип отдельного универсального модуля: категории сред, preview, наименования и исполнения P1–P6. Данные отделены от интерфейса и позже будут заменены полным справочником.</p>
+    <div class="ui-chips">
+      <span class="ui-chip">Data-driven</span>
+      <span class="ui-chip">Tabs / categories</span>
+      <span class="ui-chip">Preview</span>
+      <span class="ui-chip">P1–P6</span>
+    </div>
+  </section>
+
+  <section class="ui-section">
+    <div class="ui-section__head">
+      <h2 class="ui-section__title">Каталог вариантов</h2>
+      <p class="ui-section__intro">Пока загружена демонстрационная выборка по воде, пару и воздуху. Архитектура рассчитана на полный набор категорий и наименований.</p>
+    </div>
+
+    <div class="ui-marker-catalog" data-ui-marker-catalog data-source="/assets/data/pipemarkers-demo.json">
+      <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Категории маркировочных стрелок" data-marker-tabs>
+        <span class="ui-chip">Загрузка…</span>
+      </div>
+
+      <div class="ui-marker-catalog__intro" data-marker-intro>Загрузка данных каталога…</div>
+
+      <div class="ui-marker-catalog__preview">
+        <div class="ui-marker-catalog__sample" data-marker-preview>
+          <div class="ui-empty-state">Preview будет загружен вместе с выбранной категорией.</div>
+        </div>
+        <div class="ui-marker-catalog__meta" data-marker-meta>
+          <strong>Категория</strong>
+          <span>Выберите вкладку после загрузки данных.</span>
+        </div>
+      </div>
+
+      <div class="ui-table-wrap ui-marker-catalog__table">
+        <table class="ui-table ui-table--normative">
+          <thead>
+            <tr>
+              <th rowspan="2">Наименование</th>
+              <th rowspan="2">Знаки опасности</th>
+              <th colspan="6">Исполнения / артикулы</th>
+            </tr>
+            <tr>
+              <th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th>
+            </tr>
+          </thead>
+          <tbody data-marker-body>
+            <tr><td colspan="8">Загрузка…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-section">
+    <div class="ui-callout ui-callout--idea">
+      <span class="ui-callout__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#lightbulb"></use></svg></span>
+      <div><span class="ui-callout__title">Следующая итерация</span><p class="ui-callout__text">Подставить полный справочник из архива конкурента, реальные изображения знаков опасности и решить, оставляем ли матрицу P1–P6 или заменяем её более удобным выбором исполнения.</p></div>
+    </div>
+  </section>
+</div>
