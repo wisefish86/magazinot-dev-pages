@@ -405,12 +405,12 @@
           if (signs.length) {
             danger.classList.add('ui-marker-catalog__hazard-list');
             signs.forEach(sign => {
-              const img=document.createElement('img');
-              img.src='/assets/pipemarkers/signs/w'+sign+'-32x30.png';
-              img.width=32; img.height=30;
-              img.alt='Знак опасности W'+sign;
-              img.loading='lazy';
-              danger.appendChild(img);
+              const icon=document.createElement('span');
+              icon.className='ui-marker-catalog__sign';
+              icon.style.backgroundPositionY=String(-30*['01','03','04','05','11','16','18'].indexOf(sign))+'px';
+              icon.setAttribute('role','img');
+              icon.setAttribute('aria-label','Знак опасности W'+sign);
+              danger.appendChild(icon);
             });
           }
           tr.append(label,danger);
