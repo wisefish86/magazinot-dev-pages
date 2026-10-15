@@ -1966,7 +1966,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-popover__panel[hidden]{display:none}
 
 /* Viewport-level tooltips: never inherit positioning or clipping from their cards. */
-.ui-tooltip__bubble.ui-tooltip__bubble--portal{position:fixed!important;z-index:10050!important;transform:none!important;pointer-events:none;box-sizing:border-box;white-space:normal}
+ .ui-tooltip__bubble.ui-tooltip__bubble--portal{--tip-arrow-left:50%;position:fixed!important;z-index:10050!important;transform:none!important;pointer-events:none;box-sizing:border-box;white-space:normal}
 .ui-tooltip__bubble--portal::after{left:var(--tip-arrow-left,50%)!important;transform:translateX(-50%)}
 .ui-tooltip__bubble--portal[data-placement="below"]::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#17373a}
 
