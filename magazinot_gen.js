@@ -753,12 +753,102 @@
     },true);
   }
 
+  function initUiKitDirectory(){
+    const host=document.querySelector('[data-ui-kit-directory]');
+    if(!host || host.dataset.ready) return;
+    host.dataset.ready='1';
+    const translations={
+      'Hero variants':'Первый экран и баннеры','Layout primitives':'Сетки и компоновка',
+      'Feature / stat / product cards':'Карточки преимуществ и товаров',
+      'Notes / alerts':'Примечания и предупреждения','Callout':'Акцентный блок',
+      'Accordion / FAQ':'Аккордеон и вопросы','Tabs':'Вкладки',
+      'Statuses / badges':'Статусы и метки','Switch / range / segmented':'Переключатели и ползунки',
+      'Timeline':'Временная шкала','Banner / notification':'Баннеры и уведомления',
+      'Responsive embed / video':'Адаптивное видео и встроенный контент',
+      'Product / commerce summary':'Товар и оформление заказа','Figure / gallery':'Изображения и галерея',
+      'Dialog / modal':'Диалоговые окна','Tooltip / popover':'Подсказки и всплывающие панели',
+      'Progress / meter':'Индикаторы прогресса','Media object / avatar':'Медиаобъект и аватар',
+      'Table variants':'Варианты таблиц','Image / figure modes':'Оформление изображений',
+      'Data table':'Таблица данных','TOC / anchor navigation':'Оглавление и якоря',
+      'Before / after':'До и после','Toast / snackbar':'Краткие уведомления',
+      'Related links / link panel':'Связанные ссылки','Trust / testimonial':'Отзывы и доверие',
+      'CTA':'Призыв к действию','Search / filters':'Поиск и фильтры',
+      'Empty / error / loading states':'Пустые состояния, ошибки и загрузка',
+      'Файлы / downloads':'Файлы и скачивание','Carousel':'Карусель карточек'
+    };
+    const groups=[
+      ['Основа дизайна',0,7],['Карточки и контент',7,18],
+      ['Формы и действия',18,27],['Медиа и галереи',27,38],
+      ['Таблицы и навигация',38,47],['Дополнительные элементы',47,100]
+    ];
+    const headings=Array.from(document.querySelectorAll('.ui-kit__group > h2'));
+    headings.forEach((heading,i)=>{
+      const label=heading.textContent.trim();
+      heading.textContent=translations[label]||label;
+      if(!heading.parentElement.id) heading.parentElement.id='ui-kit-section-'+(i+1);
+      if(!heading.parentElement.querySelector(':scope > .ui-kit__hint, :scope > p.ui-kit__hint')){
+        const hint=document.createElement('p');
+        hint.className='ui-kit__hint';
+        hint.textContent='Пример универсального элемента интерфейса. Подходит для страниц каталога, карточек товаров, справочных материалов и личного кабинета — в зависимости от контекста.';
+        heading.after(hint);
+      }
+    });
+    groups.forEach(([name,from,to])=>{
+      if(from>=headings.length)return;
+      const section=document.createElement('section');section.className='ui-kit__directory-group';
+      const title=document.createElement('h3');title.textContent=name;section.appendChild(title);
+      const list=document.createElement('ul');
+      headings.slice(from,to).forEach(heading=>{
+        const li=document.createElement('li'),link=document.createElement('a');
+        link.href='#'+heading.parentElement.id;link.textContent=heading.textContent;li.appendChild(link);list.appendChild(li);
+      });
+      section.appendChild(list);host.appendChild(section);
+    });
+  }
+  function initPhotoSliders(){
+    document.querySelectorAll('[data-ui-photo-slider]').forEach(root=>{
+      if(root.dataset.ready)return;root.dataset.ready='1';
+      const slides=Array.from(root.querySelectorAll('.ui-photo-slider__slide'));
+      const dots=root.querySelector('.ui-photo-slider__dots');
+      if(slides.length<2||!dots)return;
+      let index=0,paused=false;
+      const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+      const buttons=slides.map((slide,i)=>{
+        const b=document.createElement('button');b.type='button';b.className='ui-photo-slider__dot';
+        b.setAttribute('aria-label','Показать фото '+(i+1)+' из '+slides.length);
+        b.addEventListener('click',()=>show(i));dots.appendChild(b);return b;
+      });
+      function show(i){
+        index=(i+slides.length)%slides.length;
+        slides.forEach((slide,n)=>{slide.hidden=n!==index;slide.classList.toggle('is-active',n===index)});
+        buttons.forEach((b,n)=>b.setAttribute('aria-current',n===index?'true':'false'));
+      }
+      root.querySelector('[data-slide-prev]')?.addEventListener('click',()=>show(index-1));
+      root.querySelector('[data-slide-next]')?.addEventListener('click',()=>show(index+1));
+      root.addEventListener('mouseenter',()=>paused=true);
+      root.addEventListener('mouseleave',()=>paused=false);
+      root.addEventListener('focusin',()=>paused=true);
+      root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))paused=false});
+      let visible=true;
+      if('IntersectionObserver' in window){
+        const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting},{threshold:.15});
+        observer.observe(root);
+      }
+      document.addEventListener('visibilitychange',()=>{if(document.hidden)paused=true;else if(!root.matches(':hover')&&!root.contains(document.activeElement))paused=false});
+      show(0);
+      const interval=Math.max(3000,parseInt(root.dataset.interval,10)||5000);
+      setInterval(()=>{if(!paused&&visible&&!document.hidden&&!reduced.matches)show(index+1)},interval);
+    });
+  }
+
   function initUi(){
     initPageTitle();
     initAccordion();
     initTabs();
     initLegacyActions();
     initCarousels();
+    initPhotoSliders();
+    initUiKitDirectory();
     initDialogs();
     initPopovers();
     initSelectboxes();
