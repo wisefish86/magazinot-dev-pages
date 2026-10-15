@@ -2128,9 +2128,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__info .ui-tooltip__bubble{white-space:normal;text-align:left;z-index:25}
 
 /* Marker tabs: full color, raised active tab attached to description panel. */
-.ui-kit .ui-marker-catalog__tabs{align-items:flex-end;gap:5px;min-height:52px}
+.ui-kit .ui-marker-catalog__tabs{align-items:flex-end;gap:5px;min-height:40px}
 .ui-kit .ui-marker-catalog__tab{
-  min-height:44px;margin:0;padding:11px 14px;
+  min-height:32px;margin:0;padding:5px 12px;
   border:0;border-radius:9px 9px 0 0;
   background:var(--marker-tab-color);
   color:var(--marker-tab-text);
@@ -2139,16 +2139,16 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 }
 .ui-kit .ui-marker-catalog__tab:hover:not([aria-selected="true"]){background:var(--marker-tab-color);filter:brightness(.96)}
 .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{
-  min-height:52px;
+  min-height:40px;
   background:var(--marker-tab-color);
   color:var(--marker-tab-text);
   border:0;box-shadow:none;font-weight:800;
 }
 .ui-kit .ui-marker-catalog__intro{margin:0;border-radius:0}
 @media(max-width:700px){
- .ui-kit .ui-marker-catalog__tabs{align-items:flex-end;min-height:52px}
- .ui-kit .ui-marker-catalog__tab{min-height:44px}
- .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{min-height:52px}
+ .ui-kit .ui-marker-catalog__tabs{align-items:flex-end;min-height:40px}
+ .ui-kit .ui-marker-catalog__tab{min-height:32px}
+ .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{min-height:40px}
 }
 @media(prefers-reduced-motion:reduce){.ui-kit .ui-marker-catalog__tab{transition:none}}
 .ui-kit .ui-marker-catalog__matrix thead tr:first-child>th:first-child{text-align:left}
