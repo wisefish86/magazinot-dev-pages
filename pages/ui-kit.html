@@ -66,11 +66,23 @@
       <div class="ui-cluster">
         <a class="ui-btn ui-btn--primary" href="#">Основное действие</a>
         <a class="ui-btn ui-btn--secondary" href="#">Вторичное действие</a>
+        <button class="ui-btn ui-btn--ghost" type="button">Ghost</button>
+        <button class="ui-btn ui-btn--primary is-loading" type="button">Загрузка</button>
+        <button class="ui-btn ui-btn--secondary" type="button" disabled>Недоступно</button>
+        <button class="ui-icon-btn" type="button" aria-label="Информация"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg></button>
       </div>
       <div class="ui-chips">
-        <span class="ui-chip">Нейтральный</span>
+        <span class="ui-chip">Нейтральный chip</span>
         <span class="ui-badge">Статус</span>
       </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Hero variants</h2>
+    <div class="ui-stack">
+      <section class="ui-hero ui-hero--compact"><p class="ui-hero__lead">Compact hero — для внутренних страниц, где не нужна крупная промо-композиция.</p><div class="ui-chips"><span class="ui-chip">Compact</span><span class="ui-chip">Internal page</span></div></section>
+      <section class="ui-hero ui-hero--media"><div><p class="ui-hero__lead">Hero с медиа — только когда изображение действительно помогает объяснить продукт или категорию.</p><div class="ui-actions"><a class="ui-btn ui-btn--primary" href="#">Основное действие</a><a class="ui-btn ui-btn--secondary" href="#">Подробнее</a></div></div><div class="ui-hero__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div></section>
     </div>
   </section>
 
@@ -89,6 +101,15 @@
       <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5v14" stroke="currentColor" stroke-linecap="round"/></svg></div><h3>Обычная карточка</h3><p>Текст, преимущество или небольшой самостоятельный смысловой блок.</p></article>
       <article class="ui-card"><div class="ui-card__icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 18l5-5 4 4 7-8" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Feature card</h3><p>Используем тот же каркас, меняя содержание, а не визуальный язык.</p></article>
       <article class="ui-card"><h3>Без иконки</h3><p>Иконка необязательна. Карточка не должна зависеть от конкретной тематики.</p></article>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Feature / stat / product cards</h2>
+    <div class="ui-grid ui-grid--3">
+      <article class="ui-feature-card"><span class="ui-feature-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><div><h3>Преимущество</h3><p>Компактный блок «иконка + смысл» без лишнего декоративного веса.</p></div></article>
+      <article class="ui-stat-card"><span class="ui-stat-card__value">98%</span><span class="ui-stat-card__label">заказов без корректировок после согласования</span><span class="ui-stat-card__delta">+4 п.п.</span></article>
+      <article class="ui-product-card"><div class="ui-product-card__media"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></div><div class="ui-product-card__body"><h3 class="ui-product-card__title">Карточка товара</h3><p class="ui-product-card__text">Для каталога: изображение, название, короткий контекст и цена.</p><div class="ui-product-card__footer"><span class="ui-product-card__price">от 290 ₽</span><span class="ui-status-dot ui-status-dot--success">В наличии</span></div></div></article>
     </div>
   </section>
 
@@ -397,6 +418,25 @@
     <div class="ui-kit__example ui-stack">
       <nav class="ui-breadcrumbs" aria-label="Хлебные крошки"><a href="#">Главная</a><span class="ui-breadcrumbs__sep">/</span><a href="#">Маркировка</a><span class="ui-breadcrumbs__sep">/</span><span>Стрелки</span></nav>
       <nav class="ui-pagination" aria-label="Пагинация"><span class="is-disabled">Назад</span><span class="is-current" aria-current="page">1</span><a href="#">2</a><a href="#">3</a><a href="#">Далее</a></nav>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Related links / link panel</h2>
+    <div class="ui-link-panel">
+      <a class="ui-link-panel__featured" href="#"><span class="ui-link-panel__featured-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><span><strong>Основной связанный материал</strong><span>Выделенный переход на ключевую соседнюю страницу.</span></span><span class="ui-link-panel__featured-chevron"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></a>
+      <div class="ui-link-panel__list">
+        <a class="ui-link-panel__row" href="#"><span class="ui-link-panel__row-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><span><strong>Документы</strong><span>Связанные файлы и нормативка</span></span><span class="ui-badge">12</span><span class="ui-link-panel__row-chevron"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></a>
+        <a class="ui-link-panel__row" href="#"><span class="ui-link-panel__row-icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#external-link"></use></svg></span><span><strong>Полезные ссылки</strong><span>Справочные материалы</span></span><span class="ui-badge">6</span><span class="ui-link-panel__row-chevron"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Trust / testimonial</h2>
+    <div class="ui-grid">
+      <div class="ui-kit__example"><h3>Trust signals</h3><div class="ui-trust"><span class="ui-trust__item"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg>Собственное производство</span><span class="ui-trust__item"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg>Работа по ГОСТ</span><span class="ui-trust__item"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg>Доставка по РФ</span></div></div>
+      <article class="ui-testimonial"><blockquote>«Короткий отзыв или экспертная цитата должна усиливать доверие, а не превращаться в декоративный шум».</blockquote><div class="ui-testimonial__author"><span class="ui-avatar" aria-hidden="true">ИП</span><div><strong>Иван Петров</strong><span>Руководитель проекта</span></div></div></article>
     </div>
   </section>
 
