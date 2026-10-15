@@ -2325,3 +2325,13 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-category-links a:hover,.ui-category-links a:focus-visible{border-color:var(--c-accent);background:var(--c-soft);color:var(--c-accent-dark)!important}
 .ui-category-links .ui-icon{width:17px;height:17px;flex:none;color:var(--c-muted)}
 @media(max-width:620px){.ui-category-links{grid-template-columns:1fr}}
+
+/* Catalog hierarchy composition: visual hubs, text links, product-first leaf pages. */
+.ui-category-visual{display:flex;flex-direction:column;gap:12px;color:var(--c-heading)!important;text-decoration:none!important}
+.ui-category-visual:hover,.ui-category-visual:focus-visible{border-color:var(--c-accent);color:var(--c-accent-dark)!important}
+.ui-category-visual .ui-image-placeholder{width:100%;min-height:0;aspect-ratio:4/3}
+.ui-category-visual strong{font-size:var(--text-md);line-height:1.35}
+.ui-category-endpoint{margin:10px 0 24px;padding:18px;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:#fff}
+.ui-category-endpoint > h3{margin:16px 0 8px;color:var(--c-heading)}
+.ui-category-endpoint > p{margin:0 0 18px;color:var(--c-muted);line-height:1.6}
+@media(max-width:620px){.ui-category-endpoint{padding:12px}}
