@@ -394,15 +394,15 @@
         const items = category.items || [];
         items.forEach(item => {
           const tr = document.createElement('tr');
-          if (item.alert) tr.classList.add('ui-marker-catalog__alert');
+          if (item.highlight || item.alert) tr.classList.add('ui-marker-catalog__row--warning');
           const label = document.createElement('td');
           label.textContent = safe(item.name);
           const danger = document.createElement('td');
           danger.className = 'ui-marker-catalog__hazard-cell';
           if (Array.isArray(item.hazards)) danger.textContent = item.hazards.join(' ');
           tr.append(label,danger);
-          const articles = Array.isArray(item.articles) && item.articles.length === 6
-            ? item.articles : Array.from({length:6},(_,i) => 'F0'+(i+1)+'-'+safe(item.code));
+          const articles = Array.isArray(item.codes) && item.codes.length === 6
+            ? item.codes : Array.from({length:6},(_,i) => 'F0'+(i+1)+'-'+safe(item.code));
           articles.forEach(article => {
             const cell = document.createElement('td');
             cell.className = 'ui-marker-catalog__articles';
