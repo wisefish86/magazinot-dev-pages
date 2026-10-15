@@ -2338,3 +2338,25 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .ui-category-visual:hover,.ui-category-visual:focus-visible{border-color:var(--c-accent);color:var(--c-accent-dark)!important}
 .ui-category-visual .ui-image-placeholder{width:100%;min-height:0;aspect-ratio:4/3}
 .ui-category-visual strong{font-size:var(--text-md);line-height:1.35}
+
+/* Marker catalogue mobile layout: horizontal article matrix with anchored names. */
+@media(max-width:700px){
+ .ui-kit .ui-marker-catalog__tabs{max-width:100%;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain}
+ .ui-kit .ui-marker-catalog__tab{flex:0 0 auto;white-space:nowrap}
+ .ui-kit .ui-marker-catalog__tools{font-size:12px}
+ .ui-kit .ui-marker-catalog__table{position:relative;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ .ui-kit .ui-marker-catalog__matrix{width:100%;min-width:860px;table-layout:fixed}
+ .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child{width:205px}
+ .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2){width:88px}
+ .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child{width:auto}
+ .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td{padding:9px 7px}
+ .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child,
+ .ui-kit .ui-marker-catalog__matrix tbody tr td:first-child{
+  position:sticky;left:0;z-index:2;min-width:205px;width:205px;max-width:205px;
+  background:#fff;box-shadow:1px 0 0 var(--c-line);
+ }
+ .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child{z-index:3;background:#f2f6f7}
+ .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even) td:first-child{background:#f9fbfb}
+ .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label{max-width:188px;width:fit-content;white-space:normal;overflow-wrap:normal;text-wrap:balance}
+ .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles{font-size:12px}
+}
