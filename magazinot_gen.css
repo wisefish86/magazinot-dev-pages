@@ -2192,7 +2192,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child{width:32%}
  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2){width:12%}
  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child{width:56%}
- .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label{width:fit-content;max-width:100%;white-space:normal;overflow-wrap:normal}
+ .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label{width:max-content;max-width:min(100%, 245px);white-space:normal;overflow-wrap:normal;text-wrap:balance}
  .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td{padding:9px 5px}
 }
 @media(max-width:900px){
