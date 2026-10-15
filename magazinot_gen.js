@@ -482,13 +482,7 @@
           articles.forEach(article => {
             const cell = document.createElement('td');
             cell.className = 'ui-marker-catalog__articles';
-            const link=document.createElement('a');
-            link.className='ui-marker-catalog__article-link';
-            link.href='?page=pipemarkers-configurator';
-            link.textContent=safe(article);
-            link.title='Переход к товару будет подключён позднее';
-            link.setAttribute('aria-label','Артикул '+safe(article)+'. Ссылка на текущий каталог, переход к товару ещё не настроен.');
-            cell.appendChild(link);
+            cell.textContent=safe(article);
             tr.appendChild(cell);
           });
           body.appendChild(tr);
