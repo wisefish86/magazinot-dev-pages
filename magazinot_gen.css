@@ -2341,8 +2341,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 
 /* Marker catalogue mobile layout: horizontal article matrix with anchored names. */
 @media(max-width:700px){
- .ui-kit .ui-marker-catalog__tabs{max-width:100%;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain}
- .ui-kit .ui-marker-catalog__tab{flex:0 0 auto;white-space:nowrap}
+ .ui-kit .ui-marker-catalog__tabs{max-width:100%;flex-wrap:wrap;overflow-x:visible;gap:4px;min-height:0;align-items:flex-end}
+ .ui-kit .ui-marker-catalog__tab{flex:0 0 auto;white-space:nowrap;min-height:32px;padding:5px 9px}
+ .ui-kit .ui-marker-catalog__tab[aria-selected="true"]{min-height:38px}
  .ui-kit .ui-marker-catalog__tools{font-size:12px}
  .ui-kit .ui-marker-catalog__table{position:relative;width:100%;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
  .ui-kit .ui-marker-catalog__matrix{width:100%;min-width:860px;table-layout:fixed}
