@@ -398,7 +398,12 @@
           const tr = document.createElement('tr');
           if (item.highlight || item.alert) tr.classList.add('ui-marker-catalog__row--warning');
           const label = document.createElement('td');
-          label.textContent = safe(item.name);
+          if (safe(item.name).trim()) {
+            const chip=document.createElement('span');
+            chip.className='ui-marker-catalog__label'+(item.highlight || item.alert ? ' ui-marker-catalog__label--warning' : '');
+            chip.textContent=safe(item.name);
+            label.appendChild(chip);
+          }
           const danger = document.createElement('td');
           danger.className = 'ui-marker-catalog__hazard-cell';
           const signs = hazardMap[category.id]?.[safe(item.code)]?.split(',') || [];
