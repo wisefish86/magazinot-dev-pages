@@ -38,7 +38,7 @@ Rules:
 - standard icon language: 24×24 viewBox, outline, `currentColor`, about 1.8–1.9 px stroke, round caps/joins.
 
 Current reusable ids:
-`chevron-left`, `chevron-right`, `chevron-down`, `arrow-right`, `arrow-up-right`, `check`, `check-circle`, `info`, `warning`, `alert-circle`, `search`, `filter`, `menu`, `plus`, `minus`, `close`, `download`, `upload`, `external-link`, `file`, `image`, `cart`, `phone`, `mail`, `location`, `clock`, `calendar`, `user`, `play`, `copy`, `edit`, `trash`, `zoom-in`, `lock`, `settings`.
+`chevron-left`, `chevron-right`, `chevron-down`, `arrow-right`, `arrow-up-right`, `check`, `check-circle`, `info`, `warning`, `alert-circle`, `search`, `filter`, `menu`, `plus`, `minus`, `close`, `download`, `upload`, `external-link`, `file`, `image`, `cart`, `phone`, `mail`, `location`, `clock`, `calendar`, `user`, `play`, `copy`, `edit`, `trash`, `zoom-in`, `lock`, `settings`, `message-circle`, `lightbulb`.
 
 Usage:
 
