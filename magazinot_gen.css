@@ -1672,8 +1672,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-testimonial{display:flex;flex-direction:column;justify-content:space-between;height:100%;min-height:100%;padding:18px;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:var(--c-warm-soft)}
 .ui-testimonial blockquote{margin:0;color:var(--c-heading);font-size:var(--text-base);line-height:1.62}
 .ui-testimonial__author{display:grid;grid-template-columns:42px minmax(0,1fr);gap:11px;align-items:center;margin-top:18px}
-.ui-testimonial__author strong{display:block;color:var(--c-heading);font-size:var(--text-sm);line-height:1.35}
-.ui-testimonial__author span{display:block;margin-top:2px;color:var(--c-muted);font-size:var(--text-xs);line-height:1.4}
+.ui-testimonial__author-copy{min-width:0}
+.ui-testimonial__author-copy strong{display:block;color:var(--c-heading);font-size:var(--text-sm);line-height:1.35}
+.ui-testimonial__author-copy > span{display:block;margin-top:2px;color:var(--c-muted);font-size:var(--text-xs);line-height:1.4}
 
 /* Semantic badges / statuses */
 .ui-badge--accent{background:#e7f2f1;color:var(--c-accent-dark)!important}
@@ -1825,8 +1826,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-media-object > :first-child{margin:0!important;align-self:start}
 .ui-media-object p{margin:7px 0 0}
 .ui-avatar{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;background:#dfecea;color:var(--c-accent-dark);font-size:var(--text-sm);font-weight:750}
-.ui-avatar--placeholder{border:1px solid #c6dfda;background:#dcefeb;color:var(--c-accent-dark)}
-.ui-avatar--placeholder .ui-icon{width:25px;height:25px;margin:0}
+.ui-avatar--placeholder{display:flex!important;align-items:center!important;justify-content:center!important;margin:0!important;border:1px solid #b8d8d2;background:#dcefeb;color:#0f6b6d!important}
+.ui-avatar--placeholder .ui-icon{display:block;width:24px;height:24px;margin:0!important;stroke-width:1.8}
 .ui-media-object__title{display:block;color:var(--c-heading);font-weight:650;line-height:1.35}
 .ui-media-object__meta{display:block;margin-top:3px;color:var(--c-muted);font-size:var(--text-sm);line-height:1.4}
 
