@@ -459,7 +459,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
   background:#a8bcc5;
 }
 .ui-meta strong{color:#314954;font-weight:650}
-.docpage__toc{
+.docpage__toc,.ui-doc-toc{
   margin:0 0 26px;
   padding:14px 15px;
   border:1px solid #d9e5ea;
@@ -467,19 +467,19 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
   background:linear-gradient(180deg,#fbfdfe 0%,#f6fafb 100%);
   box-shadow:0 6px 18px rgba(28,43,54,.035);
 }
-.docpage__toc-title{
+.docpage__toc-title,.ui-doc-toc__title{
   margin:0 0 9px;
   color:#2b414c;
   font-size:var(--text-base);
   line-height:1.3;
   font-weight:700;
 }
-.docpage__toc-grid{
+.docpage__toc-grid,.ui-doc-toc__grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:4px 8px;
 }
-.docpage__toc a{
+.docpage__toc a,.ui-doc-toc a{
   display:grid;
   grid-template-columns:30px minmax(0,1fr);
   gap:9px;
@@ -491,11 +491,11 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
   text-decoration:none!important;
   transition:var(--motion-fast) ease;
 }
-.docpage__toc a:hover{
+.docpage__toc a:hover,.ui-doc-toc a:hover{
   background:#eaf5f8;
   color:var(--c-blue-dark)!important;
 }
-.docpage__toc a span{
+.docpage__toc a span,.ui-doc-toc a span{
   display:flex;
   align-items:center;
   justify-content:center;
@@ -508,7 +508,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow{display:none}
   font-weight:700;
   transition:var(--motion-fast) ease;
 }
-.docpage__toc a:hover span{
+.docpage__toc a:hover span,.ui-doc-toc a:hover span{
   background:#dceff4;
   color:var(--c-blue-dark);
 }
@@ -1947,3 +1947,12 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 .docpage__figure-media--plain{padding:0;border:0;background:transparent;box-shadow:none}
 .docpage__figure-media--left{margin-left:0;margin-right:auto}
 .docpage__figure-media--wide{width:100%}
+
+.ui-doc-toc{max-width:100%}
+.ui-doc-toc__grid{align-items:start}
+.ui-doc-toc a:focus-visible{outline:2px solid var(--c-accent);outline-offset:2px}
+.ui-doc-patterns{display:grid;gap:16px}
+.ui-doc-patterns__label{margin:0 0 7px;color:var(--c-muted);font-size:var(--text-sm);font-weight:650}
+.ui-figure-demo-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:start}
+@container (max-width:760px){.ui-kit .ui-figure-demo-row{grid-template-columns:1fr 1fr}}
+@container (max-width:520px){.ui-kit .ui-figure-demo-row{grid-template-columns:1fr}}
