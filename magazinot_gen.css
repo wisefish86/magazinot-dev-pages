@@ -2212,3 +2212,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
  .ui-kit .ui-marker-catalog__matrix th,
  .ui-kit .ui-marker-catalog__matrix td{padding:10px 5px}
 }
+
+/* Original standalone 32×30 PNG pictograms, preserving their native proportions. */
+.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign{
+  display:inline-block;position:static;width:32px;height:30px;
+  min-width:32px;max-width:32px;max-height:30px;object-fit:contain;
+  margin:0 2px;background:none;border:0;vertical-align:middle;
+}
