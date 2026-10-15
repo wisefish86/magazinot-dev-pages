@@ -423,6 +423,39 @@
             hint.textContent='Пустой маркер — надпись можно нанести самостоятельно.';
             info.append(trigger,hint);
             label.appendChild(info);
+            // The tooltip is moved to body while visible so table overflow cannot clip it.
+            let portalOpen=false;
+            const placeHint=()=>{
+              if(!portalOpen){document.body.appendChild(hint);portalOpen=true;}
+              const rect=trigger.getBoundingClientRect();
+              const width=Math.min(260,window.innerWidth-24);
+              hint.style.position='fixed';
+              hint.style.width=width+'px';
+              hint.style.maxWidth='none';
+              hint.style.zIndex='10000';
+              hint.style.bottom='auto';
+              hint.style.transform='none';
+              hint.style.left=Math.max(12,Math.min(rect.left+rect.width/2-width/2,window.innerWidth-width-12))+'px';
+              const height=hint.getBoundingClientRect().height;
+              hint.style.top=(rect.top-height-10>=8?rect.top-height-10:rect.bottom+10)+'px';
+              hint.style.opacity='1';
+              hint.style.pointerEvents='none';
+              hint.setAttribute('aria-hidden','false');
+            };
+            const hideHint=()=>{
+              if(!portalOpen)return;
+              hint.style.opacity='0';
+              hint.setAttribute('aria-hidden','true');
+              info.appendChild(hint);
+              portalOpen=false;
+            };
+            trigger.addEventListener('mouseenter',placeHint);
+            trigger.addEventListener('mouseleave',hideHint);
+            trigger.addEventListener('focus',placeHint);
+            trigger.addEventListener('blur',hideHint);
+            trigger.addEventListener('keydown',event=>{if(event.key==='Escape')hideHint();});
+            window.addEventListener('scroll',hideHint,{passive:true});
+            window.addEventListener('resize',hideHint);
           }
           const danger = document.createElement('td');
           danger.className = 'ui-marker-catalog__hazard-cell';
