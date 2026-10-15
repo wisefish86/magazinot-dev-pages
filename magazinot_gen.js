@@ -100,6 +100,9 @@
   }
 
 
+  function initLegacyActions(){
+    if (document.documentElement.dataset.uiLegacyActionsReady === '1') return;
+    document.documentElement.dataset.uiLegacyActionsReady = '1';
     document.addEventListener('click',event => {
       const unavailableCard = event.target.closest('a.ui-media-card--coming-soon');
       if (unavailableCard) {
@@ -110,6 +113,95 @@
       if (!link || typeof window.uh_pages !== 'function') return;
       event.preventDefault();
       window.uh_pages(link);
+    });
+  }
+
+  function initCarousels(){
+    document.querySelectorAll('[data-ui-carousel]').forEach(carousel => {
+      if (carousel.dataset.uiCarouselReady === '1') return;
+      const viewport = carousel.querySelector('.ui-carousel__viewport');
+      const track = carousel.querySelector('.ui-carousel__track');
+      const prev = carousel.querySelector('[data-ui-carousel-prev]');
+      const next = carousel.querySelector('[data-ui-carousel-next]');
+      if (!viewport || !track || !prev || !next) return;
+      carousel.dataset.uiCarouselReady = '1';
+
+      function step(){
+        const item = track.querySelector('.ui-carousel__item');
+        if (!item) return Math.max(240, viewport.clientWidth * .8);
+        const styles = getComputedStyle(track);
+        const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
+        return item.getBoundingClientRect().width + gap;
+      }
+
+      function update(){
+        const max = Math.max(0, viewport.scrollWidth - viewport.clientWidth);
+        prev.disabled = viewport.scrollLeft <= 2;
+        next.disabled = viewport.scrollLeft >= max - 2;
+        carousel.classList.toggle('is-static', max <= 2);
+      }
+
+      prev.addEventListener('click',() => viewport.scrollBy({left:-step(),behavior:'smooth'}));
+      next.addEventListener('click',() => viewport.scrollBy({left:step(),behavior:'smooth'}));
+      viewport.addEventListener('scroll',update,{passive:true});
+      window.addEventListener('resize',update);
+      requestAnimationFrame(update);
+    });
+  }
+
+  function initDialogs(){
+    document.querySelectorAll('[data-ui-dialog-open]').forEach(button => {
+      if (button.dataset.uiDialogReady === '1') return;
+      button.dataset.uiDialogReady = '1';
+      const id = button.getAttribute('data-ui-dialog-open');
+      const dialog = id ? document.getElementById(id) : null;
+      if (!dialog || typeof dialog.showModal !== 'function') return;
+      button.addEventListener('click',() => dialog.showModal());
+    });
+
+    document.querySelectorAll('.ui-dialog').forEach(dialog => {
+      if (dialog.dataset.uiDialogReady === '1') return;
+      dialog.dataset.uiDialogReady = '1';
+      dialog.addEventListener('click',event => {
+        if (event.target.closest('[data-ui-dialog-close]')) dialog.close();
+      });
+      dialog.addEventListener('click',event => {
+        if (event.target !== dialog) return;
+        const rect = dialog.getBoundingClientRect();
+        const inside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+        if (!inside) dialog.close();
+      });
+    });
+  }
+
+  function initPopovers(){
+    document.querySelectorAll('[data-ui-popover]').forEach(popover => {
+      if (popover.dataset.uiPopoverReady === '1') return;
+      const toggle = popover.querySelector('[data-ui-popover-toggle]');
+      const panel = popover.querySelector('.ui-popover__panel');
+      if (!toggle || !panel) return;
+      popover.dataset.uiPopoverReady = '1';
+
+      function setOpen(open){
+        panel.hidden = !open;
+        toggle.setAttribute('aria-expanded',open ? 'true' : 'false');
+      }
+
+      toggle.addEventListener('click',event => {
+        event.stopPropagation();
+        setOpen(panel.hidden);
+      });
+
+      document.addEventListener('click',event => {
+        if (!popover.contains(event.target)) setOpen(false);
+      });
+
+      document.addEventListener('keydown',event => {
+        if (event.key === 'Escape' && !panel.hidden) {
+          setOpen(false);
+          toggle.focus();
+        }
+      });
     });
   }
 
@@ -296,6 +388,9 @@
     initAccordion();
     initTabs();
     initLegacyActions();
+    initCarousels();
+    initDialogs();
+    initPopovers();
     initDocTables();
     initDocLightbox();
   }
