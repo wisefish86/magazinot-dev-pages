@@ -205,6 +205,41 @@
     });
   }
 
+
+  function initSegmentedControls(){
+    document.querySelectorAll('.ui-segmented').forEach(group => {
+      if (group.dataset.uiSegmentedReady === '1') return;
+      const buttons = Array.from(group.querySelectorAll('button[aria-pressed]'));
+      if (!buttons.length) return;
+      group.dataset.uiSegmentedReady = '1';
+      buttons.forEach(button => button.addEventListener('click',() => {
+        buttons.forEach(item => item.setAttribute('aria-pressed',item === button ? 'true' : 'false'));
+      }));
+    });
+  }
+
+  function initQuantityControls(){
+    document.querySelectorAll('.ui-quantity').forEach(control => {
+      if (control.dataset.uiQuantityReady === '1') return;
+      const input = control.querySelector('input[type="number"]');
+      const buttons = control.querySelectorAll('button');
+      if (!input || buttons.length < 2) return;
+      control.dataset.uiQuantityReady = '1';
+
+      function change(delta){
+        const min = input.min === '' ? -Infinity : Number(input.min);
+        const max = input.max === '' ? Infinity : Number(input.max);
+        const step = input.step === '' ? 1 : Number(input.step);
+        const current = Number(input.value) || 0;
+        input.value = String(Math.min(max,Math.max(min,current + delta * step)));
+        input.dispatchEvent(new Event('change',{bubbles:true}));
+      }
+
+      buttons[0].addEventListener('click',() => change(-1));
+      buttons[buttons.length - 1].addEventListener('click',() => change(1));
+    });
+  }
+
   function initDocTables(){
     const wraps = Array.from(document.querySelectorAll('.doc-table-wrap'));
 
@@ -269,14 +304,11 @@
     });
   }
 
-  function initDocLightbox(){
-    const pages = Array.from(document.querySelectorAll('.docpage'));
-    if (!pages.length || document.querySelector('.doc-lightbox')) return;
+  function initLightbox(){
+    if (document.querySelector('.doc-lightbox')) return;
 
     function getCandidates(){
-      return pages
-        .flatMap(page => Array.from(page.querySelectorAll('.docpage__figure-media img, .doc-table img')))
-        .filter(Boolean);
+      return Array.from(document.querySelectorAll('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]'));
     }
 
     let candidates = getCandidates();
@@ -345,21 +377,19 @@
       if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
     }
 
-    pages.forEach(page => {
-      page.addEventListener('click', event => {
-        const img = event.target.closest('.docpage__figure-media img, .doc-table img');
-        if (!img || !img.classList.contains('docpage__zoomable')) return;
-        openLightbox(img);
-      });
+    document.addEventListener('click', event => {
+      const img = event.target.closest('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]');
+      if (!img || !img.classList.contains('docpage__zoomable')) return;
+      openLightbox(img);
+    });
 
-      page.addEventListener('keydown', event => {
-        const img = event.target.closest('.docpage__figure-media img, .doc-table img');
-        if (!img || !img.classList.contains('docpage__zoomable')) return;
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          openLightbox(img);
-        }
-      });
+    document.addEventListener('keydown', event => {
+      const img = event.target.closest('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]');
+      if (!img || !img.classList.contains('docpage__zoomable')) return;
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLightbox(img);
+      }
     });
 
     candidates.forEach(img => {
@@ -391,8 +421,10 @@
     initCarousels();
     initDialogs();
     initPopovers();
+    initSegmentedControls();
+    initQuantityControls();
     initDocTables();
-    initDocLightbox();
+    initLightbox();
   }
 
   if (document.readyState === 'loading') {
