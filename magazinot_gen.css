@@ -1455,27 +1455,30 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 .ui-list--ordered > li,.ui-list--ordered ol > li{display:block!important;margin:5px 0!important;padding:0!important;list-style:none!important;counter-increment:ui-order}
 .ui-list--ordered > li::before,.ui-list--ordered > li::marker,.ui-list--ordered ol > li::before,.ui-list--ordered ol > li::marker{content:none!important;display:none!important}
 .ui-list--ordered .ui-list__row{display:grid!important;column-gap:var(--ordered-gap)!important;align-items:baseline!important;margin:0!important;padding:0!important}
-.ui-list--ordered > li > .ui-list__row{grid-template-columns:22px minmax(0,1fr)!important}
-.ui-list--ordered > li > ol > li > .ui-list__row{grid-template-columns:34px minmax(0,1fr)!important}
+.ui-list--ordered > li > .ui-list__row{grid-template-columns:14px minmax(0,1fr)!important}
+.ui-list--ordered > li > ol > li > .ui-list__row{grid-template-columns:29px minmax(0,1fr)!important}
 .ui-list--ordered > li > ol > li > ol > li > .ui-list__row{grid-template-columns:38px minmax(0,1fr)!important}
-.ui-list--ordered .ui-list__num{display:block!important;justify-self:start!important;margin:0!important;padding:0!important;color:var(--c-accent-dark)!important;font:700 inherit/1.46 var(--font-sans)!important;font-variant-numeric:tabular-nums!important;white-space:nowrap!important}
+.ui-list--ordered .ui-list__num{display:block!important;justify-self:end!important;margin:0!important;padding:0!important;color:var(--c-accent-dark)!important;font:700 inherit/1.46 var(--font-sans)!important;font-variant-numeric:tabular-nums!important;white-space:nowrap!important}
 .ui-list--ordered .ui-list__num::before{content:counters(ui-order,".") "."}
 .ui-list--ordered .ui-list__text{display:block!important;min-width:0!important;margin:0!important;padding:0!important;line-height:1.46!important}
-.ui-list--ordered > li > ol{margin:3px 0 0 30px!important;padding:0!important}
-.ui-list--ordered > li > ol > li > ol{margin:3px 0 0 42px!important;padding:0!important}
+.ui-list--ordered > li > ol{margin:3px 0 0 22px!important;padding:0!important}
+.ui-list--ordered > li > ol > li > ol{margin:3px 0 0 37px!important;padding:0!important}
 .ui-list--ordered-alpha .ui-list__num::before{content:attr(data-marker)}
-.ui-list--ordered > li > .ui-list--bullet{margin:3px 0 0 30px!important;padding-left:20px!important;list-style:disc!important}
+.ui-list--ordered > li > .ui-list--bullet{margin:3px 0 0 22px!important;padding-left:20px!important;list-style:disc!important}
 .ui-list--ordered > li > .ui-list--bullet > li{display:list-item!important;margin:4px 0!important;padding-left:2px!important;list-style:disc!important;counter-increment:none!important}
 .ui-list--ordered > li > .ui-list--bullet > li::marker{display:inline!important;content:normal!important;color:var(--c-accent)!important}
 .ui-list--ordered > li > .ui-list--bullet > li::before{content:none!important;display:none!important}
 
 /* Icon/check lists use the same baseline rule: nested marker starts at parent text x-position. */
 .ui-list--check,.ui-list--icon{padding:0;list-style:none}
-.ui-list--check li,.ui-list--icon li{display:grid;grid-template-columns:18px minmax(0,1fr);column-gap:8px;row-gap:0;align-items:start;margin:4px 0;padding:0}
+.ui-list--check li,.ui-list--icon li{display:grid;grid-template-columns:16px minmax(0,1fr);column-gap:8px;row-gap:0;align-items:start;margin:4px 0;padding:0}
 .ui-list--check li > ul,.ui-list--check li > ol,.ui-list--icon li > ul,.ui-list--icon li > ol{grid-column:2;margin:2px 0 0;padding-left:0}
-.ui-list--check .ui-icon,.ui-list--icon .ui-icon{width:16px;height:16px;margin-top:.2em;color:var(--c-accent)}
-.ui-list--check ul .ui-icon,.ui-list--icon ul .ui-icon{width:16px;height:16px;color:var(--c-muted-soft)}
-.ui-list--check ul ul .ui-icon,.ui-list--icon ul ul .ui-icon{width:16px;height:16px;color:#9aa9ad}
+.ui-list--check .ui-icon,.ui-list--icon .ui-icon{width:16px;height:16px;margin-top:.18em;color:var(--c-accent)}
+.ui-list--check .ui-icon{stroke-width:2}
+.ui-list--check ul .ui-icon{color:#5f8584}
+.ui-list--check ul ul .ui-icon{color:#7f9b9a}
+.ui-list--icon ul .ui-icon{width:16px;height:16px;color:var(--c-muted-soft)}
+.ui-list--icon ul ul .ui-icon{width:16px;height:16px;color:#9aa9ad}
 .ui-list--icon .ui-icon{color:var(--c-muted-soft)}
 .ui-list--compact li{margin:3px 0}
 
@@ -2022,3 +2025,5 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
   .ui-icon-btn{width:var(--control-h-touch);height:var(--control-h-touch)}
   .ui-pagination a,.ui-pagination span{min-width:var(--control-h-touch);height:var(--control-h-touch)}
 }
+
+.ui-list--ordered-alpha > li > .ui-list__row{grid-template-columns:18px minmax(0,1fr)!important}
