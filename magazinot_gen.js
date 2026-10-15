@@ -451,7 +451,27 @@
       fetch(catalog.dataset.source,{credentials:'same-origin'}).then(response=>{
         if (!response.ok) throw new Error('HTTP '+response.status);
         return response.json();
-      }).then(data=>install(Array.isArray(data.categories) ? data.categories : [])).catch(()=>{
+      }).then(async data => {
+        let categories = Array.isArray(data.categories) ? data.categories : [];
+        if (data.archiveSource && data.archiveSource.encoding === 'deflate-base64' && typeof DecompressionStream !== 'undefined') {
+          try {
+            const bytes = Uint8Array.from(atob(data.archiveSource.payload),char=>char.charCodeAt(0));
+            const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('deflate'));
+            const content = await new Response(stream).text();
+            const groups = JSON.parse(content);
+            categories = groups.map(([id,description,rows]) => ({
+              id,label:names[id] || id,description,
+              items:rows.map(([name,code,override,flag]) => ({
+                name,code,articles:override ? override.split(',') : undefined,
+                alert:flag === 'red'
+              }))
+            }));
+          } catch (error) {
+            console.warn('Pipe marker archive data unavailable; using basic catalogue.',error);
+          }
+        }
+        install(categories);
+      }).catch(()=>{
         intro.textContent='Не удалось загрузить каталог. Обновите страницу.';
         body.replaceChildren();
       });
