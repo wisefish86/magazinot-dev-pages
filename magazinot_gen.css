@@ -1815,6 +1815,28 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron{
 @container (max-width:760px){.ui-kit .ui-variant-selector{grid-template-columns:1fr}.ui-kit .ui-variant-selector__preview{min-height:220px}}
 @container (max-width:520px){.ui-kit .ui-variant-selector__summary{grid-template-columns:1fr}.ui-kit .ui-variant-selector__marker{height:60px}.ui-kit .ui-variant-selector__marker::after{right:-30px;border-top-width:30px;border-bottom-width:30px;border-left-width:30px}}
 
+/* Pipeline marker catalog demo */
+.ui-marker-catalog{display:grid;gap:14px}
+.ui-marker-catalog__tabs{display:flex;flex-wrap:wrap;gap:6px}
+.ui-marker-catalog__tab{min-height:var(--control-h-compact);padding:0 12px;border:1px solid var(--c-line);border-radius:9px;background:#fff;color:var(--c-heading);font:650 var(--text-sm)/1 var(--font-sans);cursor:pointer;transition:background var(--motion-fast),border-color var(--motion-fast),color var(--motion-fast)}
+.ui-marker-catalog__tab:hover{border-color:#a9c9c5;background:#f3f8f7}
+.ui-marker-catalog__tab[aria-selected="true"]{border-color:transparent;background:var(--marker-tab-color,var(--c-accent));color:var(--marker-tab-text,#fff)}
+.ui-marker-catalog__intro{padding:12px 14px;border-radius:12px;background:var(--marker-soft,#f4f8f7);color:var(--c-text);font-size:var(--text-sm);line-height:1.5}
+.ui-marker-catalog__preview{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.7fr);gap:14px}
+.ui-marker-catalog__sample{display:grid;place-items:center;min-height:150px;padding:18px;border:1px solid var(--c-line);border-radius:14px;background:#fff}
+.ui-marker-catalog__arrow{position:relative;width:min(420px,calc(100% - 42px));height:64px;border-radius:8px 0 0 8px;background:var(--marker-color,#2f7d00)}
+.ui-marker-catalog__arrow::after{content:"";position:absolute;top:0;right:-32px;border-top:32px solid transparent;border-bottom:32px solid transparent;border-left:32px solid var(--marker-color,#2f7d00)}
+.ui-marker-catalog__arrow span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:0 14px;color:var(--marker-text,#fff);font-size:17px;font-weight:760;letter-spacing:.02em}
+.ui-marker-catalog__meta{display:grid;align-content:center;gap:8px;padding:14px;border:1px solid var(--c-line);border-radius:14px;background:var(--c-soft)}
+.ui-marker-catalog__meta strong{font-size:var(--text-lg)}
+.ui-marker-catalog__meta span{color:var(--c-muted);font-size:var(--text-sm)}
+.ui-marker-catalog__table .ui-table{min-width:760px}
+.ui-marker-catalog__table td,.ui-marker-catalog__table th{vertical-align:middle}
+.ui-marker-catalog__hazard{display:flex;align-items:center;justify-content:center;min-height:34px}
+.ui-marker-catalog__hazard .ui-icon{width:22px;height:22px;color:var(--c-muted-soft)}
+.ui-marker-catalog__articles{font-size:12px;white-space:nowrap}
+@container (max-width:760px){.ui-kit .ui-marker-catalog__preview{grid-template-columns:1fr}.ui-kit .ui-marker-catalog__tabs{flex-wrap:nowrap;overflow:auto;padding-bottom:2px}}
+
 /* Figure / gallery */
 .ui-figure{margin:0;overflow:hidden;border:1px solid var(--c-line);border-radius:var(--radius-lg);background:#fff}
 .ui-figure--plain{overflow:visible;border:0;border-radius:0;background:transparent}
