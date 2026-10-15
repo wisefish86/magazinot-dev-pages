@@ -2089,30 +2089,3 @@ a.ui-link-panel__row:hover .ui-link-panel__row-copy strong{color:var(--c-accent-
 
 .ui-list--ordered-alpha > li > .ui-list__row{grid-template-columns:18px minmax(0,1fr)!important}
 .ui-list--ordered-alpha > li > .ui-list__row > .ui-list__num{justify-self:start!important}
-
-
-/* Pipe marker catalogue: reference table with category-matched color. */
-.ui-marker-catalog--matrix{display:block;--marker-color:#398000;--marker-text:#fff}
-.ui-marker-catalog--matrix .ui-marker-catalog__tabs{display:flex;gap:0;flex-wrap:wrap;align-items:stretch;margin:0;overflow:visible}
-.ui-marker-catalog--matrix .ui-marker-catalog__tab{min-height:38px;border:0;border-radius:0;padding:9px 13px;background:var(--marker-tab-color);color:var(--marker-tab-text);font-size:12px;font-weight:700;line-height:1.2;letter-spacing:.01em;transition:filter .15s,box-shadow .15s}
-.ui-marker-catalog--matrix .ui-marker-catalog__tab:hover{filter:brightness(.95)}
-.ui-marker-catalog--matrix .ui-marker-catalog__tab[aria-selected=true]{box-shadow:inset 0 -4px 0 rgba(0,0,0,.26)}
-.ui-marker-catalog--matrix .ui-marker-catalog__tab:focus-visible{outline:3px solid var(--c-accent);outline-offset:2px;z-index:1}
-.ui-marker-catalog--matrix .ui-marker-catalog__intro{margin:0;border:0;border-radius:0;padding:12px 14px;background:var(--marker-color);color:var(--marker-text);font-size:13px;line-height:1.5}
-.ui-marker-catalog--matrix .ui-marker-catalog__table{margin:0;border:0;border-radius:0;max-width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
-.ui-marker-catalog--matrix .ui-table{width:100%;min-width:700px;border-collapse:separate;border-spacing:0;table-layout:fixed}
-.ui-marker-catalog--matrix .ui-table thead th,.ui-marker-catalog--matrix .ui-table tbody td{border:0;border-right:1px solid rgba(0,0,0,.48);border-bottom:1px solid rgba(0,0,0,.48);padding:12px 8px;background:var(--marker-color);color:var(--marker-text);font-size:12px;line-height:1.4;vertical-align:middle}
-.ui-marker-catalog--matrix .ui-table thead th:last-child,.ui-marker-catalog--matrix .ui-table tbody td:last-child{border-right:0}
-.ui-marker-catalog--matrix .ui-table thead th{font-weight:700;text-align:center}
-.ui-marker-catalog--matrix .ui-table thead tr:first-child th:first-child{width:34%;text-align:left}
-.ui-marker-catalog--matrix .ui-table thead tr:first-child th:nth-child(2){width:12%}
-.ui-marker-catalog--matrix .ui-table thead tr:first-child th:last-child{width:54%}
-.ui-marker-catalog--matrix .ui-table tbody td{height:48px;font-weight:550}
-.ui-marker-catalog--matrix .ui-table tbody td:first-child{text-align:left;overflow-wrap:anywhere}
-.ui-marker-catalog--matrix .ui-table tbody td:not(:first-child){text-align:center}
-.ui-marker-catalog--matrix .ui-table tbody tr:nth-child(even) td,.ui-marker-catalog--matrix .ui-table tbody tr:hover td{background:var(--marker-color)}
-.ui-marker-catalog--matrix .ui-table tbody tr:hover td{filter:brightness(.94)}
-.ui-marker-catalog--matrix .ui-table tbody tr.ui-marker-catalog__alert td{background:#ff1010!important;color:#fff!important}
-.ui-marker-catalog--matrix .ui-marker-catalog__articles{font-size:11px;font-weight:700;white-space:nowrap}
-.ui-marker-catalog--matrix .ui-marker-catalog__footnote{margin:10px 0 0;color:var(--c-muted);font-size:12px}
-@media(max-width:760px){.ui-kit .ui-marker-catalog--matrix .ui-marker-catalog__tabs{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:thin}.ui-kit .ui-marker-catalog--matrix .ui-marker-catalog__tab{flex-shrink:0;min-height:44px}.ui-kit .ui-marker-catalog--matrix .ui-table{min-width:740px}}
