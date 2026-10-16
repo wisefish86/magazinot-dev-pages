@@ -3,12 +3,13 @@ import { chromium } from 'playwright';
 
 const html = fs.readFileSync('pages/ui-kit.html', 'utf8');
 const css = fs.readFileSync('magazinot_gen.css', 'utf8');
+const js = fs.readFileSync('magazinot_gen.js', 'utf8');
 const data=JSON.parse(fs.readFileSync('site-assets/data/ui-kit-marker-demo.json','utf8'));
 data.categories[0].items[0].code='1021'; // Exercise the existing W16 hazard mapping in the browser.
 const fixture=JSON.stringify(data);
 const palette = JSON.parse(fs.readFileSync('site-assets/data/markirovka/medium-colors.json', 'utf8')).categories;
 const icons = fs.readFileSync('site-assets/icons/ui-icons.svg','utf8');
-const source = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>' + css + '</style></head><body>' + html + '</body></html>';
+const source = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>' + css + '</style></head><body>' + html + '<script>' + js + '</script></body></html>';
 const browser = await chromium.launch({ headless: true });
 try {
   for (const width of [1440, 980, 390]) {
@@ -96,12 +97,14 @@ try {
       if(!(await firstSection.isVisible()))throw new Error('Mobile UI Kit section is hidden');
       const catalogSection=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
 
-      const mobileItems=catalogSection.locator('.ui-marker-catalog__mobile details');
-      if(await mobileItems.count()!==6)
-        throw new Error('Expected six mobile accordion entries');
-      await mobileItems.first().locator('summary').click();
-      if(!(await mobileItems.first().evaluate(el=>el.open)))
-        throw new Error('Mobile marker details do not expand');
+      const mobileTable=catalogSection.locator('.ui-marker-catalog__table');
+      const mobileLayout=await mobileTable.evaluate(el=>({visible:!!(el.offsetWidth||el.offsetHeight),client:el.clientWidth,scroll:el.scrollWidth}));
+      if(!mobileLayout.visible||mobileLayout.scroll<=mobileLayout.client)
+        throw new Error('Mobile marker matrix must remain a horizontally scrollable table: '+JSON.stringify(mobileLayout));
+      const firstCellPosition=await catalogSection.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__matrix tbody td:first-child').first().evaluate(el=>({position:getComputedStyle(el).position,inUiKit:!!el.closest('.ui-kit'),mobile:matchMedia('(max-width:700px)').matches}));
+      if(firstCellPosition.position!=='sticky')throw new Error('Mobile marker names and colors must remain visible in a sticky first column; got '+JSON.stringify(firstCellPosition));
+      if(await catalogSection.locator('.ui-marker-catalog__mobile').count())
+        throw new Error('Mobile marker accordion must not replace the comparison table');
     }
     const sizes=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead small').allTextContents();
     if(sizes.some(x=>x.includes('?')||!x.includes('×')))
@@ -128,17 +131,44 @@ try {
 
     await infoDialog.getByRole('button',{name:'ОК',exact:true}).click();
     if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
-    const tableGrid=await page.locator('.ui-table').first().locator('thead th').first().evaluate(el=>({
+    const visibleTable=page.locator('.ui-table:visible').first();
+    const tableGrid=await visibleTable.locator('thead th').first().evaluate(el=>({
       header:getComputedStyle(el).backgroundColor,
       right:getComputedStyle(el).borderRightWidth,
       bottom:getComputedStyle(el).borderBottomWidth
     }));
     if(tableGrid.header!=='rgb(234, 242, 245)'||tableGrid.right==='0px'||tableGrid.bottom==='0px')
       throw new Error('Tables must share the Data table header and visible internal grid: '+JSON.stringify(tableGrid));
+    const tableRows=visibleTable.locator('tbody tr');
+    if(await tableRows.count()>1){
+      const stripes=await tableRows.evaluateAll(rows=>rows.slice(0,2).map(row=>getComputedStyle(row.cells[row.cells.length-1]).backgroundColor));
+      if(stripes[0]===stripes[1])throw new Error('Table rows must use one shared zebra stripe treatment');
+      if(width>700){
+        await tableRows.nth(1).hover();
+        const hover=await tableRows.nth(1).locator('td').last().evaluate(el=>getComputedStyle(el).backgroundColor);
+        if(hover===stripes[1])throw new Error('Table row hover must be stronger than the zebra stripe');
+      }
+    }
     const carousel=page.locator('[data-ui-carousel]').first();
     const fade=await carousel.evaluate(el=>({right:el.dataset.scrollRight,opacity:getComputedStyle(el,'::after').opacity,width:parseFloat(getComputedStyle(el,'::after').width)}));
     if(fade.right==='true'&&(fade.opacity!=='1'||fade.width<50))
       throw new Error('Carousel right edge must fade smoothly while more cards remain: '+JSON.stringify(fade));
+    if(fade.right==='true'&&await carousel.evaluate(el=>getComputedStyle(el,'::after').display==='none'))
+      throw new Error('Carousel fade is hidden by a later CSS override');
+    const mediaHero=page.locator('.ui-hero--media').first();
+    const mediaJoin=await mediaHero.evaluate(el=>{
+      const media=el.querySelector('.ui-hero__media');
+      const root=getComputedStyle(el),image=getComputedStyle(media);
+      return {gap:root.gap,padding:root.padding,borderLeft:image.borderLeftWidth,borderTop:image.borderTopWidth};
+    });
+    if(mediaJoin.gap!=='0px'||mediaJoin.padding!=='0px')throw new Error('Media hero image must join the card without an outer gap: '+JSON.stringify(mediaJoin));
+    if(width>760&&mediaJoin.borderLeft==='0px')throw new Error('Desktop media hero needs one internal divider');
+    if(width<=700&&mediaJoin.borderTop==='0px')throw new Error('Mobile media hero needs one internal divider');
+    const downloadLinks=page.locator('.ui-download-menu__panel').first().locator('.ui-download-menu__link');
+    if(await downloadLinks.count()>1){
+      const divider=await downloadLinks.first().evaluate(el=>getComputedStyle(el).borderBottomWidth);
+      if(divider==='0px')throw new Error('Download menu items need dividers');
+    }
     const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
     if((await legend.allTextContents()).some(x=>!x.trim()))
@@ -180,6 +210,8 @@ try {
     if (!(await panels.nth(1).isHidden())) throw new Error('Inactive step should be hidden');
     await next.click();
     if (!(await stepper.locator('[data-step]').first().getAttribute('data-step-complete')!==null)) throw new Error('Completed step lacks state');
+    const completedMark=await stepper.locator('[data-step]').first().locator('.ui-stepper__number').evaluate(el=>getComputedStyle(el,'::before').content);
+    if(!completedMark.includes('✓'))throw new Error('Completed step needs an explicit checkmark');
     if (!(await panels.nth(1).isVisible()) || (await panels.nth(0).isVisible())) throw new Error('Stepper did not move to second panel');
     await next.click();
     if (!(await panels.nth(2).isVisible()) || (await next.isEnabled())) throw new Error('Stepper final panel error');

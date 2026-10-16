@@ -15,6 +15,7 @@ on:
       - 'fix/hazard-asset-files-*'
       - 'fix/dialog-stepper-showcase-*'
       - 'fix/ui-kit-screenshot-qa-*'
+      - 'fix/ui-kit-mobile-table-unification-*'
   workflow_dispatch:
 
 permissions:

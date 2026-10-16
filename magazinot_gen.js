@@ -478,11 +478,7 @@
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
       const hazardMap = {"water":{"1021":"16","1048":"05"},"air":{"3033":"11"},"gas":{"4002":"01","4005":"03","4008":"01","4010":"01","4011":"01","4012":"01","4013":"01,03","4014":"01","4022":"01,18","4023":"03","4025":"01","4028":"11","4030":"01","4032":"03","4033":"01,03","4038":"01","4039":"01","4041":"01","4042":"01","4043":"01","4044":"01,03","4054":"03,04","4055":"03,04","4057":"03","4058":"01,18","4059":"04","4060":"01","4061":"03","4062":"01","4066":"01","4067":"01"},"acid":{"5002":"04,11","5003":"04","5004":"01,03","5005":"18","5006":"04","5008":"04","5011":"03","5013":"18","5014":"04","5015":"04","5016":"04","5017":"04,03","5019":"04","5020":"04","5021":"04","5022":"04","5023":"04","5024":"01,03","5025":"03","5026":"04","5028":"04","5029":"04","5030":"04","5031":"18","5032":"18","5033":"04,11","5034":"04","5035":"04","5036":"03","5037":"18"},"alkali":{"6002":"04","6003":"03","6004":"04","6005":"03","6006":"18","6007":"04","6008":"04,18","6009":"04","6010":"04","6011":"04","6012":"04","6013":"04","6014":"01,18","6016":"04","6017":"04","6018":"03,11","6020":"01,18"},"liquid":{"7002":"01,03","7003":"03","7004":"01,18","7005":"01","7006":"01,03","7007":"18","7009":"01,03","7011":"01,18","7012":"18","7014":"01","7015":"01,18","7021":"01","7023":"01","7025":"18","7029":"01","7030":"01,03","7036":"03","7037":"01,18","7043":"01","7044":"01","7045":"04,11","7046":"01","7048":"01","7052":"01,03","7059":"18","7060":"01,18","7062":"18","7063":"18","7065":"03","7074":"01,18","7075":"01","7076":"18","7079":"01"}};
       // The original PNG files are deployed to /assets/img/pipemarkers/hazards/.
-      const mobile=document.createElement('div');
-      mobile.className='ui-marker-catalog__mobile';
-      mobile.setAttribute('aria-label','Позиции каталога — мобильный список');
       const viewport=catalog.querySelector('.ui-marker-catalog__table');
-      if(viewport)viewport.insertAdjacentElement('afterend',mobile);
             const hazardNames={
         '01':'Легковоспламеняющиеся вещества',
         '03':'Взрывоопасные вещества',
@@ -515,7 +511,8 @@
 const notes=document.createElement('div');
       notes.className='ui-marker-catalog__notes';
       notes.innerHTML='<strong>Примечания к маркировке</strong><ul><li>На маркерах без надписи информацию можно нанести вручную подходящим химически стойким маркером.</li><li>Знаки опасности соответствуют характеристикам транспортируемого вещества; выбирайте их по проектной документации.</li><li>Если нужного наименования нет в каталоге, укажите его в запросе на изготовление.</li></ul>';
-      mobile.insertAdjacentElement('afterend',legend);
+      if(viewport)viewport.insertAdjacentElement('afterend',legend);
+      else catalog.appendChild(legend);
       legend.insertAdjacentElement('afterend',notes);
       function renderCategory(category){
         const [color,ink] = colors[category.id] || [category.color || '#287c84',category.textColor || '#fff'];
@@ -674,28 +671,6 @@ const notes=document.createElement('div');
             tr.appendChild(cell);
           });
           body.appendChild(tr);
-        });
-        mobile.replaceChildren();
-        items.forEach(item=>{
-          const details=document.createElement('details');
-          const summary=document.createElement('summary');
-          const special=/пожаротушени/i.test(safe(item.name)) && (item.highlight || safe(item.name).includes('*'));
-          summary.textContent=(special?safe(item.name).replace(/\s*\*\s*$/,''):safe(item.name)).trim() || 'Маркер без надписи';
-          if(special)summary.appendChild(markerNoteButton('Маркировка для пожаротушения','Красное исполнение для трубопроводов автоматического пожаротушения. Учитывайте СП 485.1311500.2020 и проектную документацию объекта.'));
-          const dl=document.createElement('dl');
-          const articles=Array.isArray(item.codes)&&item.codes.length===6
-            ? item.codes : Array.from({length:6},(_,i)=>'F0'+(i+1)+'-'+safe(item.code));
-          articles.forEach((code,i)=>{
-            const pair=document.createElement('div');
-            const dt=document.createElement('dt');
-            dt.textContent='P'+(i+1);
-            const dd=document.createElement('dd');
-            dd.textContent=safe(code);
-            pair.append(dt,dd);
-            dl.appendChild(pair);
-          });
-          details.append(summary,dl);
-          mobile.appendChild(details);
         });
         const count = catalog.querySelector('[data-marker-count]');
         if (count) count.textContent = items.length+' позиций';
