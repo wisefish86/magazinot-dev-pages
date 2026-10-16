@@ -514,12 +514,12 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   font-size:var(--text-sm);
   line-height:1.35;
 }
-.ui-meta > span:not(.docpage__meta-icon) {
+.ui-meta > span {
   display:inline-flex;
   align-items:center;
   min-height:26px;
 }
-.ui-meta > span:not(.docpage__meta-icon):not(:last-child)::after {
+.ui-meta > span:not(:last-child)::after {
   content:"";
   width:4px;
   height:4px;
