@@ -361,6 +361,13 @@
     <h2>Информационное окно с прокруткой</h2>
     <p class="ui-kit__hint">Для длинных пояснений, иллюстраций и инструкций. Окно ограничено высотой экрана, прокручивается внутри и закрывается кнопкой «ОК», Escape или нажатием на фон.</p>
     <div class="ui-kit__example">
+      <p><strong>Короткое пояснение:</strong> тёмная подсказка без модального окна — при наведении, фокусе или нажатии.</p>
+      <span class="ui-tooltip" data-ui-short-tooltip>
+        <button type="button" class="ui-btn ui-btn--secondary" aria-expanded="false">Что означает знак опасности?</button>
+        <span class="ui-tooltip__bubble" role="tooltip">Знак показывает соответствующую опасность вещества.</span>
+      </span>
+    </div>
+    <div class="ui-kit__example">
       <div data-ui-info-dialog>
         <button class="ui-btn ui-btn--secondary" type="button" data-info-open>Открыть подробное пояснение</button>
         <dialog class="ui-info-dialog" aria-labelledby="ui-kit-dialog-title">
