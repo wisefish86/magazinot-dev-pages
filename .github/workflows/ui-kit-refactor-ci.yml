@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'refactor/ui-kit-canonical-*'
+      - 'feature/ui-kit-marker-tabs-*'
   workflow_dispatch:
 
 permissions:
@@ -26,6 +27,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Check all pages at desktop and mobile sizes
         run: node scripts/visual-regression-check.mjs
+      - name: Verify three-tab marker demo interactions
+        run: node scripts/test-marker-demo.mjs
       - name: Upload refactor screenshots
         if: always()
         uses: actions/upload-artifact@v4

@@ -838,14 +838,21 @@
   </section>
 
   <section class="ui-kit__group">
-    <h2>Каталог самоклеящихся маркеров</h2>
-    <p class="ui-kit__hint">Табличная матрица артикулов, выбор транспортируемой среды, интро и инструменты. Интерактивная реализация использует общий JS и данные.</p>
-    <div class="ui-kit__example mk-ui">
-      <div class="ui-marker-catalog">
-        <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Пример категорий"><button type="button" class="ui-marker-catalog__tab" aria-selected="true" style="--marker-tab-color:#397e00;--marker-tab-text:#fff">ВОДА</button><button type="button" class="ui-marker-catalog__tab" aria-selected="false" style="--marker-tab-color:#d42a32;--marker-tab-text:#fff">ПАР</button></div>
-        <div class="ui-marker-catalog__intro" style="--marker-color:#397e00;--marker-text:#fff">Пример описания категории маркировки.</div>
-        <div class="ui-marker-catalog__tools"><span>Каталог продукции</span><span>Размеры P1–P6</span></div>
-        <div class="ui-table-wrap ui-marker-catalog__table"><table class="ui-table ui-marker-catalog__matrix"><thead><tr><th>Наименование</th><th>Размер</th></tr></thead><tbody><tr><td>Маркер для трубопровода</td><td>P1</td></tr></tbody></table></div>
+    <h2>Вкладки каталога маркировочных стрелок / маркеров</h2>
+    <p class="ui-kit__hint">Живой пример общего переключателя категорий: Вода, Пар и Воздух — по 6 позиций. Использует тот же JavaScript и CSS, что рабочий каталог, но отдельную сокращённую JSON-выборку. Полный каталог и внутренние ссылки не затрагиваются.</p>
+    <div class="ui-kit__example">
+      <div class="ui-marker-catalog" data-ui-marker-catalog data-source="/assets/data/ui-kit-marker-demo.json">
+        <div class="ui-marker-catalog__tabs" role="tablist" aria-label="Демонстрация переключения категорий стрелок" data-marker-tabs>
+          <span class="ui-chip">Загрузка категорий…</span>
+        </div>
+        <div class="ui-marker-catalog__intro" data-marker-intro aria-live="polite">Загрузка примера…</div>
+        <div class="ui-marker-catalog__tools"><span data-marker-count></span><span>Пример артикулов P1–P6</span></div>
+        <div class="ui-table-wrap ui-marker-catalog__table" role="region" aria-label="Пример таблицы маркировочных стрелок" tabindex="0">
+          <table class="ui-table ui-marker-catalog__matrix">
+            <thead><tr><th scope="col" rowspan="2">Наименование</th><th scope="col" rowspan="2">Знаки опасности</th><th scope="colgroup" colspan="6">Артикул</th></tr><tr><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th></tr></thead>
+            <tbody data-marker-body><tr><td colspan="8">Загрузка…</td></tr></tbody>
+          </table>
+        </div>
       </div>
     </div>
   </section>
