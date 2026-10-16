@@ -134,16 +134,17 @@ try {
     if(width>700){
       await tabs.first().click();
       const hazardTrigger=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__hazard-trigger').first();
-    if(await hazardTrigger.count()!==1)throw new Error('Expected a hazard pictogram in test data');
-    await hazardTrigger.focus();
-    if((await hazardTrigger.getAttribute('aria-label'))!=='Радиоактивные вещества')
-      throw new Error('Hazard accessible label was not populated');
-    await hazardTrigger.click();
-    if(!(await hazardTrigger.locator('xpath=..').evaluate(el=>el.classList.contains('ui-tooltip--open'))))
-      throw new Error('Hazard tooltip did not open on click');
-    await hazardTrigger.press('Escape');
-    if(await hazardTrigger.locator('xpath=..').evaluate(el=>el.classList.contains('ui-tooltip--open')))
-      throw new Error('Hazard tooltip not dismissed with Escape');
+      if(await hazardTrigger.count()!==1)throw new Error('Expected a hazard pictogram in test data');
+      if((await hazardTrigger.getAttribute('aria-label'))!=='Радиоактивные вещества')
+        throw new Error('Hazard accessible label was not populated');
+      await hazardTrigger.focus();
+      const portal=page.locator('body > .ui-marker-catalog__tooltip-portal');
+      if(await portal.count()!==1)throw new Error('Hazard tooltip must escape the table');
+      const bounds=await portal.evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}));
+      if(bounds.width<150||bounds.height>90||bounds.left<0||bounds.right>width)
+        throw new Error('Hazard tooltip is clipped or unreadable: '+JSON.stringify(bounds));
+      await hazardTrigger.press('Escape');
+      if(await portal.count())throw new Error('Hazard tooltip not dismissed with Escape');
     }
     const shortHint=page.locator('[data-ui-short-tooltip]').first();
     await shortHint.locator('button').click();
