@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="260" viewBox="0 0 420 260">
+  <title>Full Mesh Topology</title>
+  <desc>Every node has a direct link to every other node.</desc>
+  <defs>
+    <style><![CDATA[
+      .node { fill:#fff; stroke:#5d4037; stroke-width:2; }
+      .label { font:12px sans-serif; fill:#3e2723; }
+      .title { font:16px sans-serif; font-weight:bold; fill:#333; }
+      .link { stroke:#87624f; stroke-width:1.6; }
+    ]]></style>
+  </defs>
+  <text x="210" y="24" text-anchor="middle" class="title">Full Mesh Topology</text>
+  <g transform="translate(210,140)">
+    <!-- Node coordinates (pentagon) -->
+    <!-- Precompute lines between all pairs -->
+    <g stroke="#87624f" stroke-width="1.6">
+      <!-- Pairs for 5 nodes: 10 lines choose(5,2) -->
+      <line class="link" x1="0" y1="-100" x2="95" y2="-31" />
+      <line class="link" x1="0" y1="-100" x2="59" y2="81" />
+      <line class="link" x1="0" y1="-100" x2="-59" y2="81" />
+      <line class="link" x1="0" y1="-100" x2="-95" y2="-31" />
+      <line class="link" x1="95" y1="-31" x2="59" y2="81" />
+      <line class="link" x1="95" y1="-31" x2="-59" y2="81" />
+      <line class="link" x1="95" y1="-31" x2="-95" y2="-31" />
+      <line class="link" x1="59" y1="81" x2="-59" y2="81" />
+      <line class="link" x1="59" y1="81" x2="-95" y2="-31" />
+      <line class="link" x1="-59" y1="81" x2="-95" y2="-31" />
+    </g>
+    <!-- Nodes -->
+    <g>
+      <g transform="translate(0,-100)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">A</text>
+      </g>
+      <g transform="translate(95,-31)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">B</text>
+      </g>
+      <g transform="translate(59,81)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">C</text>
+      </g>
+      <g transform="translate(-59,81)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">D</text>
+      </g>
+      <g transform="translate(-95,-31)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">E</text>
+      </g>
+    </g>
+  </g>
+</svg>

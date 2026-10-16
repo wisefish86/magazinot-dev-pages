@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="260" viewBox="0 0 420 260">
+  <title>Star Topology</title>
+  <desc>A central switch/hub connects all peripheral nodes.</desc>
+  <defs>
+    <style><![CDATA[
+      .node { fill:#ffffff; stroke:#1a73e8; stroke-width:2; }
+      .center { fill:#1a73e8; stroke:#0d47a1; stroke-width:2; }
+      .label { font:12px sans-serif; fill:#0d47a1; }
+      .title { font:16px sans-serif; font-weight:bold; fill:#333; }
+      .link { stroke:#555; stroke-width:2; }
+    ]]></style>
+  </defs>
+  <text x="210" y="24" text-anchor="middle" class="title">Star Topology</text>
+  <g transform="translate(210,130)">
+    <!-- Center hub -->
+    <circle r="28" class="center" />
+    <text class="label" text-anchor="middle" dy="4">Switch</text>
+    <!-- Peripheral nodes -->
+    <g id="nodes">
+      <g transform="translate(0,-100)">
+        <line class="link" x1="0" y1="72" x2="0" y2="28" />
+        <circle class="node" r="20" cy="-0" />
+        <text class="label" text-anchor="middle" dy="4" y="0">A</text>
+      </g>
+      <g transform="translate(95,-30)">
+        <line class="link" x1="-65" y1="0" x2="-28" y2="0" />
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">B</text>
+      </g>
+      <g transform="translate(60,80)">
+        <line class="link" x1="-40" y1="-40" x2="-10" y2="-10" />
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">C</text>
+      </g>
+      <g transform="translate(-60,80)">
+        <line class="link" x1="40" y1="-40" x2="10" y2="-10" />
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">D</text>
+      </g>
+      <g transform="translate(-95,-30)">
+        <line class="link" x1="65" y1="0" x2="28" y2="0" />
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">E</text>
+      </g>
+    </g>
+  </g>
+</svg>

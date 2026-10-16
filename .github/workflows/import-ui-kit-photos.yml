@@ -1,0 +1,34 @@
+name: Import local UI Kit demo photos
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/import-ui-kit-photos.mjs'
+      - '.github/workflows/import-ui-kit-photos.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: ui-kit-photo-import
+  cancel-in-progress: false
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Download verified demo JPEG files
+        run: node scripts/import-ui-kit-photos.mjs
+      - name: Commit imported photos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site-assets/img/ui-kit-demo/
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "assets(ui-kit): vendor verified demonstration images locally"
+            git push
+          fi

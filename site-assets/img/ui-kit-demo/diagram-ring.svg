@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="260" viewBox="0 0 420 260">
+  <title>Ring Topology</title>
+  <desc>Each node connects to exactly two neighbors forming a loop.</desc>
+  <defs>
+    <style><![CDATA[
+      .node { fill:#fff; stroke:#d81b60; stroke-width:2; }
+      .label { font:12px sans-serif; fill:#880e4f; }
+      .title { font:16px sans-serif; font-weight:bold; fill:#333; }
+      .link { stroke:#555; stroke-width:2; fill:none; }
+    ]]></style>
+  </defs>
+  <text x="210" y="24" text-anchor="middle" class="title">Ring Topology</text>
+  <g transform="translate(210,135)">
+    <!-- Loop circle guide (invisible) -->
+    <circle r="100" fill="none" stroke="#ccc" stroke-dasharray="4 6" stroke-width="1" />
+    <!-- Nodes positioned on circle -->
+    <!-- We'll draw links between consecutive nodes including wrap-around -->
+    <g id="links" stroke="#555" stroke-width="2">
+      <polyline class="link" points="0,-100 95,-31 59,81 -59,81 -95,-31 0,-100" fill="none" />
+    </g>
+    <g id="nodes">
+      <g transform="translate(0,-100)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">A</text>
+      </g>
+      <g transform="translate(95,-31)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">B</text>
+      </g>
+      <g transform="translate(59,81)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">C</text>
+      </g>
+      <g transform="translate(-59,81)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">D</text>
+      </g>
+      <g transform="translate(-95,-31)">
+        <circle class="node" r="20" />
+        <text class="label" text-anchor="middle" dy="4">E</text>
+      </g>
+    </g>
+  </g>
+</svg>

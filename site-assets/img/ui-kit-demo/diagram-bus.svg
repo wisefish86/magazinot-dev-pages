@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="240" viewBox="0 0 520 240">
+  <title>Bus Topology</title>
+  <desc>All nodes connect to a single central backbone cable.</desc>
+  <defs>
+    <style><![CDATA[
+      .node { fill:#fff; stroke:#00796b; stroke-width:2; }
+      .label { font:12px sans-serif; fill:#004d40; }
+      .title { font:16px sans-serif; font-weight:bold; fill:#333; }
+      .backbone { stroke:#555; stroke-width:6; stroke-linecap:round; }
+      .tap { stroke:#00796b; stroke-width:3; }
+    ]]></style>
+  </defs>
+  <text x="260" y="24" text-anchor="middle" class="title">Bus Topology</text>
+  <!-- Backbone -->
+  <line x1="40" y1="140" x2="480" y2="140" class="backbone" />
+  <!-- Terminators -->
+  <rect x="28" y="130" width="12" height="20" rx="2" ry="2" fill="#555" />
+  <rect x="480" y="130" width="12" height="20" rx="2" ry="2" fill="#555" />
+  <!-- Nodes -->
+  <g>
+    <g transform="translate(110,60)">
+      <line class="tap" x1="0" y1="40" x2="0" y2="80" />
+      <circle class="node" r="22" />
+      <text class="label" text-anchor="middle" dy="4">A</text>
+    </g>
+    <g transform="translate(190,60)">
+      <line class="tap" x1="0" y1="40" x2="0" y2="80" />
+      <circle class="node" r="22" />
+      <text class="label" text-anchor="middle" dy="4">B</text>
+    </g>
+    <g transform="translate(270,60)">
+      <line class="tap" x1="0" y1="40" x2="0" y2="80" />
+      <circle class="node" r="22" />
+      <text class="label" text-anchor="middle" dy="4">C</text>
+    </g>
+    <g transform="translate(350,60)">
+      <line class="tap" x1="0" y1="40" x2="0" y2="80" />
+      <circle class="node" r="22" />
+      <text class="label" text-anchor="middle" dy="4">D</text>
+    </g>
+  </g>
+</svg>
