@@ -57,6 +57,7 @@ for(const name of pages){
       return {documentWidth:document.documentElement.scrollWidth,viewportWidth:width,overflowing,
         markerTabs:document.querySelectorAll('[data-marker-tabs] [role="tab"]').length,
         missingImages:[...document.querySelectorAll('img')].filter(el=>!el.naturalWidth).length,
+        missingImageUrls:[...document.querySelectorAll('img')].filter(el=>!el.naturalWidth).map(el=>({src:el.getAttribute('src'),visible:!!el.getClientRects().length})).slice(0,30),
         missingHazardSigns:[...document.querySelectorAll('.ui-marker-catalog__legend-item img')].filter(el=>!el.naturalWidth).map(el=>el.getAttribute('src'))};
     });
     const file=name.slice(0,-5)+'-'+size.name+'.png';
