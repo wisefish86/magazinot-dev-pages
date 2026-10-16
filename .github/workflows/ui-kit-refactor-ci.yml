@@ -20,6 +20,19 @@ jobs:
         run: node scripts/inject-magazinot-ui.mjs
       - name: Validate component coverage and JS
         run: node scripts/validate-magazinot-ui.mjs
+      - name: Install Playwright Chromium
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Check all pages at desktop and mobile sizes
+        run: node scripts/visual-regression-check.mjs
+      - name: Upload refactor screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ui-kit-refactor-screenshots
+          path: visual-snapshots/ui-kit-refactor/
+          if-no-files-found: ignore
       - name: Check CSS braces and legacy selectors
         run: |
           node --input-type=module <<'NODE'
