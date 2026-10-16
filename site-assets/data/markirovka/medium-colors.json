@@ -1,0 +1,37 @@
+{
+  "description": "Каноническая палитра групп транспортируемых сред для стрелок, лент и маркеров. Значения меняются только здесь; CSS и JS используют генерируемые токены.",
+  "categories": {
+    "water": {
+      "background": "#397e00",
+      "text": "#fff"
+    },
+    "steam": {
+      "background": "#ec1e25",
+      "text": "#fff"
+    },
+    "air": {
+      "background": "#75c5f7",
+      "text": "#112736"
+    },
+    "gas": {
+      "background": "#ffdc35",
+      "text": "#1d2831"
+    },
+    "acid": {
+      "background": "#ff951f",
+      "text": "#1d2831"
+    },
+    "alkali": {
+      "background": "#9e70da",
+      "text": "#1d2831"
+    },
+    "liquid": {
+      "background": "#a64a0a",
+      "text": "#fff"
+    },
+    "other": {
+      "background": "#aeb5bb",
+      "text": "#1d2831"
+    }
+  }
+}
