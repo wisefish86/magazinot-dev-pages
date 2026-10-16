@@ -479,6 +479,12 @@
       const hazardMap = {"water":{"1021":"16","1048":"05"},"air":{"3033":"11"},"gas":{"4002":"01","4005":"03","4008":"01","4010":"01","4011":"01","4012":"01","4013":"01,03","4014":"01","4022":"01,18","4023":"03","4025":"01","4028":"11","4030":"01","4032":"03","4033":"01,03","4038":"01","4039":"01","4041":"01","4042":"01","4043":"01","4044":"01,03","4054":"03,04","4055":"03,04","4057":"03","4058":"01,18","4059":"04","4060":"01","4061":"03","4062":"01","4066":"01","4067":"01"},"acid":{"5002":"04,11","5003":"04","5004":"01,03","5005":"18","5006":"04","5008":"04","5011":"03","5013":"18","5014":"04","5015":"04","5016":"04","5017":"04,03","5019":"04","5020":"04","5021":"04","5022":"04","5023":"04","5024":"01,03","5025":"03","5026":"04","5028":"04","5029":"04","5030":"04","5031":"18","5032":"18","5033":"04,11","5034":"04","5035":"04","5036":"03","5037":"18"},"alkali":{"6002":"04","6003":"03","6004":"04","6005":"03","6006":"18","6007":"04","6008":"04,18","6009":"04","6010":"04","6011":"04","6012":"04","6013":"04","6014":"01,18","6016":"04","6017":"04","6018":"03,11","6020":"01,18"},"liquid":{"7002":"01,03","7003":"03","7004":"01,18","7005":"01","7006":"01,03","7007":"18","7009":"01,03","7011":"01,18","7012":"18","7014":"01","7015":"01,18","7021":"01","7023":"01","7025":"18","7029":"01","7030":"01,03","7036":"03","7037":"01,18","7043":"01","7044":"01","7045":"04,11","7046":"01","7048":"01","7052":"01,03","7059":"18","7060":"01,18","7062":"18","7063":"18","7065":"03","7074":"01,18","7075":"01","7076":"18","7079":"01"}};
       // The original PNG files are deployed to /assets/img/pipemarkers/hazards/.
       const viewport=catalog.querySelector('.ui-marker-catalog__table');
+      if(viewport&&!viewport.dataset.scrollCueReady){
+        viewport.dataset.scrollCueReady='1';
+        const update=()=>viewport.dataset.scrollLeft=String(viewport.scrollLeft>2);
+        viewport.addEventListener('scroll',update,{passive:true});
+        requestAnimationFrame(update);
+      }
             const hazardNames={
         '01':'Легковоспламеняющиеся вещества',
         '03':'Взрывоопасные вещества',
@@ -657,7 +663,9 @@ const notes=document.createElement('div');
               trigger.addEventListener('blur',hide);
               trigger.addEventListener('click',event=>{event.stopPropagation();open?hide():show();});
               trigger.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});
-              window.addEventListener('scroll',hide,{passive:true});
+              // Focus may scroll the table automatically; do not immediately dismiss its tooltip.
+              window.addEventListener('scroll',()=>{if(open)position();},{passive:true});
+              viewport?.addEventListener('scroll',()=>{if(open)position();},{passive:true});
               danger.appendChild(help);
             });
           }
@@ -809,111 +817,140 @@ const notes=document.createElement('div');
   }
 
   function initLightbox(){
-    if (document.querySelector('.doc-lightbox')) return;
-
-    function getCandidates(){
-      return Array.from(document.querySelectorAll('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]'));
-    }
-
-    let candidates = getCandidates();
-    if (!candidates.length) return;
-
-    let lastTrigger = null;
-    let previousOverflow = '';
-
-    const overlay = document.createElement('div');
-    overlay.className = 'doc-lightbox';
-    overlay.setAttribute('role', 'dialog');
-    overlay.setAttribute('aria-modal', 'true');
-    overlay.setAttribute('aria-label', 'Просмотр изображения');
-    overlay.setAttribute('aria-hidden', 'true');
-    overlay.innerHTML = '<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div>';
+    if(document.querySelector('.doc-lightbox'))return;
+    const selector='.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]';
+    const getCandidates=()=>Array.from(document.querySelectorAll(selector));
+    let candidates=getCandidates();
+    if(!candidates.length)return;
+    let lastTrigger=null;
+    let previousOverflow='';
+    let gallery=[];
+    let currentIndex=0;
+    const overlay=document.createElement('div');
+    overlay.className='doc-lightbox';
+    overlay.setAttribute('role','dialog');
+    overlay.setAttribute('aria-modal','true');
+    overlay.setAttribute('aria-label','Просмотр изображения');
+    overlay.setAttribute('aria-hidden','true');
+    overlay.innerHTML='<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><button class="doc-lightbox__prev" type="button" aria-label="Предыдущее изображение">&#8249;</button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div><button class="doc-lightbox__next" type="button" aria-label="Следующее изображение">&#8250;</button><div class="doc-lightbox__caption" aria-live="polite"></div><div class="doc-lightbox__thumbs" role="group" aria-label="Выбор изображения"></div>';
     document.body.appendChild(overlay);
-
-    const modalImage = overlay.querySelector('.doc-lightbox__image');
-    const closeButton = overlay.querySelector('.doc-lightbox__close');
+    const modalImage=overlay.querySelector('.doc-lightbox__image');
+    const closeButton=overlay.querySelector('.doc-lightbox__close');
+    const prev=overlay.querySelector('.doc-lightbox__prev');
+    const next=overlay.querySelector('.doc-lightbox__next');
+    const thumbs=overlay.querySelector('.doc-lightbox__thumbs');
+    const caption=overlay.querySelector('.doc-lightbox__caption');
 
     function isReduced(img){
-      if (!img.complete || !img.naturalWidth || !img.naturalHeight) return false;
-      const rect = img.getBoundingClientRect();
-      return img.naturalWidth > rect.width + 2 || img.naturalHeight > rect.height + 2;
+      if(!img.complete||!img.naturalWidth||!img.naturalHeight)return false;
+      const rect=img.getBoundingClientRect();
+      return img.naturalWidth>rect.width+2||img.naturalHeight>rect.height+2;
     }
-
+    function isZoomable(img){return !!img.closest('.ui-gallery')||isReduced(img);}
     function refreshZoomability(){
-      candidates = getCandidates();
-      candidates.forEach(img => {
-        const zoomable = isReduced(img);
-        img.classList.toggle('docpage__zoomable', zoomable);
-
-        if (zoomable) {
-          img.setAttribute('tabindex', '0');
-          img.setAttribute('role', 'button');
-          img.setAttribute('aria-label', 'Увеличить изображение');
-        } else {
+      candidates=getCandidates();
+      candidates.forEach(img=>{
+        const zoomable=isZoomable(img);
+        img.classList.toggle('docpage__zoomable',zoomable);
+        if(zoomable){
+          img.setAttribute('tabindex','0');
+          img.setAttribute('role','button');
+          img.setAttribute('aria-label','Открыть изображение: '+(img.alt||'без подписи'));
+        }else{
           img.removeAttribute('tabindex');
           img.removeAttribute('role');
           img.removeAttribute('aria-label');
         }
       });
     }
-
+    function render(){
+      const img=gallery[currentIndex];
+      if(!img)return;
+      modalImage.src=img.currentSrc||img.src;
+      modalImage.alt=img.alt||'Изображение документа';
+      const text=img.closest('figure')?.querySelector('figcaption')?.textContent?.trim()||img.alt||'';
+      caption.textContent=gallery.length>1?(currentIndex+1)+' / '+gallery.length+' — '+text:text;
+      [...thumbs.children].forEach((button,i)=>{
+        button.setAttribute('aria-current',String(i===currentIndex));
+      });
+      thumbs.children[currentIndex]?.scrollIntoView({block:'nearest',inline:'nearest',behavior:'instant'});
+    }
     function openLightbox(img){
-      if (!isReduced(img)) return;
-
-      lastTrigger = img;
-      modalImage.src = img.currentSrc || img.src;
-      modalImage.alt = img.alt || 'Изображение документа';
-      previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
+      if(!isZoomable(img))return;
+      lastTrigger=img;
+      const group=img.closest('.ui-gallery');
+      gallery=group?Array.from(group.querySelectorAll('img')).filter(el=>el.src):[img];
+      currentIndex=Math.max(0,gallery.indexOf(img));
+      overlay.classList.toggle('has-gallery',gallery.length>1);
+      thumbs.replaceChildren();
+      if(gallery.length>1){
+        gallery.forEach((item,index)=>{
+          const button=document.createElement('button');
+          button.type='button';button.className='doc-lightbox__thumb';
+          button.setAttribute('aria-label','Изображение '+(index+1)+' из '+gallery.length);
+          const image=document.createElement('img');image.src=item.currentSrc||item.src;image.alt='';
+          button.append(image);
+          button.addEventListener('click',()=>{currentIndex=index;render();});
+          thumbs.append(button);
+        });
+      }
+      previousOverflow=document.body.style.overflow;
+      document.body.style.overflow='hidden';
       overlay.classList.add('is-open');
-      overlay.setAttribute('aria-hidden', 'false');
+      overlay.setAttribute('aria-hidden','false');
+      render();
       closeButton.focus();
     }
-
-    function closeLightbox(){
-      if (!overlay.classList.contains('is-open')) return;
-
-      overlay.classList.remove('is-open');
-      overlay.setAttribute('aria-hidden', 'true');
-      modalImage.removeAttribute('src');
-      document.body.style.overflow = previousOverflow;
-
-      if (lastTrigger && document.contains(lastTrigger)) lastTrigger.focus();
+    function navigate(delta){
+      if(gallery.length<2)return;
+      currentIndex=(currentIndex+delta+gallery.length)%gallery.length;
+      render();
     }
-
-    document.addEventListener('click', event => {
-      const img = event.target.closest('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]');
-      if (!img || !img.classList.contains('docpage__zoomable')) return;
-      openLightbox(img);
+    function closeLightbox(){
+      if(!overlay.classList.contains('is-open'))return;
+      overlay.classList.remove('is-open');
+      overlay.classList.remove('has-gallery');
+      overlay.setAttribute('aria-hidden','true');
+      modalImage.removeAttribute('src');
+      thumbs.replaceChildren();
+      gallery=[];
+      document.body.style.overflow=previousOverflow;
+      if(lastTrigger&&document.contains(lastTrigger))lastTrigger.focus({preventScroll:true});
+    }
+    document.addEventListener('click',event=>{
+      const img=event.target.closest(selector);
+      if(img&&img.classList.contains('docpage__zoomable'))openLightbox(img);
     });
-
-    document.addEventListener('keydown', event => {
-      const img = event.target.closest('.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]');
-      if (!img || !img.classList.contains('docpage__zoomable')) return;
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openLightbox(img);
+    document.addEventListener('keydown',event=>{
+      const img=event.target.closest(selector);
+      if(!img||!img.classList.contains('docpage__zoomable'))return;
+      if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(img);}
+    });
+    candidates.forEach(img=>{if(!img.complete)img.addEventListener('load',refreshZoomability,{once:true});});
+    prev.addEventListener('click',()=>navigate(-1));
+    next.addEventListener('click',()=>navigate(1));
+    closeButton.addEventListener('click',closeLightbox);
+    overlay.addEventListener('click',event=>{
+      if(event.target===overlay||event.target.classList.contains('doc-lightbox__stage'))closeLightbox();
+    });
+    document.addEventListener('keydown',event=>{
+      if(!overlay.classList.contains('is-open'))return;
+      if(event.key==='Escape'){event.preventDefault();closeLightbox();}
+      else if(event.key==='ArrowRight'){event.preventDefault();navigate(1);}
+      else if(event.key==='ArrowLeft'){event.preventDefault();navigate(-1);}
+      else if(event.key==='Tab'){
+        const focusable=Array.from(overlay.querySelectorAll('button')).filter(el=>el.getClientRects().length);
+        const ix=focusable.indexOf(document.activeElement);
+        if(!focusable.length)return;
+        if(event.shiftKey&&ix<=0){event.preventDefault();focusable[focusable.length-1].focus();}
+        else if(!event.shiftKey&&ix===focusable.length-1){event.preventDefault();focusable[0].focus();}
       }
     });
-
-    candidates.forEach(img => {
-      if (!img.complete) img.addEventListener('load', refreshZoomability, {once:true});
-    });
-
-    closeButton.addEventListener('click', closeLightbox);
-    overlay.addEventListener('click', event => {
-      if (event.target === overlay || event.target.classList.contains('doc-lightbox__stage')) closeLightbox();
-    });
-    document.addEventListener('keydown', event => {
-      if (event.key === 'Escape') closeLightbox();
-    });
-
-    let resizeFrame = 0;
-    window.addEventListener('resize', () => {
+    let resizeFrame=0;
+    window.addEventListener('resize',()=>{
       cancelAnimationFrame(resizeFrame);
-      resizeFrame = requestAnimationFrame(refreshZoomability);
+      resizeFrame=requestAnimationFrame(refreshZoomability);
     });
-
     requestAnimationFrame(refreshZoomability);
   }
 
