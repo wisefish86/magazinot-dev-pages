@@ -457,6 +457,49 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   font-size:var(--text-md);
   line-height:1.5;
 }
+/* Reusable interactive stepper for buying guides and installation instructions. */
+.ui-stepper {
+  display:grid;
+  gap:16px;
+  padding:18px;
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-lg);
+  background:var(--c-surface);
+}
+.ui-stepper__nav {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.ui-stepper__nav button {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  min-height:44px;
+  padding:9px 11px;
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-md);
+  background:var(--c-soft);
+  color:var(--c-text);
+  font:650 var(--text-sm)/1.4 var(--font-sans);
+  text-align:left;
+  cursor:pointer;
+}
+.ui-stepper__nav button[aria-current="step"] {
+  border-color:var(--c-accent);
+  background:#eaf6f9;
+  color:var(--c-accent-dark);
+}
+.ui-stepper__nav button:focus-visible { outline:2px solid var(--c-accent); outline-offset:2px }
+.ui-stepper__panel { min-width:0; padding:8px 0; }
+.ui-stepper__panel[hidden] { display:none!important }
+.ui-stepper__actions { display:flex; gap:9px; align-items:center; justify-content:flex-end; flex-wrap:wrap }
+.ui-stepper__progress { margin-right:auto; color:var(--c-muted); font-size:var(--text-sm) }
+@media(max-width:620px) {
+  .ui-stepper { padding:12px; gap:12px }
+  .ui-stepper__nav { grid-template-columns:1fr; gap:5px }
+  .ui-stepper__nav button { min-height:40px }
+}
 /* Reusable process compositions and editorial advantage cards */
 .ui-steps--sequence {
   grid-template-columns:repeat(auto-fit,minmax(175px,1fr));
