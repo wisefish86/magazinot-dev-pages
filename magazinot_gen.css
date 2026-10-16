@@ -53,6 +53,24 @@
   --marker-tab-color:#0f6b6d;
   --marker-tab-text:#fff;
   --marker-soft:#f4f8f7;
+  /* BEGIN GENERATED MARKER PALETTE — edit site-assets/data/markirovka/medium-colors.json */
+  --medium-water:#397e00;
+  --medium-water-text:#fff;
+  --medium-steam:#ec1e25;
+  --medium-steam-text:#fff;
+  --medium-air:#75c5f7;
+  --medium-air-text:#112736;
+  --medium-gas:#ffdc35;
+  --medium-gas-text:#1d2831;
+  --medium-acid:#ff951f;
+  --medium-acid-text:#1d2831;
+  --medium-alkali:#9e70da;
+  --medium-alkali-text:#1d2831;
+  --medium-liquid:#a64a0a;
+  --medium-liquid-text:#fff;
+  --medium-other:#aeb5bb;
+  --medium-other-text:#1d2831;
+  /* END GENERATED MARKER PALETTE */
   --marker-color:#2f7d00;
   --marker-text:#fff;
   --swatch:#0f6b6d;
