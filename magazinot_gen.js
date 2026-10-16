@@ -498,7 +498,7 @@
         const item=document.createElement('div');
         item.className='ui-marker-catalog__legend-item';
         const image=document.createElement('img');
-        image.src='/assets/img/pipemarkers/hazards/w'+code+'-32x30.png';
+        image.src='/assets/icons/hazards/w'+code+'.svg';
         image.width=32;image.height=30;
         image.alt=hazardNames[code];
         image.loading='lazy';
@@ -593,7 +593,7 @@ const notes=document.createElement('div');
             signs.forEach(sign => {
               const image=document.createElement('img');
               image.className='ui-marker-catalog__sign';
-              image.src='/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png';
+              image.src='/assets/icons/hazards/w'+sign+'.svg';
               image.alt=hazardNames[sign]||'Знак опасности W'+sign;
               image.title=image.alt;
               image.width=32;
