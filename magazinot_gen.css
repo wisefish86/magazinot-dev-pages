@@ -1365,7 +1365,14 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 /* FAQ */
 /* FAQ starts immediately after its section heading, without an extra blank band. */
 .ui-section__head:has(+ .ui-accordion) {
-  margin-bottom:6px;
+  margin-bottom:0;
+}
+/* The first FAQ row has no separator above it: don't reserve the normal
+   summary's top padding and minimum height before its question. */
+.ui-section__head + .ui-accordion > details:first-child > summary {
+  min-height:38px;
+  padding-top:0;
+  padding-bottom:10px;
 }
 .ui-accordion {
   border-top:0
