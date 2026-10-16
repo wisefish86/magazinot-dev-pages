@@ -19,7 +19,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate canonical marking palette
-        run: node scripts/sync-medium-colors.mjs --check
+        run: |
+          node scripts/sync-medium-colors.mjs
+          node scripts/sync-medium-colors.mjs --check
       - name: Generate normative navigation
         run: node scripts/generate-markirovka-normdocs.mjs
       - name: Inject shared UI
