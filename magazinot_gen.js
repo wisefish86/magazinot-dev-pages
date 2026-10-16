@@ -416,7 +416,7 @@
     const ok=document.createElement('button');ok.type='button';ok.className='ui-btn ui-btn--primary';
     ok.textContent='ОК';ok.setAttribute('data-info-close','');
     actions.appendChild(ok);dialog.append(title,paragraph,actions);wrap.append(button,dialog);
-    button.addEventListener('click',()=>dialog.showModal());
+    button.addEventListener('click',event=>{event.stopPropagation();dialog.showModal();});
     ok.addEventListener('click',()=>dialog.close());
     return wrap;
   }
