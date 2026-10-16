@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - 'refactor/ui-kit-canonical-*'
+      - 'feature/ui-kit-marker-tabs-*'
   workflow_dispatch:
 
 permissions:
