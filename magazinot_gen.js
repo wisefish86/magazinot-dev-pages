@@ -369,6 +369,10 @@
       button.textContent=text;
       button.setAttribute('aria-expanded','false');
       heading.replaceChildren(button);
+      const content=document.createElement('div');
+      content.className='ui-kit__mobile-section-body';
+      while(heading.nextSibling)content.appendChild(heading.nextSibling);
+      section.appendChild(content);
       button.addEventListener('click',()=>{
         const opened=section.toggleAttribute('data-mobile-open');
         button.setAttribute('aria-expanded',String(opened));
