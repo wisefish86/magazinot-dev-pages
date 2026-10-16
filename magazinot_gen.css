@@ -5711,3 +5711,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-marker-catalog__mobile dt { color:var(--c-muted); }
   .ui-marker-catalog__mobile dd { margin:0; }
 }
+
+@media(max-width:700px) {
+  [data-ui-mobile-section] > .ui-kit__mobile-section-body { display:none; }
+  [data-ui-mobile-section][data-mobile-open] > .ui-kit__mobile-section-body { display:block; }
+}
