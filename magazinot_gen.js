@@ -595,7 +595,6 @@ const notes=document.createElement('div');
               image.className='ui-marker-catalog__sign';
               image.src=['01','02','03','04','05','11','16','18'].includes(sign)?'/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png':'/assets/icons/hazards/w'+sign+'.svg';
               image.alt=hazardNames[sign]||'Знак опасности W'+sign;
-              image.title=image.alt;
               image.width=32;
               image.height=30;
               image.loading='lazy';
@@ -606,7 +605,7 @@ const notes=document.createElement('div');
               trigger.type='button';
               trigger.className='ui-marker-catalog__hazard-trigger';
               trigger.setAttribute('aria-label',image.alt);
-              trigger.title=image.alt;
+              trigger.setAttribute('aria-expanded','false');
               const bubble=document.createElement('span');
               bubble.className='ui-tooltip__bubble';
               bubble.setAttribute('role','tooltip');
@@ -617,9 +616,18 @@ const notes=document.createElement('div');
               let open=false;
               const position=()=>{
                 const box=trigger.getBoundingClientRect();
+                const halfWidth=Math.min(130,Math.max(0,(window.innerWidth-24)/2));
+                const center=Math.min(window.innerWidth-12-halfWidth,Math.max(12+halfWidth,box.left+box.width/2));
                 bubble.style.position='fixed';
-                bubble.style.left=Math.max(90,Math.min(window.innerWidth-90,box.left+box.width/2))+'px';
-                bubble.style.top=Math.max(8,box.top-bubble.offsetHeight-8)+'px';
+                bubble.style.left=center+'px';
+                let top=box.top-bubble.offsetHeight-10;
+                if(top<8){
+                  bubble.dataset.placement='bottom';
+                  top=Math.min(window.innerHeight-bubble.offsetHeight-8,box.bottom+10);
+                }else{
+                  bubble.dataset.placement='top';
+                }
+                bubble.style.top=Math.max(8,top)+'px';
                 bubble.style.zIndex='10000';
               };
               const show=()=>{
