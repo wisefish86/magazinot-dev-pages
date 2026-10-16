@@ -33,7 +33,14 @@ for(const name of pages){
     await page.goto('https://visual-qa.local/',{waitUntil:'domcontentloaded'});
     await page.addScriptTag({content:js});
     await page.waitForTimeout(250);
-    await page.evaluate(async()=>{if(document.fonts?.ready)await document.fonts.ready});
+    // Full-page screenshots bypass the viewport's normal lazy-loading trigger.
+    // Force all images to decode so that invisible off-screen icons do not pass QA.
+    await page.evaluate(async()=>{
+      const images=[...document.querySelectorAll('img')];
+      images.forEach(img=>{img.loading='eager';});
+      await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+      if(document.fonts?.ready)await document.fonts.ready;
+    });
     const faqGap=await page.evaluate(()=>{
       const header=[...document.querySelectorAll('.ui-section__title')].find(el=>el.textContent.trim()==='Частые вопросы');
       const question=header?.closest('.ui-section')?.querySelector('.ui-accordion details:first-child summary > span');
@@ -49,11 +56,14 @@ for(const name of pages){
       }).slice(0,8).map(el=>el.tagName.toLowerCase()+'.'+String(el.className).slice(0,70));
       return {documentWidth:document.documentElement.scrollWidth,viewportWidth:width,overflowing,
         markerTabs:document.querySelectorAll('[data-marker-tabs] [role="tab"]').length,
-        missingImages:[...document.querySelectorAll('img')].filter(el=>el.complete&&!el.naturalWidth).length};
+        missingImages:[...document.querySelectorAll('img')].filter(el=>!el.naturalWidth).length,
+        missingHazardSigns:[...document.querySelectorAll('.ui-marker-catalog__legend-item img')].filter(el=>!el.naturalWidth).map(el=>el.getAttribute('src'))};
     });
     const file=name.slice(0,-5)+'-'+size.name+'.png';
     await page.screenshot({path:path.join(output,file),fullPage:true,animations:'disabled'});
     results.push({page:name,viewport:size.name,screenshot:file,faqGap,...stats,pageErrors});
+    if(stats.missingHazardSigns.length)
+      errors.push(name+'/'+size.name+': hazard legend icons not loaded: '+stats.missingHazardSigns.join(', '));
     if(stats.documentWidth>size.width+4)errors.push(name+'/'+size.name+': horizontal overflow '+stats.documentWidth+' > '+size.width);
     if(pageErrors.length)errors.push(name+'/'+size.name+': '+pageErrors.join('; '));
     await page.close();
