@@ -197,6 +197,7 @@ try {
         throw new Error('Hazard accessible label was not populated');
       await hazardTrigger.focus();
       const portal=page.locator('body > .ui-marker-catalog__tooltip-portal');
+      await portal.waitFor({state:'visible',timeout:2000});
       if(await portal.count()!==1)throw new Error('Hazard tooltip must escape the table');
       const bounds=await portal.evaluate(el=>({left:el.getBoundingClientRect().left,right:el.getBoundingClientRect().right,width:el.getBoundingClientRect().width,height:el.getBoundingClientRect().height}));
       if(bounds.width<150||bounds.height>90||bounds.left<0||bounds.right>width)
