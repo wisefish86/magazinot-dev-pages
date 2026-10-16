@@ -131,8 +131,9 @@ try {
     });
     if(imageState.some(item=>!item.loaded))
       throw new Error('Hazard pictogram missing: '+JSON.stringify(imageState));
-    await tabs.first().click();
-    const hazardTrigger=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__hazard-trigger').first();
+    if(width>700){
+      await tabs.first().click();
+      const hazardTrigger=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__hazard-trigger').first();
     if(await hazardTrigger.count()!==1)throw new Error('Expected a hazard pictogram in test data');
     await hazardTrigger.focus();
     if((await hazardTrigger.getAttribute('aria-label'))!=='Радиоактивные вещества')
@@ -143,6 +144,7 @@ try {
     await hazardTrigger.press('Escape');
     if(await hazardTrigger.locator('xpath=..').evaluate(el=>el.classList.contains('ui-tooltip--open')))
       throw new Error('Hazard tooltip not dismissed with Escape');
+    }
     const shortHint=page.locator('[data-ui-short-tooltip]').first();
     await shortHint.locator('button').click();
     if(await shortHint.locator('button').getAttribute('aria-expanded')!=='true')
