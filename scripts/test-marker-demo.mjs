@@ -74,6 +74,9 @@ try {
         content:Math.round(row.cells[0].firstElementChild?.getBoundingClientRect().left||0),
         height:Math.round(row.getBoundingClientRect().height)
       })));
+      const headingLeft=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead th:first-child').evaluate(el=>Math.round(el.getBoundingClientRect().left+parseFloat(getComputedStyle(el).paddingLeft)));
+      if(Math.abs(headingLeft-positions[0].content)>2)
+        throw new Error('Marker column header and labels not aligned: header '+headingLeft+', labels '+positions[0].content);
       if(new Set(positions.map(p=>p.content)).size!==1)
         throw new Error('Marker labels are not aligned: '+JSON.stringify(positions));
       if(new Set(positions.map(p=>p.height)).size!==1)
