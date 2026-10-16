@@ -6134,4 +6134,4 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   }
   .ui-kit .ui-marker-catalog__table:has(.ui-marker-catalog__matrix) {isolation:isolate;}
 }
-.ui-dimension-times::before {content:"\\00D7";font-weight:500;}
+.ui-dimension-times::before {content:"\00D7";font-weight:500;}
