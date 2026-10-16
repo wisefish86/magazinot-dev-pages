@@ -127,7 +127,7 @@ try {
     const scrollPosition=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>el.scrollTop);
     if(scrollPosition<20)throw new Error('Dialog inner scrolling did not work');
 
-    await infoDialog.locator('[data-info-close]').click();
+    await infoDialog.getByRole('button',{name:'ОК',exact:true}).click();
     if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
     const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
