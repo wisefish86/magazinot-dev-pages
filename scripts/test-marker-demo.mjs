@@ -103,6 +103,18 @@ try {
         throw new Error('Mobile marker matrix must remain a horizontally scrollable table: '+JSON.stringify(mobileLayout));
       const firstCellPosition=await catalogSection.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__matrix tbody td:first-child').first().evaluate(el=>({position:getComputedStyle(el).position,inUiKit:!!el.closest('.ui-kit'),mobile:matchMedia('(max-width:700px)').matches}));
       if(firstCellPosition.position!=='sticky')throw new Error('Mobile marker names and colors must remain visible in a sticky first column; got '+JSON.stringify(firstCellPosition));
+      await mobileTable.evaluate(el=>{el.scrollLeft=190;el.dispatchEvent(new Event('scroll'));});
+      const stickyState=await mobileTable.evaluate(el=>{
+        const cell=el.querySelector('tbody td:first-child');
+        const cellRect=cell.getBoundingClientRect();
+        const frame=el.getBoundingClientRect();
+        return {scroll:el.scrollLeft,scrolled:el.dataset.scrollLeft,offset:cellRect.left-frame.left,shadow:getComputedStyle(cell).boxShadow};
+      });
+      if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>12||!stickyState.shadow.includes('rgba'))
+        throw new Error('Pinned mobile first column must stay fixed and cast a depth shadow after scroll: '+JSON.stringify(stickyState));
+      if(width===390)await mobileTable.screenshot({path:'visual-snapshots/review/ui-kit-matrix-scrolled-390.png'});
+      await mobileTable.evaluate(el=>{el.scrollLeft=0;el.dispatchEvent(new Event('scroll'));});
+
       if(await catalogSection.locator('.ui-marker-catalog__mobile').count())
         throw new Error('Mobile marker accordion must not replace the comparison table');
     }
