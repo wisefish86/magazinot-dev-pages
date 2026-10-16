@@ -105,6 +105,9 @@ for(const legacy of ['#eaf2f5','#e3eaed','#eaf3f5','#dcebed']){
 if(!/26&#215;74 мм/.test(uiKit) || /\d+\?\d+ мм/.test(uiKit)){
   errors.push('UI Kit: dimensions must use the transport-safe &#215; multiplication sign');
 }
+if(!/ВОДА<\/span><span class="ui-info-dialog__pipe" aria-hidden="true">&rarr; &rarr; &rarr;/.test(uiKit)){
+  errors.push('UI Kit: diagram arrows must use transport-safe HTML entities');
+}
 
 // The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
 const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);

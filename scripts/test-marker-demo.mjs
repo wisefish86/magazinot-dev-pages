@@ -110,7 +110,7 @@ try {
     if(sizes.some(x=>x.includes('?')||!x.includes('×')))
       throw new Error('Marker dimensions must always use ×, not ?');
     const mojibake=await page.locator('body').innerText();
-    if(/ВОДА\s*\?+|\d\s*\?\s*\d/.test(mojibake))
+    if(/ВОДА(?:\s*\?){2,}|\d\s*\?\s*\d/.test(mojibake))
       throw new Error('Visible marker copy contains broken question-mark symbols');
     const dialogSection=page.locator('[data-ui-info-dialog]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
     const dialogDemo=dialogSection.locator('[data-ui-info-dialog]').first();
@@ -123,6 +123,7 @@ try {
     if(closeOffset!=='matrix(1, 0, 0, 1, 0, -5)')throw new Error('Information popup close control must be raised by 5px; got '+closeOffset);
     const dialogCopy=await infoDialog.innerText();
     if(!dialogCopy.includes('26×74 мм')||/\d+\?\d+ мм/.test(dialogCopy))throw new Error('Information popup dimensions must render ×, not ?: '+dialogCopy);
+    if(!dialogCopy.includes('→ → →')||/ВОДА(?:\s*\?){2,}/.test(dialogCopy))throw new Error('Information popup arrows must render correctly: '+dialogCopy);
     const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
     const contentMetrics=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>({scroll:el.scrollHeight,visible:el.clientHeight}));
