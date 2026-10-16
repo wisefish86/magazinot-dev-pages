@@ -3746,7 +3746,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   overflow-x:auto;
   overflow-y:hidden;
   scroll-snap-type:x mandatory;
-  scrollbar-width:thin;
+  scrollbar-width:none;
   overscroll-behavior-x:contain
 }
 .ui-carousel__viewport::-webkit-scrollbar {
@@ -4061,7 +4061,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   vertical-align:top
 }
 .ui-table th {
-  background:var(--c-soft);
+  background:#eaf2f5;
   color:var(--c-heading);
   font-weight:700
 }
@@ -4071,6 +4071,27 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-table__num {
   text-align:right!important;
   font-variant-numeric:tabular-nums
+}
+/* Consistent header fills and the reusable first-column alternative. */
+.ui-table thead th,
+.ui-table--light thead th,
+.ui-table--normative thead th,
+.doc-table--headed tr:first-child > th {
+  background:#eaf2f5;
+  color:var(--c-heading);
+}
+.ui-table--first-col tbody > tr > :first-child,
+.doc-table--first-col tr > :first-child {
+  background:#eaf2f5;
+  color:var(--c-heading);
+  font-weight:650;
+}
+.ui-table-wrap,
+.doc-table-shell {
+  isolation:isolate;
+}
+.doc-table-shell > .doc-table-wrap {
+  overflow:hidden;
 }
 /* Table variants */
 .ui-table-wrap--fit {
@@ -4086,8 +4107,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   background:#fff
 }
 .ui-table--light th {
-  background:var(--c-surface,#fff);
-  color:var(--c-muted);
+  background:#eaf2f5;
+  color:var(--c-heading);
   font-size:max(14px,var(--text-sm));
   font-weight:650
 }
@@ -5083,6 +5104,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   background:var(--c-line);
   flex:1
 }
+.ui-timeline--horizontal > .ui-timeline__item {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:0;
+  min-width:0;
+  padding:0 12px 0 0
+}
 .ui-timeline.ui-timeline--horizontal {
   --timeline-last-col:25%;
   --timeline-count:4;
@@ -5103,7 +5132,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   margin:0 0 12px
 }
 .ui-timeline--horizontal .ui-timeline__content {
-  padding:0
+  padding:0;
+  margin-top:8px
 }
 @media(max-width:620px) {
   .ui-timeline.ui-timeline--horizontal {
@@ -5113,7 +5143,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-timeline--horizontal::before {
     display:none
   }
-  .ui-timeline--horizontal .ui-timeline__item {
+  .ui-timeline--horizontal > .ui-timeline__item {
     display:grid;
     grid-template-columns:30px minmax(0,1fr);
     gap:12px;

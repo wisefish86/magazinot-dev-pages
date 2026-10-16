@@ -581,6 +581,15 @@
         </div>
       </div>
     </div>
+    <div class="ui-kit__example">
+      <p class="ui-table-caption">4. Выделенный первый столбец (универсальный вариант)</p>
+      <div class="ui-table-wrap">
+        <table class="ui-table ui-table--first-col">
+          <thead><tr><th scope="col">Характеристика</th><th scope="col">Вариант А</th><th scope="col">Вариант Б</th></tr></thead>
+          <tbody><tr><th scope="row">Материал</th><td>ПВХ</td><td>Полиэстер</td></tr><tr><th scope="row">Назначение</th><td>В помещении</td><td>На улице</td></tr></tbody>
+        </table>
+      </div>
+    </div>
     <div class="ui-stack">
       <div>
         <p class="ui-table-caption">1. Формальная / нормативная</p>
@@ -858,21 +867,36 @@
   </section>
 
   <section class="ui-kit__group">
-    <h2>Структура разделов и специальные нормативные элементы</h2>
-    <p class="ui-kit__hint">Переиспользуемые блоки разделов, контрольного списка, шагов и нормативных рисунков. Данные и тексты заменяются на уровне страницы; стили остаются общими.</p>
-    <div class="ui-kit__example">
-      <section class="ui-section">
-        <div class="ui-section__head"><h3 class="ui-section__title">Стандартный заголовок раздела</h3><p class="ui-section__intro">Описание раздела, собранное из общего компонента.</p></div>
-        <div class="ui-check-grid"><div class="ui-check">Проверка нормативной документации</div><div class="ui-check">Подбор маркировки</div></div>
-        <div class="ui-steps"><div class="ui-step"><div class="ui-step__icon" aria-hidden="true">1</div><h4>Подбор исполнения</h4><p>Первый шаг.</p></div></div>
-      </section>
-    </div>
-    <div class="ui-kit__example mk-ui docpage normpage">
-      <div class="normpage__center"><p class="docpage__paragraph">Центрированный нормативный блок.</p></div>
-      <figure class="docpage__figure-media">
-        <img class="docpage__img--figure" src="/assets/img/markirovka/docs/gost-r-71918-2024/table-1-color-green.png" alt="Образец зелёного цвета из стандарта" loading="lazy" decoding="async">
-        <figcaption class="docpage__figure-caption">Нормативное изображение в собственном размере.</figcaption>
-      </figure>
+    <h2>Структура разделов и нормативные элементы</h2>
+    <p class="ui-kit__hint">Заголовок раздела, список проверок, последовательность действий и оригинальное изображение документа — самостоятельные блоки. Их не нужно объединять в одну карточку.</p>
+    <div class="ui-stack">
+      <div class="ui-kit__example ui-section">
+        <div class="ui-section__head">
+          <h3 class="ui-section__title">Подготовка маркировки</h3>
+          <p class="ui-section__intro">Перед производством уточняем условия применения, размер и материал.</p>
+        </div>
+        <div class="ui-check-grid">
+          <div class="ui-check">Проверить нормативные требования</div>
+          <div class="ui-check">Выбрать тип и размер изделия</div>
+        </div>
+      </div>
+      <div class="ui-kit__example">
+        <h3>Последовательность работ</h3>
+        <div class="ui-steps">
+          <div class="ui-step"><div class="ui-step__icon" aria-hidden="true">1</div><h4>Подбор исполнения</h4><p>Определяем условия эксплуатации.</p></div>
+          <div class="ui-step"><div class="ui-step__icon" aria-hidden="true">2</div><h4>Согласование</h4><p>Подтверждаем макет и размеры.</p></div>
+        </div>
+      </div>
+      <div class="ui-kit__example mk-ui docpage normpage">
+        <h3 class="ui-content-title">Иллюстрация нормативного документа</h3>
+        <p class="docpage__paragraph">Оригинальное изображение не растягивается; подпись находится под рисунком.</p>
+        <div class="normpage__center">
+          <figure class="docpage__figure-media">
+            <img class="docpage__img--figure" src="/assets/img/markirovka/docs/gost-r-71918-2024/table-1-color-green.png" alt="Зелёная опознавательная окраска" loading="lazy" decoding="async">
+            <figcaption class="docpage__figure-caption">Образец опознавательного цвета</figcaption>
+          </figure>
+        </div>
+      </div>
     </div>
   </section>
 

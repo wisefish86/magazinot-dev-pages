@@ -6,6 +6,7 @@ on:
       - 'refactor/ui-kit-canonical-*'
       - 'feature/ui-kit-marker-tabs-*'
       - 'fix/ui-kit-marker-matrix-*'
+      - 'fix/ui-kit-polish-*'
   workflow_dispatch:
 
 permissions:
