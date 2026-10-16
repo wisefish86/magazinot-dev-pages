@@ -380,6 +380,46 @@
       });
     });
   }
+  function initInfoDialogs(){
+    document.querySelectorAll('[data-ui-info-dialog]').forEach(root=>{
+      if(root.dataset.ready==='1')return;
+      const trigger=root.querySelector('[data-info-open]');
+      const dialog=root.querySelector('dialog');
+      if(!trigger||!dialog)return;
+      root.dataset.ready='1';
+      trigger.addEventListener('click',()=>{
+        if(typeof dialog.showModal==='function')dialog.showModal();
+        else dialog.setAttribute('open','');
+      });
+      dialog.querySelectorAll('[data-info-close]').forEach(button=>button.addEventListener('click',()=>dialog.close()));
+      dialog.addEventListener('click',event=>{
+        if(event.target!==dialog)return;
+        const box=dialog.getBoundingClientRect();
+        if(event.clientX<box.left||event.clientX>box.right||event.clientY<box.top||event.clientY>box.bottom)dialog.close();
+      });
+    });
+  }
+  function markerNoteButton(text,content){
+    const wrap=document.createElement('span');
+    wrap.className='ui-marker-catalog__info';
+    wrap.setAttribute('data-ui-info-dialog','');
+    const button=document.createElement('button');
+    button.type='button';button.className='ui-marker-catalog__info-trigger';
+    button.setAttribute('aria-label',text);
+    button.setAttribute('data-info-open','');
+    button.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
+    const dialog=document.createElement('dialog');
+    dialog.className='ui-info-dialog';
+    const title=document.createElement('h3');title.textContent=text;
+    const paragraph=document.createElement('p');paragraph.textContent=content;
+    const actions=document.createElement('div');actions.className='ui-info-dialog__actions';
+    const ok=document.createElement('button');ok.type='button';ok.className='ui-btn ui-btn--primary';
+    ok.textContent='ОК';ok.setAttribute('data-info-close','');
+    actions.appendChild(ok);dialog.append(title,paragraph,actions);wrap.append(button,dialog);
+    button.addEventListener('click',()=>dialog.showModal());
+    ok.addEventListener('click',()=>dialog.close());
+    return wrap;
+  }
   function initMarkerCatalogs(){
     document.querySelectorAll('[data-ui-marker-catalog]').forEach(catalog => {
       if (catalog.dataset.readyMarkerCatalog) return;
@@ -403,6 +443,10 @@
       mobile.setAttribute('aria-label','Позиции каталога — мобильный список');
       const viewport=catalog.querySelector('.ui-marker-catalog__table');
       if(viewport)viewport.insertAdjacentElement('afterend',mobile);
+      const notes=document.createElement('div');
+      notes.className='ui-marker-catalog__notes';
+      notes.innerHTML='<strong>Примечания к маркировке</strong><ul><li>На маркерах без надписи информацию можно нанести вручную подходящим химически стойким маркером.</li><li>Знаки опасности соответствуют характеристикам транспортируемого вещества; выбирайте их по проектной документации.</li><li>Если нужного наименования нет в каталоге, укажите его в запросе на изготовление.</li></ul>';
+      mobile.insertAdjacentElement('afterend',notes);
       function renderCategory(category){
         const [color,ink] = colors[category.id] || [category.color || '#287c84',category.textColor || '#fff'];
         catalog.style.setProperty('--marker-color',color);
@@ -421,8 +465,10 @@
           if (safe(item.name).trim()) {
             const chip=document.createElement('span');
             chip.className='ui-marker-catalog__label'+(item.highlight || item.alert ? ' ui-marker-catalog__label--warning' : '');
-            chip.textContent=safe(item.name);
+            const special=/пожаротушени/i.test(safe(item.name)) && (item.highlight || safe(item.name).includes('*'));
+            chip.textContent=special?safe(item.name).replace(/\s*\*\s*$/,''):safe(item.name);
             label.appendChild(chip);
+            if(special)label.appendChild(markerNoteButton('Маркировка для пожаротушения','Красное исполнение для трубопроводов автоматического пожаротушения. При подборе учитывайте требования СП 485.1311500.2020 и проектную документацию объекта.'));
           } else {
             const blank=document.createElement('span');
             blank.className='ui-marker-catalog__blank';
@@ -507,7 +553,9 @@
         items.forEach(item=>{
           const details=document.createElement('details');
           const summary=document.createElement('summary');
-          summary.textContent=safe(item.name).trim() || 'Маркер без надписи';
+          const special=/пожаротушени/i.test(safe(item.name)) && (item.highlight || safe(item.name).includes('*'));
+          summary.textContent=(special?safe(item.name).replace(/\s*\*\s*$/,''):safe(item.name)).trim() || 'Маркер без надписи';
+          if(special)summary.appendChild(markerNoteButton('Маркировка для пожаротушения','Красное исполнение для трубопроводов автоматического пожаротушения. Учитывайте СП 485.1311500.2020 и проектную документацию объекта.'));
           const dl=document.createElement('dl');
           const articles=Array.isArray(item.codes)&&item.codes.length===6
             ? item.codes : Array.from({length:6},(_,i)=>'F0'+(i+1)+'-'+safe(item.code));
@@ -1031,6 +1079,7 @@
     initRemovableChips();
     initUploads();
       initMobileUiKitSections();
+    initInfoDialogs();
     initMarkerCatalogs();
     initQuantityControls();
     initDocTables();
