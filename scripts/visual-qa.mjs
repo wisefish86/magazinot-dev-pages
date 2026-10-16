@@ -34,6 +34,12 @@ for(const name of pages){
     await page.addScriptTag({content:js});
     await page.waitForTimeout(250);
     await page.evaluate(async()=>{if(document.fonts?.ready)await document.fonts.ready});
+    const faqGap=await page.evaluate(()=>{
+      const header=[...document.querySelectorAll('.ui-section__title')].find(el=>el.textContent.trim()==='Частые вопросы');
+      const question=header?.closest('.ui-section')?.querySelector('.ui-accordion details:first-child summary > span');
+      return header&&question?Math.round(question.getBoundingClientRect().top-header.getBoundingClientRect().bottom):null;
+    });
+    if(faqGap!==null&&faqGap>28)errors.push(name+'/'+size.name+': FAQ heading-to-first-question gap '+faqGap+'px > 28px');
     const stats=await page.evaluate(()=>{
       const width=innerWidth;
       const overflowing=[...document.querySelectorAll('body *')].filter(el=>{
@@ -47,7 +53,7 @@ for(const name of pages){
     });
     const file=name.slice(0,-5)+'-'+size.name+'.png';
     await page.screenshot({path:path.join(output,file),fullPage:true,animations:'disabled'});
-    results.push({page:name,viewport:size.name,screenshot:file,...stats,pageErrors});
+    results.push({page:name,viewport:size.name,screenshot:file,faqGap,...stats,pageErrors});
     if(stats.documentWidth>size.width+4)errors.push(name+'/'+size.name+': horizontal overflow '+stats.documentWidth+' > '+size.width);
     if(pageErrors.length)errors.push(name+'/'+size.name+': '+pageErrors.join('; '));
     await page.close();
