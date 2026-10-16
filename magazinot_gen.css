@@ -196,10 +196,7 @@
   height:18px;
   stroke-width:1.9
 }
-.ui-btn--primary {
-  background:var(--c-blue);
-  color:#fff!important;
-}
+
 .ui-btn--primary:hover {
   background:var(--c-blue-dark);
   color:#fff!important;
@@ -517,12 +514,12 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   font-size:var(--text-sm);
   line-height:1.35;
 }
-.ui-meta > span:not(.docpage__meta-icon) {
+.ui-meta > span {
   display:inline-flex;
   align-items:center;
   min-height:26px;
 }
-.ui-meta > span:not(.docpage__meta-icon):not(:last-child)::after {
+.ui-meta > span:not(:last-child)::after {
   content:"";
   width:4px;
   height:4px;
@@ -947,9 +944,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
     font-size:var(--text-md);
     line-height:1.62
   }
-  .doc-table {
-    font-size:12.5px
-  }
+
   .doc-table-wrap {
     margin-left:-2px;
     margin-right:-2px;
@@ -1421,6 +1416,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 @media(max-width:560px) {
   .doc-table {
+  ;
+
     width:max-content;
     min-width:100%;
     max-width:none;
@@ -1538,10 +1535,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   outline:2px solid var(--c-accent);
   outline-offset:2px
 }
-.ui-kit__group {
-  margin:0;
-  padding:34px 0
-}
+
 .ui-kit__group + .ui-kit__group {
   border-top:1px solid var(--c-line-soft)
 }
@@ -1692,11 +1686,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   font-size:var(--text-sm);
   font-family:ui-monospace,SFMono-Regular,Consolas,monospace
 }
-.ui-grid {
-  display:grid;
-  grid-template-columns:repeat(var(--ui-cols,2),minmax(0,1fr));
-  gap:var(--ui-gap,16px)
-}
+
 .ui-grid--2 {
   --ui-cols:2
 }
@@ -1707,6 +1697,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   --ui-cols:5
 }
 .ui-grid {
+  display:grid;
+    grid-template-columns:repeat(var(--ui-cols,2),minmax(0,1fr));
+    gap:var(--ui-gap,16px);
+
   align-items:stretch
 }
 .ui-grid > .ui-kit__example, .ui-grid > .ui-card, .ui-grid > .ui-feature-card, .ui-grid > .ui-stat-card, .ui-grid > .ui-product-card, .ui-grid > .ui-testimonial {
@@ -3556,61 +3550,14 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   --marker-text:#fff;
   min-width:0
 }
-.ui-kit .ui-marker-catalog__tab {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  font:750 12px/1.25 var(--font-sans);
-  text-transform:uppercase;
-  cursor:pointer;
-  transition:filter var(--motion-fast)
-}
-.ui-kit .ui-marker-catalog__tab:focus-visible {
-  outline-offset:2px;
-  z-index:2
-}
-.ui-kit .ui-marker-catalog__intro {
-  padding:14px 16px;
-  border-radius:0;
-  background:var(--marker-color);
-  color:var(--marker-text);
-  font-size:13px;
-  line-height:1.5;
-  font-weight:600
-}
-.ui-kit .ui-marker-catalog__tools {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:space-between;
-  gap:8px;
-  padding:9px 2px;
-  color:var(--c-muted);
-  font-size:12px
-}
-.ui-kit .ui-marker-catalog__table {
-  -webkit-overflow-scrolling:touch;
-  border:1px solid var(--c-line);
-  border-radius:8px
-}
-.ui-kit .ui-marker-catalog__matrix {
-  border-collapse:collapse;
-  border-spacing:0;
-  margin:0
-}
-.ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
-  padding:11px 9px;
-  border:1px solid rgba(20,40,48,.24);
-  background:var(--marker-color);
-  color:var(--marker-text);
-  font-family:var(--font-sans);
-  line-height:1.4;
-  vertical-align:middle
-}
-.ui-kit .ui-marker-catalog__matrix thead th {
-  font-size:12px;
-  font-weight:750;
-  text-align:center
-}
+
+
+
+
+
+
+
+
 .ui-kit .ui-marker-catalog__matrix thead th:first-child {
   text-align:left
 }
@@ -3634,10 +3581,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-kit .ui-marker-catalog__matrix tbody tr:hover>th,.ui-kit .ui-marker-catalog__matrix tbody tr:hover>td {
   filter:brightness(.96)
 }
-.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles {
-  white-space:nowrap;
-  font-variant-numeric:tabular-nums
-}
+
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__hazard {
   font-size:11px;
   overflow-wrap:anywhere
@@ -4398,9 +4342,7 @@ fieldset.ui-field {
   }
 }
 @media(max-width:560px) {
-  .ui-btn {
-    min-height:44px
-  }
+
 }
 .ui-grid > .ui-kit__example {
   margin-top:0!important;
@@ -4422,10 +4364,15 @@ button.ui-btn {
   appearance:none
 }
 .ui-btn--primary {
+  background:var(--c-blue);
+    color:#fff!important;
+
   box-shadow:none
 }
 @media(max-width:560px) {
   .ui-btn {
+  ;
+
     min-height:44px;
     padding-inline:16px
   }
@@ -4437,16 +4384,12 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   transition:background var(--motion-fast),color var(--motion-fast),box-shadow var(--motion-fast)
 }
 @media(max-width:560px) {
-  .ui-pagination a,.ui-pagination span {
-    height:44px
-  }
+
 }
 .ui-doc-toc {
   max-width:100%
 }
-.ui-doc-toc__grid {
-  align-items:start
-}
+
 .ui-doc-toc a:focus-visible {
   outline:2px solid var(--c-accent);
   outline-offset:2px
@@ -4494,6 +4437,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   font-weight:700
 }
 .ui-doc-toc__grid {
+  align-items:start;
+
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:3px 12px
@@ -4623,6 +4568,8 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     height:var(--control-h-touch)
   }
   .ui-pagination a,.ui-pagination span {
+  ;
+
     min-width:var(--control-h-touch);
     height:var(--control-h-touch)
   }
@@ -4641,6 +4588,10 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   padding:12px 10px
 }
 .ui-kit .ui-marker-catalog__matrix thead th {
+  font-size:12px;
+    font-weight:750;
+    text-align:center;
+
   background:#f2f6f7;
   color:var(--c-heading)
 }
@@ -4692,10 +4643,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   text-align:center;
   white-space:nowrap
 }
-.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign {
-  margin:0 2px;
-  overflow:hidden
-}
+
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__blank {
   display:inline-block;
   vertical-align:middle;
@@ -4751,6 +4699,13 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   border:0
 }
 .ui-kit .ui-marker-catalog__tab {
+  display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    font:750 12px/1.25 var(--font-sans);
+    text-transform:uppercase;
+    cursor:pointer;
+
   flex:0 0 auto;
   min-height:32px;
   margin:0;
@@ -4767,15 +4722,15 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   background:var(--marker-tab-color);
   filter:brightness(.96)
 }
-.ui-kit .ui-marker-catalog__tab[aria-selected="true"] {
-  min-height:40px;
-  background:var(--marker-tab-color);
-  color:var(--marker-tab-text);
-  border:0;
-  box-shadow:none;
-  font-weight:800;
-}
+
 .ui-kit .ui-marker-catalog__intro {
+  padding:14px 16px;
+    background:var(--marker-color);
+    color:var(--marker-text);
+    font-size:13px;
+    line-height:1.5;
+    font-weight:600;
+
   margin:0;
   border:0;
   border-radius:0
@@ -4798,19 +4753,16 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   min-width:1120px;
   table-layout:auto
 }
-.ui-kit .ui-marker-catalog__matrix tbody td:first-child {
-  text-align:left
-}
-.ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
-  display:inline-block;
-  padding:7px 10px;
-  box-sizing:border-box;
-}
+
+
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__hazard-cell {
   min-width:105px;
   text-align:center
 }
 .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__sign {
+  margin:0 2px;
+    overflow:hidden;
+
   display:inline-block;
   width:32px;
   min-width:32px;
@@ -4826,37 +4778,20 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 /* Hazard artwork is a real clipped image, never a CSS background only. */
 /* Responsive catalogue table: full width on desktop, scroll only on narrow screens. */
 @media(min-width:901px) {
-  .ui-kit .ui-marker-catalog__table {
-    overflow-x:visible;
-    width:100%;
-    max-width:100%
-  }
-  .ui-kit .ui-marker-catalog__matrix {
-    width:100%;
-    min-width:0;
-    max-width:100%;
-    table-layout:fixed
-  }
+
+
   .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
+  text-align:left;
+
     min-width:0;
     white-space:normal;
     width:32%
   }
-  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
-    width:32%
-  }
-  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2) {
-    width:12%
-  }
-  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child {
-    width:56%
-  }
-  .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
-    text-wrap:balance
-  }
-  .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
-    padding:9px 5px
-  }
+
+
+
+
+
 }
 @media(max-width:900px) {
   .ui-kit .ui-marker-catalog__table {
@@ -4957,6 +4892,9 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   text-decoration:underline!important
 }
 .ui-kit__group {
+  margin:0;
+    padding:34px 0;
+
   scroll-margin-top:25px
 }
 .ui-photo-slider {
@@ -5141,11 +5079,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   width:auto;
   height:1px
 }
-.ui-timeline--horizontal .ui-timeline__item {
-  display:block;
-  padding:0 10px 0 0;
-  min-width:0
-}
+
 .ui-timeline--horizontal .ui-timeline__marker {
   margin:0 0 12px
 }
@@ -5255,19 +5189,38 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     transition:filter var(--motion-fast)
   }
   .ui-kit .ui-marker-catalog__tab[aria-selected="true"] {
+  min-height:40px;
+    background:var(--marker-tab-color);
+    color:var(--marker-tab-text);
+    border:0;
+    box-shadow:none;
+
     border-color:var(--marker-tab-text);
     outline:2px solid var(--marker-tab-color);
     outline-offset:1px;
     font-weight:800
   }
   .ui-kit .ui-marker-catalog__tab:focus-visible {
+  z-index:2;
+
     outline:3px solid var(--c-accent);
     outline-offset:2px
   }
   .ui-kit .ui-marker-catalog__tools {
+  display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:8px;
+    padding:9px 2px;
+    color:var(--c-muted);
+
     font-size:12px
   }
   .ui-kit .ui-marker-catalog__table {
+  border:1px solid var(--c-line);
+    border-radius:8px;
+  ;
+
     position:relative;
     width:100%;
     max-width:100%;
@@ -5276,20 +5229,39 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     -webkit-overflow-scrolling:touch
   }
   .ui-kit .ui-marker-catalog__matrix {
+  border-collapse:collapse;
+    border-spacing:0;
+    margin:0;
+  max-width:100%;
+
     width:100%;
     min-width:860px;
     table-layout:fixed
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
+  ;
+
     width:205px
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2) {
+  ;
+
     width:88px
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child {
+  ;
+
     width:auto
   }
   .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
+  border:1px solid rgba(20,40,48,.24);
+    background:var(--marker-color);
+    color:var(--marker-text);
+    font-family:var(--font-sans);
+    line-height:1.4;
+    vertical-align:middle;
+  ;
+
     padding:9px 7px
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child, .ui-kit .ui-marker-catalog__matrix tbody tr td:first-child {
@@ -5303,6 +5275,11 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     background:#f9fbfb
   }
   .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
+  display:inline-block;
+    padding:7px 10px;
+    box-sizing:border-box;
+  ;
+
     max-width:188px;
     width:fit-content;
     white-space:normal;
@@ -5310,6 +5287,9 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     text-wrap:balance
   }
   .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__articles {
+  white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+
     font-size:12px
   }
 }
@@ -5453,6 +5433,10 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 /* Mobile timeline connector belongs to each step, never beyond the last marker. */
 @media(max-width:620px) {
   .ui-timeline--horizontal .ui-timeline__item {
+  display:block;
+    padding:0 10px 0 0;
+    min-width:0;
+
     position:relative
   }
   .ui-timeline--horizontal .ui-timeline__item:not(:last-child)::after {
