@@ -5883,10 +5883,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   [data-ui-mobile-section] > h2 {
     margin-bottom:0;
   }
-  [data-ui-mobile-section] > .ui-kit__hint,
-  [data-ui-mobile-section] > .ui-kit__example { display:none; }
-  [data-ui-mobile-section][data-mobile-open] > .ui-kit__hint,
-  [data-ui-mobile-section][data-mobile-open] > .ui-kit__example { display:block; }
   [data-ui-mobile-section] > h2 > button {
     width:100%;display:flex;align-items:center;justify-content:space-between;
     padding:12px 0;border:0;background:transparent;color:inherit;
@@ -5904,7 +5900,4 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-marker-catalog__mobile dd { margin:0; }
 }
 
-@media(max-width:700px) {
-  [data-ui-mobile-section] > .ui-kit__mobile-section-body { display:none; }
-  [data-ui-mobile-section][data-mobile-open] > .ui-kit__mobile-section-body { display:block; }
-}
+
