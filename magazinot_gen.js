@@ -380,6 +380,23 @@
       });
     });
   }
+  function initShortTooltips(){
+    document.querySelectorAll('[data-ui-short-tooltip]').forEach(root=>{
+      if(root.dataset.readyTooltip==='1')return;
+      root.dataset.readyTooltip='1';
+      const button=root.querySelector('button');
+      if(!button)return;
+      const hide=()=>{root.classList.remove('ui-tooltip--open');button.setAttribute('aria-expanded','false');};
+      button.addEventListener('click',event=>{
+        event.stopPropagation();
+        const next=!root.classList.contains('ui-tooltip--open');
+        root.classList.toggle('ui-tooltip--open',next);
+        button.setAttribute('aria-expanded',String(next));
+      });
+      button.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});
+      document.addEventListener('click',event=>{if(!root.contains(event.target))hide();});
+    });
+  }
   function initInfoDialogs(){
     document.querySelectorAll('[data-ui-info-dialog]').forEach(root=>{
       if(root.dataset.ready==='1')return;
@@ -1148,6 +1165,7 @@ const notes=document.createElement('div');
     initRemovableChips();
     initUploads();
       initMobileUiKitSections();
+    initShortTooltips();
     initInfoDialogs();
     initMarkerCatalogs();
     initQuantityControls();
