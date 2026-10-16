@@ -56,8 +56,8 @@ for(const name of pages){
       }).slice(0,8).map(el=>el.tagName.toLowerCase()+'.'+String(el.className).slice(0,70));
       return {documentWidth:document.documentElement.scrollWidth,viewportWidth:width,overflowing,
         markerTabs:document.querySelectorAll('[data-marker-tabs] [role="tab"]').length,
-        missingImages:[...document.querySelectorAll('img')].filter(el=>!el.naturalWidth).length,
-        missingImageUrls:[...document.querySelectorAll('img')].filter(el=>!el.naturalWidth).map(el=>({src:el.getAttribute('src'),visible:!!el.getClientRects().length})).slice(0,30),
+        missingImages:[...document.querySelectorAll('img[src]')].filter(el=>!el.naturalWidth).length,
+        missingImageUrls:[...document.querySelectorAll('img[src]')].filter(el=>!el.naturalWidth).map(el=>({src:el.getAttribute('src'),visible:!!el.getClientRects().length})).slice(0,30),
         missingHazardSigns:[...document.querySelectorAll('.ui-marker-catalog__legend-item img')].filter(el=>!el.naturalWidth).map(el=>el.getAttribute('src'))};
     });
     const file=name.slice(0,-5)+'-'+size.name+'.png';
@@ -65,6 +65,9 @@ for(const name of pages){
     results.push({page:name,viewport:size.name,screenshot:file,faqGap,...stats,pageErrors});
     if(stats.missingHazardSigns.length)
       errors.push(name+'/'+size.name+': hazard legend icons not loaded: '+stats.missingHazardSigns.join(', '));
+    const missingVisible=stats.missingImageUrls.filter(item=>item.visible);
+    if(missingVisible.length)
+      errors.push(name+'/'+size.name+': visible images not loaded: '+missingVisible.map(item=>item.src).join(', '));
     if(stats.documentWidth>size.width+4)errors.push(name+'/'+size.name+': horizontal overflow '+stats.documentWidth+' > '+size.width);
     if(pageErrors.length)errors.push(name+'/'+size.name+': '+pageErrors.join('; '));
     await page.close();
