@@ -119,10 +119,16 @@ try {
     if(!(await infoDialog.evaluate(el=>el.open)))throw new Error('Information popup did not open');
     const closeIcon=infoDialog.locator('[data-info-close] use[href$="#close"]');
     if(await closeIcon.count()!==1)throw new Error('Information popup close control must use the shared close icon');
-    const closeOffset=await infoDialog.locator('.ui-info-dialog__close').evaluate(el=>getComputedStyle(el).transform);
-    if(closeOffset!=='matrix(1, 0, 0, 1, 0, -5)')throw new Error('Information popup close control must be raised by 5px; got '+closeOffset);
+    const closeAlign=await infoDialog.evaluate(el=>{
+      const heading=el.querySelector('.ui-info-dialog__heading h3').getBoundingClientRect();
+      const close=el.querySelector('.ui-info-dialog__close').getBoundingClientRect();
+      return Math.abs((heading.top+heading.bottom)/2-(close.top+close.bottom)/2);
+    });
+    if(closeAlign>7)throw new Error('Information dialog close must align with title center; deviation '+closeAlign);
+    const glyphs=await infoDialog.locator('.ui-dimension-times').evaluateAll(els=>els.map(el=>getComputedStyle(el,'::before').content));
+    if(glyphs.length!==3||glyphs.some(value=>!value.includes('×')))throw new Error('Dimensions must render visible CSS ×, not ?: '+JSON.stringify(glyphs));
     const dialogCopy=await infoDialog.innerText();
-    if(!dialogCopy.includes('26×74 мм')||/\d+\?\d+ мм/.test(dialogCopy))throw new Error('Information popup dimensions must render ×, not ?: '+dialogCopy);
+    if(/\d+\?\d+ мм/.test(dialogCopy))throw new Error('Broken dimensions in dialog');
     if(!dialogCopy.includes('→ → →')||/ВОДА(?:\s*\?){2,}/.test(dialogCopy))throw new Error('Information popup arrows must render correctly: '+dialogCopy);
     const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
@@ -178,7 +184,7 @@ try {
     const downloadLinks=page.locator('.ui-download-menu__panel').first().locator('.ui-download-menu__link');
     if(await downloadLinks.count()>1){
       const divider=await downloadLinks.first().evaluate(el=>getComputedStyle(el).borderBottomWidth);
-      if(divider==='0px')throw new Error('Download menu items need dividers');
+      if(divider!=='0px')throw new Error('Download menu must use spacing and hover without dividers');
     }
     const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
@@ -206,6 +212,19 @@ try {
       await hazardTrigger.press('Escape');
       if(await portal.count())throw new Error('Hazard tooltip not dismissed with Escape');
     }
+    const portfolio=page.locator('.ui-gallery--portfolio').first();
+    await portfolio.locator('img').first().click();
+    const lightbox=page.locator('.doc-lightbox.is-open.has-gallery');
+    if(await lightbox.count()!==1)throw new Error('Portfolio gallery lightbox must open with navigation and thumbnails');
+    if(await lightbox.locator('.doc-lightbox__thumb').count()!==4)throw new Error('Portfolio lightbox must show four thumbnails');
+    await lightbox.locator('.doc-lightbox__next').click();
+    if(!(await lightbox.locator('.doc-lightbox__caption').innerText()).startsWith('2 / 4'))
+      throw new Error('Portfolio gallery next arrow did not navigate to second image');
+    await lightbox.locator('.doc-lightbox__thumb').nth(3).click();
+    if(!(await lightbox.locator('.doc-lightbox__caption').innerText()).startsWith('4 / 4'))
+      throw new Error('Portfolio thumbnail navigation failed');
+    await lightbox.locator('.doc-lightbox__close').click();
+    if(await page.locator('.doc-lightbox.is-open').count())throw new Error('Gallery lightbox failed to close');
     const shortHint=page.locator('[data-ui-short-tooltip]').first();
     await shortHint.locator('button').click();
     if(await shortHint.locator('button').getAttribute('aria-expanded')!=='true')
@@ -222,8 +241,11 @@ try {
     if (!(await panels.nth(1).isHidden())) throw new Error('Inactive step should be hidden');
     await next.click();
     if (!(await stepper.locator('[data-step]').first().getAttribute('data-step-complete')!==null)) throw new Error('Completed step lacks state');
-    const completedMark=await stepper.locator('[data-step]').first().locator('.ui-stepper__number').evaluate(el=>getComputedStyle(el,'::before').content);
-    if(!completedMark.includes('✓'))throw new Error('Completed step needs an explicit checkmark');
+    const completedMark=await stepper.locator('[data-step]').first().locator('.ui-stepper__number').evaluate(el=>{
+      const icon=getComputedStyle(el,'::before');return {content:icon.content,border:icon.borderRightWidth,transform:icon.transform};
+    });
+    if(completedMark.content==='none'||completedMark.border==='0px'||completedMark.transform==='none')
+      throw new Error('Completed step must use a CSS drawn check, not a recoded glyph: '+JSON.stringify(completedMark));
     if (!(await panels.nth(1).isVisible()) || (await panels.nth(0).isVisible())) throw new Error('Stepper did not move to second panel');
     await next.click();
     if (!(await panels.nth(2).isVisible()) || (await next.isEnabled())) throw new Error('Stepper final panel error');
