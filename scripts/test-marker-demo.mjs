@@ -62,6 +62,38 @@ try {
     if (layout.cellBorder === '0px' || layout.cellAlign !== 'middle') {
       throw new Error('Missing grid or vertical alignment at ' + width + ': ' + JSON.stringify(layout));
     }
+    const firstRow = page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] tbody tr').first();
+    if (width > 700) {
+      const rows=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] tbody tr');
+      const positions=await rows.evaluateAll(elements=>elements.map(row=>({
+        inset:Math.round(row.cells[0].getBoundingClientRect().left),
+        content:Math.round(row.cells[0].firstElementChild?.getBoundingClientRect().left||0),
+        height:Math.round(row.getBoundingClientRect().height)
+      })));
+      if(new Set(positions.map(p=>p.content)).size!==1)
+        throw new Error('Marker labels are not aligned: '+JSON.stringify(positions));
+      if(new Set(positions.map(p=>p.height)).size!==1)
+        throw new Error('Marker rows are not equal height: '+JSON.stringify(positions));
+    } else {
+      const sections=page.locator('[data-ui-mobile-section]');
+      const toggle=sections.first().locator('h2 button');
+      if(await toggle.getAttribute('aria-expanded')!=='false')
+        throw new Error('Mobile UI Kit sections must start collapsed');
+      await toggle.click();
+      if(await toggle.getAttribute('aria-expanded')!=='true')
+        throw new Error('Mobile UI Kit section did not open');
+      const catalogSection=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
+      await catalogSection.locator('h2 button').click();
+      const mobileItems=catalogSection.locator('.ui-marker-catalog__mobile details');
+      if(await mobileItems.count()!==6)
+        throw new Error('Expected six mobile accordion entries');
+      await mobileItems.first().locator('summary').click();
+      if(!(await mobileItems.first().evaluate(el=>el.open)))
+        throw new Error('Mobile marker details do not expand');
+    }
+    const sizes=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead small').allTextContents();
+    if(sizes.some(x=>x.includes('?')||!x.includes('×')))
+      throw new Error('Marker dimensions must always use ×, not ?');
     const stepper = page.locator('[data-ui-stepper]').first();
     const panels = stepper.locator('[data-step-panel]');
     const previous = stepper.locator('[data-step-prev]');
