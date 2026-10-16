@@ -4973,6 +4973,58 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   border-top:1px solid var(--c-line);
   background:#fff;
 }
+/* Consistent catalog hazard legend and two-tier contextual help. */
+.ui-marker-catalog__legend {
+  margin:18px 0 0;
+  padding:16px;
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-lg);
+  background:var(--c-surface);
+  color:var(--c-text);
+}
+.ui-marker-catalog__legend-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px 20px;
+  margin-top:12px;
+}
+.ui-marker-catalog__legend-item {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  font-size:var(--text-sm);
+  line-height:1.4;
+}
+.ui-marker-catalog__legend-item img {
+  flex:0 0 32px;
+  width:32px;
+  height:30px;
+  object-fit:contain;
+}
+.ui-marker-catalog__hazard-cell img[tabindex] {
+  cursor:help;
+}
+.ui-marker-catalog__hazard-cell img[tabindex]:focus-visible {
+  outline:2px solid var(--c-accent);
+  outline-offset:2px;
+  border-radius:3px;
+}
+.ui-tooltip--open .ui-tooltip__bubble {
+  opacity:1;
+  pointer-events:auto;
+  transform:translate(-50%,0);
+}
+.ui-info-dialog {
+  font:400 var(--text-base)/1.5 var(--font-sans);
+}
+.ui-info-dialog h3 {
+  font:700 20px/1.3 var(--font-sans);
+}
+.ui-info-dialog p { font:inherit; }
+@media(max-width:700px) {
+  .ui-marker-catalog__legend-grid { grid-template-columns:1fr; }
+}
 .ui-marker-catalog__notes {
   margin:16px 0 0;padding:14px 16px;
   border-left:3px solid var(--c-line-strong);
