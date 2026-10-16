@@ -47,3 +47,12 @@ Usage:
   <use href="/assets/icons/ui-icons.svg#chevron-right"></use>
 </svg>
 ```
+
+## UI Kit demonstration media (DEV only)
+
+UI Kit uses contextual, publicly hosted photographs and diagrams **only to test layout and responsive behavior**. They are not MagazinOT product photos, not normative drawings and not approved production assets. Production pages must use an owned/cleared original in `site-assets/img/<feature>/` with stable `/assets/img/<feature>/...` references.
+
+- Pexels photography (demo originals and license/source details): [industrial pipes](https://www.pexels.com/photo/industrial-factory-pipes-and-structures-33813584/), [machine workshop](https://www.pexels.com/photo/tool-in-factory-10119310/), [industrial plant](https://www.pexels.com/photo/pipes-on-industrial-plant-12380628/), [workshop](https://www.pexels.com/photo/a-machine-shop-with-a-large-machine-and-tools-18569751/), [tool](https://www.pexels.com/photo/close-up-of-workshop-tools-16630111/), [machine](https://www.pexels.com/photo/a-close-up-shot-of-a-metal-machine-12826695/).
+- Wikimedia Commons technical examples (follow file-specific attribution/license terms): [network diagram](https://commons.wikimedia.org/wiki/File:Network_diagram_(example).svg), [network topology](https://commons.wikimedia.org/wiki/File:NetzwerkTopologien.svg), [hub](https://commons.wikimedia.org/wiki/File:Hub_network_diagram.svg), [star](https://commons.wikimedia.org/wiki/File:Star_Topology.svg), [industrial ring topology](https://commons.wikimedia.org/wiki/File:SERCOS_III_Control_Interface_Ring_Topology_diagram.svg), [emergency exit sign](https://commons.wikimedia.org/wiki/File:Fire_exit.svg).
+
+Media contract: `ui-media-frame` owns dimensions/rounding/overflow; `ui-media-fit--cover` crops photos, plain `ui-media-fit` or `ui-figure--diagram` shows diagrams completely. `ui-figure--photo` uses cover; `ui-split--balanced` uses two equal columns on desktop. Use one semantic wrapper, not nested background placeholders or inline sizing. A single photo in both `cover` and `contain` showcases the difference.
