@@ -368,7 +368,10 @@
       if (!tabs || !intro || !body) return;
       catalog.dataset.readyMarkerCatalog = '1';
       const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.ui-marker-catalog__matrix');
-      const colors = {water:['#348313','#fff'],steam:['#e9252b','#fff'],air:['#76c9f4','#10232d'],gas:['#ffe039','#25210a'],acid:['#ff941f','#262012'],alkali:['#cba0f0','#261830'],liquid:['#a64b1c','#fff'],other:['#a9adb0','#17232a']};
+      const colors = Object.fromEntries(['water','steam','air','gas','acid','alkali','liquid','other'].map(key => {
+        const tokens = getComputedStyle(catalog);
+        return [key, [tokens.getPropertyValue('--medium-' + key).trim(), tokens.getPropertyValue('--medium-' + key + '-text').trim()]];
+      }));
       const names = {water:'ВОДА',steam:'ПАР',air:'ВОЗДУХ',gas:'ГАЗЫ',acid:'КИСЛОТЫ',alkali:'ЩЕЛОЧИ',liquid:'ЖИДКОСТИ',other:'ПРОЧИЕ ВЕЩЕСТВА'};
       const safe = value => String(value == null ? '' : value);
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
