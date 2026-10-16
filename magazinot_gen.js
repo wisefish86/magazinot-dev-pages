@@ -380,6 +380,23 @@
       });
     });
   }
+  function initShortTooltips(){
+    document.querySelectorAll('[data-ui-short-tooltip]').forEach(root=>{
+      if(root.dataset.readyTooltip==='1')return;
+      root.dataset.readyTooltip='1';
+      const button=root.querySelector('button');
+      if(!button)return;
+      const hide=()=>{root.classList.remove('ui-tooltip--open');button.setAttribute('aria-expanded','false');};
+      button.addEventListener('click',event=>{
+        event.stopPropagation();
+        const next=!root.classList.contains('ui-tooltip--open');
+        root.classList.toggle('ui-tooltip--open',next);
+        button.setAttribute('aria-expanded',String(next));
+      });
+      button.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});
+      document.addEventListener('click',event=>{if(!root.contains(event.target))hide();});
+    });
+  }
   function initInfoDialogs(){
     document.querySelectorAll('[data-ui-info-dialog]').forEach(root=>{
       if(root.dataset.ready==='1')return;
@@ -416,7 +433,24 @@
     const ok=document.createElement('button');ok.type='button';ok.className='ui-btn ui-btn--primary';
     ok.textContent='ОК';ok.setAttribute('data-info-close','');
     actions.appendChild(ok);dialog.append(title,paragraph,actions);wrap.append(button,dialog);
-    button.addEventListener('click',event=>{event.stopPropagation();dialog.showModal();});
+    const shortNote=content.length<=115;
+    if(shortNote){
+      const tip=document.createElement('span');
+      tip.className='ui-tooltip__bubble';
+      tip.setAttribute('role','tooltip');
+      tip.textContent=content;
+      wrap.classList.add('ui-tooltip');
+      wrap.appendChild(tip);
+      button.addEventListener('click',event=>{
+        event.stopPropagation();
+        const open=wrap.classList.toggle('ui-tooltip--open');
+        button.setAttribute('aria-expanded',String(open));
+      });
+      button.addEventListener('keydown',event=>{if(event.key==='Escape')wrap.classList.remove('ui-tooltip--open');});
+      document.addEventListener('click',event=>{if(!wrap.contains(event.target))wrap.classList.remove('ui-tooltip--open');});
+    }else{
+      button.addEventListener('click',event=>{event.stopPropagation();dialog.showModal();});
+    }
     ok.addEventListener('click',()=>dialog.close());
     return wrap;
   }
@@ -443,10 +477,40 @@
       mobile.setAttribute('aria-label','Позиции каталога — мобильный список');
       const viewport=catalog.querySelector('.ui-marker-catalog__table');
       if(viewport)viewport.insertAdjacentElement('afterend',mobile);
-      const notes=document.createElement('div');
+            const hazardNames={
+        '01':'Легковоспламеняющиеся вещества',
+        '03':'Взрывоопасные вещества',
+        '04':'Ядовитые вещества',
+        '05':'Едкие и коррозионные вещества',
+        '11':'Окислитель',
+        '16':'Радиоактивные вещества',
+        '18':'Аллергические, раздражающие вещества',
+        '19':'Биологическая опасность'
+      };
+      const hazardCodes=Object.keys(hazardNames);
+      const legend=document.createElement('div');
+      legend.className='ui-marker-catalog__legend';
+      const legendTitle=document.createElement('strong');
+      legendTitle.textContent='Обозначения знаков опасности';
+      const legendGrid=document.createElement('div');
+      legendGrid.className='ui-marker-catalog__legend-grid';
+      hazardCodes.forEach(code=>{
+        const item=document.createElement('div');
+        item.className='ui-marker-catalog__legend-item';
+        const image=document.createElement('img');
+        image.src='/assets/img/pipemarkers/hazards/w'+code+'-32x30.png';
+        image.width=32;image.height=30;
+        image.alt=hazardNames[code];
+        image.loading='lazy';
+        const label=document.createElement('span');label.textContent=hazardNames[code];
+        item.append(image,label);legendGrid.appendChild(item);
+      });
+      legend.append(legendTitle,legendGrid);
+const notes=document.createElement('div');
       notes.className='ui-marker-catalog__notes';
       notes.innerHTML='<strong>Примечания к маркировке</strong><ul><li>На маркерах без надписи информацию можно нанести вручную подходящим химически стойким маркером.</li><li>Знаки опасности соответствуют характеристикам транспортируемого вещества; выбирайте их по проектной документации.</li><li>Если нужного наименования нет в каталоге, укажите его в запросе на изготовление.</li></ul>';
-      mobile.insertAdjacentElement('afterend',notes);
+      mobile.insertAdjacentElement('afterend',legend);
+      legend.insertAdjacentElement('afterend',notes);
       function renderCategory(category){
         const [color,ink] = colors[category.id] || [category.color || '#287c84',category.textColor || '#fff'];
         catalog.style.setProperty('--marker-color',color);
@@ -530,12 +594,34 @@
               const image=document.createElement('img');
               image.className='ui-marker-catalog__sign';
               image.src='/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png';
-              image.alt='Знак опасности W'+sign;
+              image.alt=hazardNames[sign]||'Знак опасности W'+sign;
+              image.title=image.alt;
               image.width=32;
               image.height=30;
               image.loading='lazy';
               image.decoding='async';
-              danger.appendChild(image);
+              const help=document.createElement('span');
+              help.className='ui-tooltip ui-marker-catalog__hazard-help';
+              const trigger=document.createElement('button');
+              trigger.type='button';
+              trigger.className='ui-marker-catalog__hazard-trigger';
+              trigger.setAttribute('aria-label',image.alt);
+              trigger.title=image.alt;
+              const bubble=document.createElement('span');
+              bubble.className='ui-tooltip__bubble';
+              bubble.setAttribute('role','tooltip');
+              bubble.textContent=image.alt;
+              trigger.appendChild(image);
+              help.append(trigger,bubble);
+              trigger.addEventListener('click',event=>{
+                event.stopPropagation();
+                help.classList.toggle('ui-tooltip--open');
+              });
+              trigger.addEventListener('keydown',event=>{
+                if(event.key==='Escape')help.classList.remove('ui-tooltip--open');
+              });
+              trigger.addEventListener('blur',()=>help.classList.remove('ui-tooltip--open'));
+              danger.appendChild(help);
             });
           }
           tr.append(label,danger);
@@ -1079,6 +1165,7 @@
     initRemovableChips();
     initUploads();
       initMobileUiKitSections();
+    initShortTooltips();
     initInfoDialogs();
     initMarkerCatalogs();
     initQuantityControls();
