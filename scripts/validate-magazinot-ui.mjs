@@ -55,7 +55,7 @@ for(const file of walk(pagesDir)){
   if(/<script\b/i.test(withoutInjected)) errors.push(rel+': contains page-local <script>');
   if(/<style\b/i.test(html)) errors.push(rel+': contains page-local <style>');
 
-  for(const m of html.matchAll(/ui-icons\\.svg#([a-z0-9-]+)/gi)){
+  for(const m of html.matchAll(/ui-icons\.svg#([a-z0-9-]+)/gi)){
     if(!iconIds.has(m[1])) errors.push(rel+': missing shared icon '+m[1]);
   }
 
@@ -93,6 +93,28 @@ if(/\.docpage__toc(?:\b|[-_])/.test(css)){
   errors.push('magazinot_gen.css: legacy docpage__toc selector must not return');
 }
 
+// The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
+const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);
+if(spriteIds.length!==iconIds.size) errors.push('site-assets/icons/ui-icons.svg: duplicated symbol ID');
+for(const id of spriteIds) {
+  if(!uiKit.includes('ui-icons.svg#'+id)) errors.push('UI Kit: icon missing from gallery: '+id);
+}
+
+// No repeated inline icon paths in pages or reusable JS: use the central sprite.
+for(const file of walk(pagesDir)){
+  if(path.basename(file)==='markirovka-strelki-calculator-original.html') continue;
+  const html=fs.readFileSync(file,'utf8').replace(/<!-- AUTO:MAGAZINOT_UI_JS -->[\s\S]*?<!-- \/AUTO:MAGAZINOT_UI_JS -->/g,'');
+  for(const found of html.matchAll(/<svg\b[\s\S]*?<\/svg>/gi)){
+    if(!found[0].includes('<use')) errors.push(path.relative(root,file)+': inline SVG without a sprite reference');
+  }
+}
+for(const found of js.matchAll(/<svg\b[\s\S]*?<\/svg>/gi)){
+  if(!found[0].includes('<use'))errors.push('magazinot_gen.js: inline SVG must use a sprite symbol');
+}
+const normDocs=JSON.parse(fs.readFileSync(path.join(root,'site-assets/data/markirovka/markirovka-normdocs.json'),'utf8'));
+for(const item of [normDocs.primary,...normDocs.sectors]){
+  if(!iconIds.has(item.iconId))errors.push('Normative registry references missing icon: '+item.iconId);
+}
 if(errors.length){
   console.error('UI validation failed:\n- '+errors.join('\n- '));
   process.exit(1);
