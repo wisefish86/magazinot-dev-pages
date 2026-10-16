@@ -1165,7 +1165,7 @@ const notes=document.createElement('div');
     initSegmentedControls();
     initRemovableChips();
     initUploads();
-      initMobileUiKitSections();
+      // Mobile UI Kit sections stay visible at every viewport width.
     initShortTooltips();
     initInfoDialogs();
     initMarkerCatalogs();
