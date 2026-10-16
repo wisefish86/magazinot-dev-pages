@@ -11,6 +11,7 @@ on:
       - 'fix/ui-kit-ux-audit-*'
       - 'fix/marker-table-accordion-*'
       - 'fix/marker-heading-inset-*'
+      - 'fix/hazard-legend-tooltip-*'
   workflow_dispatch:
 
 permissions:
