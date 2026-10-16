@@ -64,7 +64,7 @@
   --medium-gas-text:#1d2831;
   --medium-acid:#ff951f;
   --medium-acid-text:#1d2831;
-  --medium-alkali:#9e70da;
+  --medium-alkali:#b99ae2;
   --medium-alkali-text:#1d2831;
   --medium-liquid:#a64a0a;
   --medium-liquid-text:#fff;
@@ -478,8 +478,9 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   display:grid;place-items:center;flex:0 0 40px;
   width:40px;height:40px;border:0;border-radius:9px;
   background:var(--c-soft);color:var(--c-text);
-  font:400 26px/1 var(--font-sans);cursor:pointer;
+  cursor:pointer;
 }
+.ui-info-dialog__close .ui-icon { width:20px;height:20px; }
 .ui-info-dialog__close:hover { background:var(--c-line); }
 .ui-info-dialog__close:focus-visible { outline:2px solid var(--c-accent);outline-offset:2px; }
 .ui-info-dialog__body { flex:1 1 auto;overflow-y:auto;min-height:0;padding:20px 22px;overscroll-behavior:contain; }
@@ -3965,10 +3966,13 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   top:0;
   right:0;
   bottom:50px;
-  width:28px;
-  background:linear-gradient(to right,transparent,var(--c-surface,#fff));
+  width:72px;
+  background:linear-gradient(to right,rgba(255,255,255,0),var(--c-surface,#fff));
   pointer-events:none;
+  opacity:0;
+  transition:opacity var(--motion-fast);
 }
+.ui-carousel[data-scroll-right="true"]::after { opacity:1; }
 .ui-carousel__viewport::-webkit-scrollbar {
   display:none
 }
@@ -4275,11 +4279,13 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 .ui-table th,.ui-table td {
   padding:11px 13px;
+  border-right:1px solid var(--c-line-soft);
   border-bottom:1px solid var(--c-line-soft);
   text-align:left;
   font-size:max(14px,var(--text-sm));
   vertical-align:top
 }
+.ui-table tr > :last-child { border-right:0; }
 .ui-table th {
   background:#eaf2f5;
   color:var(--c-heading);
@@ -4288,6 +4294,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-table tbody tr:last-child td {
   border-bottom:0
 }
+.ui-table tbody tr:last-child th { border-bottom:0; }
 .ui-table__num {
   text-align:right!important;
   font-variant-numeric:tabular-nums
@@ -4838,7 +4845,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     font-weight:750;
     text-align:center;
 
-  background:#f2f6f7;
+  background:#eaf2f5;
   color:var(--c-heading)
 }
 .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even)>td {
@@ -5741,7 +5748,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   --ui-fade-bg:var(--c-soft)
 }
 .ui-kit .ui-carousel.ui-scroll-cue {
-  --ui-fade-size:28px
+  --ui-fade-size:72px
 }
 .ui-kit .ui-carousel__track {
   min-width:0

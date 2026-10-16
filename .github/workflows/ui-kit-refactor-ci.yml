@@ -14,6 +14,7 @@ on:
       - 'fix/hazard-legend-tooltip-*'
       - 'fix/hazard-asset-files-*'
       - 'fix/dialog-stepper-showcase-*'
+      - 'fix/ui-kit-screenshot-qa-*'
   workflow_dispatch:
 
 permissions:

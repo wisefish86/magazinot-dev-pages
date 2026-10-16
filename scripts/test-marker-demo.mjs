@@ -20,7 +20,9 @@ try {
       }
       if (/^\/assets\/img\/pipemarkers\/hazards\/w[0-9]{2}-32x30\.png$/.test(url.pathname)) {
         const filename='source-reference/reference/magazinot/pipemarkers/hazards/'+url.pathname.split('/').pop();
-        return route.fulfill({status:200,contentType:'image/png',body:fs.readFileSync(filename)});
+        if(fs.existsSync(filename))return route.fulfill({status:200,contentType:'image/png',body:fs.readFileSync(filename)});
+        const fallback='site-assets/icons/hazards/'+url.pathname.split('/').pop().replace('-32x30.png','.svg');
+        return route.fulfill({status:200,contentType:'image/svg+xml',body:fs.readFileSync(fallback)});
       }
       if (/^\/assets\/icons\/hazards\/w[0-9]{2}\.svg$/.test(url.pathname)) {
         const filename='site-assets/icons/hazards/'+url.pathname.split('/').pop();
@@ -104,11 +106,16 @@ try {
     const sizes=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead small').allTextContents();
     if(sizes.some(x=>x.includes('?')||!x.includes('×')))
       throw new Error('Marker dimensions must always use ×, not ?');
+    const mojibake=await page.locator('body').innerText();
+    if(/ВОДА\s*\?+|\d\s*\?\s*\d/.test(mojibake))
+      throw new Error('Visible marker copy contains broken question-mark symbols');
     const dialogSection=page.locator('[data-ui-info-dialog]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
     const dialogDemo=dialogSection.locator('[data-ui-info-dialog]').first();
     await dialogDemo.locator('[data-info-open]').click();
     const infoDialog=dialogDemo.locator('dialog');
     if(!(await infoDialog.evaluate(el=>el.open)))throw new Error('Information popup did not open');
+    const closeIcon=infoDialog.locator('[data-info-close] use[href$="#close"]');
+    if(await closeIcon.count()!==1)throw new Error('Information popup close control must use the shared close icon');
     const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
     const contentMetrics=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>({scroll:el.scrollHeight,visible:el.clientHeight}));
@@ -121,6 +128,17 @@ try {
 
     await infoDialog.getByRole('button',{name:'ОК',exact:true}).click();
     if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
+    const tableGrid=await page.locator('.ui-table').first().locator('thead th').first().evaluate(el=>({
+      header:getComputedStyle(el).backgroundColor,
+      right:getComputedStyle(el).borderRightWidth,
+      bottom:getComputedStyle(el).borderBottomWidth
+    }));
+    if(tableGrid.header!=='rgb(234, 242, 245)'||tableGrid.right==='0px'||tableGrid.bottom==='0px')
+      throw new Error('Tables must share the Data table header and visible internal grid: '+JSON.stringify(tableGrid));
+    const carousel=page.locator('[data-ui-carousel]').first();
+    const fade=await carousel.evaluate(el=>({right:el.dataset.scrollRight,opacity:getComputedStyle(el,'::after').opacity,width:parseFloat(getComputedStyle(el,'::after').width)}));
+    if(fade.right==='true'&&(fade.opacity!=='1'||fade.width<50))
+      throw new Error('Carousel right edge must fade smoothly while more cards remain: '+JSON.stringify(fade));
     const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
     if((await legend.allTextContents()).some(x=>!x.trim()))
