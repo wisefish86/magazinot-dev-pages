@@ -948,7 +948,6 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
     line-height:1.62
   }
   .doc-table {
-    font-size:12.5px
   }
   .doc-table-wrap {
     margin-left:-2px;
@@ -3563,15 +3562,12 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   font:750 12px/1.25 var(--font-sans);
   text-transform:uppercase;
   cursor:pointer;
-  transition:filter var(--motion-fast)
 }
 .ui-kit .ui-marker-catalog__tab:focus-visible {
-  outline-offset:2px;
   z-index:2
 }
 .ui-kit .ui-marker-catalog__intro {
   padding:14px 16px;
-  border-radius:0;
   background:var(--marker-color);
   color:var(--marker-text);
   font-size:13px;
@@ -3585,10 +3581,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   gap:8px;
   padding:9px 2px;
   color:var(--c-muted);
-  font-size:12px
 }
 .ui-kit .ui-marker-catalog__table {
-  -webkit-overflow-scrolling:touch;
   border:1px solid var(--c-line);
   border-radius:8px
 }
@@ -3598,7 +3592,6 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   margin:0
 }
 .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
-  padding:11px 9px;
   border:1px solid rgba(20,40,48,.24);
   background:var(--marker-color);
   color:var(--marker-text);
@@ -4399,7 +4392,6 @@ fieldset.ui-field {
 }
 @media(max-width:560px) {
   .ui-btn {
-    min-height:44px
   }
 }
 .ui-grid > .ui-kit__example {
@@ -4438,7 +4430,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 @media(max-width:560px) {
   .ui-pagination a,.ui-pagination span {
-    height:44px
   }
 }
 .ui-doc-toc {
@@ -4773,7 +4764,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   color:var(--marker-tab-text);
   border:0;
   box-shadow:none;
-  font-weight:800;
 }
 .ui-kit .ui-marker-catalog__intro {
   margin:0;
@@ -4827,15 +4817,9 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 /* Responsive catalogue table: full width on desktop, scroll only on narrow screens. */
 @media(min-width:901px) {
   .ui-kit .ui-marker-catalog__table {
-    overflow-x:visible;
-    width:100%;
-    max-width:100%
   }
   .ui-kit .ui-marker-catalog__matrix {
-    width:100%;
-    min-width:0;
     max-width:100%;
-    table-layout:fixed
   }
   .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
     min-width:0;
@@ -4843,19 +4827,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     width:32%
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
-    width:32%
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2) {
-    width:12%
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child {
-    width:56%
   }
   .ui-kit .ui-marker-catalog__matrix .ui-marker-catalog__label {
-    text-wrap:balance
   }
   .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
-    padding:9px 5px
   }
 }
 @media(max-width:900px) {
