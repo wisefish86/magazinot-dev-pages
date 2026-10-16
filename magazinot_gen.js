@@ -428,11 +428,17 @@
     const dialog=document.createElement('dialog');
     dialog.className='ui-info-dialog';
     const title=document.createElement('h3');title.textContent=text;
+    const heading=document.createElement('div');heading.className='ui-info-dialog__heading';
+    const close=document.createElement('button');close.type='button';close.className='ui-info-dialog__close';
+    close.setAttribute('data-info-close','');close.setAttribute('aria-label','Закрыть окно');
+    close.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg>';
+    heading.append(title,close);
     const paragraph=document.createElement('p');paragraph.textContent=content;
+    const body=document.createElement('div');body.className='ui-info-dialog__body';body.appendChild(paragraph);
     const actions=document.createElement('div');actions.className='ui-info-dialog__actions';
     const ok=document.createElement('button');ok.type='button';ok.className='ui-btn ui-btn--primary';
     ok.textContent='ОК';ok.setAttribute('data-info-close','');
-    actions.appendChild(ok);dialog.append(title,paragraph,actions);wrap.append(button,dialog);
+    actions.appendChild(ok);dialog.append(heading,body,actions);wrap.append(button,dialog);
     const shortNote=content.length<=115;
     if(shortNote){
       const tip=document.createElement('span');
@@ -451,7 +457,7 @@
     }else{
       button.addEventListener('click',event=>{event.stopPropagation();dialog.showModal();});
     }
-    ok.addEventListener('click',()=>dialog.close());
+    dialog.querySelectorAll('[data-info-close]').forEach(control=>control.addEventListener('click',()=>dialog.close()));
     return wrap;
   }
   function initMarkerCatalogs(){
