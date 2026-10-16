@@ -579,13 +579,32 @@ const notes=document.createElement('div');
               image.src='/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png';
               image.alt=hazardNames[sign]||'Знак опасности W'+sign;
               image.title=image.alt;
-              image.tabIndex=0;
-              image.setAttribute('aria-label',image.alt);
               image.width=32;
               image.height=30;
               image.loading='lazy';
               image.decoding='async';
-              danger.appendChild(image);
+              const help=document.createElement('span');
+              help.className='ui-tooltip ui-marker-catalog__hazard-help';
+              const trigger=document.createElement('button');
+              trigger.type='button';
+              trigger.className='ui-marker-catalog__hazard-trigger';
+              trigger.setAttribute('aria-label',image.alt);
+              trigger.title=image.alt;
+              const bubble=document.createElement('span');
+              bubble.className='ui-tooltip__bubble';
+              bubble.setAttribute('role','tooltip');
+              bubble.textContent=image.alt;
+              trigger.appendChild(image);
+              help.append(trigger,bubble);
+              trigger.addEventListener('click',event=>{
+                event.stopPropagation();
+                help.classList.toggle('ui-tooltip--open');
+              });
+              trigger.addEventListener('keydown',event=>{
+                if(event.key==='Escape')help.classList.remove('ui-tooltip--open');
+              });
+              trigger.addEventListener('blur',()=>help.classList.remove('ui-tooltip--open'));
+              danger.appendChild(help);
             });
           }
           tr.append(label,danger);
