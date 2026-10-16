@@ -8,6 +8,7 @@ on:
       - 'fix/ui-kit-marker-matrix-*'
       - 'fix/ui-kit-polish-*'
       - 'refactor/central-icons-palette-*'
+      - 'fix/ui-kit-ux-audit-*'
   workflow_dispatch:
 
 permissions:
