@@ -74,6 +74,9 @@ try {
         content:Math.round(row.cells[0].firstElementChild?.getBoundingClientRect().left||0),
         height:Math.round(row.getBoundingClientRect().height)
       })));
+      const headingLeft=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead tr:first-child th:first-child').evaluate(el=>Math.round(el.getBoundingClientRect().left+parseFloat(getComputedStyle(el).paddingLeft)));
+      if(Math.abs(headingLeft-positions[0].content)>2)
+        throw new Error('Marker column header and labels not aligned: header '+headingLeft+', labels '+positions[0].content);
       if(new Set(positions.map(p=>p.content)).size!==1)
         throw new Error('Marker labels are not aligned: '+JSON.stringify(positions));
       if(new Set(positions.map(p=>p.height)).size!==1)
@@ -102,6 +105,16 @@ try {
       const stepSection=page.locator('[data-ui-stepper]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
       await stepSection.locator('h2 button').click();
     }
+    const dialogSection=page.locator('[data-ui-info-dialog]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
+    if(width<=700)await dialogSection.locator('h2 button').click();
+    const dialogDemo=dialogSection.locator('[data-ui-info-dialog]').first();
+    await dialogDemo.locator('[data-info-open]').click();
+    const infoDialog=dialogDemo.locator('dialog');
+    if(!(await infoDialog.evaluate(el=>el.open)))throw new Error('Information popup did not open');
+    const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
+    if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
+    await infoDialog.locator('[data-info-close]').click();
+    if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
     const stepper = page.locator('[data-ui-stepper]').first();
     const panels = stepper.locator('[data-step-panel]');
     const previous = stepper.locator('[data-step-prev]');

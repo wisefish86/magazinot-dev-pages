@@ -358,6 +358,30 @@
   </section>
 
   <section class="ui-kit__group" data-ui-mobile-section>
+    <h2>Информационное окно с прокруткой</h2>
+    <p class="ui-kit__hint">Для длинных пояснений, иллюстраций и инструкций. Окно ограничено высотой экрана, прокручивается внутри и закрывается кнопкой «ОК», Escape или нажатием на фон.</p>
+    <div class="ui-kit__example">
+      <div data-ui-info-dialog>
+        <button class="ui-btn ui-btn--secondary" type="button" data-info-open>Открыть подробное пояснение</button>
+        <dialog class="ui-info-dialog" aria-labelledby="ui-kit-dialog-title">
+          <h3 id="ui-kit-dialog-title">Как читать маркировку трубопровода</h3>
+          <p>Образец длинной справки: информация остаётся доступной на мобильном экране даже при большой высоте содержимого.</p>
+          <div class="ui-media-frame"><div class="ui-media-fit" style="display:grid;place-items:center;background:linear-gradient(145deg,#d8eaf3,#6fadb9);color:#153f50">Место для технической иллюстрации</div></div>
+          <p>Цвет, название среды, направление потока и предупреждающие пиктограммы должны соответствовать требованиям конкретного объекта.</p>
+          <p>На практике содержимое окна может включать фотографии, таблицы размеров, ссылки и дополнительные технические пояснения. При переполнении прокручивается содержимое, а кнопка закрытия остаётся доступной.</p>
+          <div class="ui-info-dialog__actions"><button class="ui-btn ui-btn--primary" type="button" data-info-close>ОК</button></div>
+        </dialog>
+      </div>
+    </div>
+    <h3>Обрезка и вписывание изображений</h3>
+    <p class="ui-kit__hint"><code>contain</code> показывает изображение целиком; <code>cover</code> заполняет область с возможной обрезкой. Размер контейнера задаётся независимо от картинки.</p>
+    <div class="ui-grid ui-grid--2">
+      <div class="ui-card"><strong>Вписать целиком (contain)</strong><div class="ui-media-frame"><div class="ui-media-fit" style="display:grid;place-items:center;background:#dbeaf0;color:#345">Полная иллюстрация без обрезки</div></div></div>
+      <div class="ui-card"><strong>Заполнить кадр (cover)</strong><div class="ui-media-frame ui-media-frame--square"><div class="ui-media-fit ui-media-fit--cover" style="display:grid;place-items:center;background:linear-gradient(135deg,#1f6176,#8dc4e1);color:white">Обрезка под квадратный формат</div></div></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group" data-ui-mobile-section>
     <h2>Интерактивная инструкция по шагам</h2>
     <p class="ui-kit__hint">Один шаг на экране с переходами «Назад» и «Далее». Полезно для подбора изделия, измерения трубопровода и инструкций по монтажу; не использовать для обычного короткого текста.</p>
     <div class="ui-stepper" data-ui-stepper>
