@@ -25,6 +25,10 @@ try {
       return route.fulfill({ status: 404, body: '' });
     });
     await page.goto('https://ui-kit.test/', { waitUntil: 'domcontentloaded' });
+    if(width<=700){
+      const mobileCatalog=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
+      await mobileCatalog.locator('h2 button').click();
+    }
     const tabs = page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] [role="tab"]');
     await tabs.first().waitFor({ state: 'visible', timeout: 10000 });
     if (await tabs.count() !== 3) throw new Error('Expected exactly 3 tabs at width ' + width);
@@ -83,7 +87,7 @@ try {
       if(await toggle.getAttribute('aria-expanded')!=='true')
         throw new Error('Mobile UI Kit section did not open');
       const catalogSection=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
-      await catalogSection.locator('h2 button').click();
+
       const mobileItems=catalogSection.locator('.ui-marker-catalog__mobile details');
       if(await mobileItems.count()!==6)
         throw new Error('Expected six mobile accordion entries');
