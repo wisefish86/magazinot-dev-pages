@@ -4942,6 +4942,11 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     min-width:1000px
   }
 }
+/* Header and marker labels share the exact same left inset. */
+.ui-kit .ui-marker-catalog__matrix thead th:first-child {
+  padding-left:12px;
+  text-align:left;
+}
 /* Compact only the colored product-name labels; ordinary table text keeps its spacing. */
 .ui-kit .ui-marker-catalog__matrix tbody td:first-child:has(.ui-marker-catalog__label) {
   padding-left:15px;
