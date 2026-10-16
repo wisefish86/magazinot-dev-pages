@@ -3,7 +3,9 @@ import { chromium } from 'playwright';
 
 const html = fs.readFileSync('pages/ui-kit.html', 'utf8');
 const css = fs.readFileSync('magazinot_gen.css', 'utf8');
-const fixture = fs.readFileSync('site-assets/data/ui-kit-marker-demo.json', 'utf8');
+const data=JSON.parse(fs.readFileSync('site-assets/data/ui-kit-marker-demo.json','utf8'));
+data.categories[0].items[0].code='1021'; // Exercise the existing W16 hazard mapping in the browser.
+const fixture=JSON.stringify(data);
 const palette = JSON.parse(fs.readFileSync('site-assets/data/markirovka/medium-colors.json', 'utf8')).categories;
 const icons = fs.readFileSync('site-assets/icons/ui-icons.svg','utf8');
 const source = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>' + css + '</style></head><body>' + html + '</body></html>';
@@ -15,6 +17,10 @@ try {
       const url = new URL(route.request().url());
       if (url.pathname === '/assets/data/ui-kit-marker-demo.json') {
         return route.fulfill({ status: 200, contentType: 'application/json', body: fixture });
+      }
+      if (/^\/assets\/icons\/hazards\/w[0-9]{2}\.svg$/.test(url.pathname)) {
+        const filename='site-assets/icons/hazards/'+url.pathname.split('/').pop();
+        return route.fulfill({status:200,contentType:'image/svg+xml',body:fs.readFileSync(filename)});
       }
       if (url.pathname === '/assets/icons/ui-icons.svg') {
         return route.fulfill({ status: 200, contentType: 'image/svg+xml', body: icons });
@@ -119,6 +125,24 @@ try {
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
     if((await legend.allTextContents()).some(x=>!x.trim()))
       throw new Error('Each hazard icon needs an accessible meaning');
+    const imageState=await legend.locator('img').evaluateAll(async images=>{
+      await Promise.all(images.map(img=>img.decode().catch(()=>{})));
+      return images.map(img=>({src:img.getAttribute('src'),loaded:img.naturalWidth>0}));
+    });
+    if(imageState.some(item=>!item.loaded))
+      throw new Error('Hazard pictogram missing: '+JSON.stringify(imageState));
+    await tabs.first().click();
+    const hazardTrigger=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__hazard-trigger').first();
+    if(await hazardTrigger.count()!==1)throw new Error('Expected a hazard pictogram in test data');
+    await hazardTrigger.focus();
+    if((await hazardTrigger.getAttribute('aria-label'))!=='Радиоактивные вещества')
+      throw new Error('Hazard accessible label was not populated');
+    await hazardTrigger.click();
+    if(!(await hazardTrigger.locator('xpath=..').evaluate(el=>el.classList.contains('ui-tooltip--open'))))
+      throw new Error('Hazard tooltip did not open on click');
+    await hazardTrigger.press('Escape');
+    if(await hazardTrigger.locator('xpath=..').evaluate(el=>el.classList.contains('ui-tooltip--open')))
+      throw new Error('Hazard tooltip not dismissed with Escape');
     const shortHint=page.locator('[data-ui-short-tooltip]').first();
     await shortHint.locator('button').click();
     if(await shortHint.locator('button').getAttribute('aria-expanded')!=='true')
