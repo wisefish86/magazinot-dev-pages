@@ -11,7 +11,7 @@ on:
       - 'scripts/**'
       - '.github/workflows/visual-qa.yml'
   push:
-    branches: [main, 'feature/automated-visual-qa-*', 'fix/faq-actual-first-row-spacing-*']
+    branches: [main, 'feature/automated-visual-qa-*', 'fix/faq-actual-first-row-spacing-*', 'fix/visual-qa-lazy-images-*']
     paths:
       - 'pages/**'
       - 'site-assets/**'
