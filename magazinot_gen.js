@@ -360,6 +360,7 @@
   }
 
   function initMobileUiKitSections(){
+    if(!window.matchMedia('(max-width:700px)').matches)return;
     document.querySelectorAll('[data-ui-mobile-section]').forEach(section=>{
       const heading=section.querySelector(':scope > h2');
       if(!heading||heading.querySelector('button'))return;
