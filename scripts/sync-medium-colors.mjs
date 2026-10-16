@@ -17,6 +17,26 @@ const start=css.indexOf(begin);
 const finish=css.indexOf(end,start);
 if(start<0||finish<0) throw Error('CSS token markers missing');
 const output=css.slice(0,start)+begin+'\n'+tokens+'\n'+end+css.slice(finish+end.length);
+const targets=[
+  'site-assets/data/pipemarkers-demo.json',
+  'site-assets/data/ui-kit-marker-demo.json',
+  ...['water','steam','air','gas'].map(x=>'site-assets/data/pipemarkers/'+x+'.json')
+];
+let mismatch=[];
+for(const filename of targets){
+  const current=fs.readFileSync(filename,'utf8');
+  let result=current;
+  for(const id of expected){
+    const pattern=new RegExp('("id"\\\\s*:\\\\s*"'+id+'"[\\\\s\\\\S]*?"color"\\\\s*:\\\\s*")[^"]+("[\\\\s\\\\S]*?"textColor"\\\\s*:\\\\s*")[^"]+(")');
+    result=result.replace(pattern,(match,prefix,middle,suffix)=>prefix+categories[id].background+middle+categories[id].text+suffix);
+  }
+  JSON.parse(result);
+  if(result!==current){
+    mismatch.push(filename);
+    if(!process.argv.includes('--check'))fs.writeFileSync(filename,result,'utf8');
+  }
+}
+if(process.argv.includes('--check') && mismatch.length)throw Error('Catalog colors out of sync: '+mismatch.join(', '));
 if(process.argv.includes('--check')){
   if(output!==css)throw Error('Marker colors are out of sync. Run node scripts/sync-medium-colors.mjs');
   console.log('Marking palette synchronized');
