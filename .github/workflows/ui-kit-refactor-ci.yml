@@ -12,6 +12,7 @@ on:
       - 'fix/marker-table-accordion-*'
       - 'fix/marker-heading-inset-*'
       - 'fix/hazard-legend-tooltip-*'
+      - 'fix/hazard-asset-files-*'
   workflow_dispatch:
 
 permissions:
