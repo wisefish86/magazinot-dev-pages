@@ -119,6 +119,10 @@ try {
     if(!(await infoDialog.evaluate(el=>el.open)))throw new Error('Information popup did not open');
     const closeIcon=infoDialog.locator('[data-info-close] use[href$="#close"]');
     if(await closeIcon.count()!==1)throw new Error('Information popup close control must use the shared close icon');
+    const closeOffset=await infoDialog.locator('.ui-info-dialog__close').evaluate(el=>getComputedStyle(el).transform);
+    if(closeOffset!=='matrix(1, 0, 0, 1, 0, -5)')throw new Error('Information popup close control must be raised by 5px; got '+closeOffset);
+    const dialogCopy=await infoDialog.innerText();
+    if(!dialogCopy.includes('26×74 мм')||/\d+\?\d+ мм/.test(dialogCopy))throw new Error('Information popup dimensions must render ×, not ?: '+dialogCopy);
     const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
     const contentMetrics=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>({scroll:el.scrollHeight,visible:el.clientHeight}));
@@ -137,8 +141,14 @@ try {
       right:getComputedStyle(el).borderRightWidth,
       bottom:getComputedStyle(el).borderBottomWidth
     }));
-    if(tableGrid.header!=='rgb(234, 242, 245)'||tableGrid.right==='0px'||tableGrid.bottom==='0px')
+    if(tableGrid.header!=='rgb(237, 242, 244)'||tableGrid.right==='0px'||tableGrid.bottom==='0px')
       throw new Error('Tables must share the Data table header and visible internal grid: '+JSON.stringify(tableGrid));
+    const tableStyleVariants=await page.locator('.ui-table thead th, .doc-table--headed tbody tr:first-child th').evaluateAll(cells=>[...new Set(cells.filter(el=>el.offsetParent!==null).map(el=>{
+      const style=getComputedStyle(el);
+      const borderColors=[style.borderRightWidth!=='0px'&&style.borderRightColor,style.borderBottomWidth!=='0px'&&style.borderBottomColor].filter(Boolean);
+      return [style.backgroundColor,...new Set(borderColors)].join('|');
+    }))]);
+    if(tableStyleVariants.length!==1)throw new Error('Every table header must share one fill and one grid color: '+JSON.stringify(tableStyleVariants));
     const tableRows=visibleTable.locator('tbody tr');
     if(await tableRows.count()>1){
       const stripes=await tableRows.evaluateAll(rows=>rows.slice(0,2).map(row=>getComputedStyle(row.cells[row.cells.length-1]).backgroundColor));

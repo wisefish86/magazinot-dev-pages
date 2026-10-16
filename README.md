@@ -51,6 +51,7 @@ Optional metadata can be placed in HTML comments at the top of any page:
 
 ## Canonical UI assets and color tokens
 
+- **Neutral palette:** use the seven `--neutral-*` tokens declared at the top of `magazinot_gen.css`. Components must consume their semantic aliases (`--c-surface`, `--c-soft`, `--c-line`, `--c-line-strong`, `--c-muted`, `--c-text`). Table headers, internal grids, zebra rows and hover states use only `--table-*`, which map to the same neutral scale. Do not add component-local gray hex values.
 - **Interface icons:** one SVG sprite at `site-assets/icons/ui-icons.svg`. Reuse a stable symbol ID with `<svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>`. All symbols must be displayed in `pages/ui-kit.html`; validation checks this. Do not copy inline SVG paths to new pages or generators.
 - **Normative navigation:** `site-assets/data/markirovka/markirovka-normdocs.json` stores `iconId` references to the sprite, not icon path geometry. The generator keeps all destination URLs/anchors.
 - **Standard medium palette:** edit **only** `site-assets/data/markirovka/medium-colors.json` to change the eight marking group colors. `scripts/sync-medium-colors.mjs` generates the CSS variables `--medium-water`, `--medium-steam`, etc. and synchronizes archived/demo catalog JSON color fields before validation and FTP publishing. Shared JS reads the CSS tokens, never a second hard-coded palette.
