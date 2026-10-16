@@ -1123,6 +1123,7 @@ const notes=document.createElement('div');
           if(i===active)button.setAttribute('aria-current','step');
           else button.removeAttribute('aria-current');
           panels[i].hidden=i!==active;
+          button.toggleAttribute('data-step-complete',i<active);
         });
         prev.disabled=active===0;
         next.disabled=active===controls.length-1;
