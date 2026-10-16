@@ -1363,6 +1363,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   box-shadow:0 5px 14px rgba(239,106,75,.18);
 }
 /* FAQ */
+/* FAQ starts immediately after its section heading, without an extra blank band. */
+.ui-section__head:has(+ .ui-accordion) {
+  margin-bottom:6px;
+}
 .ui-accordion {
   border-top:0
 }
