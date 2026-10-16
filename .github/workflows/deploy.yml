@@ -33,6 +33,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Validate canonical marking palette
+        run: node scripts/sync-medium-colors.mjs --check
+
       - name: Generate pipeline marking normative navigation
         run: node scripts/generate-markirovka-normdocs.mjs
 
