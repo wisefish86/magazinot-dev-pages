@@ -183,6 +183,10 @@
         <div class="ui-readable"><h3>Split layout</h3><p>Типовой паттерн «текст + медиа» или две смысловые колонки. <code>ui-readable</code> ограничивает длину строки длинного текста.</p><div class="ui-cluster"><span class="ui-chip">ui-split</span><span class="ui-chip">ui-readable</span></div></div>
         <div class="ui-media-frame ui-media-frame--photo"><img class="ui-media-fit ui-media-fit--cover" src="/assets/img/ui-kit-demo/factory.jpg" alt="Станки в производственном цехе" loading="eager" decoding="async"></div>
       </div>
+      <div class="ui-split ui-split--flush ui-kit__example">
+        <div class="ui-readable"><h3>Split full-bleed</h3><p>Альтернативный вариант единой split-карточки: изображение примыкает к краям, текст сохраняет внутренний отступ. Для акцентных секций; обычный inset-вариант выше сохраняем для нейтральных блоков.</p></div>
+        <div class="ui-media-frame ui-media-frame--photo"><img src="/assets/img/ui-kit-demo/pipes.jpg" alt="Трубопроводы на предприятии" loading="lazy" decoding="async"></div>
+      </div>
     </div>
   </section>
 
@@ -396,7 +400,7 @@
             <div class="ui-table-wrap" tabindex="0" role="region" aria-label="Пример таблицы размеров">
               <table class="ui-table">
                 <thead><tr><th scope="col">Размер</th><th scope="col">Пример применения</th><th scope="col">Комментарий</th></tr></thead>
-                <tbody><tr><th scope="row">P1</th><td>Компактная маркировка</td><td>26&#215;74 мм</td></tr><tr><th scope="row">P2</th><td>Средний формат</td><td>52&#215;148 мм</td></tr><tr><th scope="row">P3</th><td>Увеличенный формат</td><td>74&#215;210 мм</td></tr></tbody>
+                <tbody><tr><th scope="row">P1</th><td>Компактная маркировка</td><td>26<span class="ui-dimension-times" aria-hidden="true"></span>74 мм</td></tr><tr><th scope="row">P2</th><td>Средний формат</td><td>52<span class="ui-dimension-times" aria-hidden="true"></span>148 мм</td></tr><tr><th scope="row">P3</th><td>Увеличенный формат</td><td>74<span class="ui-dimension-times" aria-hidden="true"></span>210 мм</td></tr></tbody>
               </table>
             </div>
             <h4>3. Проверьте данные перед заказом</h4>
@@ -595,7 +599,7 @@
       <figure class="ui-figure ui-figure--diagram"><div class="ui-figure__media"><img class="ui-demo-image" src="/assets/img/ui-kit-demo/diagram-ring.svg" alt="Схема 4" loading="lazy" decoding="async"></div><figcaption>Учебный класс</figcaption></figure>
     </div>
     <h3>Галерея выполненных проектов</h3>
-    <p class="ui-kit__hint">Для портфолио и фотографий объектов: единый размер превью, короткие подписи, полная сетка без автоматической карусели.</p>
+    <p class="ui-kit__hint">Галерея портфолио: нажмите на фото, чтобы открыть просмотр со стрелками, клавиатурой и миниатюрами. Сетка не прокручивается автоматически.</p>
     <div class="ui-gallery ui-gallery--portfolio">
       <figure class="ui-figure ui-figure--photo"><div class="ui-figure__media"><img class="ui-demo-image" src="/assets/img/ui-kit-demo/workshop.jpg" alt="Объект 1" loading="lazy" decoding="async"></div><figcaption>Оформление кабинета</figcaption></figure>
       <figure class="ui-figure ui-figure--photo"><div class="ui-figure__media"><img class="ui-demo-image" src="/assets/img/ui-kit-demo/factory.jpg" alt="Объект 2" loading="lazy" decoding="async"></div><figcaption>Стенды в учебном классе</figcaption></figure>
