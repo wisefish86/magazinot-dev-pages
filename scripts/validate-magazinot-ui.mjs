@@ -93,6 +93,19 @@ if(/\.docpage__toc(?:\b|[-_])/.test(css)){
   errors.push('magazinot_gen.css: legacy docpage__toc selector must not return');
 }
 
+for(const token of ['neutral-0','neutral-50','neutral-100','neutral-200','neutral-300','neutral-600','neutral-900']){
+  if(!css.includes('--'+token+':')) errors.push('magazinot_gen.css: missing canonical neutral token --'+token);
+}
+for(const alias of ['--table-head:var(--neutral-100)','--table-grid:var(--neutral-200)','--table-row-alt:var(--neutral-50)','--table-row-hover:var(--neutral-100)']){
+  if(!css.includes(alias)) errors.push('magazinot_gen.css: table style must use canonical neutral alias '+alias);
+}
+for(const legacy of ['#eaf2f5','#e3eaed','#eaf3f5','#dcebed']){
+  if(css.toLowerCase().includes(legacy)) errors.push('magazinot_gen.css: legacy table gray must use a canonical token: '+legacy);
+}
+if(!/26&#215;74 мм/.test(uiKit) || /\d+\?\d+ мм/.test(uiKit)){
+  errors.push('UI Kit: dimensions must use the transport-safe &#215; multiplication sign');
+}
+
 // The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
 const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);
 if(spriteIds.length!==iconIds.size) errors.push('site-assets/icons/ui-icons.svg: duplicated symbol ID');

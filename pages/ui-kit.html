@@ -35,14 +35,22 @@
 
   <section class="ui-kit__group" id="kit-foundation">
     <h2>Цветовая система</h2>
-    <p class="ui-kit__hint">80–85% интерфейса — нейтрали. Petrol отвечает за бренд и интерактивность. Тёплый акцент используется редко — только для сильного CTA.</p>
+    <p class="ui-kit__hint">80–85% интерфейса — нейтрали. Petrol отвечает за бренд и интерактивность. Тёплый акцент используется редко — только для сильного CTA. Компоненты используют только роли из компактной нейтральной шкалы, а не собственные оттенки серого.</p>
     <div class="ui-swatch-grid">
       <div class="ui-swatch ui-swatch--primary"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Primary petrol</span><span class="ui-swatch__value">#0F6B6D</span></div></div>
       <div class="ui-swatch ui-swatch--primary-dark"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Primary dark</span><span class="ui-swatch__value">#0A5356</span></div></div>
       <div class="ui-swatch ui-swatch--cta"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Warm CTA</span><span class="ui-swatch__value">#A84E2F</span></div></div>
-      <div class="ui-swatch ui-swatch--text"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Text</span><span class="ui-swatch__value">#1F2D33</span></div></div>
-      <div class="ui-swatch ui-swatch--muted"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Muted</span><span class="ui-swatch__value">#60727A</span></div></div>
-      <div class="ui-swatch ui-swatch--surface"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">Soft surface</span><span class="ui-swatch__value">#F5F8F7</span></div></div>
+    </div>
+    <h3>Нейтральная шкала</h3>
+    <p class="ui-kit__hint">Семь уровней закрывают все роли: белый фон, мягкая и заметная заливка, обычная и усиленная граница, вторичный и основной текст.</p>
+    <div class="ui-swatch-grid">
+      <div class="ui-swatch ui-swatch--neutral-0"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N0 · фон</span><span class="ui-swatch__value">#FFFFFF</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-50"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N50 · мягкая заливка</span><span class="ui-swatch__value">#F7F9FA</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-100"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N100 · активная заливка</span><span class="ui-swatch__value">#EDF2F4</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-200"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N200 · границы</span><span class="ui-swatch__value">#DBE4E8</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-300"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N300 · сильная граница</span><span class="ui-swatch__value">#C5D2D8</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-600"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N600 · вторичный текст</span><span class="ui-swatch__value">#60717A</span></div></div>
+      <div class="ui-swatch ui-swatch--neutral-900"><div class="ui-swatch__color"></div><div class="ui-swatch__meta"><span class="ui-swatch__name">N900 · основной текст</span><span class="ui-swatch__value">#24343E</span></div></div>
     </div>
   </section>
 
@@ -388,7 +396,7 @@
             <div class="ui-table-wrap" tabindex="0" role="region" aria-label="Пример таблицы размеров">
               <table class="ui-table">
                 <thead><tr><th scope="col">Размер</th><th scope="col">Пример применения</th><th scope="col">Комментарий</th></tr></thead>
-                <tbody><tr><th scope="row">P1</th><td>Компактная маркировка</td><td>26×74 мм</td></tr><tr><th scope="row">P2</th><td>Средний формат</td><td>52×148 мм</td></tr><tr><th scope="row">P3</th><td>Увеличенный формат</td><td>74×210 мм</td></tr></tbody>
+                <tbody><tr><th scope="row">P1</th><td>Компактная маркировка</td><td>26&#215;74 мм</td></tr><tr><th scope="row">P2</th><td>Средний формат</td><td>52&#215;148 мм</td></tr><tr><th scope="row">P3</th><td>Увеличенный формат</td><td>74&#215;210 мм</td></tr></tbody>
               </table>
             </div>
             <h4>3. Проверьте данные перед заказом</h4>
@@ -963,7 +971,7 @@
         <div class="ui-marker-catalog__tools"><span data-marker-count></span><span>Размеры P1–P6 · коды артикулов</span></div>
         <div class="ui-table-wrap ui-marker-catalog__table" role="region" aria-label="Пример таблицы маркировочных стрелок" tabindex="0">
           <table class="ui-table ui-marker-catalog__matrix">
-            <thead><tr><th scope="col" rowspan="2">Наименование</th><th scope="col" rowspan="2">Знаки опасности</th><th scope="colgroup" colspan="6">Артикул для заказа</th></tr><tr><th scope="col">P1 <small>26×74 мм</small></th><th scope="col">P2 <small>52×148 мм</small></th><th scope="col">P3 <small>74×210 мм</small></th><th scope="col">P4 <small>105×297 мм</small></th><th scope="col">P5 <small>148×420 мм</small></th><th scope="col">P6 <small>52×105 мм</small></th></tr></thead>
+            <thead><tr><th scope="col" rowspan="2">Наименование</th><th scope="col" rowspan="2">Знаки опасности</th><th scope="colgroup" colspan="6">Артикул для заказа</th></tr><tr><th scope="col">P1 <small>26&#215;74 мм</small></th><th scope="col">P2 <small>52&#215;148 мм</small></th><th scope="col">P3 <small>74&#215;210 мм</small></th><th scope="col">P4 <small>105&#215;297 мм</small></th><th scope="col">P5 <small>148&#215;420 мм</small></th><th scope="col">P6 <small>52&#215;105 мм</small></th></tr></thead>
             <tbody data-marker-body><tr><td colspan="8">Загрузка…</td></tr></tbody>
           </table>
         </div>
