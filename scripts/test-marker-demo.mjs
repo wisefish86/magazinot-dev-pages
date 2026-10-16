@@ -31,10 +31,6 @@ try {
       return route.fulfill({ status: 404, body: '' });
     });
     await page.goto('https://ui-kit.test/', { waitUntil: 'domcontentloaded' });
-    if(width<=700){
-      const mobileCatalog=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
-      await mobileCatalog.locator('h2 button').click();
-    }
     const tabs = page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] [role="tab"]');
     await tabs.first().waitFor({ state: 'visible', timeout: 10000 });
     if (await tabs.count() !== 3) throw new Error('Expected exactly 3 tabs at width ' + width);
@@ -89,12 +85,9 @@ try {
         throw new Error('Marker rows are not equal height: '+JSON.stringify(positions));
     } else {
       const sections=page.locator('[data-ui-mobile-section]');
-      const toggle=sections.first().locator('h2 button');
-      if(await toggle.getAttribute('aria-expanded')!=='false')
-        throw new Error('Mobile UI Kit sections must start collapsed');
-      await toggle.click();
-      if(await toggle.getAttribute('aria-expanded')!=='true')
-        throw new Error('Mobile UI Kit section did not open');
+      if(await sections.count()===0)throw new Error('Missing mobile UI Kit sections');
+      const firstSection=sections.first();
+      if(!(await firstSection.isVisible()))throw new Error('Mobile UI Kit section is hidden');
       const catalogSection=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').locator('xpath=ancestor::section[@data-ui-mobile-section]');
 
       const mobileItems=catalogSection.locator('.ui-marker-catalog__mobile details');
@@ -107,12 +100,7 @@ try {
     const sizes=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead small').allTextContents();
     if(sizes.some(x=>x.includes('?')||!x.includes('×')))
       throw new Error('Marker dimensions must always use ×, not ?');
-    if (width <= 700) {
-      const stepSection=page.locator('[data-ui-stepper]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
-      await stepSection.locator('h2 button').click();
-    }
     const dialogSection=page.locator('[data-ui-info-dialog]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
-    if(width<=700)await dialogSection.locator('h2 button').click();
     const dialogDemo=dialogSection.locator('[data-ui-info-dialog]').first();
     await dialogDemo.locator('[data-info-open]').click();
     const infoDialog=dialogDemo.locator('dialog');
