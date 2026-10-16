@@ -13,7 +13,9 @@ const photos=[
   ['equipment.jpg', '10119310', 'photo-1581092580497-e0d23cbdf1dc'],
   ['workshop.jpg', '18569751', 'photo-1581094794329-c8112a89af12'],
   ['product.jpg', '16630111', 'photo-1581092580497-e0d23cbdf1dc'],
-  ['materials.jpg', '12826695', 'photo-1565514020179-026b92b84bb6']
+  ['materials.jpg', '12826695', 'photo-1565514020179-026b92b84bb6'],
+  ['exit-sign.jpg', '29398063', 'photo-1581092580497-e0d23cbdf1dc'],
+  ['glow-sign.jpg', '3861798', 'photo-1581094794329-c8112a89af12']
 ];
 
 async function download(filename, urls){
