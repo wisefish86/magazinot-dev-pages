@@ -115,6 +115,17 @@ try {
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
     await infoDialog.locator('[data-info-close]').click();
     if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
+    const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
+    if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
+    if((await legend.allTextContents()).some(x=>!x.trim()))
+      throw new Error('Each hazard icon needs an accessible meaning');
+    const shortHint=page.locator('[data-ui-short-tooltip]').first();
+    await shortHint.locator('button').click();
+    if(await shortHint.locator('button').getAttribute('aria-expanded')!=='true')
+      throw new Error('Short tooltip not opened');
+    await shortHint.locator('button').press('Escape');
+    if(await shortHint.locator('button').getAttribute('aria-expanded')!=='false')
+      throw new Error('Short tooltip not dismissed with Escape');
     const stepper = page.locator('[data-ui-stepper]').first();
     const panels = stepper.locator('[data-step-panel]');
     const previous = stepper.locator('[data-step-prev]');
