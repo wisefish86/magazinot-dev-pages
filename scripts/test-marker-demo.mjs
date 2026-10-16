@@ -94,6 +94,10 @@ try {
     const sizes=await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] thead small').allTextContents();
     if(sizes.some(x=>x.includes('?')||!x.includes('×')))
       throw new Error('Marker dimensions must always use ×, not ?');
+    if (width <= 700) {
+      const stepSection=page.locator('[data-ui-stepper]').first().locator('xpath=ancestor::section[@data-ui-mobile-section]');
+      await stepSection.locator('h2 button').click();
+    }
     const stepper = page.locator('[data-ui-stepper]').first();
     const panels = stepper.locator('[data-step-panel]');
     const previous = stepper.locator('[data-step-prev]');
