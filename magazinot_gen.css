@@ -5104,6 +5104,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   background:var(--c-line);
   flex:1
 }
+.ui-timeline--horizontal > .ui-timeline__item {
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:0;
+  min-width:0;
+  padding:0 12px 0 0
+}
 .ui-timeline.ui-timeline--horizontal {
   --timeline-last-col:25%;
   --timeline-count:4;
@@ -5135,7 +5143,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-timeline--horizontal::before {
     display:none
   }
-  .ui-timeline--horizontal .ui-timeline__item {
+  .ui-timeline--horizontal > .ui-timeline__item {
     display:grid;
     grid-template-columns:30px minmax(0,1fr);
     gap:12px;
