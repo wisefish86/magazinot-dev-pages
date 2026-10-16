@@ -49,6 +49,11 @@ jobs:
           sparse-checkout: |
             reference/magazinot/pipemarkers/hazards
           persist-credentials: false
+      - name: Stage original hazard pictograms for local browser QA
+        run: |
+          mkdir -p site-assets/img/pipemarkers/hazards
+          cp source-reference/reference/magazinot/pipemarkers/hazards/w??-32x30.png site-assets/img/pipemarkers/hazards/
+          test "$(find site-assets/img/pipemarkers/hazards -maxdepth 1 -name 'w??-32x30.png' | wc -l)" -eq 8
       - name: Install browser
         run: |
           npm install --no-save playwright@1.55.0
