@@ -4438,10 +4438,12 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 .ui-before-after__label {
   display:inline-flex;
+  align-items:center;
+  min-height:var(--control-h-chip);
   margin:12px 12px 0;
-  padding:4px 8px;
+  padding:4px 12px;
   border-radius:var(--radius-pill);
-  background:var(--c-soft);
+  background:var(--neutral-100);
   color:var(--c-muted);
   font-size:var(--text-xs);
   font-weight:700
