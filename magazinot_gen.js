@@ -926,6 +926,35 @@
     });
   }
 
+  function initSteppers(){
+    document.querySelectorAll('[data-ui-stepper]').forEach(root=>{
+      if(root.dataset.uiStepperReady==='1')return;
+      const controls=Array.from(root.querySelectorAll('[data-step]'));
+      const panels=Array.from(root.querySelectorAll('[data-step-panel]'));
+      const prev=root.querySelector('[data-step-prev]');
+      const next=root.querySelector('[data-step-next]');
+      const progress=root.querySelector('[data-step-progress]');
+      if(controls.length<2||controls.length!==panels.length||!prev||!next)return;
+      root.dataset.uiStepperReady='1';
+      let active=0;
+      const activate=index=>{
+        active=Math.max(0,Math.min(index,controls.length-1));
+        controls.forEach((button,i)=>{
+          if(i===active)button.setAttribute('aria-current','step');
+          else button.removeAttribute('aria-current');
+          panels[i].hidden=i!==active;
+        });
+        prev.disabled=active===0;
+        next.disabled=active===controls.length-1;
+        if(progress)progress.textContent='Шаг '+(active+1)+' из '+controls.length;
+      };
+      controls.forEach((button,i)=>button.addEventListener('click',()=>activate(i)));
+      prev.addEventListener('click',()=>activate(active-1));
+      next.addEventListener('click',()=>activate(active+1));
+      activate(0);
+    });
+  }
+
   function initTimelineConnectors(){
     document.querySelectorAll('.ui-timeline--horizontal').forEach(line=>{
       const count=line.querySelectorAll(':scope > .ui-timeline__item').length;
@@ -940,6 +969,7 @@
     initPageTitle();
     initAccordion();
     initTabs();
+    initSteppers();
     initTimelineConnectors();
     initLegacyActions();
     initCarousels();
