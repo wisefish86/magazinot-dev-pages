@@ -5,6 +5,7 @@ on:
     branches:
       - 'refactor/ui-kit-canonical-*'
       - 'feature/ui-kit-marker-tabs-*'
+      - 'fix/ui-kit-marker-matrix-*'
   workflow_dispatch:
 
 permissions:
