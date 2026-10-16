@@ -356,6 +356,36 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Интерактивная инструкция по шагам</h2>
+    <p class="ui-kit__hint">Один шаг на экране с переходами «Назад» и «Далее». Полезно для подбора изделия, измерения трубопровода и инструкций по монтажу; не использовать для обычного короткого текста.</p>
+    <div class="ui-stepper" data-ui-stepper>
+      <div class="ui-stepper__nav" aria-label="Этапы подбора">
+        <button type="button" data-step aria-current="step">1. Определите среду</button>
+        <button type="button" data-step>2. Выберите размер</button>
+        <button type="button" data-step>3. Проверьте заказ</button>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel>
+        <h3>Среда трубопровода</h3>
+        <p>Начните с транспортируемого вещества — от него зависит цвет маркировки.</p>
+        <div class="ui-chips"><span class="ui-chip">Вода</span><span class="ui-chip">Пар</span><span class="ui-chip">Воздух</span></div>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel hidden>
+        <h3>Размер маркировки</h3>
+        <p>Измерьте диаметр трубы и выберите подходящую длину маркировочной стрелки.</p>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel hidden>
+        <h3>Проверка параметров</h3>
+        <p>Проверьте цвет, направление потока, размер и количество изделий перед заказом.</p>
+      </div>
+      <div class="ui-stepper__actions">
+        <span class="ui-stepper__progress" data-step-progress role="status" aria-live="polite">Шаг 1 из 3</span>
+        <button class="ui-btn ui-btn--secondary" type="button" data-step-prev disabled>Назад</button>
+        <button class="ui-btn ui-btn--primary" type="button" data-step-next>Далее</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Accordion / FAQ</h2>
     <div class="ui-accordion">
       <details><summary>Когда использовать accordion?<span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Когда пользователь может осознанно раскрыть дополнительную информацию. Не использовать просто ради сокращения длины страницы.</div></div></details>
