@@ -7,6 +7,7 @@ on:
       - 'feature/ui-kit-marker-tabs-*'
       - 'fix/ui-kit-marker-matrix-*'
       - 'fix/ui-kit-polish-*'
+      - 'refactor/central-icons-palette-*'
   workflow_dispatch:
 
 permissions:
@@ -17,6 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Validate canonical marking palette
+        run: |
+          node scripts/sync-medium-colors.mjs
+          node scripts/sync-medium-colors.mjs --check
       - name: Generate normative navigation
         run: node scripts/generate-markirovka-normdocs.mjs
       - name: Inject shared UI

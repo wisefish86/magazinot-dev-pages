@@ -30,30 +30,31 @@ function countLabel(n) {
   return `${n} документов`;
 }
 
-function svg(pathData) {
-  return `<svg viewBox="0 0 24 24" fill="none"><path d="${esc(pathData)}" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+function icon(id) {
+  const safeId=String(id||'').replace(/[^a-z0-9-]/g,'');
+  return `<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#${safeId}"></use></svg>`;
 }
 
 function primaryCard(related = false) {
   const item = registry.primary;
   return `<a class="ui-link-panel__featured" href="${href(item)}">
         <div class="ui-link-panel__featured-icon">
-          ${svg(item.iconPath)}
+          ${icon(item.iconId)}
         </div>
         <div>
           <strong>${esc(item.title)}</strong>
           <span>${esc(related ? item.relatedSummary : item.summary)}</span>
         </div>
-        <span class="ui-link-panel__featured-chevron" aria-hidden="true">${svg('M8 5l7 7-7 7')}</span>
+        <span class="ui-link-panel__featured-chevron" aria-hidden="true">${icon('chevron-right')}</span>
       </a>`;
 }
 
 function sectorRow(item) {
   return `<a class="ui-link-panel__row" href="${href(item)}">
-          <span class="ui-link-panel__row-icon">${svg(item.iconPath)}</span>
+          <span class="ui-link-panel__row-icon">${icon(item.iconId)}</span>
           <div><strong>${esc(item.title)}</strong><span>${esc(item.summary)}</span></div>
           <span class="ui-badge">${countLabel(item.count)}</span>
-          <span class="ui-link-panel__row-chevron">${svg('M8 5l7 7-7 7')}</span>
+          <span class="ui-link-panel__row-chevron">${icon('chevron-right')}</span>
         </a>`;
 }
 

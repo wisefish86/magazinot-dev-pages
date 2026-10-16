@@ -63,9 +63,32 @@
   </section>
 
   <section class="ui-kit__group">
+    <h2>Цвета маркировки трубопроводов</h2>
+    <p class="ui-kit__hint">Централизованные токены для маркеров, лент и стрелок. Источник значений: <code>site-assets/data/markirovka/medium-colors.json</code>. Цвета UI Kit автоматически наследуются из общего CSS.</p>
+    <div class="ui-grid ui-grid--4">
+      <div class="ui-card"><div style="height:38px;background:var(--medium-water);border-radius:8px"></div><strong>Вода</strong><code>--medium-water</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-steam);border-radius:8px"></div><strong>Пар</strong><code>--medium-steam</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-air);border-radius:8px"></div><strong>Воздух</strong><code>--medium-air</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-gas);border-radius:8px"></div><strong>Газы</strong><code>--medium-gas</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-acid);border-radius:8px"></div><strong>Кислоты</strong><code>--medium-acid</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-alkali);border-radius:8px"></div><strong>Щёлочи</strong><code>--medium-alkali</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-liquid);border-radius:8px"></div><strong>Жидкости</strong><code>--medium-liquid</code></div>
+      <div class="ui-card"><div style="height:38px;background:var(--medium-other);border-radius:8px"></div><strong>Прочие вещества</strong><code>--medium-other</code></div>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
     <h2>Библиотека стандартных иконок</h2>
     <p class="ui-kit__hint">Одна семантика — одна каноническая иконка. Повторяемые интерфейсные иконки берём только из общего SVG-sprite; уникальные иллюстрации туда не добавляем.</p>
     <div class="ui-icon-library">
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-standard"></use></svg><code>normdoc-standard</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#list-lines"></use></svg><code>list-lines</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#factory-outline"></use></svg><code>factory-outline</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-housing"></use></svg><code>normdoc-housing</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-heating"></use></svg><code>normdoc-heating</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-industrial"></use></svg><code>normdoc-industrial</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-oil-gas"></use></svg><code>normdoc-oil-gas</code></div>
+      <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#normdoc-fire"></use></svg><code>normdoc-fire</code></div>
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg><code>chevron-left</code></div>
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg><code>chevron-right</code></div>
       <div class="ui-icon-sample"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg><code>chevron-down</code></div>
@@ -331,6 +354,36 @@
       <article class="ui-feature-card ui-feature-card--editorial"><span class="ui-feature-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#image"></use></svg></span><div><h3>Композиция</h3><p>Смысловые акценты и пространство помогают быстро увидеть главное.</p></div></article>
       <article class="ui-feature-card ui-feature-card--editorial"><span class="ui-feature-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#file"></use></svg></span><div><h3>Читаемость</h3><p>Контраст, длина строки и иерархия заголовков упрощают восприятие.</p></div></article>
       <article class="ui-feature-card ui-feature-card--editorial"><span class="ui-feature-card__icon"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#check-circle"></use></svg></span><div><h3>Цветовая гамма</h3><p>Ограниченная палитра и единые смысловые цвета создают порядок.</p></div></article>
+    </div>
+  </section>
+
+  <section class="ui-kit__group">
+    <h2>Интерактивная инструкция по шагам</h2>
+    <p class="ui-kit__hint">Один шаг на экране с переходами «Назад» и «Далее». Полезно для подбора изделия, измерения трубопровода и инструкций по монтажу; не использовать для обычного короткого текста.</p>
+    <div class="ui-stepper" data-ui-stepper>
+      <div class="ui-stepper__nav" aria-label="Этапы подбора">
+        <button type="button" data-step aria-current="step">1. Определите среду</button>
+        <button type="button" data-step>2. Выберите размер</button>
+        <button type="button" data-step>3. Проверьте заказ</button>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel>
+        <h3>Среда трубопровода</h3>
+        <p>Начните с транспортируемого вещества — от него зависит цвет маркировки.</p>
+        <div class="ui-chips"><span class="ui-chip">Вода</span><span class="ui-chip">Пар</span><span class="ui-chip">Воздух</span></div>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel hidden>
+        <h3>Размер маркировки</h3>
+        <p>Измерьте диаметр трубы и выберите подходящую длину маркировочной стрелки.</p>
+      </div>
+      <div class="ui-stepper__panel" data-step-panel hidden>
+        <h3>Проверка параметров</h3>
+        <p>Проверьте цвет, направление потока, размер и количество изделий перед заказом.</p>
+      </div>
+      <div class="ui-stepper__actions">
+        <span class="ui-stepper__progress" data-step-progress role="status" aria-live="polite">Шаг 1 из 3</span>
+        <button class="ui-btn ui-btn--secondary" type="button" data-step-prev disabled>Назад</button>
+        <button class="ui-btn ui-btn--primary" type="button" data-step-next>Далее</button>
+      </div>
     </div>
   </section>
 

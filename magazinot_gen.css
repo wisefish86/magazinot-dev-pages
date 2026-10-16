@@ -53,6 +53,24 @@
   --marker-tab-color:#0f6b6d;
   --marker-tab-text:#fff;
   --marker-soft:#f4f8f7;
+  /* BEGIN GENERATED MARKER PALETTE — edit site-assets/data/markirovka/medium-colors.json */
+  --medium-water:#397e00;
+  --medium-water-text:#fff;
+  --medium-steam:#ec1e25;
+  --medium-steam-text:#fff;
+  --medium-air:#75c5f7;
+  --medium-air-text:#112736;
+  --medium-gas:#ffdc35;
+  --medium-gas-text:#1d2831;
+  --medium-acid:#ff951f;
+  --medium-acid-text:#1d2831;
+  --medium-alkali:#9e70da;
+  --medium-alkali-text:#1d2831;
+  --medium-liquid:#a64a0a;
+  --medium-liquid-text:#fff;
+  --medium-other:#aeb5bb;
+  --medium-other-text:#1d2831;
+  /* END GENERATED MARKER PALETTE */
   --marker-color:#2f7d00;
   --marker-text:#fff;
   --swatch:#0f6b6d;
@@ -438,6 +456,49 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   color:#687984;
   font-size:var(--text-md);
   line-height:1.5;
+}
+/* Reusable interactive stepper for buying guides and installation instructions. */
+.ui-stepper {
+  display:grid;
+  gap:16px;
+  padding:18px;
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-lg);
+  background:var(--c-surface);
+}
+.ui-stepper__nav {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+}
+.ui-stepper__nav button {
+  display:flex;
+  gap:8px;
+  align-items:center;
+  min-height:44px;
+  padding:9px 11px;
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-md);
+  background:var(--c-soft);
+  color:var(--c-text);
+  font:650 var(--text-sm)/1.4 var(--font-sans);
+  text-align:left;
+  cursor:pointer;
+}
+.ui-stepper__nav button[aria-current="step"] {
+  border-color:var(--c-accent);
+  background:#eaf6f9;
+  color:var(--c-accent-dark);
+}
+.ui-stepper__nav button:focus-visible { outline:2px solid var(--c-accent); outline-offset:2px }
+.ui-stepper__panel { min-width:0; padding:8px 0; }
+.ui-stepper__panel[hidden] { display:none!important }
+.ui-stepper__actions { display:flex; gap:9px; align-items:center; justify-content:flex-end; flex-wrap:wrap }
+.ui-stepper__progress { margin-right:auto; color:var(--c-muted); font-size:var(--text-sm) }
+@media(max-width:620px) {
+  .ui-stepper { padding:12px; gap:12px }
+  .ui-stepper__nav { grid-template-columns:1fr; gap:5px }
+  .ui-stepper__nav button { min-height:40px }
 }
 /* Reusable process compositions and editorial advantage cards */
 .ui-steps--sequence {
@@ -1692,6 +1753,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 .ui-grid--3 {
   --ui-cols:3
+}
+.ui-grid--4 {
+  --ui-cols:4
 }
 .ui-grid--5 {
   --ui-cols:5
@@ -4210,7 +4274,7 @@ fieldset.ui-field {
   font-weight:650
 }
 @media(max-width:760px) {
-  .ui-swatch-grid,.ui-grid--3,.ui-stats,.ui-compare,.ui-gallery {
+  .ui-swatch-grid,.ui-grid--3,.ui-grid--4,.ui-stats,.ui-compare,.ui-gallery {
     grid-template-columns:1fr 1fr
   }
   .ui-split {
@@ -4283,7 +4347,7 @@ fieldset.ui-field {
   container-type:inline-size
 }
 @container (max-width:760px) {
-  .ui-kit .ui-grid--3,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery {
+  .ui-kit .ui-grid--3,.ui-kit .ui-grid--4,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery {
     grid-template-columns:1fr 1fr
   }
   .ui-kit .ui-carousel__track {

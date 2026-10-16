@@ -48,3 +48,14 @@ Optional metadata can be placed in HTML comments at the top of any page:
 - When a permanent production assets directory is provided, change only `RUNTIME_ASSETS_SERVER_DIR`; keep the repository structure and file names stable.
 - Normative navigation registry: `site-assets/data/markirovka/markirovka-normdocs.json`.
 - New page-specific assets should follow `site-assets/<type>/<feature>/...`, e.g. `site-assets/js/markirovka/...`, `site-assets/css/markirovka/...`, `site-assets/data/markirovka/...`, `site-assets/img/markirovka/...`, `site-assets/docs/markirovka/...`.
+
+## Canonical UI assets and color tokens
+
+- **Interface icons:** one SVG sprite at `site-assets/icons/ui-icons.svg`. Reuse a stable symbol ID with `<svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>`. All symbols must be displayed in `pages/ui-kit.html`; validation checks this. Do not copy inline SVG paths to new pages or generators.
+- **Normative navigation:** `site-assets/data/markirovka/markirovka-normdocs.json` stores `iconId` references to the sprite, not icon path geometry. The generator keeps all destination URLs/anchors.
+- **Standard medium palette:** edit **only** `site-assets/data/markirovka/medium-colors.json` to change the eight marking group colors. `scripts/sync-medium-colors.mjs` generates the CSS variables `--medium-water`, `--medium-steam`, etc. and synchronizes archived/demo catalog JSON color fields before validation and FTP publishing. Shared JS reads the CSS tokens, never a second hard-coded palette.
+- **Color caution:** these UI colors are display tokens for product categories, not a replacement for legally required colorimetric requirements or original safety-sign artwork.
+- **Images:** reference common assets by stable paths. Safety pictograms and standard illustrations remain original files and must not be approximated as generic UI SVG icons.
+- **Component gallery:** `pages/ui-kit.html` is the single visual reference; repeated behavior belongs in `magazinot_gen.js`, repeated styling in `magazinot_gen.css`. Reusable additions must be demonstrated there and tested at desktop/mobile widths.
+- **Protected source:** `pages/markirovka-strelki-calculator-original.html` is an intentionally preserved reference prototype; do not silently rewrite it.
+

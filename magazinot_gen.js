@@ -368,7 +368,10 @@
       if (!tabs || !intro || !body) return;
       catalog.dataset.readyMarkerCatalog = '1';
       const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.ui-marker-catalog__matrix');
-      const colors = {water:['#348313','#fff'],steam:['#e9252b','#fff'],air:['#76c9f4','#10232d'],gas:['#ffe039','#25210a'],acid:['#ff941f','#262012'],alkali:['#cba0f0','#261830'],liquid:['#a64b1c','#fff'],other:['#a9adb0','#17232a']};
+      const colors = Object.fromEntries(['water','steam','air','gas','acid','alkali','liquid','other'].map(key => {
+        const tokens = getComputedStyle(catalog);
+        return [key, [tokens.getPropertyValue('--medium-' + key).trim(), tokens.getPropertyValue('--medium-' + key + '-text').trim()]];
+      }));
       const names = {water:'ВОДА',steam:'ПАР',air:'ВОЗДУХ',gas:'ГАЗЫ',acid:'КИСЛОТЫ',alkali:'ЩЕЛОЧИ',liquid:'ЖИДКОСТИ',other:'ПРОЧИЕ ВЕЩЕСТВА'};
       const safe = value => String(value == null ? '' : value);
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
@@ -405,7 +408,7 @@
             trigger.type='button';
             trigger.className='ui-marker-catalog__info-trigger';
             trigger.setAttribute('aria-label','Что означает пустой маркер?');
-            trigger.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7.7" r="1.1" fill="currentColor"/><path d="M12 11v5.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+            trigger.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
             const hint=document.createElement('span');
             hint.className='ui-tooltip__bubble';
             hint.setAttribute('role','tooltip');
@@ -923,6 +926,35 @@
     });
   }
 
+  function initSteppers(){
+    document.querySelectorAll('[data-ui-stepper]').forEach(root=>{
+      if(root.dataset.uiStepperReady==='1')return;
+      const controls=Array.from(root.querySelectorAll('[data-step]'));
+      const panels=Array.from(root.querySelectorAll('[data-step-panel]'));
+      const prev=root.querySelector('[data-step-prev]');
+      const next=root.querySelector('[data-step-next]');
+      const progress=root.querySelector('[data-step-progress]');
+      if(controls.length<2||controls.length!==panels.length||!prev||!next)return;
+      root.dataset.uiStepperReady='1';
+      let active=0;
+      const activate=index=>{
+        active=Math.max(0,Math.min(index,controls.length-1));
+        controls.forEach((button,i)=>{
+          if(i===active)button.setAttribute('aria-current','step');
+          else button.removeAttribute('aria-current');
+          panels[i].hidden=i!==active;
+        });
+        prev.disabled=active===0;
+        next.disabled=active===controls.length-1;
+        if(progress)progress.textContent='Шаг '+(active+1)+' из '+controls.length;
+      };
+      controls.forEach((button,i)=>button.addEventListener('click',()=>activate(i)));
+      prev.addEventListener('click',()=>activate(active-1));
+      next.addEventListener('click',()=>activate(active+1));
+      activate(0);
+    });
+  }
+
   function initTimelineConnectors(){
     document.querySelectorAll('.ui-timeline--horizontal').forEach(line=>{
       const count=line.querySelectorAll(':scope > .ui-timeline__item').length;
@@ -937,6 +969,7 @@
     initPageTitle();
     initAccordion();
     initTabs();
+    initSteppers();
     initTimelineConnectors();
     initLegacyActions();
     initCarousels();
