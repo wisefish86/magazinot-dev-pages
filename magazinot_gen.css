@@ -1754,6 +1754,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-grid--3 {
   --ui-cols:3
 }
+.ui-grid--4 {
+  --ui-cols:4
+}
 .ui-grid--5 {
   --ui-cols:5
 }
@@ -4271,7 +4274,7 @@ fieldset.ui-field {
   font-weight:650
 }
 @media(max-width:760px) {
-  .ui-swatch-grid,.ui-grid--3,.ui-stats,.ui-compare,.ui-gallery {
+  .ui-swatch-grid,.ui-grid--3,.ui-grid--4,.ui-stats,.ui-compare,.ui-gallery {
     grid-template-columns:1fr 1fr
   }
   .ui-split {
@@ -4344,7 +4347,7 @@ fieldset.ui-field {
   container-type:inline-size
 }
 @container (max-width:760px) {
-  .ui-kit .ui-grid--3,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery {
+  .ui-kit .ui-grid--3,.ui-kit .ui-grid--4,.ui-kit .ui-stats,.ui-kit .ui-compare,.ui-kit .ui-gallery {
     grid-template-columns:1fr 1fr
   }
   .ui-kit .ui-carousel__track {
