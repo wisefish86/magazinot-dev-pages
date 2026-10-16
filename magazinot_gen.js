@@ -498,7 +498,7 @@
         const item=document.createElement('div');
         item.className='ui-marker-catalog__legend-item';
         const image=document.createElement('img');
-        image.src='/assets/icons/hazards/w'+code+'.svg';
+        image.src=['01','02','03','04','05','11','16','18'].includes(code)?'/assets/img/pipemarkers/hazards/w'+code+'-32x30.png':'/assets/icons/hazards/w'+code+'.svg';
         image.width=32;image.height=30;
         image.alt=hazardNames[code];
         image.loading='lazy';
@@ -593,7 +593,7 @@ const notes=document.createElement('div');
             signs.forEach(sign => {
               const image=document.createElement('img');
               image.className='ui-marker-catalog__sign';
-              image.src='/assets/icons/hazards/w'+sign+'.svg';
+              image.src=['01','02','03','04','05','11','16','18'].includes(sign)?'/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png':'/assets/icons/hazards/w'+sign+'.svg';
               image.alt=hazardNames[sign]||'Знак опасности W'+sign;
               image.title=image.alt;
               image.width=32;
@@ -613,14 +613,40 @@ const notes=document.createElement('div');
               bubble.textContent=image.alt;
               trigger.appendChild(image);
               help.append(trigger,bubble);
-              trigger.addEventListener('click',event=>{
-                event.stopPropagation();
-                help.classList.toggle('ui-tooltip--open');
-              });
-              trigger.addEventListener('keydown',event=>{
-                if(event.key==='Escape')help.classList.remove('ui-tooltip--open');
-              });
-              trigger.addEventListener('blur',()=>help.classList.remove('ui-tooltip--open'));
+              // Portal tooltip outside the scrollable table to avoid clipping.
+              let open=false;
+              const position=()=>{
+                const box=trigger.getBoundingClientRect();
+                bubble.style.position='fixed';
+                bubble.style.left=Math.max(90,Math.min(window.innerWidth-90,box.left+box.width/2))+'px';
+                bubble.style.top=Math.max(8,box.top-bubble.offsetHeight-8)+'px';
+                bubble.style.zIndex='10000';
+              };
+              const show=()=>{
+                if(open)return;
+                document.body.appendChild(bubble);
+                open=true;
+                bubble.classList.add('ui-marker-catalog__tooltip-portal');
+                bubble.style.opacity='1';
+                bubble.style.visibility='visible';
+                position();
+                trigger.setAttribute('aria-expanded','true');
+              };
+              const hide=()=>{
+                if(!open)return;
+                open=false;
+                bubble.style.opacity='0';
+                bubble.remove();
+                help.appendChild(bubble);
+                trigger.setAttribute('aria-expanded','false');
+              };
+              trigger.addEventListener('mouseenter',show);
+              trigger.addEventListener('mouseleave',hide);
+              trigger.addEventListener('focus',show);
+              trigger.addEventListener('blur',hide);
+              trigger.addEventListener('click',event=>{event.stopPropagation();open?hide():show();});
+              trigger.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});
+              window.addEventListener('scroll',hide,{passive:true});
               danger.appendChild(help);
             });
           }
