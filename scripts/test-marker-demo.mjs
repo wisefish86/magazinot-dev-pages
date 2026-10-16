@@ -7,7 +7,7 @@ const fixture = fs.readFileSync('site-assets/data/ui-kit-marker-demo.json', 'utf
 const source = '<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><style>' + css + '</style></head><body>' + html + '</body></html>';
 const browser = await chromium.launch({ headless: true });
 try {
-  for (const width of [1440, 390]) {
+  for (const width of [1440, 980, 390]) {
     const page = await browser.newPage({ viewport: { width, height: 900 } });
     await page.route('https://ui-kit.test/**', route => {
       const url = new URL(route.request().url());
@@ -33,6 +33,25 @@ try {
       if (rows !== 6) throw new Error('Expected 6 rows in tab ' + i + ', got ' + rows);
       const count = await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] [data-marker-count]').textContent();
       if (count.trim() !== '6 позиций') throw new Error('Incorrect item counter: ' + count);
+    }
+    const layout = await page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"]').evaluate(root => {
+      const wrap = root.querySelector('.ui-marker-catalog__table');
+      const table = root.querySelector('.ui-marker-catalog__matrix');
+      const cell = root.querySelector('tbody td:nth-child(3)');
+      const style = getComputedStyle(cell);
+      return {
+        wrapperWidth: wrap.clientWidth,
+        contentWidth: wrap.scrollWidth,
+        cellBorder: style.borderLeftWidth,
+        cellAlign: style.verticalAlign,
+        tableWidth: table.getBoundingClientRect().width
+      };
+    });
+    if (width >= 980 && layout.contentWidth > layout.wrapperWidth + 2) {
+      throw new Error('Desktop catalog is clipped / scrolls horizontally at ' + width + ': ' + JSON.stringify(layout));
+    }
+    if (layout.cellBorder === '0px' || layout.cellAlign !== 'middle') {
+      throw new Error('Missing grid or vertical alignment at ' + width + ': ' + JSON.stringify(layout));
     }
     await page.close();
   }
