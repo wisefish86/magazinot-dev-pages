@@ -96,6 +96,9 @@ jobs:
           cp "$source_dir"/w??-32x30.png "$destination"/
           test "$(find "$destination" -maxdepth 1 -type f -name 'w??-32x30.png' | wc -l)" -eq 8
 
+      - name: Validate local UI Kit images before upload
+        run: node scripts/check-ui-kit-media.mjs
+
       - name: Deploy page-specific runtime assets
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -105,3 +108,6 @@ jobs:
           local-dir: ./site-assets/
           server-dir: /
           dangerous-clean-slate: false
+
+      - name: Verify public image URLs after FTP upload
+        run: node scripts/check-ui-kit-media.mjs --http
