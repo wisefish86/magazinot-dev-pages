@@ -18,6 +18,10 @@ try {
       if (url.pathname === '/assets/data/ui-kit-marker-demo.json') {
         return route.fulfill({ status: 200, contentType: 'application/json', body: fixture });
       }
+      if (/^\/assets\/img\/pipemarkers\/hazards\/w[0-9]{2}-32x30\.png$/.test(url.pathname)) {
+        const filename='source-reference/reference/magazinot/pipemarkers/hazards/'+url.pathname.split('/').pop();
+        return route.fulfill({status:200,contentType:'image/png',body:fs.readFileSync(filename)});
+      }
       if (/^\/assets\/icons\/hazards\/w[0-9]{2}\.svg$/.test(url.pathname)) {
         const filename='site-assets/icons/hazards/'+url.pathname.split('/').pop();
         return route.fulfill({status:200,contentType:'image/svg+xml',body:fs.readFileSync(filename)});
