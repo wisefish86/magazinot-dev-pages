@@ -408,7 +408,7 @@
             trigger.type='button';
             trigger.className='ui-marker-catalog__info-trigger';
             trigger.setAttribute('aria-label','Что означает пустой маркер?');
-            trigger.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="7.7" r="1.1" fill="currentColor"/><path d="M12 11v5.2" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/></svg>';
+            trigger.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
             const hint=document.createElement('span');
             hint.className='ui-tooltip__bubble';
             hint.setAttribute('role','tooltip');
