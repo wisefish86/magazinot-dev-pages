@@ -119,7 +119,15 @@ try {
     if(!(await infoDialog.evaluate(el=>el.open)))throw new Error('Information popup did not open');
     const dialogHeight=await infoDialog.evaluate(el=>el.getBoundingClientRect().height);
     if(dialogHeight>900)throw new Error('Information popup exceeds screen height: '+dialogHeight);
-    await infoDialog.locator('[data-info-close]').click();
+    const contentMetrics=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>({scroll:el.scrollHeight,visible:el.clientHeight}));
+    if(contentMetrics.scroll<=contentMetrics.visible)throw new Error('Showcase dialog must demonstrate actual vertical scrolling');
+    const figureGap=await infoDialog.locator('.ui-info-dialog__figure').evaluate(el=>parseFloat(getComputedStyle(el).marginBottom));
+    if(figureGap<12)throw new Error('Image-to-copy spacing too small');
+    await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>{el.scrollTop=el.scrollHeight});
+    const scrollPosition=await infoDialog.locator('.ui-info-dialog__body').evaluate(el=>el.scrollTop);
+    if(scrollPosition<20)throw new Error('Dialog inner scrolling did not work');
+
+    await infoDialog.getByRole('button',{name:'ОК',exact:true}).click();
     if(await infoDialog.evaluate(el=>el.open))throw new Error('Information popup did not close');
     const legend=page.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__legend-item');
     if(await legend.count()!==8)throw new Error('All 8 hazard legend entries must be visible');
@@ -160,6 +168,7 @@ try {
     if (await previous.isEnabled()) throw new Error('Previous must be disabled on first stage');
     if (!(await panels.nth(1).isHidden())) throw new Error('Inactive step should be hidden');
     await next.click();
+    if (!(await stepper.locator('[data-step]').first().getAttribute('data-step-complete')!==null)) throw new Error('Completed step lacks state');
     if (!(await panels.nth(1).isVisible()) || (await panels.nth(0).isVisible())) throw new Error('Stepper did not move to second panel');
     await next.click();
     if (!(await panels.nth(2).isVisible()) || (await next.isEnabled())) throw new Error('Stepper final panel error');

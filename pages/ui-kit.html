@@ -370,12 +370,32 @@
     <div class="ui-kit__example">
       <div data-ui-info-dialog>
         <button class="ui-btn ui-btn--secondary" type="button" data-info-open>Открыть подробное пояснение</button>
-        <dialog class="ui-info-dialog" aria-labelledby="ui-kit-dialog-title">
-          <h3 id="ui-kit-dialog-title">Как читать маркировку трубопровода</h3>
-          <p>Образец длинной справки: информация остаётся доступной на мобильном экране даже при большой высоте содержимого.</p>
-          <div class="ui-media-frame"><div class="ui-media-fit" style="display:grid;place-items:center;background:linear-gradient(145deg,#d8eaf3,#6fadb9);color:#153f50">Место для технической иллюстрации</div></div>
-          <p>Цвет, название среды, направление потока и предупреждающие пиктограммы должны соответствовать требованиям конкретного объекта.</p>
-          <p>На практике содержимое окна может включать фотографии, таблицы размеров, ссылки и дополнительные технические пояснения. При переполнении прокручивается содержимое, а кнопка закрытия остаётся доступной.</p>
+        <dialog class="ui-info-dialog ui-info-dialog--showcase" aria-labelledby="ui-kit-dialog-title">
+          <div class="ui-info-dialog__heading">
+            <h3 id="ui-kit-dialog-title">Подробная инструкция по маркировке</h3>
+            <button type="button" class="ui-info-dialog__close" data-info-close aria-label="Закрыть окно">×</button>
+          </div>
+          <div class="ui-info-dialog__body">
+            <p>Этот пример специально длинный: прокрутите содержимое вниз. Шрифты, таблицы, изображение и кнопки берутся из общей системы UI Kit.</p>
+            <h4>1. Определите транспортируемую среду</h4>
+            <p>Цвет маркировки помогает быстро различать содержимое трубопроводов. Окончательное исполнение выбирают по проекту и требованиям объекта.</p>
+            <figure class="ui-info-dialog__figure">
+              <div class="ui-media-frame"><div class="ui-info-dialog__illustration"><span>ВОДА</span><span class="ui-info-dialog__pipe" aria-hidden="true">→ → →</span></div></div>
+              <figcaption>Пример расположения маркировки. Демонстрационная схема, не нормативный рисунок.</figcaption>
+            </figure>
+            <h4>2. Сверьте размеры</h4>
+            <p>Таблица прокручивается в пределах модального окна на узких экранах.</p>
+            <div class="ui-table-wrap" tabindex="0" role="region" aria-label="Пример таблицы размеров">
+              <table class="ui-table">
+                <thead><tr><th scope="col">Размер</th><th scope="col">Пример применения</th><th scope="col">Комментарий</th></tr></thead>
+                <tbody><tr><th scope="row">P1</th><td>Компактная маркировка</td><td>26×74 мм</td></tr><tr><th scope="row">P2</th><td>Средний формат</td><td>52×148 мм</td></tr><tr><th scope="row">P3</th><td>Увеличенный формат</td><td>74×210 мм</td></tr></tbody>
+              </table>
+            </div>
+            <h4>3. Проверьте данные перед заказом</h4>
+            <p>Сверьте направление потока, наименование среды, пиктограммы опасности и условия эксплуатации.</p>
+            <ul><li>Уточните материал и способ крепления.</li><li>Проверьте выбранный размер и читаемость надписи.</li><li>Для нестандартной маркировки приложите описание.</li></ul>
+            <p><strong>Примечание:</strong> длинный текст остаётся внутри прокручиваемой области, а закрытие доступно сверху и снизу.</p>
+          </div>
           <div class="ui-info-dialog__actions"><button class="ui-btn ui-btn--primary" type="button" data-info-close>ОК</button></div>
         </dialog>
       </div>
@@ -393,9 +413,9 @@
     <p class="ui-kit__hint">Один шаг на экране с переходами «Назад» и «Далее». Полезно для подбора изделия, измерения трубопровода и инструкций по монтажу; не использовать для обычного короткого текста.</p>
     <div class="ui-stepper" data-ui-stepper>
       <div class="ui-stepper__nav" aria-label="Этапы подбора">
-        <button type="button" data-step aria-current="step">1. Определите среду</button>
-        <button type="button" data-step>2. Выберите размер</button>
-        <button type="button" data-step>3. Проверьте заказ</button>
+        <button type="button" data-step aria-current="step"><span class="ui-stepper__number">1</span><span>Определите среду</span></button>
+        <button type="button" data-step><span class="ui-stepper__number">2</span><span>Выберите размер</span></button>
+        <button type="button" data-step><span class="ui-stepper__number">3</span><span>Проверьте заказ</span></button>
       </div>
       <div class="ui-stepper__panel" data-step-panel>
         <h3>Среда трубопровода</h3>

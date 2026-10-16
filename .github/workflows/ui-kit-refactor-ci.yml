@@ -13,6 +13,7 @@ on:
       - 'fix/marker-heading-inset-*'
       - 'fix/hazard-legend-tooltip-*'
       - 'fix/hazard-asset-files-*'
+      - 'fix/dialog-stepper-showcase-*'
   workflow_dispatch:
 
 permissions:
