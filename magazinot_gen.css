@@ -4584,8 +4584,12 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .ui-kit .ui-marker-catalog__matrix th,.ui-kit .ui-marker-catalog__matrix td {
   background:var(--c-surface,#fff);
   color:var(--c-text);
-  border-color:var(--c-line);
-  padding:12px 10px
+  border:1px solid var(--c-line);
+  padding:10px 7px;
+  font-family:var(--font-sans);
+  line-height:1.4;
+  text-align:center;
+  vertical-align:middle
 }
 .ui-kit .ui-marker-catalog__matrix thead th {
   font-size:12px;
