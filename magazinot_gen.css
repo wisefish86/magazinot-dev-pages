@@ -5658,3 +5658,61 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   border-top-left-radius:0;
   border-bottom-left-radius:0
 }
+
+
+/* Canonical marker table geometry: blank and named markers share the same inset and row height. */
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child,
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child:has(.ui-marker-catalog__label) {
+  text-align:left;
+  padding:5px 12px;
+  vertical-align:middle;
+}
+.ui-kit .ui-marker-catalog__matrix tbody tr { height:45px; }
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child .ui-marker-catalog__label {
+  padding:5px 8px;
+  vertical-align:middle;
+}
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child .ui-marker-catalog__blank {
+  height:29px;
+  vertical-align:middle;
+}
+.ui-kit__example--flush {
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.ui-table--first-col thead tr:last-child > th { border-bottom:1px solid #bfd0d9; }
+.ui-table--first-col tbody > tr:not(:last-child) > :first-child { border-bottom:1px solid #bfd0d9; }
+.ui-table--first-col tbody > tr:last-child > :first-child { border-bottom:0; }
+.ui-table--first-col tbody > tr:last-child > td { border-bottom:0; }
+.ui-marker-catalog__mobile { display:none; }
+@media(max-width:700px) {
+  [data-ui-mobile-section] > h2 {
+    margin-bottom:0;
+  }
+  [data-ui-mobile-section] > .ui-kit__hint,
+  [data-ui-mobile-section] > .ui-kit__example { display:none; }
+  [data-ui-mobile-section][data-mobile-open] > .ui-kit__hint,
+  [data-ui-mobile-section][data-mobile-open] > .ui-kit__example { display:block; }
+  [data-ui-mobile-section] > h2 > button {
+    width:100%;display:flex;align-items:center;justify-content:space-between;
+    padding:12px 0;border:0;background:transparent;color:inherit;
+    font:inherit;text-align:left;cursor:pointer;
+  }
+  [data-ui-mobile-section] > h2 > button::after { content:'⌄';padding-inline:10px; }
+  [data-ui-mobile-section][data-mobile-open] > h2 > button::after { content:'⌃'; }
+  .ui-kit .ui-marker-catalog__table { display:none; }
+  .ui-marker-catalog__mobile { display:grid;gap:8px;margin-top:10px; }
+  .ui-marker-catalog__mobile details { border:1px solid var(--c-line);border-radius:9px;background:#fff; }
+  .ui-marker-catalog__mobile summary { cursor:pointer;padding:12px;list-style-position:inside;font-weight:650; }
+  .ui-marker-catalog__mobile dl { display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;padding:0 14px 14px;margin:0; }
+  .ui-marker-catalog__mobile dl div { display:flex;justify-content:space-between;gap:8px; }
+  .ui-marker-catalog__mobile dt { color:var(--c-muted); }
+  .ui-marker-catalog__mobile dd { margin:0; }
+}
+
+@media(max-width:700px) {
+  [data-ui-mobile-section] > .ui-kit__mobile-section-body { display:none; }
+  [data-ui-mobile-section][data-mobile-open] > .ui-kit__mobile-section-body { display:block; }
+}
