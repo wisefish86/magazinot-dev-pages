@@ -9,6 +9,7 @@ on:
       - 'fix/ui-kit-polish-*'
       - 'refactor/central-icons-palette-*'
       - 'fix/ui-kit-ux-audit-*'
+      - 'fix/marker-table-accordion-*'
   workflow_dispatch:
 
 permissions:
