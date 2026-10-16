@@ -669,7 +669,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
 }
 .ui-content-title {
   scroll-margin-top:90px;
-  margin:32px 0 12px!important;
+  margin:32px 0 8px!important;
   padding:0!important;
   border:0!important;
   border-radius:0!important;
@@ -1313,7 +1313,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   display:flex;
   gap:9px;
   align-items:flex-start;
-  color:#edf3f5;
+  color:var(--c-text);
   font-size:var(--text-base);
   line-height:1.4;
 }
@@ -1325,6 +1325,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   color:#80d3b7;
   stroke-width:2.1;
 }
+.ui-cta .ui-check { color:#edf3f5 }
+.ui-cta .ui-check svg { color:#80d3b7 }
 .ui-cta__side {
   padding:16px;
   border:1px solid rgba(255,255,255,.16);
@@ -1359,7 +1361,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 /* FAQ */
 .ui-accordion {
-  border-top:1px solid var(--c-line)
+  border-top:0
 }
 .ui-accordion details {
   padding:0;
@@ -2766,6 +2768,15 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   min-width:180px;
   flex:1 1 180px
 }
+.ui-filter-bar .ui-input,
+.ui-filter-bar .ui-select,
+.ui-filter-bar .ui-selectbox__button,
+.ui-filter-bar > .ui-btn {
+  height:var(--control-h-touch);
+  min-height:var(--control-h-touch);
+}
+.ui-filter-bar > .ui-btn { align-self:flex-end }
+
 .ui-active-filters {
   display:flex;
   flex-wrap:wrap;
@@ -3813,6 +3824,17 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   scrollbar-width:none;
   overscroll-behavior-x:contain
 }
+.ui-carousel::after {
+  content:"";
+  position:absolute;
+  z-index:2;
+  top:0;
+  right:0;
+  bottom:50px;
+  width:28px;
+  background:linear-gradient(to right,transparent,var(--c-surface,#fff));
+  pointer-events:none;
+}
 .ui-carousel__viewport::-webkit-scrollbar {
   display:none
 }
@@ -4146,6 +4168,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 }
 .ui-table--first-col tbody > tr > :first-child,
 .doc-table--first-col tr > :first-child {
+  border-bottom:1px solid #bfd0d9;
   background:#eaf2f5;
   color:var(--c-heading);
   font-weight:650;
@@ -4905,6 +4928,15 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     min-width:1000px
   }
 }
+/* Compact only the colored product-name labels; ordinary table text keeps its spacing. */
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child {
+  padding-left:15px;
+  padding-top:6px;
+  padding-bottom:6px;
+}
+.ui-kit .ui-marker-catalog__matrix tbody td:first-child .ui-marker-catalog__label {
+  margin-block:0;
+}
 /* Pipe marker catalogue headings and physical size references */
 .ui-kit .ui-marker-catalog__matrix thead th {
   font-size:14px;
@@ -5197,7 +5229,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 .ui-timeline--horizontal .ui-timeline__content {
   padding:0;
-  margin-top:8px
+  margin-top:3px
 }
 @media(max-width:620px) {
   .ui-timeline.ui-timeline--horizontal {
