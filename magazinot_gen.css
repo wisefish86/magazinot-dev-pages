@@ -5901,3 +5901,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 
 
+
+/* Shared demo photos in the UI Kit: responsive without distorting source imagery. */
+.ui-kit .ui-demo-image {
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  max-height:360px;
+  object-fit:contain;
+  margin-inline:auto;
+}
