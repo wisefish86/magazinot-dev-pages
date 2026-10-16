@@ -40,6 +40,15 @@ jobs:
           node scripts/generate-markirovka-normdocs.mjs
           node scripts/inject-magazinot-ui.mjs
           node scripts/validate-magazinot-ui.mjs
+      - name: Checkout original hazard pictograms
+        uses: actions/checkout@v4
+        with:
+          repository: wisefish86/andrey-local
+          ref: 745b8082a5e33b233e2e954da4a93e4aa6cea288
+          path: source-reference
+          sparse-checkout: |
+            reference/magazinot/pipemarkers/hazards
+          persist-credentials: false
       - name: Install browser
         run: |
           npm install --no-save playwright@1.55.0
