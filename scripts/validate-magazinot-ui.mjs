@@ -43,6 +43,16 @@ const deprecated=[
 const iconSource=fs.readFileSync(path.join(root,'site-assets/icons/ui-icons.svg'),'utf8');
 const iconIds=new Set([...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]));
 const errors=[];
+
+// CSS cascade budget for the stabilization phase. Baseline 2026-10-17: 228.
+// Existing declarations need component-by-component review; reject accidental growth.
+const cssImportantCount=(css.match(/!important\\b/g)||[]).length;
+const cssImportantBudget=228;
+if(cssImportantCount>cssImportantBudget){
+  errors.push('magazinot_gen.css: !important budget exceeded ('+cssImportantCount+' > '+cssImportantBudget+'). Reuse existing components or document and review the exception before increasing the budget.');
+}
+console.log('CSS cascade audit: '+cssImportantCount+' !important declarations (budget '+cssImportantBudget+').');
+
 for(const file of walk(pagesDir)){
   const html=fs.readFileSync(file,'utf8');
   if(!/class="[^"]*\bmk-ui\b/.test(html)) continue;
