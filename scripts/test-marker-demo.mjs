@@ -123,11 +123,13 @@ try {
         const parent=el.parentElement.getBoundingClientRect();
         const rect=el.getBoundingClientRect();
         const shadows=[...el.parentElement.querySelectorAll('tbody tr td:first-child')].map(x=>getComputedStyle(x).boxShadow);
+        const depth=getComputedStyle(el,'::after');
         return {height:rect.height,parentHeight:parent.height,left:rect.left-parent.left,
-          shadow:style.boxShadow,separate:shadows.every(x=>x==='none')};
+          depthOpacity:depth.opacity,depthFill:depth.backgroundImage,
+          separate:shadows.every(x=>x==='none')};
       });
       if(Math.abs(railState.height-railState.parentHeight)>4||Math.abs(railState.left-160)>3
-        ||!railState.shadow.includes('rgba')||!railState.separate)
+        ||railState.depthOpacity!=='1'||!railState.depthFill.includes('linear-gradient')||!railState.separate)
         throw new Error('Sticky divider must be one continuous line without shadows on cells: '+JSON.stringify(railState));
       const layerState=await mobileTable.evaluate(el=>{
         const matrix=el.querySelector('table'),head=matrix.tHead.rows[0].cells[0],cell=matrix.tBodies[0].rows[0].cells[0];
