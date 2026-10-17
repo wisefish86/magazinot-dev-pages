@@ -1877,6 +1877,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 
   align-items:stretch
 }
+/* Grid children may contain preformatted code or scrollable tables; prevent intrinsic widths from expanding the layout. */
+.ui-grid > * { min-width:0; }
 .ui-grid > .ui-kit__example, .ui-grid > .ui-card, .ui-grid > .ui-feature-card, .ui-grid > .ui-stat-card, .ui-grid > .ui-product-card, .ui-grid > .ui-testimonial {
   height:100%
 }
