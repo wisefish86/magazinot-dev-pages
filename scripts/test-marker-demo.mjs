@@ -354,7 +354,7 @@ try {
     const sectionAccordion=page.locator('.ui-accordion--section details').first();
     await sectionAccordion.locator('summary').click();
     await page.waitForTimeout(350);
-    if(!(await sectionAccordion.locator('.ui-grid').isVisible()))throw new Error('Full-width section accordion did not reveal content');
+    if(!(await sectionAccordion.locator('.ui-table').isVisible()))throw new Error('Section accordion must reveal a full-width content table');
     const sectionInset=await sectionAccordion.evaluate(el=>{
       const a=el.getBoundingClientRect(),b=el.querySelector('.ui-accordion__panel-inner').getBoundingClientRect();
       return {left:b.left-a.left,right:a.right-b.right};
