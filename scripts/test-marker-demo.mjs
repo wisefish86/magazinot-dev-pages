@@ -129,6 +129,16 @@ try {
           opaque:getComputedStyle(cell).backgroundColor
         };
       });
+      const topHeader=await mobileTable.evaluate(el=>{
+        const head=el.querySelector('thead tr:first-child th:first-child');
+        const p1=el.querySelector('thead tr:nth-child(2) th:first-child');
+        const r=head.getBoundingClientRect();
+        const box=p1.getBoundingClientRect();
+        const topElement=document.elementFromPoint(r.left+Math.min(120,r.width-10),box.top+Math.min(12,box.height/2));
+        return {p1Position:getComputedStyle(p1).position,p1Left:box.left,pinnedLeft:r.left,overPinned:topElement===head||head.contains(topElement)};
+      });
+      if(topHeader.p1Position==='sticky'||!topHeader.overPinned)
+        throw new Error('Only the main header can be sticky; P1 must scroll beneath it: '+JSON.stringify(topHeader));
       if(layerState.collapse!=='separate'||Math.abs(layerState.bodyWidth-layerState.headWidth)>1
         ||!layerState.ownsTopLayer||layerState.border==='0px'||layerState.cue!=='none'
         ||layerState.opaque==='rgba(0, 0, 0, 0)')

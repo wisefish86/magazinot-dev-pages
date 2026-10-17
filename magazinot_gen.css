@@ -3771,10 +3771,10 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 
 
 
-.ui-kit .ui-marker-catalog__matrix thead th:first-child {
+.ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
   text-align:left
 }
-.ui-kit .ui-marker-catalog__matrix thead th:first-child,.ui-kit .ui-marker-catalog__matrix tbody th {
+.ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child,.ui-kit .ui-marker-catalog__matrix tbody th {
   width:32%
 }
 .ui-kit .ui-marker-catalog__matrix thead th:nth-child(2) {
@@ -5106,7 +5106,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   }
 }
 /* Header and marker labels share the exact same left inset. */
-.ui-kit .ui-marker-catalog__matrix thead th:first-child {
+.ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
   padding-left:12px;
   text-align:left;
 }
@@ -6031,7 +6031,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     border-right:1px solid var(--table-grid);
     border-bottom:1px solid var(--table-grid);
   }
-  .ui-kit .ui-marker-catalog__matrix :is(thead th:first-child,tbody tr td:first-child) {
+  .ui-kit .ui-marker-catalog__matrix :is(thead tr:first-child th:first-child,tbody tr td:first-child) {
     position:sticky;left:0;
     z-index:6;
     box-sizing:border-box;
@@ -6039,7 +6039,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     background-clip:border-box;
     box-shadow:1px 0 0 var(--table-grid);
   }
-  .ui-kit .ui-marker-catalog__matrix thead th:first-child {z-index:7;background:var(--table-head);}
+  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {z-index:7;background:var(--table-head);}
   .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(odd)>td:first-child {background:var(--c-surface);}
   .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even)>td:first-child {background:var(--table-row-alt);}
   .ui-kit .ui-marker-catalog__matrix tbody tr:hover>td:first-child {background:var(--table-row-hover);}
@@ -6141,7 +6141,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__matrix)::before,
   .ui-kit .ui-marker-catalog__table.ui-scroll-cue::before {display:none!important;}
   .ui-kit .ui-marker-catalog__table:has(.ui-marker-catalog__matrix) {isolation:isolate;}
-  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix :is(thead th:first-child,tbody tr td:first-child) {
+  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix :is(thead tr:first-child th:first-child,tbody tr td:first-child) {
     box-shadow:1px 0 0 var(--table-grid), 8px 0 14px -5px rgba(22,49,60,.35);
   }
 }
