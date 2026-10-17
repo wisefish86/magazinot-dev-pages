@@ -140,12 +140,12 @@
 
     <section class="ui-kit__group" data-ui-mobile-section>
     <h2>Кнопки, chips и состояния</h2>
-    <p class="ui-kit__hint">Единственный основной цвет действий — <code>--c-accent</code> через <code>ui-btn--primary</code>. Красная <code>ui-btn--danger</code> — только для удаления и необратимых действий. Белая <code>secondary</code>, текстовая <code>ghost</code> и <code>disabled</code> используют ту же общую систему. Локальные CTA-цвета страниц запрещены.</p>
+    <p class="ui-kit__hint">Единственный основной цвет действий — <code>--c-accent</code> через <code>ui-btn--primary</code>. Красная <code>ui-btn--danger</code> — только для удаления и необратимых действий. Белая <code>secondary</code>, текстовая кнопка <code>ghost</code> (без заливки, с подчёркиванием) и <code>disabled</code> используют ту же общую систему. Локальные CTA-цвета страниц запрещены.</p>
     <div class="ui-kit__example ui-kit__example--white ui-stack">
       <div class="ui-cluster">
         <a class="ui-btn ui-btn--primary" href="#">Основное действие</a>
         <a class="ui-btn ui-btn--secondary" href="#">Вторичное действие</a>
-        <button class="ui-btn ui-btn--ghost" type="button">Ghost</button>
+        <button class="ui-btn ui-btn--ghost" type="button">Текстовая кнопка</button>
         <button class="ui-btn ui-btn--danger" type="button">Удалить (опасное действие)</button>
         <button class="ui-btn ui-btn--primary is-loading" type="button">Загрузка</button>
         <button class="ui-btn ui-btn--secondary" type="button" disabled>Недоступно</button>
@@ -154,6 +154,10 @@
       <div class="ui-chips">
         <span class="ui-chip">Нейтральный chip</span>
         <span class="ui-badge">Статус</span>
+      </div>
+      <div class="ui-kit__example" aria-label="Текстовое действие на мягком фоне">
+        <p class="ui-kit__hint">Текстовая кнопка на светло-сером фоне остаётся заметной благодаря контрастному цвету и подчёркиванию.</p>
+        <button class="ui-btn ui-btn--ghost" type="button">Текстовое действие</button>
       </div>
     </div>
   </section>
@@ -459,15 +463,12 @@
       <details><summary>FAQ — отдельный компонент?<span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary><div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">Нет. Это та же механика accordion с другой семантикой контента.</div></div></details>
     </div>
     <h3>Секция на всю ширину</h3>
-    <p class="ui-kit__hint">Светлый аккордеон для большой подборки, таблицы или длинного текста. Контент раскрывается от края до края внутри общей карточки, без отступа на ширину стрелки.</p>
+    <p class="ui-kit__hint">Светлый аккордеон для инструкций, характеристик и больших текстов. Для товарных сеток используйте «Показать ещё».</p>
     <div class="ui-accordion ui-accordion--section">
-      <details><summary><span>Популярные позиции</span><span class="ui-accordion__meta">6 товаров</span><span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary>
+      <details><summary><span>Подробная информация</span><span class="ui-accordion__meta">Раздел</span><span class="ui-accordion__chevron" aria-hidden="true"><svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></span></summary>
         <div class="ui-accordion__panel"><div class="ui-accordion__panel-inner">
-          <div class="ui-grid ui-grid--3">
-            <article class="ui-card"><h3>Плёнка</h3><p>Материал для наклеек и табличек.</p></article>
-            <article class="ui-card"><h3>Маркировка</h3><p>Размеры P1–P6.</p></article>
-            <article class="ui-card"><h3>Стенды</h3><p>Пример для каталога.</p></article>
-          </div>
+          <p>Аккордеон подходит для инструкций, характеристик и документов. Широкие товарные сетки лучше раскрывать через Reveal ниже, без вложенной панели.</p>
+          <div class="ui-table-wrap"><table class="ui-table ui-table--light"><thead><tr><th>Параметр</th><th>Рекомендация</th></tr></thead><tbody><tr><td>Материал</td><td>По условиям применения</td></tr><tr><td>Монтаж</td><td>По типу поверхности</td></tr></tbody></table></div>
         </div></div>
       </details>
     </div>
@@ -641,8 +642,8 @@
         <button class="ui-btn ui-btn--secondary ui-reveal__toggle" type="button" aria-expanded="false" aria-controls="kit-reveal-gallery"><span data-reveal-label>Показать все</span><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-down"></use></svg></button>
       </div>
     </div>
-    <h3>Reveal для подборки карточек</h3>
-    <div class="ui-reveal" data-ui-reveal data-reveal-visible="3">
+    <h3>Популярные позиции — раскрытие товарной сетки на всю ширину</h3>
+    <div class="ui-reveal ui-reveal--products" data-ui-reveal data-reveal-visible="3">
       <div class="ui-reveal__viewport" id="kit-reveal-products">
         <div class="ui-grid ui-grid--3">
           <article class="ui-card"><h3>Маркировочные стрелки</h3><p>Демонстрационный раздел 1 с нейтральной карточкой.</p></article>
@@ -857,7 +858,7 @@
       <div class="ui-kit__example"><h3>Матрица — заголовки сверху и слева</h3><div class="ui-table-wrap" data-ui-scroll-cue><table class="ui-table ui-table--matrix ui-table--sticky-first"><thead><tr><th>Размер</th><th>P1</th><th>P2</th></tr></thead><tbody><tr><th scope="row">Длина</th><td>74 мм</td><td>148 мм</td></tr><tr><th scope="row">Ширина</th><td>26 мм</td><td>52 мм</td></tr></tbody></table></div></div>
     </div>
     <h3>Компактная ширина — модификаторы</h3>
-    <div class="ui-table-wrap ui-table-wrap--fit"><table class="ui-table ui-table--light ui-table--compact ui-table--fit"><thead><tr><th>Размер</th><th>Цена</th></tr></thead><tbody><tr><td>P1</td><td>290 ₽</td></tr><tr><td>P2</td><td>390 ₽</td></tr></tbody></table></div>
+    <div class="ui-table-wrap ui-table-wrap--fit"><table class="ui-table ui-table--light ui-table--compact ui-table--fit"><thead><tr><th>Размер</th><th>Цена</th></tr></thead><tbody><tr><td>P1</td><td>290 <span class="ui-currency-rub" aria-hidden="true"></span><span class="visually-hidden">рублей</span></td></tr><tr><td>P2</td><td>390 <span class="ui-currency-rub" aria-hidden="true"></span><span class="visually-hidden">рублей</span></td></tr></tbody></table></div>
   </section>
 
   <section class="ui-kit__group" data-ui-mobile-section>
