@@ -18,6 +18,34 @@ CSS остаётся одним исходным файлом. Дополнит�
 используют префикс `mot-`. Галерея изображений и подсказки могут создавать элементы
 вне корня страницы: их стили тоже нужны, даже если этих элементов нет в HTML.
 
+## Общие настройки семейств компонентов
+
+В первом блоке `.mk-ui` расположен раздел `Shared component foundations`.
+Изменяйте существующие переменные в нём, чтобы настроить семейство целиком:
+
+| Переменные | Что меняют |
+| --- | --- |
+| `--mot-card-border`, `--mot-card-radius`, `--mot-card-surface` | Общую рамку и поверхность пяти видов карточек |
+| `--mot-card-padding`, `--mot-card-padding-roomy` | Обычные и увеличенные отступы карточек |
+| `--mot-card-icon-size`, `--mot-card-icon-surface` | Иконки карточек; размер также задаёт колонку feature-card |
+| `--mot-control-radius` | Скругление полей, частей selectbox и квадратных кнопок с иконкой |
+| `--mot-field-border`, `--mot-field-surface` | Рамку и фон input, textarea и selectbox |
+| `--mot-field-focus-color`, `--mot-field-focus-shadow` | Цвет и обычную обводку фокуса полей |
+| `--mot-select-focus-shadow`, `--mot-select-open-shadow`, `--mot-select-menu-shadow` | Состояния и тень выпадающего списка |
+| `--mot-focus-outline` | Контур клавиатурного фокуса кнопок, вкладок и других действий |
+
+Настройки задаются на корне `.mk-ui`. Для отзыва сохранён отдельный тёплый фон:
+`.mot-testimonial` использует `--c-warm-soft`. Размеры, компоновка и типографика,
+характерные только для конкретного компонента, остаются в его собственных правилах.
+
+Для UI Kit сохранены его прежние оттенки CTA и тёмного цвета. Их значения теперь
+находятся в корне как `--mot-kit-cta` и `--mot-kit-dark`; `.mot-kit` только выбирает
+эти значения. Остальные общие семантические цвета наследуются от `.mk-ui`.
+
+Рамки карточек находятся в секции `Shared card frame`, поля — в секции
+`Shared field frame`. Имена классов и разметка остаются прежними.
+Подробности решений: [аудит архитектуры CSS](css-architecture-audit.md).
+
 ## Как добавлять и изменять компоненты
 
 1. Найдите существующий компонент в UI Kit. Для варианта поведения или плотности
@@ -53,6 +81,7 @@ node scripts/validate-magazinot-ui.mjs
 
 ```powershell
 node scripts/audit-magazinot-css.mjs --check
+node scripts/test-component-foundations.mjs
 node scripts/visual-qa.mjs
 node scripts/visual-regression-check.mjs
 node scripts/test-marker-demo.mjs

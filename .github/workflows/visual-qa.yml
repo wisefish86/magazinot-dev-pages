@@ -60,6 +60,8 @@ jobs:
           npx playwright install --with-deps chromium
       - name: Audit component CSS inventory
         run: node scripts/audit-magazinot-css.mjs --check
+      - name: Verify shared component foundations
+        run: node scripts/test-component-foundations.mjs
       - name: Capture desktop and mobile screenshots
         run: node scripts/visual-qa.mjs
       - name: Verify interactive UI

@@ -1,6 +1,7 @@
 # MagazinOT dev pages
 
 CSS maintenance and component workflow: [guide in Russian](docs/css-maintenance.md).
+Component centralization findings: [architecture audit](docs/css-architecture-audit.md).
 
 ## Component class namespace
 
@@ -34,6 +35,7 @@ Browser checks require Playwright/Chromium (CI uses Playwright 1.55.0):
 
 ```powershell
 node scripts/audit-magazinot-css.mjs --check
+node scripts/test-component-foundations.mjs
 node scripts/visual-qa.mjs
 node scripts/visual-regression-check.mjs
 node scripts/test-marker-demo.mjs
