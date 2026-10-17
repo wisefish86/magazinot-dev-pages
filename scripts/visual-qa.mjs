@@ -46,25 +46,29 @@ for(const name of pages){
     });
     // Adaptive table contract: desktop horizontal scroll, mobile card projection from one data source.
     if(name==='ui-kit.html'){
-      const tableQA=await page.evaluate(()=>{
-        const wrap=document.querySelector('.ui-table-wrap--desktop-scroll.ui-table-wrap--cards');
-        if(!wrap)return {error:'wide table demo missing'};
+      const tableQA=await page.evaluate(()=>[...document.querySelectorAll('.ui-table-wrap--cards')].map(wrap=>{
         const table=wrap.querySelector('table');
         const cards=wrap.querySelectorAll('.ui-table-mobile-card');
         const rows=[...table.tBodies].flatMap(body=>[...body.rows]);
         const original=rows.map(row=>[...row.cells].map(cell=>cell.textContent.trim()));
-        const projected=[...cards].map(card=>[card.querySelector('.ui-table-mobile-card__heading')?.textContent.trim(),...card.querySelectorAll('dd')].map(el=>typeof el==='string'?el:el.textContent.trim()));
-        return {ready:wrap.dataset.tableCardReady,scrollable:wrap.scrollWidth>wrap.clientWidth+10,
+        const projected=[...cards].map(card=>[card.querySelector('.ui-table-mobile-card__heading')?.textContent.trim(),...card.querySelectorAll('dd')].map(value=>typeof value==='string'?value:value.textContent.trim()));
+        return {wide:wrap.classList.contains('ui-table-wrap--desktop-scroll'),
+          ready:wrap.dataset.tableCardReady==='true',scrollable:wrap.scrollWidth>wrap.clientWidth+10,
           tableVisible:getComputedStyle(table).display!=='none',
           cardsVisible:cards.length>0&&getComputedStyle(cards[0].parentElement).display!=='none',
           valuesEqual:JSON.stringify(original)===JSON.stringify(projected),
           cardCount:cards.length,rowCount:rows.length};
-      });
-      if(tableQA.error)errors.push('UI Kit: '+tableQA.error);
-      else if(size.width>=768&&(!tableQA.scrollable||!tableQA.tableVisible))
-        errors.push('UI Kit desktop: wide table must scroll and remain a table: '+JSON.stringify(tableQA));
-      else if(size.width<768&&(!tableQA.ready||tableQA.tableVisible||!tableQA.cardsVisible||!tableQA.valuesEqual||tableQA.cardCount!==tableQA.rowCount))
-        errors.push('UI Kit mobile: card transformation must preserve all cell values: '+JSON.stringify(tableQA));
+      }));
+      if(tableQA.length!==2||tableQA.filter(item=>item.wide).length!==1)
+        errors.push('UI Kit: expected small and wide responsive table demonstrations: '+JSON.stringify(tableQA));
+      for(const mode of tableQA){
+        if(!mode.ready||!mode.valuesEqual||mode.cardCount!==mode.rowCount)
+          errors.push('UI Kit: responsive projection differs from source cells: '+JSON.stringify(mode));
+        if(size.width>=768&&(!mode.tableVisible||mode.cardsVisible||(mode.wide&&!mode.scrollable)))
+          errors.push('UI Kit desktop: source tables must remain visible, wide table must scroll: '+JSON.stringify(mode));
+        if(size.width<768&&(mode.tableVisible||!mode.cardsVisible))
+          errors.push('UI Kit mobile: cards should replace source table: '+JSON.stringify(mode));
+      }
     }
     const faqGap=await page.evaluate(()=>{
       const header=[...document.querySelectorAll('.ui-section__title')].find(el=>el.textContent.trim()==='Частые вопросы');
