@@ -132,10 +132,12 @@ try {
         const depth=getComputedStyle(el,'::after');
         return {height:rect.height,parentHeight:parent.height,left:rect.left-parent.left,
           depthOpacity:depth.opacity,depthFill:depth.backgroundImage,depthWidth:parseFloat(depth.width),
+          lineWidth:parseFloat(style.width),lineColor:style.backgroundColor,
           separate:shadows.every(x=>x==='none')};
       });
       if(Math.abs(railState.height-railState.parentHeight)>4||Math.abs(railState.left-160)>3
-        ||railState.depthOpacity!=='1'||!railState.depthFill.includes('linear-gradient')||railState.depthWidth<24||!railState.separate)
+        ||railState.depthOpacity!=='1'||!railState.depthFill.includes('linear-gradient')||railState.depthWidth<24
+        ||railState.lineWidth!==1||railState.lineColor==='rgba(0, 0, 0, 0)'||!railState.separate)
         throw new Error('Sticky divider must be one continuous line without shadows on cells: '+JSON.stringify(railState));
       const layerState=await mobileTable.evaluate(el=>{
         const matrix=el.querySelector('table'),head=matrix.tHead.rows[0].cells[0],cell=matrix.tBodies[0].rows[0].cells[0];
@@ -165,7 +167,7 @@ try {
       if(topHeader.p1Position==='sticky'||!topHeader.overPinned)
         throw new Error('Only the main header can be sticky; P1 must scroll beneath it: '+JSON.stringify(topHeader));
       if(layerState.collapse!=='separate'||Math.abs(layerState.bodyWidth-layerState.headWidth)>1
-        ||!layerState.ownsTopLayer||layerState.border==='0px'||layerState.cue!=='none'
+        ||!layerState.ownsTopLayer||layerState.border!=='0px'||layerState.cue!=='none'
         ||layerState.opaque==='rgba(0, 0, 0, 0)')
         throw new Error('Sticky first column must fully cover scrolling cells with visible rule and no shell fade: '+JSON.stringify(layerState));
       if(width===390)await mobileTable.screenshot({path:'visual-snapshots/review/ui-kit-matrix-scrolled-390.png'});
