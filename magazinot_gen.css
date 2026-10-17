@@ -6344,3 +6344,25 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .mk-ui .ui-table-mobile-card dt { color:#075d76; font-size:13px; font-weight:700; }
   .mk-ui .ui-table-mobile-card dd { margin:3px 0 0; overflow-wrap:anywhere; }
 }
+
+/* Marker matrix overlap fix: keep scrolled cells behind an opaque pinned first column. */
+@media (max-width:900px) {
+  .ui-kit .ui-marker-catalog__table { isolation:isolate; }
+  .ui-kit .ui-marker-catalog__matrix { border-collapse:separate; border-spacing:0; }
+  .ui-kit .ui-marker-catalog__matrix thead tr:first-child > th:first-child,
+  .ui-kit .ui-marker-catalog__matrix tbody > tr > td:first-child {
+    position:sticky; left:0; z-index:4; background:var(--c-surface,#fff) !important;
+    background-clip:padding-box; box-shadow:none !important;
+    border-right:1px solid var(--table-grid);
+  }
+  .ui-kit .ui-marker-catalog__matrix thead tr:first-child > th:first-child {
+    z-index:6; background:var(--table-head,#f2f5f7) !important;
+  }
+  .ui-kit .ui-marker-catalog__matrix tbody > tr:nth-child(even) > td:first-child {
+    background:var(--table-row-alt,#f7fafb) !important;
+  }
+  .ui-kit .ui-marker-catalog__table.ui-scroll-cue::before,
+  .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__matrix)::before {
+    display:none !important;
+  }
+}
