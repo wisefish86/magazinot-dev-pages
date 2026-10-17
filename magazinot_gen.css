@@ -6336,12 +6336,12 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 @media(max-width:767px) {
   .mk-ui .ui-table-wrap--cards[data-table-card-ready="true"] > table { display:none; }
   .mk-ui .ui-table-wrap--cards[data-table-card-ready="true"] > .ui-table-mobile-cards { display:grid; gap:12px; padding:12px; }
-  .mk-ui .ui-table-mobile-card { background:var(--c-surface); border:1px solid #d7e2e8; border-radius:14px; overflow:hidden; }
-  .mk-ui .ui-table-mobile-card__heading { margin:0; padding:12px 14px; background:#f1f6f8; font-size:16px; font-weight:750; }
+  .mk-ui .ui-table-mobile-card { background:var(--c-surface); border:1px solid var(--c-line); border-radius:14px; overflow:hidden; }
+  .mk-ui .ui-table-mobile-card__heading { margin:0; padding:12px 14px; background:var(--table-head); font-size:16px; font-weight:750; }
   .mk-ui .ui-table-mobile-card__details { margin:0; padding:4px 14px 12px; }
-  .mk-ui .ui-table-mobile-card__item { padding:9px 0; border-bottom:1px solid #e8eef1; }
+  .mk-ui .ui-table-mobile-card__item { padding:9px 0; border-bottom:1px solid var(--c-line); }
   .mk-ui .ui-table-mobile-card__item:last-child { border-bottom:0; }
-  .mk-ui .ui-table-mobile-card dt { color:#075d76; font-size:13px; font-weight:700; }
+  .mk-ui .ui-table-mobile-card dt { color:var(--c-heading); font-size:13px; font-weight:700; }
   .mk-ui .ui-table-mobile-card dd { margin:3px 0 0; overflow-wrap:anywhere; }
 }
 
