@@ -1308,7 +1308,7 @@ const notes=document.createElement('div');
       if(headers.length<2 || rows.some(row=>row.cells.length!==headers.length))return;
       const cards=document.createElement('div');
       cards.className='ui-table-mobile-cards';
-      cards.setAttribute('aria-hidden','true'); // original table remains semantic source in document
+      // The original table is hidden visually on mobile; cards remain available to assistive technology.
       rows.forEach(row=>{
         const card=document.createElement('article');card.className='ui-table-mobile-card';
         const title=document.createElement('h3');title.className='ui-table-mobile-card__heading';title.textContent=row.cells[0].textContent.trim();card.appendChild(title);
