@@ -40,6 +40,8 @@ jobs:
         run: |
           npm install --no-save playwright@1.55.0
           npx playwright install --with-deps chromium
+      - name: Audit component CSS inventory
+        run: node scripts/audit-magazinot-css.mjs --check
       - name: Check all pages at desktop and mobile sizes
         run: node scripts/visual-regression-check.mjs
       - name: Verify three-tab marker demo interactions

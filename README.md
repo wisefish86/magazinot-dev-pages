@@ -1,5 +1,7 @@
 # MagazinOT dev pages
 
+CSS maintenance and component workflow: [guide in Russian](docs/css-maintenance.md).
+
 ## Component class namespace
 
 Reusable components use the project prefix `mot-`: `mot-btn`, `mot-card`,
@@ -31,6 +33,7 @@ node scripts/validate-magazinot-ui.mjs
 Browser checks require Playwright/Chromium (CI uses Playwright 1.55.0):
 
 ```powershell
+node scripts/audit-magazinot-css.mjs --check
 node scripts/visual-qa.mjs
 node scripts/visual-regression-check.mjs
 node scripts/test-marker-demo.mjs
