@@ -389,6 +389,8 @@ try {
       throw new Error('Ghost buttons should not be underlined; underline belongs to inline links: '+JSON.stringify(ghostStyle));
     if(width>700){
       await ghost.hover();
+      // The shared button animates its background for 180ms; sample only after it settles.
+      await page.waitForTimeout(280);
       const hoverFill=await ghost.evaluate(el=>getComputedStyle(el).backgroundColor);
       if(hoverFill===ghostStyle.background)
         throw new Error('Text button must show a clear hover background on pale surfaces');
