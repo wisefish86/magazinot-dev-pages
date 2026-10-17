@@ -6361,7 +6361,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-kit .ui-marker-catalog__matrix tbody > tr:nth-child(even) > td:first-child {
     background:var(--table-row-alt,#f7fafb) !important;
   }
-  .ui-kit .ui-marker-catalog__table.ui-scroll-cue::before,
+  /* The mobile marker matrix owns its shadow rail; shell gradients must not cover pinned cells. */
   .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__matrix)::before {
     display:none !important;
   }
