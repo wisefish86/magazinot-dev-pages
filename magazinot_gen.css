@@ -6186,7 +6186,10 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 .ui-accordion--section .ui-accordion__panel-inner > :first-child{margin-top:0}
 .ui-accordion--section .ui-accordion__panel-inner > :last-child{margin-bottom:0}
-.ui-reveal{min-width:0;--ui-reveal-fade:76px;--ui-reveal-collapsed-height:340px;--ui-reveal-expanded-height:4000px;}
+.ui-reveal{min-width:0;--ui-reveal-fade:96px;--ui-reveal-collapsed-height:340px;--ui-reveal-expanded-height:4000px;}
+/* Exactly three photographs in the visible desktop preview; on mobile use one accessible column. */
+.ui-reveal .ui-gallery--portfolio{grid-template-columns:repeat(3,minmax(0,1fr));}
+@media(max-width:760px){.ui-reveal .ui-gallery--portfolio{grid-template-columns:minmax(0,1fr);}}
 .ui-reveal__viewport{
   position:relative;overflow:hidden;max-height:var(--ui-reveal-collapsed-height,340px);
   transition:max-height .3s var(--ease-standard);

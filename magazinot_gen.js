@@ -77,7 +77,7 @@
       const measure=()=>{
         const viewportTop=viewport.getBoundingClientRect().top;
         const last=items[visible-1].getBoundingClientRect();
-        const collapsed=Math.ceil(last.bottom-viewportTop+24);
+        const collapsed=Math.ceil(last.bottom-viewportTop+88);
         const expanded=Math.ceil(viewport.scrollHeight+16);
         root.style.setProperty('--ui-reveal-collapsed-height',collapsed+'px');
         root.style.setProperty('--ui-reveal-expanded-height',expanded+'px');

@@ -239,6 +239,12 @@ try {
     if(await page.locator('.doc-lightbox.is-open').count())throw new Error('Gallery lightbox failed to close');
     const reveals=page.locator('[data-ui-reveal]');
     if(await reveals.count()<2)throw new Error('UI Kit needs gallery and product-card Reveal patterns');
+    const galleryPreview=reveals.first().locator('.ui-figure');
+    if(width>760){
+      const positions=await galleryPreview.evaluateAll(els=>els.slice(0,4).map(el=>({x:el.getBoundingClientRect().x,y:el.getBoundingClientRect().y})));
+      if(Math.abs(positions[0].y-positions[2].y)>3||positions[3].y<=positions[2].y+20)
+        throw new Error('Desktop Reveal preview must show three images before partial next row: '+JSON.stringify(positions));
+    }
     for(const reveal of await reveals.all()){
       const toggle=reveal.locator('.ui-reveal__toggle');
       const items=reveal.locator('.ui-figure, .ui-card');
