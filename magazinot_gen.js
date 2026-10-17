@@ -58,6 +58,44 @@
     });
   }
 
+  function initReveals(){
+    document.querySelectorAll('[data-ui-reveal]').forEach(root=>{
+      if(root.dataset.uiRevealReady==='1')return;
+      const viewport=root.querySelector('.ui-reveal__viewport');
+      const toggle=root.querySelector('.ui-reveal__toggle');
+      const actions=root.querySelector('.ui-reveal__actions');
+      const items=Array.from(viewport?.querySelectorAll(':scope > .ui-gallery > .ui-figure, :scope > .ui-grid > .ui-card')||[]);
+      if(!viewport||!toggle||!items.length)return;
+      root.dataset.uiRevealReady='1';
+      const visible=Math.max(1,Math.min(items.length,Number(root.dataset.revealVisible)||3));
+      const setExpanded=expanded=>{
+        root.classList.toggle('is-expanded',expanded);
+        toggle.setAttribute('aria-expanded',String(expanded));
+        toggle.querySelector('[data-reveal-label]').textContent=expanded?'Свернуть':'Показать все';
+        items.slice(visible).forEach(item=>{item.inert=!expanded;});
+      };
+      const measure=()=>{
+        const viewportTop=viewport.getBoundingClientRect().top;
+        const last=items[visible-1].getBoundingClientRect();
+        const collapsed=Math.ceil(last.bottom-viewportTop+24);
+        const expanded=Math.ceil(viewport.scrollHeight+16);
+        root.style.setProperty('--ui-reveal-collapsed-height',collapsed+'px');
+        root.style.setProperty('--ui-reveal-expanded-height',expanded+'px');
+        if(items.length<=visible){actions.hidden=true;items.forEach(item=>item.inert=false);}
+      };
+      toggle.addEventListener('click',()=>{
+        const open=!root.classList.contains('is-expanded');
+        setExpanded(open);
+        measure();
+      });
+      const observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>requestAnimationFrame(measure)):null;
+      if(observer)observer.observe(viewport.querySelector('.ui-gallery, .ui-grid')||viewport);
+      else window.addEventListener('resize',measure,{passive:true});
+      setExpanded(false);
+      requestAnimationFrame(measure);
+    });
+  }
+
   function initTabs(){
     document.querySelectorAll('.ui-tabs').forEach(tabs => {
       if (tabs.dataset.uiTabsReady === '1') return;
@@ -832,7 +870,7 @@ const notes=document.createElement('div');
     overlay.setAttribute('aria-modal','true');
     overlay.setAttribute('aria-label','Просмотр изображения');
     overlay.setAttribute('aria-hidden','true');
-    overlay.innerHTML='<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><button class="doc-lightbox__prev" type="button" aria-label="Предыдущее изображение">&#8249;</button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div><button class="doc-lightbox__next" type="button" aria-label="Следующее изображение">&#8250;</button><div class="doc-lightbox__caption" aria-live="polite"></div><div class="doc-lightbox__thumbs" role="group" aria-label="Выбор изображения"></div>';
+    overlay.innerHTML='<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><button class="doc-lightbox__prev ui-media-nav" type="button" aria-label="Предыдущее изображение"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg></button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div><button class="doc-lightbox__next ui-media-nav" type="button" aria-label="Следующее изображение"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button><div class="doc-lightbox__caption" aria-live="polite"></div><div class="doc-lightbox__thumbs" role="group" aria-label="Выбор изображения"></div>';
     document.body.appendChild(overlay);
     const modalImage=overlay.querySelector('.doc-lightbox__image');
     const closeButton=overlay.querySelector('.doc-lightbox__close');
@@ -1201,6 +1239,7 @@ const notes=document.createElement('div');
   function initUi(){
     initPageTitle();
     initAccordion();
+    initReveals();
     initTabs();
     initSteppers();
     initTimelineConnectors();
