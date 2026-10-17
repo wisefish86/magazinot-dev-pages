@@ -29,6 +29,10 @@ try {
         const filename='site-assets/icons/hazards/'+url.pathname.split('/').pop();
         return route.fulfill({status:200,contentType:'image/svg+xml',body:fs.readFileSync(filename)});
       }
+      if (/^\/assets\/img\/ui-kit-demo\/[a-z0-9-]+\.jpg$/.test(url.pathname)) {
+        const localPath='site-assets'+url.pathname.slice('/assets'.length);
+        if(fs.existsSync(localPath))return route.fulfill({status:200,contentType:'image/jpeg',body:fs.readFileSync(localPath)});
+      }
       if (url.pathname === '/assets/icons/ui-icons.svg') {
         return route.fulfill({ status: 200, contentType: 'image/svg+xml', body: icons });
       }
@@ -270,6 +274,45 @@ try {
       throw new Error('Portfolio thumbnail navigation failed');
     await lightbox.locator('.doc-lightbox__close').click();
     if(await page.locator('.doc-lightbox.is-open').count())throw new Error('Gallery lightbox failed to close');
+    // Two split layouts reuse the same slider engine as the standalone example.
+    const embedded=page.locator('.ui-split--slider');
+    if(await embedded.count()!==2)throw new Error('UI Kit needs both text/slider orientations');
+    if(await page.locator('[data-ui-photo-slider]').count()!==3)throw new Error('All sliders must use the canonical controller');
+    const layoutInfo=await embedded.evaluateAll(items=>items.map(el=>{
+      const copy=el.querySelector('.ui-split__copy'),slider=el.querySelector('.ui-split__slider');
+      const a=copy.getBoundingClientRect(),b=slider.getBoundingClientRect();
+      const stage=slider.querySelector('.ui-photo-slider__stage');
+      const dots=slider.querySelectorAll('.ui-photo-slider__dot');
+      return {copyY:a.top,sliderY:b.top,copyX:a.left,sliderX:b.left,copyWidth:a.width,sliderWidth:b.width,
+        stageWidth:stage.getBoundingClientRect().width,stageHeight:stage.getBoundingClientRect().height,
+        dots:dots.length,overflow:el.scrollWidth-el.clientWidth};
+    }));
+    if(layoutInfo.some(x=>x.dots!==3||x.overflow>2||x.stageWidth<130||x.stageHeight<100))
+      throw new Error('Split slider dots or frame geometry invalid: '+JSON.stringify(layoutInfo));
+    if(width>760){
+      if(!(layoutInfo[0].copyX<layoutInfo[0].sliderX&&layoutInfo[1].sliderX<layoutInfo[1].copyX))
+        throw new Error('Desktop split slider must mirror text and image sides: '+JSON.stringify(layoutInfo));
+    }else if(layoutInfo.some(x=>x.copyY>=x.sliderY)){
+      throw new Error('Mobile split slider must stack text before image: '+JSON.stringify(layoutInfo));
+    }
+    const activeSlide=async slider=>slider.locator('.ui-photo-slider__slide.is-active').evaluate(el=>[...el.parentElement.querySelectorAll('.ui-photo-slider__slide')].indexOf(el));
+    const [first,second]=[embedded.nth(0).locator('[data-ui-photo-slider]'),embedded.nth(1).locator('[data-ui-photo-slider]')];
+    await first.locator('[data-slide-next]').click();
+    if(await activeSlide(first)!==1||await activeSlide(second)!==0)
+      throw new Error('Navigation on first slider must not change the independent second slider');
+    await first.locator('[data-slide-prev]').click();
+    await second.locator('.ui-photo-slider__dot').nth(2).click();
+    if(await activeSlide(first)!==0||await activeSlide(second)!==2)
+      throw new Error('Second slider dots must switch only its own slides');
+    if(await second.locator('.ui-photo-slider__dot[aria-current="true"]').count()!==1)
+      throw new Error('Slider must have one active accessible indicator');
+    if(width===1440){
+      await second.evaluate(el=>el.dataset.interval='3000'); // Controller already initialized; verify hover pause using initial interval.
+      await second.hover();
+      const before=await activeSlide(second);
+      await page.waitForTimeout(5400);
+      if(await activeSlide(second)!==before)throw new Error('Autoplay advanced while slider was hovered');
+    }
     const reveals=page.locator('[data-ui-reveal]');
     if(await reveals.count()<2)throw new Error('UI Kit needs gallery and product-card Reveal patterns');
     const galleryPreview=reveals.first().locator('.ui-figure');

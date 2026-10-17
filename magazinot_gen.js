@@ -1076,7 +1076,7 @@ const notes=document.createElement('div');
       const slides=Array.from(root.querySelectorAll('.ui-photo-slider__slide'));
       const dots=root.querySelector('.ui-photo-slider__dots');
       if(slides.length<2||!dots)return;
-      let index=0,paused=false;
+      let index=0,hovered=false,focused=false;
       const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
       const buttons=slides.map((slide,i)=>{
         const b=document.createElement('button');b.type='button';b.className='ui-photo-slider__dot';
@@ -1090,19 +1090,31 @@ const notes=document.createElement('div');
       }
       root.querySelector('[data-slide-prev]')?.addEventListener('click',()=>show(index-1));
       root.querySelector('[data-slide-next]')?.addEventListener('click',()=>show(index+1));
-      root.addEventListener('mouseenter',()=>paused=true);
-      root.addEventListener('mouseleave',()=>paused=false);
-      root.addEventListener('focusin',()=>paused=true);
-      root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))paused=false});
+      root.addEventListener('mouseenter',()=>hovered=true);
+      root.addEventListener('mouseleave',()=>hovered=false);
+      root.addEventListener('focusin',()=>focused=true);
+      root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))focused=false});
+      const stage=root.querySelector('.ui-photo-slider__stage');
+      let gesture=null;
+      stage?.addEventListener('pointerdown',e=>{
+        if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
+        gesture={id:e.pointerId,x:e.clientX,y:e.clientY};
+      });
+      stage?.addEventListener('pointerup',e=>{
+        if(!gesture||gesture.id!==e.pointerId)return;
+        const dx=e.clientX-gesture.x,dy=e.clientY-gesture.y;
+        gesture=null;
+        if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.3)show(index+(dx<0?1:-1));
+      });
+      stage?.addEventListener('pointercancel',()=>gesture=null);
       let visible=true;
       if('IntersectionObserver' in window){
         const observer=new IntersectionObserver(entries=>{visible=entries[0].isIntersecting},{threshold:.15});
         observer.observe(root);
       }
-      document.addEventListener('visibilitychange',()=>{if(document.hidden)paused=true;else if(!root.matches(':hover')&&!root.contains(document.activeElement))paused=false});
       show(0);
       const interval=Math.max(3000,parseInt(root.dataset.interval,10)||5000);
-      setInterval(()=>{if(!paused&&visible&&!document.hidden&&!reduced.matches)show(index+1)},interval);
+      setInterval(()=>{if(!hovered&&!focused&&visible&&!document.hidden&&!reduced.matches)show(index+1)},interval);
     });
   }
 

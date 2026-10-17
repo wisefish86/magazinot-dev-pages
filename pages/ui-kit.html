@@ -675,7 +675,7 @@
       </div>
     </div>
   </section>
-  <section class="ui-kit__group" data-ui-mobile-section>
+  <section class="ui-kit__group" id="kit-photo-slider" data-ui-mobile-section>
     <h2>Фотослайдер с автопереключением</h2>
     <p class="ui-kit__hint">Подходит для фотографий ассортимента, объектов и вариантов монтажа. Стрелки — поверх фотографий, точки показывают количество слайдов. Автопереключение через 5 секунд останавливается при наведении, фокусе и вне экрана.</p>
     <div class="ui-photo-slider" data-ui-photo-slider data-interval="5000" aria-label="Пример фотослайдера">
@@ -687,6 +687,48 @@
         <button class="ui-photo-slider__arrow ui-photo-slider__arrow--next" type="button" data-slide-next aria-label="Следующее фото"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button>
       </div>
       <div class="ui-photo-slider__dots" aria-label="Выбор фотографии"></div>
+    </div>
+  </section>
+  <section class="ui-kit__group" id="kit-split-slider" data-ui-mobile-section>
+    <h2>Текст + фотослайдер в одном блоке</h2>
+    <p class="ui-kit__hint">Композиция существующих <code>ui-split</code> и <code>ui-photo-slider</code>, без нового JavaScript. Слева или справа размещаются текст и действия, рядом — компактный слайдер. На узких экранах текст всегда идёт первым. Автосмена каждые 5 секунд, с паузой при наведении, фокусе, вне экрана и при уменьшении анимации.</p>
+    <div class="ui-kit__split-slider-examples">
+      <section class="ui-split ui-split--slider" aria-labelledby="kit-split-slider-title-a">
+        <div class="ui-split__copy ui-readable">
+          <span class="ui-chip">Производство и монтаж</span>
+          <h3 id="kit-split-slider-title-a">Маркировка на реальных объектах</h3>
+          <p>Один блок объединяет краткое описание и несколько фотографий. Посмотрите примеры и перейдите в каталог за подробностями.</p>
+          <div class="ui-actions"><a class="ui-btn ui-btn--primary" href="?page=markirovka-truboprovodov">Посмотреть маркировку</a></div>
+        </div>
+        <div class="ui-split__slider"><div class="ui-photo-slider" data-ui-photo-slider data-interval="5000" aria-label="Фотопримеры промышленной маркировки">
+          <div class="ui-photo-slider__stage">
+            <figure class="ui-photo-slider__slide is-active"><img src="/assets/img/ui-kit-demo/pipes.jpg" alt="Промышленные трубопроводы на объекте" loading="eager" decoding="async"><figcaption>Монтаж на производственном объекте</figcaption></figure>
+            <figure class="ui-photo-slider__slide" hidden><img src="/assets/img/ui-kit-demo/factory.jpg" alt="Оборудование промышленного цеха" loading="lazy" decoding="async"><figcaption>Производственная площадка</figcaption></figure>
+            <figure class="ui-photo-slider__slide" hidden><img src="/assets/img/ui-kit-demo/equipment.jpg" alt="Оборудование крупным планом" loading="lazy" decoding="async"><figcaption>Детали оснащения</figcaption></figure>
+            <button class="ui-photo-slider__arrow ui-photo-slider__arrow--prev" type="button" data-slide-prev aria-label="Предыдущее фото"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg></button>
+            <button class="ui-photo-slider__arrow ui-photo-slider__arrow--next" type="button" data-slide-next aria-label="Следующее фото"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button>
+          </div>
+          <div class="ui-photo-slider__dots" aria-label="Выбор фотографии"></div>
+        </div></div>
+      </section>
+      <section class="ui-split ui-split--slider ui-split--slider-reverse" aria-labelledby="kit-split-slider-title-b">
+        <div class="ui-split__copy ui-readable">
+          <span class="ui-chip">Ассортимент</span>
+          <h3 id="kit-split-slider-title-b">Подберите решение для своей задачи</h3>
+          <p>Зеркальная композиция без дублирования компонентов: фотографии слева, пояснение справа. Каждым слайдером можно управлять независимо.</p>
+          <div class="ui-actions"><a class="ui-btn ui-btn--secondary" href="#kit-photo-slider">Посмотреть большой слайдер</a></div>
+        </div>
+        <div class="ui-split__slider"><div class="ui-photo-slider" data-ui-photo-slider data-interval="5000" aria-label="Фотопримеры производства и продукции">
+          <div class="ui-photo-slider__stage">
+            <figure class="ui-photo-slider__slide is-active"><img src="/assets/img/ui-kit-demo/materials.jpg" alt="Промышленные материалы" loading="eager" decoding="async"><figcaption>Материалы и варианты изготовления</figcaption></figure>
+            <figure class="ui-photo-slider__slide" hidden><img src="/assets/img/ui-kit-demo/product.jpg" alt="Готовые промышленные изделия" loading="lazy" decoding="async"><figcaption>Готовая продукция</figcaption></figure>
+            <figure class="ui-photo-slider__slide" hidden><img src="/assets/img/ui-kit-demo/workshop.jpg" alt="Производственная мастерская" loading="lazy" decoding="async"><figcaption>Производственный процесс</figcaption></figure>
+            <button class="ui-photo-slider__arrow ui-photo-slider__arrow--prev" type="button" data-slide-prev aria-label="Предыдущее фото"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg></button>
+            <button class="ui-photo-slider__arrow ui-photo-slider__arrow--next" type="button" data-slide-next aria-label="Следующее фото"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button>
+          </div>
+          <div class="ui-photo-slider__dots" aria-label="Выбор фотографии"></div>
+        </div></div>
+      </section>
     </div>
   </section>
   <section class="ui-kit__group" data-ui-mobile-section>

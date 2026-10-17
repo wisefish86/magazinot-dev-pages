@@ -6246,3 +6246,40 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   gap:8px;
   padding-inline:0;
 }
+
+
+/* Photo-slider feature: composition of existing ui-split and ui-photo-slider; no fork of slider JS. */
+.mk-ui .ui-kit__split-slider-examples{display:grid;gap:var(--space-5,24px)}
+.mk-ui .ui-split--slider{
+  grid-template-columns:minmax(0,4fr) minmax(0,5fr);
+  gap:clamp(16px,3vw,32px);
+  align-items:center;
+  min-width:0;
+  padding:clamp(16px,2.4vw,24px);
+  border:1px solid var(--c-line);
+  border-radius:var(--radius-xl);
+  background:var(--c-surface);
+}
+.mk-ui .ui-split--slider > :is(.ui-split__copy,.ui-split__slider){min-width:0;}
+.mk-ui .ui-split--slider .ui-split__copy{max-width:50ch;}
+.mk-ui .ui-split--slider .ui-split__copy h3{margin:12px 0 8px;}
+.mk-ui .ui-split--slider .ui-split__copy p{margin:0 0 18px;}
+.mk-ui .ui-split--slider .ui-photo-slider{width:100%;max-width:none;}
+.mk-ui .ui-split--slider .ui-photo-slider__stage{aspect-ratio:4/3;}
+.mk-ui .ui-split--slider .ui-photo-slider__dots{padding:8px 0 0;}
+.mk-ui .ui-split--slider .ui-photo-slider__slide figcaption{padding:28px 46px 12px;font-size:var(--text-sm);}
+.mk-ui .ui-split--slider .ui-photo-slider__arrow{width:36px;height:36px;}
+.mk-ui .ui-split--slider .ui-photo-slider__arrow--prev{left:10px;}
+.mk-ui .ui-split--slider .ui-photo-slider__arrow--next{right:10px;}
+.mk-ui .ui-split--slider-reverse{grid-template-columns:minmax(0,5fr) minmax(0,4fr);}
+.mk-ui .ui-split--slider-reverse > .ui-split__slider{order:1;}
+.mk-ui .ui-split--slider-reverse > .ui-split__copy{order:2;}
+/* Preserve vertical page swipes, while slider handles horizontal touch gestures. */
+.ui-photo-slider__stage{touch-action:pan-y;}
+@media(max-width:760px){
+  .mk-ui .ui-split--slider,.mk-ui .ui-split--slider-reverse{grid-template-columns:minmax(0,1fr);}
+  .mk-ui .ui-split--slider-reverse > .ui-split__copy,
+  .mk-ui .ui-split--slider-reverse > .ui-split__slider{order:0;}
+  .mk-ui .ui-split--slider .ui-photo-slider__stage{aspect-ratio:16/10;}
+  .mk-ui .ui-split--slider .ui-split__copy{max-width:none;}
+}
