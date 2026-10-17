@@ -3109,7 +3109,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   background:var(--c-soft)!important
 }
 /* Text action: visible on both white and light grey surfaces. */
-.ui-btn--ghost{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;font-weight:700}
+.ui-btn--ghost{text-decoration:none!important;font-weight:700}
 .ui-btn--ghost:focus-visible{outline:2px solid var(--c-accent);outline-offset:3px;background:var(--c-soft)!important}
 .ui-btn.is-loading {
   position:relative;

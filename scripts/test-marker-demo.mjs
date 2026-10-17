@@ -380,8 +380,22 @@ try {
     if(currencyGlyphs.length!==2||currencyGlyphs.some(s=>!s.includes('₽')))
       throw new Error('Currency symbol must survive transport in CSS: '+JSON.stringify(currencyGlyphs));
     const ghost=page.locator('.ui-btn--ghost').first();
-    const underline=await ghost.evaluate(el=>getComputedStyle(el).textDecorationLine);
-    if(!underline.includes('underline'))throw new Error('Text action must be visible without button background');
+    const ghostStyle=await ghost.evaluate(el=>({
+      decoration:getComputedStyle(el).textDecorationLine,
+      color:getComputedStyle(el).color,
+      background:getComputedStyle(el).backgroundColor
+    }));
+    if(ghostStyle.decoration.includes('underline'))
+      throw new Error('Ghost buttons should not be underlined; underline belongs to inline links: '+JSON.stringify(ghostStyle));
+    if(width>700){
+      await ghost.hover();
+      const hoverFill=await ghost.evaluate(el=>getComputedStyle(el).backgroundColor);
+      if(hoverFill===ghostStyle.background)
+        throw new Error('Text button must show a clear hover background on pale surfaces');
+      await ghost.focus();
+      const focusOutline=await ghost.evaluate(el=>getComputedStyle(el).outlineStyle);
+      if(focusOutline==='none')throw new Error('Ghost action requires a visible keyboard focus outline');
+    }
     const lightTable=page.locator('.ui-table--light').first();
     if(await lightTable.locator('td').first().evaluate(el=>getComputedStyle(el).borderRightWidth)!=='0px')
       throw new Error('Light table must not have vertical rules');
