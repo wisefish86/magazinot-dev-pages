@@ -6300,7 +6300,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-kit .ui-marker-catalog__fixed-separator::after{
     content:"";position:absolute;top:0;bottom:0;left:1px;width:16px;
     background:linear-gradient(to right,rgba(22,49,60,.32),rgba(22,49,60,0));
-    opacity:0;pointer-events:none;transition:opacity var(--motion-fast);
+    opacity:0;pointer-events:none;transition:none;
   }
   .ui-kit .ui-marker-catalog__fixed-frame:has(.ui-marker-catalog__table[data-scroll-left="true"]) .ui-marker-catalog__fixed-separator::after{
     opacity:1;
