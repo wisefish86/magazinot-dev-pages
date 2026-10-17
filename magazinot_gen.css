@@ -6139,7 +6139,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .doc-lightbox.has-gallery .doc-lightbox__image {max-height:calc(100dvh - 180px)}
 @media(max-width:760px){
   .mk-ui .ui-split--flush {grid-template-columns:minmax(0,1fr)}
-  .mk-ui .ui-split--flush > .ui-media-frame {height:auto;aspect-ratio:4/3}
+  .mk-ui .ui-split--flush > .ui-media-frame {height:auto;min-height:0;min-width:0;width:100%;aspect-ratio:4/3}
   .doc-lightbox__thumbs {bottom:6px}
   .doc-lightbox__thumb {flex-basis:52px;height:46px}
 }
