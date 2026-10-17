@@ -6309,6 +6309,6 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .ui-table--matrix tr > :last-child{border-right:0}
 /* Legacy CMS-safe currency and dimension symbols: CSS escapes rather than raw glyphs. */
 .ui-currency-rub::before{content:"\20BD";font-family:Arial,"DejaVu Sans",sans-serif;font-weight:inherit}
-.doc-lightbox__caption{border-radius:var(--radius-md)!important;overflow:hidden}
+.doc-lightbox__caption{border-radius:var(--radius-md,12px)!important;overflow:hidden}
 .ui-reveal--products{width:100%;max-width:none}
 .ui-reveal--products .ui-grid{width:100%;max-width:none}
