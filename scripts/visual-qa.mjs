@@ -16,7 +16,9 @@ const assetWarnings=[];
 for(const name of pages){
   const html=fs.readFileSync(path.join(dir,name),'utf8');
   if(!html.includes('mk-ui'))continue;
-  for(const size of [{name:'desktop',width:1440,height:900},{name:'mobile',width:390,height:844}]){
+  const sizes=[{name:'desktop',width:1440,height:900},{name:'mobile',width:390,height:844}];
+  if(name==='ui-kit.html')sizes.push({name:'mobile-compact',width:320,height:700},{name:'tablet',width:768,height:1024});
+  for(const size of sizes){
     const page=await browser.newPage({viewport:{width:size.width,height:size.height},deviceScaleFactor:1,reducedMotion:'reduce'});
     const pageErrors=[];
     page.on('pageerror',e=>pageErrors.push(e.message));
@@ -59,9 +61,9 @@ for(const name of pages){
           cardCount:cards.length,rowCount:rows.length};
       });
       if(tableQA.error)errors.push('UI Kit: '+tableQA.error);
-      else if(size.name==='desktop'&&(!tableQA.scrollable||!tableQA.tableVisible))
+      else if(size.width>=768&&(!tableQA.scrollable||!tableQA.tableVisible))
         errors.push('UI Kit desktop: wide table must scroll and remain a table: '+JSON.stringify(tableQA));
-      else if(size.name==='mobile'&&(!tableQA.ready||tableQA.tableVisible||!tableQA.cardsVisible||!tableQA.valuesEqual||tableQA.cardCount!==tableQA.rowCount))
+      else if(size.width<768&&(!tableQA.ready||tableQA.tableVisible||!tableQA.cardsVisible||!tableQA.valuesEqual||tableQA.cardCount!==tableQA.rowCount))
         errors.push('UI Kit mobile: card transformation must preserve all cell values: '+JSON.stringify(tableQA));
     }
     const faqGap=await page.evaluate(()=>{
