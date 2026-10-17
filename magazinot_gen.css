@@ -6040,9 +6040,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     box-sizing:border-box;
     width:160px;min-width:160px;max-width:160px;
     background-clip:border-box;
-    box-shadow:1px 0 0 var(--table-grid);
+    border-right:0;
+    box-shadow:none;
   }
-  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {z-index:7;background:var(--table-head);}
+  /* Round the pinned heading itself: the remaining header scrolls out of view. */
+  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
+    z-index:7;background:var(--table-head);
+    border-top-left-radius:var(--radius-sm);
+  }
   .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(odd)>td:first-child {background:var(--c-surface);}
   .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even)>td:first-child {background:var(--table-row-alt);}
   .ui-kit .ui-marker-catalog__matrix tbody tr:hover>td:first-child {background:var(--table-row-hover);}
@@ -6294,12 +6299,11 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     display:block;position:absolute;z-index:8;pointer-events:none;
     top:1px;bottom:1px;left:160px;width:1px;
     background:var(--table-grid);box-shadow:none;
-    transition:box-shadow var(--motion-fast);
   }
   /* Shadow goes only to the right: one continuous depth gradient, never over pinned cells. */
   .ui-kit .ui-marker-catalog__fixed-separator::after{
-    content:"";position:absolute;top:0;bottom:0;left:1px;width:16px;
-    background:linear-gradient(to right,rgba(22,49,60,.32),rgba(22,49,60,0));
+    content:"";position:absolute;top:0;bottom:0;left:1px;width:26px;
+    background:linear-gradient(to right,rgba(22,49,60,.17) 0%,rgba(22,49,60,.07) 35%,rgba(22,49,60,0) 100%);
     opacity:0;pointer-events:none;transition:none;
   }
   .ui-kit .ui-marker-catalog__fixed-frame:has(.ui-marker-catalog__table[data-scroll-left="true"]) .ui-marker-catalog__fixed-separator::after{

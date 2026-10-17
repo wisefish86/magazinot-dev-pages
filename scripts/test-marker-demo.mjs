@@ -118,6 +118,12 @@ try {
       });
       if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>3)
         throw new Error('Pinned mobile first column must stay fixed after scroll: '+JSON.stringify(stickyState));
+      const rounded=await mobileTable.locator('thead tr:first-child th:first-child').evaluate(el=>({
+        radius:getComputedStyle(el).borderTopLeftRadius,
+        rightBorder:getComputedStyle(el).borderRightWidth
+      }));
+      if(parseFloat(rounded.radius)<7||rounded.rightBorder!=='0px')
+        throw new Error('Sticky header must preserve corner and use only the shared divider: '+JSON.stringify(rounded));
       const railState=await continuousRail.evaluate(el=>{
         const style=getComputedStyle(el);
         const parent=el.parentElement.getBoundingClientRect();
@@ -125,11 +131,11 @@ try {
         const shadows=[...el.parentElement.querySelectorAll('tbody tr td:first-child')].map(x=>getComputedStyle(x).boxShadow);
         const depth=getComputedStyle(el,'::after');
         return {height:rect.height,parentHeight:parent.height,left:rect.left-parent.left,
-          depthOpacity:depth.opacity,depthFill:depth.backgroundImage,
+          depthOpacity:depth.opacity,depthFill:depth.backgroundImage,depthWidth:parseFloat(depth.width),
           separate:shadows.every(x=>x==='none')};
       });
       if(Math.abs(railState.height-railState.parentHeight)>4||Math.abs(railState.left-160)>3
-        ||railState.depthOpacity!=='1'||!railState.depthFill.includes('linear-gradient')||!railState.separate)
+        ||railState.depthOpacity!=='1'||!railState.depthFill.includes('linear-gradient')||railState.depthWidth<24||!railState.separate)
         throw new Error('Sticky divider must be one continuous line without shadows on cells: '+JSON.stringify(railState));
       const layerState=await mobileTable.evaluate(el=>{
         const matrix=el.querySelector('table'),head=matrix.tHead.rows[0].cells[0],cell=matrix.tBodies[0].rows[0].cells[0];
@@ -404,6 +410,9 @@ try {
       if(!keyboardFocus.focused||keyboardFocus.outline==='none')
         throw new Error('Ghost action requires a visible keyboard focus outline: '+JSON.stringify(keyboardFocus));
     }
+    const certificates=page.locator('.ui-download-menu').filter({hasText:'Сертификаты соответствия'}).first();
+    if(await certificates.locator('summary use[href$="#certificate"]').count()!==1)
+      throw new Error('Certificates must have thematic SVG from shared icon registry');
     const lightTable=page.locator('.ui-table--light').first();
     if(await lightTable.locator('td').first().evaluate(el=>getComputedStyle(el).borderRightWidth)!=='0px')
       throw new Error('Light table must not have vertical rules');
