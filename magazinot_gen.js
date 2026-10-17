@@ -1292,4 +1292,39 @@ const notes=document.createElement('div');
   } else {
     initUi();
   }
+
+  // Card projection from one semantic table. Only simple rectangular tables are eligible.
+  function initAdaptiveTableCards(){
+    document.querySelectorAll('.mk-ui .ui-table-wrap--cards').forEach(wrap=>{
+      if(wrap.dataset.tableCardsInit==='true') return;
+      wrap.dataset.tableCardsInit='true';
+      const table=wrap.querySelector('table');
+      if(!table) return;
+      const head=table.tHead;
+      const rows=Array.from(table.tBodies).flatMap(body=>Array.from(body.rows));
+      if(!head || head.rows.length!==1 || !rows.length) return;
+      if(table.querySelector('[colspan],[rowspan]')) return;
+      const headers=Array.from(head.rows[0].cells);
+      if(headers.length<2 || rows.some(row=>row.cells.length!==headers.length))return;
+      const cards=document.createElement('div');
+      cards.className='ui-table-mobile-cards';
+      cards.setAttribute('aria-hidden','true'); // original table remains semantic source in document
+      rows.forEach(row=>{
+        const card=document.createElement('article');card.className='ui-table-mobile-card';
+        const title=document.createElement('h3');title.className='ui-table-mobile-card__heading';title.textContent=row.cells[0].textContent.trim();card.appendChild(title);
+        const details=document.createElement('dl');details.className='ui-table-mobile-card__details';
+        headers.slice(1).forEach((header,i)=>{
+          const item=document.createElement('div');item.className='ui-table-mobile-card__item';
+          const label=document.createElement('dt');label.textContent=header.textContent.trim();
+          const value=document.createElement('dd');value.textContent=row.cells[i+1].textContent.trim();
+          item.append(label,value);details.appendChild(item);
+        });
+        card.appendChild(details);cards.appendChild(card);
+      });
+      wrap.appendChild(cards);wrap.dataset.tableCardReady='true';
+    });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initAdaptiveTableCards);
+  else initAdaptiveTableCards();
+
 })();
