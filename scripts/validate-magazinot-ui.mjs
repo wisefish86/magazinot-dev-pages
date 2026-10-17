@@ -39,6 +39,18 @@ const deprecated=[
   'pipehub__faq-panel-inner'
 ];
 
+// Validate all repository scripts, not only the shared bundle. A malformed test or generator
+// must stop deployment before it can silently disable coverage or corrupt generated pages.
+for(const entry of fs.readdirSync(path.join(root,'scripts'))){
+  if(!entry.endsWith('.mjs'))continue;
+  try{
+    execFileSync(process.execPath,['--check',path.join(root,'scripts',entry)],{stdio:'pipe'});
+  }catch(error){
+    console.error('Script syntax error ('+entry+'):\\n'+String(error.stderr||error.message));
+    process.exit(1);
+  }
+}
+
 // Shared SVG symbols are canonical: page references must resolve to an existing ID.
 const iconSource=fs.readFileSync(path.join(root,'site-assets/icons/ui-icons.svg'),'utf8');
 const iconIds=new Set([...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]));
