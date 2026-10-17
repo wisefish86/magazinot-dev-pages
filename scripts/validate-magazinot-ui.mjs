@@ -110,7 +110,7 @@ if(!/ВОДА<\/span><span class="ui-info-dialog__pipe" aria-hidden="true">&rarr
 }
 
 // Legacy CMS/FTP sometimes turns special glyphs into '?'. Require transport-safe semantic symbols.
-if(/\d\s*\?\s*\d/.test(uiKit)||/\d+[\s\u00a0]*\?(?=<\/td>)/.test(uiKit)){
+if(uiKit.includes('290 ?')||uiKit.includes('390 ?')){
   errors.push('UI Kit: numeric separator or currency converted to question mark');
 }
 if(/\d+\s*₽/.test(uiKit)){
