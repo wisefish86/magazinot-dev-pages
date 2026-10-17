@@ -237,6 +237,37 @@ try {
       throw new Error('Portfolio thumbnail navigation failed');
     await lightbox.locator('.doc-lightbox__close').click();
     if(await page.locator('.doc-lightbox.is-open').count())throw new Error('Gallery lightbox failed to close');
+    const reveals=page.locator('[data-ui-reveal]');
+    if(await reveals.count()<2)throw new Error('UI Kit needs gallery and product-card Reveal patterns');
+    for(const reveal of await reveals.all()){
+      const toggle=reveal.locator('.ui-reveal__toggle');
+      const items=reveal.locator('.ui-figure, .ui-card');
+      if(await items.count()!==6)throw new Error('Reveal example must have six cards');
+      await page.waitForTimeout(100);
+      if(await toggle.getAttribute('aria-expanded')!=='false'||!(await items.nth(3).evaluate(el=>el.inert)))
+        throw new Error('Collapsed Reveal must mark hidden cards inert');
+      await toggle.click();
+      if(await toggle.getAttribute('aria-expanded')!=='true'||await items.nth(3).evaluate(el=>el.inert))
+        throw new Error('Reveal did not expose formerly hidden cards');
+      if(!(await items.nth(5).isVisible()))throw new Error('Expanded Reveal must expose last card');
+      await toggle.click();
+      if(await toggle.getAttribute('aria-expanded')!=='false'||!(await items.nth(5).evaluate(el=>el.inert)))
+        throw new Error('Reveal did not collapse safely');
+    }
+    const sectionAccordion=page.locator('.ui-accordion--section details').first();
+    await sectionAccordion.locator('summary').click();
+    await page.waitForTimeout(350);
+    if(!(await sectionAccordion.locator('.ui-grid').isVisible()))throw new Error('Full-width section accordion did not reveal content');
+    const sectionInset=await sectionAccordion.evaluate(el=>{
+      const a=el.getBoundingClientRect(),b=el.querySelector('.ui-accordion__panel-inner').getBoundingClientRect();
+      return {left:b.left-a.left,right:a.right-b.right};
+    });
+    if(sectionInset.left>25||sectionInset.right>25)throw new Error('Section accordion content must occupy the whole inner width: '+JSON.stringify(sectionInset));
+    await sectionAccordion.locator('summary').click();
+    if(await page.locator('.doc-lightbox__next .ui-icon').count()!==1)throw new Error('Gallery must use shared SVG media navigation');
+    const lightTable=page.locator('.ui-table--light').first();
+    if(await lightTable.locator('td').first().evaluate(el=>getComputedStyle(el).borderRightWidth)!=='0px')
+      throw new Error('Light table must not have vertical rules');
     const shortHint=page.locator('[data-ui-short-tooltip]').first();
     await shortHint.locator('button').click();
     if(await shortHint.locator('button').getAttribute('aria-expanded')!=='true')
