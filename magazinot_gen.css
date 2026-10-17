@@ -6296,8 +6296,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     background:var(--table-grid);box-shadow:none;
     transition:box-shadow var(--motion-fast);
   }
-  .ui-kit .ui-marker-catalog__fixed-frame:has(.ui-marker-catalog__table[data-scroll-left="true"]) .ui-marker-catalog__fixed-separator{
-    box-shadow:7px 0 12px -4px rgba(22,49,60,.32);
+  /* Shadow goes only to the right: one continuous depth gradient, never over pinned cells. */
+  .ui-kit .ui-marker-catalog__fixed-separator::after{
+    content:"";position:absolute;top:0;bottom:0;left:1px;width:16px;
+    background:linear-gradient(to right,rgba(22,49,60,.32),rgba(22,49,60,0));
+    opacity:0;pointer-events:none;transition:opacity var(--motion-fast);
+  }
+  .ui-kit .ui-marker-catalog__fixed-frame:has(.ui-marker-catalog__table[data-scroll-left="true"]) .ui-marker-catalog__fixed-separator::after{
+    opacity:1;
   }
 }
 /* Headers retain their fill under hover; use the common neutral table token. */
