@@ -831,6 +831,48 @@
     </div>
   </section>
 
+    <div class="ui-kit__example">
+      <p class="ui-table-caption">5. Мобильные карточки — текстовая таблица (3 столбца)</p>
+      <div class="ui-table-wrap ui-table-wrap--cards" tabindex="0" role="region" aria-label="Типоразмеры дорожных знаков">
+        <table class="ui-table ui-table--light">
+          <caption>Типоразмеры дорожных знаков (демонстрационные данные)</caption>
+          <thead><tr><th scope="col">Тип</th><th scope="col">Вне населённых пунктов</th><th scope="col">В населённых пунктах</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">I</th><td>Дороги с одной полосой</td><td>Дороги местного значения и проезды</td></tr>
+            <tr><th scope="row">II</th><td>Дороги шириной до трёх полос</td><td>Городские улицы, парковки и внутренние территории</td></tr>
+            <tr><th scope="row">III</th><td>Дороги с четырьмя и более полосами и автомагистрали</td><td>Магистральные дороги скоростного движения</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ui-kit__example">
+      <p class="ui-table-caption">6. Горизонтальная прокрутка + закреплённый первый столбец</p>
+      <div class="ui-table-wrap ui-table-wrap--sticky-col" tabindex="0" role="region" aria-label="Сравнение материалов">
+        <table class="ui-table ui-table--light ui-table--demo-medium">
+          <thead><tr><th scope="col">Параметр</th><th scope="col">Сталь</th><th scope="col">Оцинкованная сталь</th><th scope="col">ПВХ</th><th scope="col">Полипропилен</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">Коррозионная стойкость</th><td>Низкая без защиты</td><td>Средняя</td><td>Высокая</td><td>Высокая</td></tr>
+            <tr><th scope="row">Температурная стойкость</th><td>Высокая</td><td>Высокая</td><td>Ограниченная</td><td>Зависит от марки</td></tr>
+            <tr><th scope="row">Масса</th><td>Высокая</td><td>Высокая</td><td>Небольшая</td><td>Небольшая</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="ui-kit__example">
+      <p class="ui-table-caption">7. Очень широкая таблица (11 столбцов) — скролл на desktop, карточки на mobile</p>
+      <div class="ui-table-wrap ui-table-wrap--desktop-scroll ui-table-wrap--cards" tabindex="0" role="region" aria-label="Широкая таблица характеристик">
+        <table class="ui-table ui-table--light ui-table--demo-very-wide">
+          <caption>Сравнение характеристик маркировочных изделий — демонстрация, не нормативные требования</caption>
+          <thead><tr><th scope="col">Артикул</th><th scope="col">Материал</th><th scope="col">Основа</th><th scope="col">Толщина</th><th scope="col">Температура</th><th scope="col">Влага</th><th scope="col">УФ</th><th scope="col">Химия</th><th scope="col">Помещение</th><th scope="col">Улица</th><th scope="col">Примечание</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">A-01</th><td>Плёнка</td><td>ПВХ</td><td>0,1 мм</td><td>−20…+60 °C</td><td>Средняя</td><td>Средняя</td><td>Низкая</td><td>Да</td><td>Ограниченно</td><td>Внутренние коммуникации</td></tr>
+            <tr><th scope="row">A-02</th><td>Лента</td><td>Полиэстер</td><td>0,15 мм</td><td>−30…+80 °C</td><td>Высокая</td><td>Высокая</td><td>Средняя</td><td>Да</td><td>Да</td><td>Для сравнения способов отображения</td></tr>
+            <tr><th scope="row">B-11</th><td>Табличка</td><td>Алюминий</td><td>1 мм</td><td>−40…+90 °C</td><td>Высокая</td><td>Высокая</td><td>Высокая</td><td>Да</td><td>Да</td><td>Демонстрационные значения</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   <section class="ui-kit__group" data-ui-mobile-section>
     <h2>Image / figure modes</h2>
     <p class="ui-kit__hint">Рамка нужна не всегда. Для схем, чертежей и нормативных рисунков она помогает отделить изображение от текста. Для обычной фотографии или иллюстрации чаще лучше plain-режим. Zoom/lightbox включаем только у изображений, где деталь действительно важна.</p>
