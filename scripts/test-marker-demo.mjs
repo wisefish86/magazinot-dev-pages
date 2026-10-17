@@ -108,14 +108,27 @@ try {
       const firstCellPosition=await catalogSection.locator('[data-source="/assets/data/ui-kit-marker-demo.json"] .ui-marker-catalog__matrix tbody td:first-child').first().evaluate(el=>({position:getComputedStyle(el).position,inUiKit:!!el.closest('.ui-kit'),mobile:matchMedia('(max-width:700px)').matches}));
       if(firstCellPosition.position!=='sticky')throw new Error('Mobile marker names and colors must remain visible in a sticky first column; got '+JSON.stringify(firstCellPosition));
       await mobileTable.evaluate(el=>{el.scrollLeft=190;el.dispatchEvent(new Event('scroll'));});
+      const continuousRail=catalogSection.locator('.ui-marker-catalog__fixed-separator').first();
+      if(await continuousRail.count()!==1)throw new Error('Pinned mobile matrix requires a single continuous divider');
       const stickyState=await mobileTable.evaluate(el=>{
         const cell=el.querySelector('tbody td:first-child');
         const cellRect=cell.getBoundingClientRect();
         const frame=el.getBoundingClientRect();
         return {scroll:el.scrollLeft,scrolled:el.dataset.scrollLeft,offset:cellRect.left-frame.left,shadow:getComputedStyle(cell).boxShadow};
       });
-      if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>3||!stickyState.shadow.includes('rgba'))
-        throw new Error('Pinned mobile first column must stay fixed and cast a depth shadow after scroll: '+JSON.stringify(stickyState));
+      if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>3)
+        throw new Error('Pinned mobile first column must stay fixed after scroll: '+JSON.stringify(stickyState));
+      const railState=await continuousRail.evaluate(el=>{
+        const style=getComputedStyle(el);
+        const parent=el.parentElement.getBoundingClientRect();
+        const rect=el.getBoundingClientRect();
+        const shadows=[...el.parentElement.querySelectorAll('tbody tr td:first-child')].map(x=>getComputedStyle(x).boxShadow);
+        return {height:rect.height,parentHeight:parent.height,left:rect.left-parent.left,
+          shadow:style.boxShadow,separate:shadows.every(x=>x==='none')};
+      });
+      if(Math.abs(railState.height-railState.parentHeight)>4||Math.abs(railState.left-160)>3
+        ||!railState.shadow.includes('rgba')||!railState.separate)
+        throw new Error('Sticky divider must be one continuous line without shadows on cells: '+JSON.stringify(railState));
       const layerState=await mobileTable.evaluate(el=>{
         const matrix=el.querySelector('table'),head=matrix.tHead.rows[0].cells[0],cell=matrix.tBodies[0].rows[0].cells[0];
         const r=cell.getBoundingClientRect(),h=head.getBoundingClientRect();
@@ -266,6 +279,8 @@ try {
     const lightbox=page.locator('.doc-lightbox.is-open.has-gallery');
     if(await lightbox.count()!==1)throw new Error('Portfolio gallery lightbox must open with navigation and thumbnails');
     if(await lightbox.locator('.doc-lightbox__thumb').count()!==4)throw new Error('Portfolio lightbox must show four thumbnails');
+    const captionRadius=await lightbox.locator('.doc-lightbox__caption').evaluate(el=>getComputedStyle(el).borderTopLeftRadius);
+    if(parseFloat(captionRadius)<8)throw new Error('Gallery caption should have rounded corners: '+captionRadius);
     await lightbox.locator('.doc-lightbox__next').click();
     if(!(await lightbox.locator('.doc-lightbox__caption').innerText()).startsWith('2 / 4'))
       throw new Error('Portfolio gallery next arrow did not navigate to second image');
@@ -347,6 +362,24 @@ try {
     if(sectionInset.left>25||sectionInset.right>25)throw new Error('Section accordion content must occupy the whole inner width: '+JSON.stringify(sectionInset));
     await sectionAccordion.locator('summary').click();
     if(await page.locator('.doc-lightbox__next .ui-icon').count()!==1)throw new Error('Gallery must use shared SVG media navigation');
+    if(width>700){
+      const heading=page.locator('.ui-table--first-col tbody tr').first().locator(':scope > :first-child');
+      const normal=await heading.evaluate(el=>getComputedStyle(el).backgroundColor);
+      await heading.hover();
+      const highlighted=await heading.evaluate(el=>getComputedStyle(el).backgroundColor);
+      if(normal!==highlighted)throw new Error('Row header must never adopt the hovered row color: '+normal+' => '+highlighted);
+    }
+    const borders=await page.locator('.ui-table--matrix').first().locator('thead th').evaluateAll(cells=>cells.map(el=>({
+      border:getComputedStyle(el).borderRightWidth,shadow:getComputedStyle(el).boxShadow
+    })));
+    if(borders.some(x=>parseFloat(x.border)>1||x.shadow!=='none'))
+      throw new Error('Matrix should not have duplicated separators: '+JSON.stringify(borders));
+    const glyphs=await page.locator('.ui-currency-rub').evaluateAll(els=>els.map(el=>getComputedStyle(el,'::before').content));
+    if(glyphs.length!==2||glyphs.some(s=>!s.includes('₽')))
+      throw new Error('Currency symbol must survive transport in CSS: '+JSON.stringify(glyphs));
+    const ghost=page.locator('.ui-btn--ghost').first();
+    const underline=await ghost.evaluate(el=>getComputedStyle(el).textDecorationLine);
+    if(!underline.includes('underline'))throw new Error('Text action must be visible without button background');
     const lightTable=page.locator('.ui-table--light').first();
     if(await lightTable.locator('td').first().evaluate(el=>getComputedStyle(el).borderRightWidth)!=='0px')
       throw new Error('Light table must not have vertical rules');
