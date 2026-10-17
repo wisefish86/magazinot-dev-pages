@@ -3108,6 +3108,9 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-btn--ghost:hover {
   background:var(--c-soft)!important
 }
+/* Text action: visible on both white and light grey surfaces. */
+.ui-btn--ghost{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;font-weight:700}
+.ui-btn--ghost:focus-visible{outline:2px solid var(--c-accent);outline-offset:3px;background:var(--c-soft)!important}
 .ui-btn.is-loading {
   position:relative;
   gap:8px;
@@ -4346,7 +4349,7 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
 .ui-table tbody tr:nth-child(even) > td { background:var(--table-row-alt); }
 .ui-table tbody tr:hover > td { background:var(--table-row-hover); }
 .ui-table--first-col tbody > tr > :first-child { background:var(--table-head); }
-.ui-table--first-col tbody > tr:hover > :first-child { background:var(--table-row-hover); }
+.ui-table--first-col tbody > tr:hover > :first-child { background:var(--table-head); }
 .ui-table-wrap,
 .doc-table-shell {
   isolation:isolate;
@@ -4792,7 +4795,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .ui-table tbody tr:nth-child(even) > td { background:var(--table-row-alt); }
 .ui-table tbody tr:hover > td { background:var(--table-row-hover); }
 .ui-table--first-col tbody > tr > :first-child { background:var(--table-head); }
-.ui-table--first-col tbody > tr:hover > :first-child { background:var(--table-row-hover); }
+.ui-table--first-col tbody > tr:hover > :first-child { background:var(--table-head); }
 /* Control sizing scale */
 .ui-control-size-demo {
   display:flex;
@@ -6141,9 +6144,9 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__matrix)::before,
   .ui-kit .ui-marker-catalog__table.ui-scroll-cue::before {display:none!important;}
   .ui-kit .ui-marker-catalog__table:has(.ui-marker-catalog__matrix) {isolation:isolate;}
-  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix :is(thead tr:first-child th:first-child,tbody tr td:first-child) {
-    box-shadow:1px 0 0 var(--table-grid), 8px 0 14px -5px rgba(22,49,60,.35);
-  }
+  /* One overlay rail replaces separate per-cell shadows. */
+  .ui-kit .ui-marker-catalog__matrix :is(thead tr:first-child th:first-child,tbody tr td:first-child),
+  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix :is(thead tr:first-child th:first-child,tbody tr td:first-child){box-shadow:none}
 }
 .ui-dimension-times::before {content:"\00D7";font-weight:500;}
 
@@ -6164,14 +6167,13 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 .ui-table-wrap:has(.ui-table--sticky-first){isolation:isolate}
 .ui-table--sticky-first :is(thead th:first-child,tbody tr > :first-child){
   position:sticky;left:0;z-index:2;
-  box-shadow:inset -1px 0 var(--table-grid);
+  border-right:1px solid var(--table-grid);
+  box-shadow:none;
 }
 .ui-table--sticky-first thead th:first-child{z-index:3;background:var(--table-head)}
 .ui-table--sticky-first tbody tr:nth-child(odd) > :first-child{background:var(--c-surface)}
 .ui-table--sticky-first tbody tr:nth-child(even) > :first-child{background:var(--table-row-alt)}
-.ui-table-wrap[data-scroll-left="true"] .ui-table--sticky-first :is(thead th:first-child,tbody tr > :first-child){
-  box-shadow:inset -1px 0 var(--table-grid),7px 0 12px -5px rgba(22,49,60,.28);
-}
+.ui-table-wrap[data-scroll-left="true"] .ui-table--sticky-first :is(thead th:first-child,tbody tr > :first-child){box-shadow:none}
 .ui-kit .ui-table-scroll-shell:has(.ui-table--sticky-first)::before{display:none}
 .ui-accordion--section{
   border:1px solid var(--c-line);border-radius:var(--radius-lg);
@@ -6283,3 +6285,30 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .mk-ui .ui-split--slider .ui-photo-slider__stage{aspect-ratio:16/10;}
   .mk-ui .ui-split--slider .ui-split__copy{max-width:none;}
 }
+
+/* Monolithic pinned-column line: independent of individual table rows. */
+.ui-marker-catalog__fixed-frame{position:relative;width:100%;min-width:0}
+.ui-marker-catalog__fixed-separator{display:none}
+@media(max-width:700px){
+  .ui-kit .ui-marker-catalog__fixed-separator{
+    display:block;position:absolute;z-index:8;pointer-events:none;
+    top:1px;bottom:1px;left:160px;width:1px;
+    background:var(--table-grid);box-shadow:none;
+    transition:box-shadow var(--motion-fast);
+  }
+  .ui-kit .ui-marker-catalog__fixed-frame:has(.ui-marker-catalog__table[data-scroll-left="true"]) .ui-marker-catalog__fixed-separator{
+    box-shadow:7px 0 12px -4px rgba(22,49,60,.32);
+  }
+}
+/* Headers retain their fill under hover; use the common neutral table token. */
+.ui-table--first-col tbody tr:hover > :first-child,
+.ui-table--spec tbody tr:hover > :first-child,
+.ui-table--matrix tbody tr:hover > :first-child{background:var(--table-head)!important}
+/* Matrix grids use single 1px physical borders, never a duplicate inset shadow. */
+.ui-table--matrix :is(th,td){border-right:1px solid var(--table-grid);box-shadow:none}
+.ui-table--matrix tr > :last-child{border-right:0}
+/* Legacy CMS-safe currency and dimension symbols: CSS escapes rather than raw glyphs. */
+.ui-currency-rub::before{content:"\20BD";font-family:Arial,"DejaVu Sans",sans-serif;font-weight:inherit}
+.doc-lightbox__caption{border-radius:var(--radius-md)!important;overflow:hidden}
+.ui-reveal--products{width:100%;max-width:none}
+.ui-reveal--products .ui-grid{width:100%;max-width:none}
