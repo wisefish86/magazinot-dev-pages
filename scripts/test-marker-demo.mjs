@@ -374,9 +374,9 @@ try {
     })));
     if(borders.some(x=>parseFloat(x.border)>1||x.shadow!=='none'))
       throw new Error('Matrix should not have duplicated separators: '+JSON.stringify(borders));
-    const glyphs=await page.locator('.ui-currency-rub').evaluateAll(els=>els.map(el=>getComputedStyle(el,'::before').content));
-    if(glyphs.length!==2||glyphs.some(s=>!s.includes('₽')))
-      throw new Error('Currency symbol must survive transport in CSS: '+JSON.stringify(glyphs));
+    const currencyGlyphs=await page.locator('.ui-currency-rub').evaluateAll(els=>els.map(el=>getComputedStyle(el,'::before').content));
+    if(currencyGlyphs.length!==2||currencyGlyphs.some(s=>!s.includes('₽')))
+      throw new Error('Currency symbol must survive transport in CSS: '+JSON.stringify(currencyGlyphs));
     const ghost=page.locator('.ui-btn--ghost').first();
     const underline=await ghost.evaluate(el=>getComputedStyle(el).textDecorationLine);
     if(!underline.includes('underline'))throw new Error('Text action must be visible without button background');
