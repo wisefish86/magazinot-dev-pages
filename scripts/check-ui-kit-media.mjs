@@ -31,13 +31,26 @@ if(process.argv.includes('--http')){
   let failures=[];
   for(const url of unique){
     const expected=fs.readFileSync(path.join(base,url.slice('/assets/'.length)));
-    try{
-      const result=await fetch(origin+url,{signal:AbortSignal.timeout(15000),headers:{'Cache-Control':'no-cache'}});
-      if(!result.ok)throw Error('HTTP '+result.status);
-      const data=Buffer.from(await result.arrayBuffer());
-      if(data.length!==expected.length||crypto.createHash('sha256').update(data).digest('hex')!==crypto.createHash('sha256').update(expected).digest('hex'))throw Error('body differs from GitHub source ('+data.length+' vs '+expected.length+' bytes)');
-      console.log('OK '+url+' '+data.length+' bytes');
-    }catch(error){failures.push(url+': '+error.message)}
+    let verified=false;
+    for(let attempt=1;attempt<=3&&!verified;attempt++){
+      try{
+        const result=await fetch(origin+url,{signal:AbortSignal.timeout(15000),headers:{'Cache-Control':'no-cache'}});
+        if(!result.ok)throw Error('HTTP '+result.status);
+        const data=Buffer.from(await result.arrayBuffer());
+        if(data.length!==expected.length||crypto.createHash('sha256').update(data).digest('hex')!==crypto.createHash('sha256').update(expected).digest('hex'))throw Error('body differs from GitHub source ('+data.length+' vs '+expected.length+' bytes)');
+        console.log('OK '+url+' '+data.length+' bytes'+(attempt>1?' (attempt '+attempt+')':''));
+        verified=true;
+      }catch(error){
+        const transient=/timeout|aborted|ECONNRESET|EAI_AGAIN|fetch failed/i.test(String(error.message));
+        if(transient&&attempt<3){
+          console.warn('Transient verification error for '+url+' (attempt '+attempt+'): '+error.message);
+          await new Promise(resolve=>setTimeout(resolve,attempt*1000));
+        }else{
+          failures.push(url+': '+error.message);
+          break;
+        }
+      }
+    }
   }
   if(failures.length)throw Error('Public FTP assets verification failed:\n'+failures.join('\n'));
   console.log('All '+unique.length+' local media files accessible at '+origin+'/assets/');
