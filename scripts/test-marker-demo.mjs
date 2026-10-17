@@ -392,9 +392,15 @@ try {
       const hoverFill=await ghost.evaluate(el=>getComputedStyle(el).backgroundColor);
       if(hoverFill===ghostStyle.background)
         throw new Error('Text button must show a clear hover background on pale surfaces');
+      // :focus-visible is keyboard-modality specific; programmatic focus after hover is not sufficient.
       await ghost.focus();
-      const focusOutline=await ghost.evaluate(el=>getComputedStyle(el).outlineStyle);
-      if(focusOutline==='none')throw new Error('Ghost action requires a visible keyboard focus outline');
+      await page.keyboard.press('Shift+Tab');
+      await page.keyboard.press('Tab');
+      const keyboardFocus=await ghost.evaluate(el=>({
+        focused:document.activeElement===el,outline:getComputedStyle(el).outlineStyle
+      }));
+      if(!keyboardFocus.focused||keyboardFocus.outline==='none')
+        throw new Error('Ghost action requires a visible keyboard focus outline: '+JSON.stringify(keyboardFocus));
     }
     const lightTable=page.locator('.ui-table--light').first();
     if(await lightTable.locator('td').first().evaluate(el=>getComputedStyle(el).borderRightWidth)!=='0px')
