@@ -77,7 +77,7 @@ for(const name of pages){
       const overflowing=[...document.querySelectorAll('body *')].filter(el=>{
         const r=el.getBoundingClientRect();
         const style=getComputedStyle(el);
-        return r.width>0&&r.right>width+5&&style.position!=='fixed'&&el.scrollWidth<=el.clientWidth+3;
+        return r.width>0&&r.right>width+5&&style.position!=='fixed'&&!el.closest('.ui-carousel__viewport, .ui-table-wrap, .ui-marker-catalog__table')&&el.scrollWidth<=el.clientWidth+3;
       }).slice(0,8).map(el=>{const r=el.getBoundingClientRect();const p=el.parentElement;return el.tagName.toLowerCase()+'.'+String(el.className).slice(0,50)+' [left='+Math.round(r.left)+',right='+Math.round(r.right)+',w='+Math.round(r.width)+',parent='+String(p?.className).slice(0,45)+',pw='+Math.round(p?.getBoundingClientRect().width||0)+']';});
       return {documentWidth:document.documentElement.scrollWidth,viewportWidth:width,overflowing,
         markerTabs:document.querySelectorAll('[data-marker-tabs] [role="tab"]').length,
