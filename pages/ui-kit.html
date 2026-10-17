@@ -141,7 +141,7 @@
     <section class="ui-kit__group" data-ui-mobile-section>
     <h2>Кнопки, chips и состояния</h2>
     <p class="ui-kit__hint">Единственный основной цвет действий — <code>--c-accent</code> через <code>ui-btn--primary</code>. Красная <code>ui-btn--danger</code> — только для удаления и необратимых действий. Белая <code>secondary</code>, текстовая <code>ghost</code> и <code>disabled</code> используют ту же общую систему. Локальные CTA-цвета страниц запрещены.</p>
-    <div class="ui-kit__example ui-stack">
+    <div class="ui-kit__example ui-kit__example--white ui-stack">
       <div class="ui-cluster">
         <a class="ui-btn ui-btn--primary" href="#">Основное действие</a>
         <a class="ui-btn ui-btn--secondary" href="#">Вторичное действие</a>
@@ -1035,6 +1035,7 @@
         <div class="ui-marker-catalog__tools"><span data-marker-count></span><span>Размеры P1–P6 · коды артикулов</span></div>
         <div class="ui-table-wrap ui-marker-catalog__table" role="region" aria-label="Пример таблицы маркировочных стрелок" tabindex="0">
           <table class="ui-table ui-marker-catalog__matrix">
+            <colgroup><col class="ui-marker-catalog__name-col"><col class="ui-marker-catalog__hazard-col"><col span="6"></colgroup>
             <thead><tr><th scope="col" rowspan="2">Наименование</th><th scope="col" rowspan="2">Знаки опасности</th><th scope="colgroup" colspan="6">Артикул для заказа</th></tr><tr><th scope="col">P1 <small>26&#215;74 мм</small></th><th scope="col">P2 <small>52&#215;148 мм</small></th><th scope="col">P3 <small>74&#215;210 мм</small></th><th scope="col">P4 <small>105&#215;297 мм</small></th><th scope="col">P5 <small>148&#215;420 мм</small></th><th scope="col">P6 <small>52&#215;105 мм</small></th></tr></thead>
             <tbody data-marker-body><tr><td colspan="8">Загрузка…</td></tr></tbody>
           </table>

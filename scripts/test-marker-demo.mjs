@@ -110,8 +110,29 @@ try {
         const frame=el.getBoundingClientRect();
         return {scroll:el.scrollLeft,scrolled:el.dataset.scrollLeft,offset:cellRect.left-frame.left,shadow:getComputedStyle(cell).boxShadow};
       });
-      if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>12||!stickyState.shadow.includes('rgba'))
+      if(stickyState.scroll<100||stickyState.scrolled!=='true'||Math.abs(stickyState.offset)>3||!stickyState.shadow.includes('rgba'))
         throw new Error('Pinned mobile first column must stay fixed and cast a depth shadow after scroll: '+JSON.stringify(stickyState));
+      const layerState=await mobileTable.evaluate(el=>{
+        const matrix=el.querySelector('table'),head=matrix.tHead.rows[0].cells[0],cell=matrix.tBodies[0].rows[0].cells[0];
+        const r=cell.getBoundingClientRect(),h=head.getBoundingClientRect();
+        const x=r.right-4,y=r.top+r.height/2;
+        const atop=document.elementFromPoint(x,y);
+        const shell=el.closest('.ui-table-scroll-shell');
+        const hint=shell?getComputedStyle(shell,'::before'):null;
+        return {
+          collapse:getComputedStyle(matrix).borderCollapse,
+          bodyWidth:r.width,headWidth:h.width,
+          cellRight:r.right,headRight:h.right,
+          ownsTopLayer:atop===cell||cell.contains(atop),
+          border:getComputedStyle(cell).borderRightWidth,
+          cue:hint?hint.display:'none',
+          opaque:getComputedStyle(cell).backgroundColor
+        };
+      });
+      if(layerState.collapse!=='separate'||Math.abs(layerState.bodyWidth-layerState.headWidth)>1
+        ||!layerState.ownsTopLayer||layerState.border==='0px'||layerState.cue!=='none'
+        ||layerState.opaque==='rgba(0, 0, 0, 0)')
+        throw new Error('Sticky first column must fully cover scrolling cells with visible rule and no shell fade: '+JSON.stringify(layerState));
       if(width===390)await mobileTable.screenshot({path:'visual-snapshots/review/ui-kit-matrix-scrolled-390.png'});
       await mobileTable.evaluate(el=>{el.scrollLeft=0;el.dispatchEvent(new Event('scroll'));});
 
@@ -136,7 +157,9 @@ try {
       const close=el.querySelector('.ui-info-dialog__close').getBoundingClientRect();
       return Math.abs((heading.top+heading.bottom)/2-(close.top+close.bottom)/2);
     });
-    if(closeAlign>7)throw new Error('Information dialog close must align with title center; deviation '+closeAlign);
+    if(closeAlign>2)throw new Error('Information dialog close must align precisely with title center; deviation '+closeAlign);
+    const headingSpacing=await infoDialog.locator('.ui-info-dialog__heading h3').evaluate(el=>getComputedStyle(el).marginBottom);
+    if(headingSpacing!=='0px')throw new Error('Dialog title must not inherit generic h3 bottom margin: '+headingSpacing);
     const glyphs=await infoDialog.locator('.ui-dimension-times').evaluateAll(els=>els.map(el=>getComputedStyle(el,'::before').content));
     if(glyphs.length!==3||glyphs.some(value=>!value.includes('×')))throw new Error('Dimensions must render visible CSS ×, not ?: '+JSON.stringify(glyphs));
     const dialogCopy=await infoDialog.innerText();
@@ -290,11 +313,12 @@ try {
     if (!(await panels.nth(1).isHidden())) throw new Error('Inactive step should be hidden');
     await next.click();
     if (!(await stepper.locator('[data-step]').first().getAttribute('data-step-complete')!==null)) throw new Error('Completed step lacks state');
-    const completedMark=await stepper.locator('[data-step]').first().locator('.ui-stepper__number').evaluate(el=>{
-      const icon=getComputedStyle(el,'::before');return {content:icon.content,border:icon.borderRightWidth,transform:icon.transform};
-    });
-    if(completedMark.content==='none'||completedMark.border==='0px'||completedMark.transform==='none')
-      throw new Error('Completed step must use a CSS drawn check, not a recoded glyph: '+JSON.stringify(completedMark));
+    const completedNumber=await stepper.locator('[data-step]').first().locator('.ui-stepper__number').evaluate(el=>({
+      text:el.textContent.trim(),pseudo:getComputedStyle(el,'::before').content,
+      color:getComputedStyle(el).color,background:getComputedStyle(el).backgroundColor
+    }));
+    if(completedNumber.text!=='1'||!['none','normal','""'].includes(completedNumber.pseudo))
+      throw new Error('Completed step must keep ordinal number without floating checkmark: '+JSON.stringify(completedNumber));
     if (!(await panels.nth(1).isVisible()) || (await panels.nth(0).isVisible())) throw new Error('Stepper did not move to second panel');
     await next.click();
     if (!(await panels.nth(2).isVisible()) || (await next.isEnabled())) throw new Error('Stepper final panel error');

@@ -490,7 +490,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
   flex:0 0 auto;padding:12px 16px;
   border-bottom:1px solid var(--c-line);
 }
-.ui-info-dialog__heading h3 { margin:0; }
+.ui-info-dialog .ui-info-dialog__heading h3 { margin:0; line-height:1.3; }
 .ui-info-dialog__close {
   display:grid;place-items:center;flex:0 0 38px;
   width:38px;height:38px;border:0;border-radius:9px;
@@ -592,12 +592,7 @@ a.ui-media-card--coming-soon:hover .ui-media-card__arrow {
 .ui-stepper__nav button[data-step-complete] .ui-stepper__number {
   border-color:#8eb8aa;background:#e4f1ec;color:#2f6f5a;
 }
- .ui-stepper__nav button[data-step-complete] .ui-stepper__number::before {
-  content:"";position:absolute;right:-4px;bottom:-3px;display:block;width:6px;height:11px;
-  border:solid #207c5d;border-width:0 2px 2px 0;
-  transform:rotate(45deg);filter:drop-shadow(1px 1px 0 #fff);
-}
-.ui-stepper__number{position:relative}
+/* Completed steps retain their ordinal number; the quiet green fill indicates progress. */
 .ui-stepper__nav button[data-step-complete] { background:#f2f8f8; }
 .ui-stepper__panel { padding:12px 0 8px; }
 .ui-stepper__actions { margin-top:12px; }
@@ -1755,6 +1750,8 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   border-radius:var(--radius-lg);
   background:#fafcfb
 }
+/* Interactive controls are demonstrated on a plain surface, including ghost and disabled states. */
+.ui-kit__example--white { background:var(--c-surface); }
 /* Heading hierarchy preview follows actual editorial spacing. */
 .ui-type-scale {
   display:grid;
@@ -3127,7 +3124,11 @@ a.ui-link-panel__row:hover .ui-link-panel__row-chevron {
   animation:ui-spin .8s linear infinite
 }
 .ui-btn:disabled,.ui-btn[aria-disabled="true"] {
-  opacity:.45;
+  opacity:1;
+  background:var(--neutral-50);
+  color:var(--neutral-600)!important;
+  border-color:var(--neutral-200);
+  box-shadow:none;
   cursor:not-allowed;
   pointer-events:none
 }
@@ -5686,7 +5687,7 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
     -webkit-overflow-scrolling:touch
   }
   .ui-kit .ui-marker-catalog__matrix {
-  border-collapse:collapse;
+  border-collapse:separate;
     border-spacing:0;
     margin:0;
   max-width:100%;
@@ -5698,12 +5699,12 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child {
   ;
 
-    width:205px
+    width:160px
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:nth-child(2) {
   ;
 
-    width:88px
+    width:104px
   }
   .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:last-child {
   ;
@@ -6022,15 +6023,26 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   [data-ui-mobile-section][data-mobile-open] > h2 > button::after { content:'⌃'; }
   .ui-kit .ui-marker-catalog__table { display:block;overflow-x:auto;scrollbar-width:thin; }
   .ui-kit .ui-marker-catalog__matrix { min-width:860px; }
-  .ui-kit .ui-marker-catalog__matrix thead th:first-child,
-  .ui-kit .ui-marker-catalog__matrix tbody td:first-child {
-    position:sticky;left:0;z-index:2;width:160px;min-width:160px;max-width:160px;
+  /* One physical column width for every header/body cell; no border-collapse bleed. */
+  .ui-kit .ui-marker-catalog__matrix col.ui-marker-catalog__name-col { width:160px; }
+  .ui-kit .ui-marker-catalog__matrix col.ui-marker-catalog__hazard-col { width:104px; }
+  .ui-kit .ui-marker-catalog__matrix :is(th,td) {
+    border:0;
+    border-right:1px solid var(--table-grid);
+    border-bottom:1px solid var(--table-grid);
+  }
+  .ui-kit .ui-marker-catalog__matrix :is(thead th:first-child,tbody tr td:first-child) {
+    position:sticky;left:0;
+    z-index:6;
+    box-sizing:border-box;
+    width:160px;min-width:160px;max-width:160px;
+    background-clip:border-box;
     box-shadow:1px 0 0 var(--table-grid);
   }
-  .ui-kit .ui-marker-catalog__matrix thead th:first-child { z-index:3;background:var(--table-head); }
-  .ui-kit .ui-marker-catalog__matrix tbody td:first-child { background:#fff; }
-  .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even)>td:first-child { background:var(--table-row-alt); }
-  .ui-kit .ui-marker-catalog__matrix tbody tr:hover>td:first-child { background:var(--table-row-hover); }
+  .ui-kit .ui-marker-catalog__matrix thead th:first-child {z-index:7;background:var(--table-head);}
+  .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(odd)>td:first-child {background:var(--c-surface);}
+  .ui-kit .ui-marker-catalog__matrix tbody tr:nth-child(even)>td:first-child {background:var(--table-row-alt);}
+  .ui-kit .ui-marker-catalog__matrix tbody tr:hover>td:first-child {background:var(--table-row-hover);}
   .ui-hero--media .ui-hero__content { padding:22px 20px; }
   .ui-hero--media .ui-hero__media:has(>img) { min-height:190px;border-left:0;border-top:1px solid var(--c-line); }
 }
@@ -6124,17 +6136,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
   .doc-lightbox__thumb {flex-basis:52px;height:46px}
 }
 @media(max-width:700px){
-  /* Do not fade over the pinned category: solid background plus a moving-depth separator. */
-  .ui-kit .ui-marker-catalog__matrix thead tr:first-child th:first-child,
-  .ui-kit .ui-marker-catalog__matrix tbody tr td:first-child {
-    box-shadow:1px 0 0 var(--table-grid);
-    background-clip:padding-box;
-  }
-  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix thead tr:first-child th:first-child,
-  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix tbody tr td:first-child {
-    box-shadow:1px 0 0 var(--table-grid), 7px 0 12px -5px rgba(22,49,60,.28);
-  }
+  /* Sticky matrix has its own depth cue; never lay a white left-edge fade over the pinned labels. */
+  .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__table)::before,
+  .ui-kit .ui-table-scroll-shell:has(.ui-marker-catalog__matrix)::before,
+  .ui-kit .ui-marker-catalog__table.ui-scroll-cue::before {display:none!important;}
   .ui-kit .ui-marker-catalog__table:has(.ui-marker-catalog__matrix) {isolation:isolate;}
+  .ui-kit .ui-marker-catalog__table[data-scroll-left="true"] .ui-marker-catalog__matrix :is(thead th:first-child,tbody tr td:first-child) {
+    box-shadow:1px 0 0 var(--table-grid), 8px 0 14px -5px rgba(22,49,60,.35);
+  }
 }
 .ui-dimension-times::before {content:"\00D7";font-weight:500;}
 
@@ -6226,3 +6235,14 @@ a.ui-link-panel__featured:hover .ui-link-panel__featured-copy strong, a.ui-link-
 }
 @media(max-width:620px){.doc-lightbox__caption{bottom:83px;max-width:72vw;font-size:12px}}
 @media(prefers-reduced-motion:reduce){.ui-reveal__viewport,.ui-reveal__toggle .ui-icon{transition:none}}
+
+/* FAQ arrow lives in its own left gutter; the question text stays aligned on every row. */
+.ui-kit__group:has(> .ui-accordion--faq) > h2 { margin-bottom:0; }
+.ui-kit__group > .ui-accordion--faq > details:first-child > summary {
+  min-height:40px; padding-top:3px; padding-bottom:10px;
+}
+.ui-accordion--faq summary {
+  grid-template-columns:18px minmax(0,1fr);
+  gap:8px;
+  padding-inline:0;
+}
