@@ -46,13 +46,13 @@ for(const name of pages){
     });
     // Adaptive table contract: desktop horizontal scroll, mobile card projection from one data source.
     if(name==='ui-kit.html'){
-      const tableQA=await page.evaluate(()=>[...document.querySelectorAll('.ui-table-wrap--cards')].map(wrap=>{
+      const tableQA=await page.evaluate(()=>[...document.querySelectorAll('.mot-table-wrap--cards')].map(wrap=>{
         const table=wrap.querySelector('table');
-        const cards=wrap.querySelectorAll('.ui-table-mobile-card');
+        const cards=wrap.querySelectorAll('.mot-table-mobile-card');
         const rows=[...table.tBodies].flatMap(body=>[...body.rows]);
         const original=rows.map(row=>[...row.cells].map(cell=>cell.textContent.trim()));
-        const projected=[...cards].map(card=>[card.querySelector('.ui-table-mobile-card__heading')?.textContent.trim(),...card.querySelectorAll('dd')].map(value=>typeof value==='string'?value:value.textContent.trim()));
-        return {wide:wrap.classList.contains('ui-table-wrap--desktop-scroll'),
+        const projected=[...cards].map(card=>[card.querySelector('.mot-table-mobile-card__heading')?.textContent.trim(),...card.querySelectorAll('dd')].map(value=>typeof value==='string'?value:value.textContent.trim()));
+        return {wide:wrap.classList.contains('mot-table-wrap--desktop-scroll'),
           ready:wrap.dataset.tableCardReady==='true',scrollable:wrap.scrollWidth>wrap.clientWidth+10,
           tableVisible:getComputedStyle(table).display!=='none',
           cardsVisible:cards.length>0&&getComputedStyle(cards[0].parentElement).display!=='none',
@@ -71,8 +71,8 @@ for(const name of pages){
       }
     }
     const faqGap=await page.evaluate(()=>{
-      const header=[...document.querySelectorAll('.ui-section__title')].find(el=>el.textContent.trim()==='Частые вопросы');
-      const question=header?.closest('.ui-section')?.querySelector('.ui-accordion details:first-child summary > span');
+      const header=[...document.querySelectorAll('.mot-section__title')].find(el=>el.textContent.trim()==='Частые вопросы');
+      const question=header?.closest('.mot-section')?.querySelector('.mot-accordion details:first-child summary > span');
       return header&&question?Math.round(question.getBoundingClientRect().top-header.getBoundingClientRect().bottom):null;
     });
     if(faqGap!==null&&faqGap>28)errors.push(name+'/'+size.name+': FAQ heading-to-first-question gap '+faqGap+'px > 28px');
@@ -81,13 +81,13 @@ for(const name of pages){
       const overflowing=[...document.querySelectorAll('body *')].filter(el=>{
         const r=el.getBoundingClientRect();
         const style=getComputedStyle(el);
-        return r.width>0&&r.right>width+5&&style.position!=='fixed'&&!el.closest('.ui-carousel__viewport, .ui-table-wrap, .ui-marker-catalog__table, .doc-table-wrap')&&el.scrollWidth<=el.clientWidth+3;
+        return r.width>0&&r.right>width+5&&style.position!=='fixed'&&!el.closest('.mot-carousel__viewport, .mot-table-wrap, .mot-marker-catalog__table, .mot-doc-table-wrap')&&el.scrollWidth<=el.clientWidth+3;
       }).sort((a,b)=>b.getBoundingClientRect().right-a.getBoundingClientRect().right).slice(0,8).map(el=>{const r=el.getBoundingClientRect();const p=el.parentElement;return el.tagName.toLowerCase()+'.'+String(el.className).slice(0,50)+' [left='+Math.round(r.left)+',right='+Math.round(r.right)+',w='+Math.round(r.width)+',parent='+String(p?.className).slice(0,45)+',pw='+Math.round(p?.getBoundingClientRect().width||0)+']';});
       return {documentWidth:document.documentElement.scrollWidth,viewportWidth:width,overflowing,
         markerTabs:document.querySelectorAll('[data-marker-tabs] [role="tab"]').length,
         missingImages:[...document.querySelectorAll('img[src]')].filter(el=>!el.naturalWidth).length,
         missingImageUrls:[...document.querySelectorAll('img[src]')].filter(el=>!el.naturalWidth).map(el=>({src:el.getAttribute('src'),visible:!!el.getClientRects().length})).slice(0,30),
-        missingHazardSigns:[...document.querySelectorAll('.ui-marker-catalog__legend-item img')].filter(el=>!el.naturalWidth).map(el=>el.getAttribute('src'))};
+        missingHazardSigns:[...document.querySelectorAll('.mot-marker-catalog__legend-item img')].filter(el=>!el.naturalWidth).map(el=>el.getAttribute('src'))};
     });
     const file=name.slice(0,-5)+'-'+size.name+'.png';
     await page.screenshot({path:path.join(output,file),fullPage:true,animations:'disabled'});

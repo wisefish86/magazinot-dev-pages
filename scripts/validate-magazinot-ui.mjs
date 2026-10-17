@@ -6,6 +6,7 @@ const root=process.cwd();
 const pagesDir=path.join(root,'pages');
 const css=fs.readFileSync(path.join(root,'magazinot_gen.css'),'utf8');
 const js=fs.readFileSync(path.join(root,'magazinot_gen.js'),'utf8');
+const classMap=JSON.parse(fs.readFileSync(path.join(root,'scripts/ui-class-map.json'),'utf8'));
 
 // Syntax must be checked before any FTP publish; basic string-presence tests cannot detect a broken bundle.
 try{
@@ -56,6 +57,31 @@ const iconSource=fs.readFileSync(path.join(root,'site-assets/icons/ui-icons.svg'
 const iconIds=new Set([...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]));
 const errors=[];
 
+// A partial class migration can look correct in the UI Kit while breaking other pages
+// or dynamically created elements. Keep the old/new inventory as a deployment guard.
+const newClasses=Object.values(classMap);
+if(new Set(newClasses).size!==newClasses.length||newClasses.some(name=>!/^mot-[\w-]+$/.test(name))){
+  errors.push('Class migration map must contain unique mot- component names');
+}
+const oldSelector=/\.([a-zA-Z_][\w-]*)/g;
+for(const [name,source] of [['magazinot_gen.css',css],['magazinot_gen.js',js]]){
+  const withoutComments=source.replace(/\/\*[\s\S]*?\*\//g,'');
+  for(const match of withoutComments.matchAll(oldSelector)){
+    if(Object.hasOwn(classMap,match[1]))errors.push(name+': legacy component selector .'+match[1]);
+  }
+}
+for(const expression of [
+  /\.classList\.(?:add|remove|contains|toggle|replace)\(\s*['"]([^'"]+)['"]/g,
+  /\.className\s*=\s*['"]([^'"]+)['"]/g,
+  /class="([^"]+)"/g
+]){
+  for(const match of js.matchAll(expression)){
+    for(const name of match[1].split(/\s+/)){
+      if(Object.hasOwn(classMap,name))errors.push('magazinot_gen.js: legacy dynamic component class '+name);
+    }
+  }
+}
+
 // CSS cascade budget for the stabilization phase. Baseline 2026-10-17: 228.
 // Existing declarations need component-by-component review; reject accidental growth.
 const cssImportantCount=(css.match(/!important\b/g)||[]).length;
@@ -74,6 +100,15 @@ for(const file of walk(pagesDir)){
   if(!html.includes('<!-- AUTO:MAGAZINOT_UI_JS -->')) errors.push(rel+': missing shared UI injection');
 
   const withoutInjected=html.replace(/<!-- AUTO:MAGAZINOT_UI_JS -->[\s\S]*?<!-- \/AUTO:MAGAZINOT_UI_JS -->/g,'');
+  const injected=html.match(/<!-- AUTO:MAGAZINOT_UI_JS -->\s*<script>\s*([\s\S]*?)\s*<\/script>\s*<!-- \/AUTO:MAGAZINOT_UI_JS -->/);
+  if(injected&&injected[1].trim()!==js.replace(/<\/script/gi,'<\\/script').trim()){
+    errors.push(rel+': injected JavaScript is stale; run scripts/inject-magazinot-ui.mjs');
+  }
+  for(const match of withoutInjected.matchAll(/class="([^"]+)"/g)){
+    for(const name of match[1].split(/\s+/)){
+      if(Object.hasOwn(classMap,name))errors.push(rel+': legacy component class '+name+'; use '+classMap[name]);
+    }
+  }
   if(/<script\b/i.test(withoutInjected)) errors.push(rel+': contains page-local <script>');
   if(/<style\b/i.test(html)) errors.push(rel+': contains page-local <style>');
 
@@ -106,12 +141,12 @@ for(const file of walk(pagesDir)){
   if(!/class="[^"]*\bmk-ui\b/.test(html)) continue;
   const found=new Set([...html.matchAll(/class="([^"]+)"/g)].flatMap(match=>match[1].split(/\s+/)));
   for(const className of found){
-    if(/^(?:ui-|docpage|normpage)/.test(className) && !kitClasses.has(className)){
+    if(/^mot-/.test(className) && !kitClasses.has(className)){
       errors.push(path.relative(root,file)+': component class missing from UI Kit: '+className);
     }
   }
 }
-if(/\.docpage__toc(?:\b|[-_])/.test(css)){
+if(/\.mot-docpage__toc(?:\b|[-_])/.test(css)){
   errors.push('magazinot_gen.css: legacy docpage__toc selector must not return');
 }
 
@@ -124,10 +159,10 @@ for(const alias of ['--table-head:var(--neutral-100)','--table-grid:var(--neutra
 for(const legacy of ['#eaf2f5','#e3eaed','#eaf3f5','#dcebed']){
   if(css.toLowerCase().includes(legacy)) errors.push('magazinot_gen.css: legacy table gray must use a canonical token: '+legacy);
 }
-if(!/26<span class="ui-dimension-times" aria-hidden="true"><\/span>74 мм/.test(uiKit) || !css.includes('.ui-dimension-times::before') || /\d+\?\d+ мм/.test(uiKit)){
+if(!/26<span class="mot-dimension-times" aria-hidden="true"><\/span>74 мм/.test(uiKit) || !css.includes('.mot-dimension-times::before') || /\d+\?\d+ мм/.test(uiKit)){
   errors.push('UI Kit: dimensions must use CSS-rendered multiplication glyph rather than recoded HTML entities');
 }
-if(!/ВОДА<\/span><span class="ui-info-dialog__pipe" aria-hidden="true">&rarr; &rarr; &rarr;/.test(uiKit)){
+if(!/ВОДА<\/span><span class="mot-info-dialog__pipe" aria-hidden="true">&rarr; &rarr; &rarr;/.test(uiKit)){
   errors.push('UI Kit: diagram arrows must use transport-safe HTML entities');
 }
 
@@ -136,21 +171,21 @@ if(uiKit.includes('290 ?')||uiKit.includes('390 ?')){
   errors.push('UI Kit: numeric separator or currency converted to question mark');
 }
 if(/\d+\s*₽/.test(uiKit)){
-  errors.push('UI Kit: use CSS-encoded ui-currency-rub instead of unescaped currency glyph');
+  errors.push('UI Kit: use CSS-encoded mot-currency-rub instead of unescaped currency glyph');
 }
-if(!uiKit.includes('class="ui-currency-rub"')||!css.includes('.ui-currency-rub::before')){
+if(!uiKit.includes('class="mot-currency-rub"')||!css.includes('.mot-currency-rub::before')){
   errors.push('UI Kit: canonical CSS ruble symbol is missing');
 }
 // Regression guard: keep all three adaptive table demonstrations inside the UI Kit table section.
 const tableHeading=uiKit.indexOf('<h2>Table variants</h2>');
 const nextHeading=uiKit.indexOf('<h2>Image / figure modes</h2>',tableHeading);
 const tableSection=tableHeading>=0&&nextHeading>tableHeading?uiKit.slice(tableHeading,nextHeading):'';
-for(const required of ['ui-table-wrap--cards','ui-table-wrap--sticky-col','ui-table-wrap--desktop-scroll','ui-table--demo-very-wide']){
+for(const required of ['mot-table-wrap--cards','mot-table-wrap--sticky-col','mot-table-wrap--desktop-scroll','mot-table--demo-very-wide']){
   if(!tableSection.includes(required))errors.push('UI Kit: adaptive table demo missing from Table variants: '+required);
 }
 if(!js.includes('function initAdaptiveTableCards()'))errors.push('Shared JS: adaptive table card projection missing');
-if(!css.includes('.ui-table-wrap--cards[data-table-card-ready="true"]'))errors.push('Shared CSS: mobile card mode missing');
-if(!css.includes('.ui-marker-catalog__fixed-separator'))errors.push('Shared CSS: single pinned matrix separator missing');
+if(!css.includes('.mot-table-wrap--cards[data-table-card-ready="true"]'))errors.push('Shared CSS: mobile card mode missing');
+if(!css.includes('.mot-marker-catalog__fixed-separator'))errors.push('Shared CSS: single pinned matrix separator missing');
 
 // The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
 const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);

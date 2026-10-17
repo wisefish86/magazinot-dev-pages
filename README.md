@@ -1,5 +1,45 @@
 # MagazinOT dev pages
 
+## Component class namespace
+
+Reusable components use the project prefix `mot-`: `mot-btn`, `mot-card`,
+`mot-docpage`, `mot-doc-table`, etc. The `.mk-ui` page boundary remains in place
+for design tokens and base typography. Component state classes (`is-*`, `has-*`),
+`data-ui-*` attributes, element IDs, resource paths and SVG symbol IDs are unchanged.
+The preserved original calculator prototype keeps its original markup.
+
+`scripts/ui-class-map.json` records the old and new component names. Keep HTML,
+shared JavaScript, generators and tests in sync; the UI validator rejects old
+component selectors/classes and stale injected JavaScript. New components use
+`mot-` directly and do not need entries in the historical rename map.
+
+Deploy this migration as one complete repository update, including all modified
+pages and scripts, rather than replacing only the CSS and UI Kit. Pages outside
+this repository using old component names must also be migrated before sharing
+the updated stylesheet. To roll back, restore the complete previous version.
+
+Local preparation and validation (Node.js):
+
+```powershell
+node scripts/sync-medium-colors.mjs
+node scripts/sync-medium-colors.mjs --check
+node scripts/generate-markirovka-normdocs.mjs
+node scripts/inject-magazinot-ui.mjs
+node scripts/validate-magazinot-ui.mjs
+```
+
+Browser checks require Playwright/Chromium (CI uses Playwright 1.55.0):
+
+```powershell
+node scripts/visual-qa.mjs
+node scripts/visual-regression-check.mjs
+node scripts/test-marker-demo.mjs
+```
+
+These checks create screenshots and reports in `visual-snapshots/`. Full visual QA
+also needs the original hazard PNG assets staged by the workflow. No FTP upload
+is needed to execute the local checks.
+
 Development source for generated MagazinOT content pages.
 
 Managed files:
@@ -52,7 +92,7 @@ Optional metadata can be placed in HTML comments at the top of any page:
 ## Canonical UI assets and color tokens
 
 - **Neutral palette:** use the seven `--neutral-*` tokens declared at the top of `magazinot_gen.css`. Components must consume their semantic aliases (`--c-surface`, `--c-soft`, `--c-line`, `--c-line-strong`, `--c-muted`, `--c-text`). Table headers, internal grids, zebra rows and hover states use only `--table-*`, which map to the same neutral scale. Do not add component-local gray hex values.
-- **Interface icons:** one SVG sprite at `site-assets/icons/ui-icons.svg`. Reuse a stable symbol ID with `<svg class="ui-icon"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>`. All symbols must be displayed in `pages/ui-kit.html`; validation checks this. Do not copy inline SVG paths to new pages or generators.
+- **Interface icons:** one SVG sprite at `site-assets/icons/ui-icons.svg`. Reuse a stable symbol ID with `<svg class="mot-icon"><use href="/assets/icons/ui-icons.svg#cart"></use></svg>`. All symbols must be displayed in `pages/ui-kit.html`; validation checks this. Do not copy inline SVG paths to new pages or generators.
 - **Normative navigation:** `site-assets/data/markirovka/markirovka-normdocs.json` stores `iconId` references to the sprite, not icon path geometry. The generator keeps all destination URLs/anchors.
 - **Standard medium palette:** edit **only** `site-assets/data/markirovka/medium-colors.json` to change the eight marking group colors. `scripts/sync-medium-colors.mjs` generates the CSS variables `--medium-water`, `--medium-steam`, etc. and synchronizes archived/demo catalog JSON color fields before validation and FTP publishing. Shared JS reads the CSS tokens, never a second hard-coded palette.
 - **Color caution:** these UI colors are display tokens for product categories, not a replacement for legally required colorimetric requirements or original safety-sign artwork.

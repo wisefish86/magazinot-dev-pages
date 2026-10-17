@@ -43,7 +43,7 @@ Current reusable ids:
 Usage:
 
 ```html
-<svg class="ui-icon" aria-hidden="true">
+<svg class="mot-icon" aria-hidden="true">
   <use href="/assets/icons/ui-icons.svg#chevron-right"></use>
 </svg>
 ```
@@ -57,6 +57,6 @@ Usage:
 - `scripts/import-ui-kit-photos.mjs`: reproducible, one-time photo import with JPEG signature/size checks; GitHub Actions commits actual binary files.
 - `scripts/check-ui-kit-media.mjs`: checks all UI Kit image paths exist and have valid format; after FTP upload, compares publicly returned bytes to the committed sources using SHA-256. New remote image URLs in the UI Kit cause validation failure.
 
-Media contract: `ui-media-frame` owns dimensions/rounding/overflow; `ui-media-fit--cover` crops photos, plain `ui-media-fit` or `ui-figure--diagram` shows diagrams completely. `ui-figure--photo` uses cover; `ui-split--balanced` uses two equal columns on desktop. Use one semantic wrapper, not nested background placeholders or inline sizing.
+Media contract: `mot-media-frame` owns dimensions/rounding/overflow; `mot-media-fit--cover` crops photos, plain `mot-media-fit` or `mot-figure--diagram` shows diagrams completely. `mot-figure--photo` uses cover; `mot-split--balanced` uses two equal columns on desktop. Use one semantic wrapper, not nested background placeholders or inline sizing.
 
 **Only for DEV**: images are not verified as MagazinOT products and not authentic normative illustrations. Before production replace them with approved originals, confirm licensing and maintain local first-party hosting.

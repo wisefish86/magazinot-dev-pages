@@ -32,37 +32,37 @@ function countLabel(n) {
 
 function icon(id) {
   const safeId=String(id||'').replace(/[^a-z0-9-]/g,'');
-  return `<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#${safeId}"></use></svg>`;
+  return `<svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#${safeId}"></use></svg>`;
 }
 
 function primaryCard(related = false) {
   const item = registry.primary;
-  return `<a class="ui-link-panel__featured" href="${href(item)}">
-        <div class="ui-link-panel__featured-icon">
+  return `<a class="mot-link-panel__featured" href="${href(item)}">
+        <div class="mot-link-panel__featured-icon">
           ${icon(item.iconId)}
         </div>
         <div>
           <strong>${esc(item.title)}</strong>
           <span>${esc(related ? item.relatedSummary : item.summary)}</span>
         </div>
-        <span class="ui-link-panel__featured-chevron" aria-hidden="true">${icon('chevron-right')}</span>
+        <span class="mot-link-panel__featured-chevron" aria-hidden="true">${icon('chevron-right')}</span>
       </a>`;
 }
 
 function sectorRow(item) {
-  return `<a class="ui-link-panel__row" href="${href(item)}">
-          <span class="ui-link-panel__row-icon">${icon(item.iconId)}</span>
+  return `<a class="mot-link-panel__row" href="${href(item)}">
+          <span class="mot-link-panel__row-icon">${icon(item.iconId)}</span>
           <div><strong>${esc(item.title)}</strong><span>${esc(item.summary)}</span></div>
-          <span class="ui-badge">${countLabel(item.count)}</span>
-          <span class="ui-link-panel__row-chevron">${icon('chevron-right')}</span>
+          <span class="mot-badge">${countLabel(item.count)}</span>
+          <span class="mot-link-panel__row-chevron">${icon('chevron-right')}</span>
         </a>`;
 }
 
 function docsBlock(items, related = false) {
-  return `<div class="ui-link-panel">
+  return `<div class="mot-link-panel">
       ${primaryCard(related)}
 
-      <div class="ui-link-panel__list">
+      <div class="mot-link-panel__list">
         ${items.map(sectorRow).join('\n        ')}
       </div>
     </div>`;
@@ -70,8 +70,8 @@ function docsBlock(items, related = false) {
 
 function relatedBlock(currentSlug) {
   const items = registry.sectors.filter(item => item.slug !== currentSlug);
-  return `<section class="normpage__related" aria-labelledby="related-docs">
-    <h2 id="related-docs" class="ui-content-title">Дополнительная документация по маркировке трубопроводов</h2>
+  return `<section class="mot-normpage__related" aria-labelledby="related-docs">
+    <h2 id="related-docs" class="mot-content-title">Дополнительная документация по маркировке трубопроводов</h2>
     ${docsBlock(items, true)}
   </section>`;
 }

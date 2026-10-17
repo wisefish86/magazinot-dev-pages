@@ -9,12 +9,12 @@
     const title = Array.from(document.querySelectorAll('h1')).find(el => el.textContent.trim() === 'dev_preview');
     if (!title) return;
     title.textContent = root.dataset.uiPageTitle;
-    title.classList.add('ui-dev-h1');
+    title.classList.add('mot-dev-h1');
   }
 
   function initAccordion(){
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.querySelectorAll('.ui-accordion details').forEach(details => {
+    document.querySelectorAll('.mot-accordion details').forEach(details => {
       const summary = details.querySelector('summary');
       if (!summary || details.dataset.uiAccordionReady === '1') return;
       details.dataset.uiAccordionReady = '1';
@@ -61,10 +61,10 @@
   function initReveals(){
     document.querySelectorAll('[data-ui-reveal]').forEach(root=>{
       if(root.dataset.uiRevealReady==='1')return;
-      const viewport=root.querySelector('.ui-reveal__viewport');
-      const toggle=root.querySelector('.ui-reveal__toggle');
-      const actions=root.querySelector('.ui-reveal__actions');
-      const items=Array.from(viewport?.querySelectorAll(':scope > .ui-gallery > .ui-figure, :scope > .ui-grid > .ui-card')||[]);
+      const viewport=root.querySelector('.mot-reveal__viewport');
+      const toggle=root.querySelector('.mot-reveal__toggle');
+      const actions=root.querySelector('.mot-reveal__actions');
+      const items=Array.from(viewport?.querySelectorAll(':scope > .mot-gallery > .mot-figure, :scope > .mot-grid > .mot-card')||[]);
       if(!viewport||!toggle||!items.length)return;
       root.dataset.uiRevealReady='1';
       const visible=Math.max(1,Math.min(items.length,Number(root.dataset.revealVisible)||3));
@@ -89,7 +89,7 @@
         measure();
       });
       const observer=typeof ResizeObserver==='function'?new ResizeObserver(()=>requestAnimationFrame(measure)):null;
-      if(observer)observer.observe(viewport.querySelector('.ui-gallery, .ui-grid')||viewport);
+      if(observer)observer.observe(viewport.querySelector('.mot-gallery, .mot-grid')||viewport);
       else window.addEventListener('resize',measure,{passive:true});
       setExpanded(false);
       requestAnimationFrame(measure);
@@ -97,7 +97,7 @@
   }
 
   function initTabs(){
-    document.querySelectorAll('.ui-tabs').forEach(tabs => {
+    document.querySelectorAll('.mot-tabs').forEach(tabs => {
       if (tabs.dataset.uiTabsReady === '1') return;
       const tablist = tabs.querySelector('[role="tablist"]');
       if (!tablist) return;
@@ -142,7 +142,7 @@
     if (document.documentElement.dataset.uiLegacyActionsReady === '1') return;
     document.documentElement.dataset.uiLegacyActionsReady = '1';
     document.addEventListener('click',event => {
-      const unavailableCard = event.target.closest('a.ui-media-card--coming-soon');
+      const unavailableCard = event.target.closest('a.mot-media-card--coming-soon');
       if (unavailableCard) {
         event.preventDefault();
         return;
@@ -166,15 +166,15 @@
   function initCarousels(){
     document.querySelectorAll('[data-ui-carousel]').forEach(carousel => {
       if (carousel.dataset.uiCarouselReady === '1') return;
-      const viewport = carousel.querySelector('.ui-carousel__viewport');
-      const track = carousel.querySelector('.ui-carousel__track');
+      const viewport = carousel.querySelector('.mot-carousel__viewport');
+      const track = carousel.querySelector('.mot-carousel__track');
       const prev = carousel.querySelector('[data-ui-carousel-prev]');
       const next = carousel.querySelector('[data-ui-carousel-next]');
       if (!viewport || !track || !prev || !next) return;
       carousel.dataset.uiCarouselReady = '1';
 
       function step(){
-        const item = track.querySelector('.ui-carousel__item');
+        const item = track.querySelector('.mot-carousel__item');
         if (!item) return Math.max(240, viewport.clientWidth * .8);
         const styles = getComputedStyle(track);
         const gap = parseFloat(styles.columnGap || styles.gap || '0') || 0;
@@ -206,7 +206,7 @@
       button.addEventListener('click',() => dialog.showModal());
     });
 
-    document.querySelectorAll('.ui-dialog').forEach(dialog => {
+    document.querySelectorAll('.mot-dialog').forEach(dialog => {
       if (dialog.dataset.uiDialogReady === '1') return;
       dialog.dataset.uiDialogReady = '1';
       dialog.addEventListener('click',event => {
@@ -225,7 +225,7 @@
     document.querySelectorAll('[data-ui-popover]').forEach(popover => {
       if (popover.dataset.uiPopoverReady === '1') return;
       const toggle = popover.querySelector('[data-ui-popover-toggle]');
-      const panel = popover.querySelector('.ui-popover__panel');
+      const panel = popover.querySelector('.mot-popover__panel');
       if (!toggle || !panel) return;
       popover.dataset.uiPopoverReady = '1';
 
@@ -269,11 +269,11 @@
   function initSelectboxes(){
     document.querySelectorAll('[data-ui-selectbox]').forEach(selectbox => {
       if (selectbox.dataset.uiSelectboxReady === '1') return;
-      const button = selectbox.querySelector('.ui-selectbox__button');
-      const list = selectbox.querySelector('.ui-selectbox__list');
+      const button = selectbox.querySelector('.mot-selectbox__button');
+      const list = selectbox.querySelector('.mot-selectbox__list');
       const value = selectbox.querySelector('[data-ui-selectbox-value]');
       const input = selectbox.querySelector('[data-ui-selectbox-input]');
-      const options = Array.from(selectbox.querySelectorAll('.ui-selectbox__option'));
+      const options = Array.from(selectbox.querySelectorAll('.mot-selectbox__option'));
       if (!button || !list || !value || !options.length) return;
       selectbox.dataset.uiSelectboxReady = '1';
 
@@ -339,7 +339,7 @@
   }
 
   function initSegmentedControls(){
-    document.querySelectorAll('.ui-segmented').forEach(group => {
+    document.querySelectorAll('.mot-segmented').forEach(group => {
       if (group.dataset.uiSegmentedReady === '1') return;
       const buttons = Array.from(group.querySelectorAll('button[aria-pressed]'));
       if (!buttons.length) return;
@@ -351,9 +351,9 @@
   }
 
   function initRemovableChips(){
-    document.querySelectorAll('.ui-chip--removable').forEach(chip => {
+    document.querySelectorAll('.mot-chip--removable').forEach(chip => {
       if (chip.dataset.uiChipReady === '1') return;
-      const button = chip.querySelector('.ui-chip__remove');
+      const button = chip.querySelector('.mot-chip__remove');
       if (!button) return;
       chip.dataset.uiChipReady = '1';
       button.addEventListener('click',() => chip.remove());
@@ -361,7 +361,7 @@
   }
 
   function initUploads(){
-    document.querySelectorAll('.ui-upload').forEach(upload => {
+    document.querySelectorAll('.mot-upload').forEach(upload => {
       if (upload.dataset.uiUploadReady === '1') return;
       const input = upload.querySelector('input[type="file"]');
       if (!input) return;
@@ -369,7 +369,7 @@
 
       function setState(files){
         upload.classList.toggle('has-files',!!(files && files.length));
-        const meta = upload.querySelector('.ui-upload__meta');
+        const meta = upload.querySelector('.mot-upload__meta');
         if (meta && files && files.length) meta.textContent = files.length === 1 ? files[0].name : files.length + ' файлов выбрано';
       }
 
@@ -424,11 +424,11 @@
       root.dataset.readyTooltip='1';
       const button=root.querySelector('button');
       if(!button)return;
-      const hide=()=>{root.classList.remove('ui-tooltip--open');button.setAttribute('aria-expanded','false');};
+      const hide=()=>{root.classList.remove('mot-tooltip--open');button.setAttribute('aria-expanded','false');};
       button.addEventListener('click',event=>{
         event.stopPropagation();
-        const next=!root.classList.contains('ui-tooltip--open');
-        root.classList.toggle('ui-tooltip--open',next);
+        const next=!root.classList.contains('mot-tooltip--open');
+        root.classList.toggle('mot-tooltip--open',next);
         button.setAttribute('aria-expanded',String(next));
       });
       button.addEventListener('keydown',event=>{if(event.key==='Escape')hide();});
@@ -456,42 +456,42 @@
   }
   function markerNoteButton(text,content){
     const wrap=document.createElement('span');
-    wrap.className='ui-marker-catalog__info';
+    wrap.className='mot-marker-catalog__info';
     wrap.setAttribute('data-ui-info-dialog','');
     const button=document.createElement('button');
-    button.type='button';button.className='ui-marker-catalog__info-trigger';
+    button.type='button';button.className='mot-marker-catalog__info-trigger';
     button.setAttribute('aria-label',text);
     button.setAttribute('data-info-open','');
-    button.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
+    button.innerHTML='<svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
     const dialog=document.createElement('dialog');
-    dialog.className='ui-info-dialog';
+    dialog.className='mot-info-dialog';
     const title=document.createElement('h3');title.textContent=text;
-    const heading=document.createElement('div');heading.className='ui-info-dialog__heading';
-    const close=document.createElement('button');close.type='button';close.className='ui-info-dialog__close';
+    const heading=document.createElement('div');heading.className='mot-info-dialog__heading';
+    const close=document.createElement('button');close.type='button';close.className='mot-info-dialog__close';
     close.setAttribute('data-info-close','');close.setAttribute('aria-label','Закрыть окно');
-    close.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg>';
+    close.innerHTML='<svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#close"></use></svg>';
     heading.append(title,close);
     const paragraph=document.createElement('p');paragraph.textContent=content;
-    const body=document.createElement('div');body.className='ui-info-dialog__body';body.appendChild(paragraph);
-    const actions=document.createElement('div');actions.className='ui-info-dialog__actions';
-    const ok=document.createElement('button');ok.type='button';ok.className='ui-btn ui-btn--primary';
+    const body=document.createElement('div');body.className='mot-info-dialog__body';body.appendChild(paragraph);
+    const actions=document.createElement('div');actions.className='mot-info-dialog__actions';
+    const ok=document.createElement('button');ok.type='button';ok.className='mot-btn mot-btn--primary';
     ok.textContent='ОК';ok.setAttribute('data-info-close','');
     actions.appendChild(ok);dialog.append(heading,body,actions);wrap.append(button,dialog);
     const shortNote=content.length<=115;
     if(shortNote){
       const tip=document.createElement('span');
-      tip.className='ui-tooltip__bubble';
+      tip.className='mot-tooltip__bubble';
       tip.setAttribute('role','tooltip');
       tip.textContent=content;
-      wrap.classList.add('ui-tooltip');
+      wrap.classList.add('mot-tooltip');
       wrap.appendChild(tip);
       button.addEventListener('click',event=>{
         event.stopPropagation();
-        const open=wrap.classList.toggle('ui-tooltip--open');
+        const open=wrap.classList.toggle('mot-tooltip--open');
         button.setAttribute('aria-expanded',String(open));
       });
-      button.addEventListener('keydown',event=>{if(event.key==='Escape')wrap.classList.remove('ui-tooltip--open');});
-      document.addEventListener('click',event=>{if(!wrap.contains(event.target))wrap.classList.remove('ui-tooltip--open');});
+      button.addEventListener('keydown',event=>{if(event.key==='Escape')wrap.classList.remove('mot-tooltip--open');});
+      document.addEventListener('click',event=>{if(!wrap.contains(event.target))wrap.classList.remove('mot-tooltip--open');});
     }else{
       button.addEventListener('click',event=>{event.stopPropagation();dialog.showModal();});
     }
@@ -506,7 +506,7 @@
       const body = catalog.querySelector('[data-marker-body]');
       if (!tabs || !intro || !body) return;
       catalog.dataset.readyMarkerCatalog = '1';
-      const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.ui-marker-catalog__matrix');
+      const matrix = catalog.classList.contains('ui-marker-catalog--matrix') || !!catalog.querySelector('.mot-marker-catalog__matrix');
       const colors = Object.fromEntries(['water','steam','air','gas','acid','alkali','liquid','other'].map(key => {
         const tokens = getComputedStyle(catalog);
         return [key, [tokens.getPropertyValue('--medium-' + key).trim(), tokens.getPropertyValue('--medium-' + key + '-text').trim()]];
@@ -516,13 +516,13 @@
       // Sign codes transcribed from the saved competitor HTML (two sign slots per row).
       const hazardMap = {"water":{"1021":"16","1048":"05"},"air":{"3033":"11"},"gas":{"4002":"01","4005":"03","4008":"01","4010":"01","4011":"01","4012":"01","4013":"01,03","4014":"01","4022":"01,18","4023":"03","4025":"01","4028":"11","4030":"01","4032":"03","4033":"01,03","4038":"01","4039":"01","4041":"01","4042":"01","4043":"01","4044":"01,03","4054":"03,04","4055":"03,04","4057":"03","4058":"01,18","4059":"04","4060":"01","4061":"03","4062":"01","4066":"01","4067":"01"},"acid":{"5002":"04,11","5003":"04","5004":"01,03","5005":"18","5006":"04","5008":"04","5011":"03","5013":"18","5014":"04","5015":"04","5016":"04","5017":"04,03","5019":"04","5020":"04","5021":"04","5022":"04","5023":"04","5024":"01,03","5025":"03","5026":"04","5028":"04","5029":"04","5030":"04","5031":"18","5032":"18","5033":"04,11","5034":"04","5035":"04","5036":"03","5037":"18"},"alkali":{"6002":"04","6003":"03","6004":"04","6005":"03","6006":"18","6007":"04","6008":"04,18","6009":"04","6010":"04","6011":"04","6012":"04","6013":"04","6014":"01,18","6016":"04","6017":"04","6018":"03,11","6020":"01,18"},"liquid":{"7002":"01,03","7003":"03","7004":"01,18","7005":"01","7006":"01,03","7007":"18","7009":"01,03","7011":"01,18","7012":"18","7014":"01","7015":"01,18","7021":"01","7023":"01","7025":"18","7029":"01","7030":"01,03","7036":"03","7037":"01,18","7043":"01","7044":"01","7045":"04,11","7046":"01","7048":"01","7052":"01,03","7059":"18","7060":"01,18","7062":"18","7063":"18","7065":"03","7074":"01,18","7075":"01","7076":"18","7079":"01"}};
       // The original PNG files are deployed to /assets/img/pipemarkers/hazards/.
-      const viewport=catalog.querySelector('.ui-marker-catalog__table');
+      const viewport=catalog.querySelector('.mot-marker-catalog__table');
       /* A single stationary rail spans the whole mobile table, avoiding per-row shadows. */
-      if(matrix&&viewport&&!viewport.parentElement.classList.contains('ui-marker-catalog__fixed-frame')){
+      if(matrix&&viewport&&!viewport.parentElement.classList.contains('mot-marker-catalog__fixed-frame')){
         const frame=document.createElement('div');
-        frame.className='ui-marker-catalog__fixed-frame';
+        frame.className='mot-marker-catalog__fixed-frame';
         const rail=document.createElement('span');
-        rail.className='ui-marker-catalog__fixed-separator';
+        rail.className='mot-marker-catalog__fixed-separator';
         rail.setAttribute('aria-hidden','true');
         viewport.before(frame);
         frame.append(viewport,rail);
@@ -545,14 +545,14 @@
       };
       const hazardCodes=Object.keys(hazardNames);
       const legend=document.createElement('div');
-      legend.className='ui-marker-catalog__legend';
+      legend.className='mot-marker-catalog__legend';
       const legendTitle=document.createElement('strong');
       legendTitle.textContent='Обозначения знаков опасности';
       const legendGrid=document.createElement('div');
-      legendGrid.className='ui-marker-catalog__legend-grid';
+      legendGrid.className='mot-marker-catalog__legend-grid';
       hazardCodes.forEach(code=>{
         const item=document.createElement('div');
-        item.className='ui-marker-catalog__legend-item';
+        item.className='mot-marker-catalog__legend-item';
         const image=document.createElement('img');
         image.src=['01','02','03','04','05','11','16','18'].includes(code)?'/assets/img/pipemarkers/hazards/w'+code+'-32x30.png':'/assets/icons/hazards/w'+code+'.svg';
         image.width=32;image.height=30;
@@ -563,7 +563,7 @@
       });
       legend.append(legendTitle,legendGrid);
 const notes=document.createElement('div');
-      notes.className='ui-marker-catalog__notes';
+      notes.className='mot-marker-catalog__notes';
       notes.innerHTML='<strong>Примечания к маркировке</strong><ul><li>На маркерах без надписи информацию можно нанести вручную подходящим химически стойким маркером.</li><li>Знаки опасности соответствуют характеристикам транспортируемого вещества; выбирайте их по проектной документации.</li><li>Если нужного наименования нет в каталоге, укажите его в запросе на изготовление.</li></ul>';
       if(viewport)viewport.insertAdjacentElement('afterend',legend);
       else catalog.appendChild(legend);
@@ -576,34 +576,34 @@ const notes=document.createElement('div');
         intro.textContent = category.description || '';
         body.replaceChildren();
         // A new category always starts at the first article; avoid retaining scroll from the previous one.
-        const tableViewport=catalog.querySelector('.ui-marker-catalog__table');
+        const tableViewport=catalog.querySelector('.mot-marker-catalog__table');
         if(tableViewport) tableViewport.scrollLeft=0;
         const items = category.items || [];
         items.forEach(item => {
           const tr = document.createElement('tr');
-          if (item.highlight || item.alert) tr.classList.add('ui-marker-catalog__row--warning');
+          if (item.highlight || item.alert) tr.classList.add('mot-marker-catalog__row--warning');
           const label = document.createElement('td');
           if (safe(item.name).trim()) {
             const chip=document.createElement('span');
-            chip.className='ui-marker-catalog__label'+(item.highlight || item.alert ? ' ui-marker-catalog__label--warning' : '');
+            chip.className='mot-marker-catalog__label'+(item.highlight || item.alert ? ' mot-marker-catalog__label--warning' : '');
             const special=/пожаротушени/i.test(safe(item.name)) && (item.highlight || safe(item.name).includes('*'));
             chip.textContent=special?safe(item.name).replace(/\s*\*\s*$/,''):safe(item.name);
             label.appendChild(chip);
             if(special)label.appendChild(markerNoteButton('Маркировка для пожаротушения','Красное исполнение для трубопроводов автоматического пожаротушения. При подборе учитывайте требования СП 485.1311500.2020 и проектную документацию объекта.'));
           } else {
             const blank=document.createElement('span');
-            blank.className='ui-marker-catalog__blank';
+            blank.className='mot-marker-catalog__blank';
             blank.setAttribute('aria-label','Пустой маркер без надписи');
             label.appendChild(blank);
             const info=document.createElement('span');
-            info.className='ui-marker-catalog__info ui-tooltip';
+            info.className='mot-marker-catalog__info mot-tooltip';
             const trigger=document.createElement('button');
             trigger.type='button';
-            trigger.className='ui-marker-catalog__info-trigger';
+            trigger.className='mot-marker-catalog__info-trigger';
             trigger.setAttribute('aria-label','Что означает пустой маркер?');
-            trigger.innerHTML='<svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
+            trigger.innerHTML='<svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#info"></use></svg>';
             const hint=document.createElement('span');
-            hint.className='ui-tooltip__bubble';
+            hint.className='mot-tooltip__bubble';
             hint.setAttribute('role','tooltip');
             hint.textContent='Пустой маркер — надпись можно нанести самостоятельно.';
             info.append(trigger,hint);
@@ -643,13 +643,13 @@ const notes=document.createElement('div');
             window.addEventListener('resize',hideHint);
           }
           const danger = document.createElement('td');
-          danger.className = 'ui-marker-catalog__hazard-cell';
+          danger.className = 'mot-marker-catalog__hazard-cell';
           const signs = hazardMap[category.id]?.[safe(item.code)]?.split(',') || [];
           if (signs.length) {
-            danger.classList.add('ui-marker-catalog__hazard-list');
+            danger.classList.add('mot-marker-catalog__hazard-list');
             signs.forEach(sign => {
               const image=document.createElement('img');
-              image.className='ui-marker-catalog__sign';
+              image.className='mot-marker-catalog__sign';
               image.src=['01','02','03','04','05','11','16','18'].includes(sign)?'/assets/img/pipemarkers/hazards/w'+sign+'-32x30.png':'/assets/icons/hazards/w'+sign+'.svg';
               image.alt=hazardNames[sign]||'Знак опасности W'+sign;
               image.width=32;
@@ -657,14 +657,14 @@ const notes=document.createElement('div');
               image.loading='lazy';
               image.decoding='async';
               const help=document.createElement('span');
-              help.className='ui-tooltip ui-marker-catalog__hazard-help';
+              help.className='mot-tooltip mot-marker-catalog__hazard-help';
               const trigger=document.createElement('button');
               trigger.type='button';
-              trigger.className='ui-marker-catalog__hazard-trigger';
+              trigger.className='mot-marker-catalog__hazard-trigger';
               trigger.setAttribute('aria-label',image.alt);
               trigger.setAttribute('aria-expanded','false');
               const bubble=document.createElement('span');
-              bubble.className='ui-tooltip__bubble';
+              bubble.className='mot-tooltip__bubble';
               bubble.setAttribute('role','tooltip');
               bubble.textContent=image.alt;
               trigger.appendChild(image);
@@ -691,7 +691,7 @@ const notes=document.createElement('div');
                 if(open)return;
                 document.body.appendChild(bubble);
                 open=true;
-                bubble.classList.add('ui-marker-catalog__tooltip-portal');
+                bubble.classList.add('mot-marker-catalog__tooltip-portal');
                 bubble.style.opacity='1';
                 bubble.style.visibility='visible';
                 position();
@@ -722,7 +722,7 @@ const notes=document.createElement('div');
             ? item.codes : Array.from({length:6},(_,i) => 'F0'+(i+1)+'-'+safe(item.code));
           articles.forEach(article => {
             const cell = document.createElement('td');
-            cell.className = 'ui-marker-catalog__articles';
+            cell.className = 'mot-marker-catalog__articles';
             cell.textContent=safe(article);
             tr.appendChild(cell);
           });
@@ -741,7 +741,7 @@ const notes=document.createElement('div');
         categories.forEach((category,index) => {
           const button = document.createElement('button');
           button.type = 'button';
-          button.className = 'ui-marker-catalog__tab';
+          button.className = 'mot-marker-catalog__tab';
           button.role = 'tab';
           button.id = 'marker-tab-'+category.id;
           button.dataset.category = category.id;
@@ -779,7 +779,7 @@ const notes=document.createElement('div');
   }
 
   function initQuantityControls(){
-    document.querySelectorAll('.ui-quantity').forEach(control => {
+    document.querySelectorAll('.mot-quantity').forEach(control => {
       if (control.dataset.uiQuantityReady === '1') return;
       const input = control.querySelector('input[type="number"]');
       const buttons = control.querySelectorAll('button');
@@ -801,10 +801,10 @@ const notes=document.createElement('div');
   }
 
   function initDocTables(){
-    const wraps = Array.from(document.querySelectorAll('.doc-table-wrap'));
+    const wraps = Array.from(document.querySelectorAll('.mot-doc-table-wrap'));
 
     wraps.forEach(wrap => {
-      const table = wrap.querySelector('.doc-table');
+      const table = wrap.querySelector('.mot-doc-table');
       if (!table) return;
 
       const rows = Array.from(table.rows);
@@ -825,14 +825,14 @@ const notes=document.createElement('div');
             return text.length > 0 && text.length <= 14;
           });
 
-          if (compact) cells.forEach(cell => cell.classList.add('doc-table__compact-col'));
+          if (compact) cells.forEach(cell => cell.classList.add('mot-doc-table__compact-col'));
         }
       }
 
       let shell = wrap.parentElement;
-      if (!shell || !shell.classList.contains('doc-table-shell')) {
+      if (!shell || !shell.classList.contains('mot-doc-table-shell')) {
         shell = document.createElement('div');
-        shell.className = 'doc-table-shell';
+        shell.className = 'mot-doc-table-shell';
         wrap.parentNode.insertBefore(shell, wrap);
         shell.appendChild(wrap);
       }
@@ -865,8 +865,8 @@ const notes=document.createElement('div');
   }
 
   function initLightbox(){
-    if(document.querySelector('.doc-lightbox'))return;
-    const selector='.docpage__figure-media img, .doc-table img, .ui-gallery img, .ui-figure img[data-ui-lightbox]';
+    if(document.querySelector('.mot-doc-lightbox'))return;
+    const selector='.mot-docpage__figure-media img, .mot-doc-table img, .mot-gallery img, .mot-figure img[data-ui-lightbox]';
     const getCandidates=()=>Array.from(document.querySelectorAll(selector));
     let candidates=getCandidates();
     if(!candidates.length)return;
@@ -875,31 +875,31 @@ const notes=document.createElement('div');
     let gallery=[];
     let currentIndex=0;
     const overlay=document.createElement('div');
-    overlay.className='doc-lightbox';
+    overlay.className='mot-doc-lightbox';
     overlay.setAttribute('role','dialog');
     overlay.setAttribute('aria-modal','true');
     overlay.setAttribute('aria-label','Просмотр изображения');
     overlay.setAttribute('aria-hidden','true');
-    overlay.innerHTML='<button class="doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><button class="doc-lightbox__prev ui-media-nav" type="button" aria-label="Предыдущее изображение"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg></button><div class="doc-lightbox__stage"><img class="doc-lightbox__image" alt=""></div><button class="doc-lightbox__next ui-media-nav" type="button" aria-label="Следующее изображение"><svg class="ui-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button><div class="doc-lightbox__caption" aria-live="polite"></div><div class="doc-lightbox__thumbs" role="group" aria-label="Выбор изображения"></div>';
+    overlay.innerHTML='<button class="mot-doc-lightbox__close" type="button" aria-label="Закрыть"><span aria-hidden="true"></span></button><button class="mot-doc-lightbox__prev mot-media-nav" type="button" aria-label="Предыдущее изображение"><svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-left"></use></svg></button><div class="mot-doc-lightbox__stage"><img class="mot-doc-lightbox__image" alt=""></div><button class="mot-doc-lightbox__next mot-media-nav" type="button" aria-label="Следующее изображение"><svg class="mot-icon" aria-hidden="true"><use href="/assets/icons/ui-icons.svg#chevron-right"></use></svg></button><div class="mot-doc-lightbox__caption" aria-live="polite"></div><div class="mot-doc-lightbox__thumbs" role="group" aria-label="Выбор изображения"></div>';
     document.body.appendChild(overlay);
-    const modalImage=overlay.querySelector('.doc-lightbox__image');
-    const closeButton=overlay.querySelector('.doc-lightbox__close');
-    const prev=overlay.querySelector('.doc-lightbox__prev');
-    const next=overlay.querySelector('.doc-lightbox__next');
-    const thumbs=overlay.querySelector('.doc-lightbox__thumbs');
-    const caption=overlay.querySelector('.doc-lightbox__caption');
+    const modalImage=overlay.querySelector('.mot-doc-lightbox__image');
+    const closeButton=overlay.querySelector('.mot-doc-lightbox__close');
+    const prev=overlay.querySelector('.mot-doc-lightbox__prev');
+    const next=overlay.querySelector('.mot-doc-lightbox__next');
+    const thumbs=overlay.querySelector('.mot-doc-lightbox__thumbs');
+    const caption=overlay.querySelector('.mot-doc-lightbox__caption');
 
     function isReduced(img){
       if(!img.complete||!img.naturalWidth||!img.naturalHeight)return false;
       const rect=img.getBoundingClientRect();
       return img.naturalWidth>rect.width+2||img.naturalHeight>rect.height+2;
     }
-    function isZoomable(img){return !!img.closest('.ui-gallery')||isReduced(img);}
+    function isZoomable(img){return !!img.closest('.mot-gallery')||isReduced(img);}
     function refreshZoomability(){
       candidates=getCandidates();
       candidates.forEach(img=>{
         const zoomable=isZoomable(img);
-        img.classList.toggle('docpage__zoomable',zoomable);
+        img.classList.toggle('mot-docpage__zoomable',zoomable);
         if(zoomable){
           img.setAttribute('tabindex','0');
           img.setAttribute('role','button');
@@ -926,7 +926,7 @@ const notes=document.createElement('div');
     function openLightbox(img){
       if(!isZoomable(img))return;
       lastTrigger=img;
-      const group=img.closest('.ui-gallery');
+      const group=img.closest('.mot-gallery');
       gallery=group?Array.from(group.querySelectorAll('img')).filter(el=>el.src):[img];
       currentIndex=Math.max(0,gallery.indexOf(img));
       overlay.classList.toggle('has-gallery',gallery.length>1);
@@ -934,7 +934,7 @@ const notes=document.createElement('div');
       if(gallery.length>1){
         gallery.forEach((item,index)=>{
           const button=document.createElement('button');
-          button.type='button';button.className='doc-lightbox__thumb';
+          button.type='button';button.className='mot-doc-lightbox__thumb';
           button.setAttribute('aria-label','Изображение '+(index+1)+' из '+gallery.length);
           const image=document.createElement('img');image.src=item.currentSrc||item.src;image.alt='';
           button.append(image);
@@ -967,11 +967,11 @@ const notes=document.createElement('div');
     }
     document.addEventListener('click',event=>{
       const img=event.target.closest(selector);
-      if(img&&img.classList.contains('docpage__zoomable'))openLightbox(img);
+      if(img&&img.classList.contains('mot-docpage__zoomable'))openLightbox(img);
     });
     document.addEventListener('keydown',event=>{
       const img=event.target.closest(selector);
-      if(!img||!img.classList.contains('docpage__zoomable'))return;
+      if(!img||!img.classList.contains('mot-docpage__zoomable'))return;
       if(event.key==='Enter'||event.key===' '){event.preventDefault();openLightbox(img);}
     });
     candidates.forEach(img=>{if(!img.complete)img.addEventListener('load',refreshZoomability,{once:true});});
@@ -979,7 +979,7 @@ const notes=document.createElement('div');
     next.addEventListener('click',()=>navigate(1));
     closeButton.addEventListener('click',closeLightbox);
     overlay.addEventListener('click',event=>{
-      if(event.target===overlay||event.target.classList.contains('doc-lightbox__stage'))closeLightbox();
+      if(event.target===overlay||event.target.classList.contains('mot-doc-lightbox__stage'))closeLightbox();
     });
     document.addEventListener('keydown',event=>{
       if(!overlay.classList.contains('is-open'))return;
@@ -1007,7 +1007,7 @@ const notes=document.createElement('div');
     document.documentElement.dataset.downloadMenusReady='1';
     document.addEventListener('click', event => {
       document.querySelectorAll('details[data-ui-download-menu][open]').forEach(menu => {
-        if (!menu.contains(event.target) || event.target.closest('.ui-download-menu__link')) menu.open=false;
+        if (!menu.contains(event.target) || event.target.closest('.mot-download-menu__link')) menu.open=false;
       });
     });
     document.addEventListener('keydown', event => {
@@ -1055,14 +1055,14 @@ const notes=document.createElement('div');
     const commerce=new Set(['Карточки','Карточки преимуществ и товаров','Активная и недоступная media-card','Товар и оформление заказа','Сравнение','Поиск и фильтры','Файлы и скачивание','Призыв к действию','Первый экран и баннеры','Отзывы и доверие']);
     const classify=name=>supplementary.has(name)?'Дополнительные элементы':foundation.has(name)?'Основы дизайна':media.has(name)?'Фотографии и медиа':commerce.has(name)?'Магазин и товары':'Контент и навигация';
     const groupNames=['Основы дизайна','Магазин и товары','Фотографии и медиа','Контент и навигация','Дополнительные элементы'];
-    const headings=Array.from(document.querySelectorAll('.ui-kit__group > h2'));
+    const headings=Array.from(document.querySelectorAll('.mot-kit__group > h2'));
     headings.forEach((heading,i)=>{
       const label=heading.textContent.trim();
       heading.textContent=translations[label]||label;
       if(!heading.parentElement.id) heading.parentElement.id='ui-kit-section-'+(i+1);
-      if(!heading.parentElement.querySelector(':scope > .ui-kit__hint, :scope > p.ui-kit__hint')){
+      if(!heading.parentElement.querySelector(':scope > .mot-kit__hint, :scope > p.mot-kit__hint')){
         const hint=document.createElement('p');
-        hint.className='ui-kit__hint';
+        hint.className='mot-kit__hint';
         hint.textContent='Пример универсального элемента интерфейса. Подходит для страниц каталога, карточек товаров, справочных материалов и личного кабинета — в зависимости от контекста.';
         heading.after(hint);
       }
@@ -1070,7 +1070,7 @@ const notes=document.createElement('div');
     groupNames.forEach(name=>{
       const items=headings.filter(heading=>classify(heading.textContent.trim())===name);
       if(!items.length)return;
-      const section=document.createElement('section');section.className='ui-kit__directory-group';
+      const section=document.createElement('section');section.className='mot-kit__directory-group';
       const title=document.createElement('h3');title.textContent=name;section.appendChild(title);
       const list=document.createElement('ul');
       items.forEach(heading=>{
@@ -1083,13 +1083,13 @@ const notes=document.createElement('div');
   function initPhotoSliders(){
     document.querySelectorAll('[data-ui-photo-slider]').forEach(root=>{
       if(root.dataset.ready)return;root.dataset.ready='1';
-      const slides=Array.from(root.querySelectorAll('.ui-photo-slider__slide'));
-      const dots=root.querySelector('.ui-photo-slider__dots');
+      const slides=Array.from(root.querySelectorAll('.mot-photo-slider__slide'));
+      const dots=root.querySelector('.mot-photo-slider__dots');
       if(slides.length<2||!dots)return;
       let index=0,hovered=false,focused=false;
       const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
       const buttons=slides.map((slide,i)=>{
-        const b=document.createElement('button');b.type='button';b.className='ui-photo-slider__dot';
+        const b=document.createElement('button');b.type='button';b.className='mot-photo-slider__dot';
         b.setAttribute('aria-label','Показать фото '+(i+1)+' из '+slides.length);
         b.addEventListener('click',()=>show(i));dots.appendChild(b);return b;
       });
@@ -1104,7 +1104,7 @@ const notes=document.createElement('div');
       root.addEventListener('mouseleave',()=>hovered=false);
       root.addEventListener('focusin',()=>focused=true);
       root.addEventListener('focusout',e=>{if(!root.contains(e.relatedTarget))focused=false});
-      const stage=root.querySelector('.ui-photo-slider__stage');
+      const stage=root.querySelector('.mot-photo-slider__stage');
       let gesture=null;
       stage?.addEventListener('pointerdown',e=>{
         if(e.pointerType!=='touch'&&e.pointerType!=='pen')return;
@@ -1130,15 +1130,15 @@ const notes=document.createElement('div');
 
   function initScrollCues(){
     const selectors=[
-      ['.ui-kit__nav','.ui-kit__nav'],
-      ['.ui-tabs__list','.ui-tabs__list'],
-      ['.ui-carousel','.ui-carousel__viewport'],
-      ['.ui-table-wrap','.ui-table-wrap']
+      ['.mot-kit__nav','.mot-kit__nav'],
+      ['.mot-tabs__list','.mot-tabs__list'],
+      ['.mot-carousel','.mot-carousel__viewport'],
+      ['.mot-table-wrap','.mot-table-wrap']
     ];
     const register=(host,scroller)=>{
       if(host.dataset.scrollCueReady)return;
       host.dataset.scrollCueReady='1';
-      host.classList.add('ui-scroll-cue');
+      host.classList.add('mot-scroll-cue');
       const update=()=>{
         const max=Math.max(0,scroller.scrollWidth-scroller.clientWidth);
         host.dataset.scrollLeft=String(scroller.scrollLeft>3);
@@ -1156,24 +1156,24 @@ const notes=document.createElement('div');
     selectors.forEach(([selector,inner])=>{
       document.querySelectorAll(selector).forEach(element=>{
         let host=element;
-        if(selector==='.ui-table-wrap'){
-          if(!element.parentElement.classList.contains('ui-table-scroll-shell')){
+        if(selector==='.mot-table-wrap'){
+          if(!element.parentElement.classList.contains('mot-table-scroll-shell')){
             const shell=document.createElement('div');
-            shell.className='ui-table-scroll-shell';
+            shell.className='mot-table-scroll-shell';
             element.before(shell);
             shell.appendChild(element);
           }
           host=element.parentElement;
         }
-        const scroller=selector==='.ui-table-wrap'?element:(host.matches(inner)?host:host.querySelector(inner));
+        const scroller=selector==='.mot-table-wrap'?element:(host.matches(inner)?host:host.querySelector(inner));
         if(scroller)register(host,scroller);
       });
     });
   }
   function initBoundedTooltips(){
-    document.querySelectorAll('.ui-kit .ui-tooltip:not(.ui-marker-catalog__info)').forEach(root=>{
+    document.querySelectorAll('.mot-kit .mot-tooltip:not(.mot-marker-catalog__info)').forEach(root=>{
       if(root.dataset.boundedReady)return;
-      const trigger=root.querySelector('button'),bubble=root.querySelector('.ui-tooltip__bubble');
+      const trigger=root.querySelector('button'),bubble=root.querySelector('.mot-tooltip__bubble');
       if(!trigger||!bubble)return;
       root.dataset.boundedReady='1';
       let visible=false;
@@ -1196,7 +1196,7 @@ const notes=document.createElement('div');
         if(visible)return;
         visible=true;
         document.body.appendChild(bubble);
-        bubble.classList.add('ui-tooltip__bubble--portal');
+        bubble.classList.add('mot-tooltip__bubble--portal');
         bubble.style.opacity='1';
         bubble.style.visibility='visible';
         place();
@@ -1205,7 +1205,7 @@ const notes=document.createElement('div');
         if(!visible)return;
         visible=false;
         bubble.style.opacity='0';
-        bubble.classList.remove('ui-tooltip__bubble--portal');
+        bubble.classList.remove('mot-tooltip__bubble--portal');
         root.appendChild(bubble);
       }
       trigger.addEventListener('mouseenter',show);
@@ -1249,8 +1249,8 @@ const notes=document.createElement('div');
   }
 
   function initTimelineConnectors(){
-    document.querySelectorAll('.ui-timeline--horizontal').forEach(line=>{
-      const count=line.querySelectorAll(':scope > .ui-timeline__item').length;
+    document.querySelectorAll('.mot-timeline--horizontal').forEach(line=>{
+      const count=line.querySelectorAll(':scope > .mot-timeline__item').length;
       if(count>0){
         line.style.setProperty('--timeline-count',String(count));
         line.style.setProperty('--timeline-last-col',(100/count)+'%');
@@ -1295,7 +1295,7 @@ const notes=document.createElement('div');
 
   // Card projection from one semantic table. Only simple rectangular tables are eligible.
   function initAdaptiveTableCards(){
-    document.querySelectorAll('.mk-ui .ui-table-wrap--cards').forEach(wrap=>{
+    document.querySelectorAll('.mk-ui .mot-table-wrap--cards').forEach(wrap=>{
       if(wrap.dataset.tableCardsInit==='true') return;
       wrap.dataset.tableCardsInit='true';
       const table=wrap.querySelector('table');
@@ -1307,14 +1307,14 @@ const notes=document.createElement('div');
       const headers=Array.from(head.rows[0].cells);
       if(headers.length<2 || rows.some(row=>row.cells.length!==headers.length))return;
       const cards=document.createElement('div');
-      cards.className='ui-table-mobile-cards';
+      cards.className='mot-table-mobile-cards';
       // The original table is hidden visually on mobile; cards remain available to assistive technology.
       rows.forEach(row=>{
-        const card=document.createElement('article');card.className='ui-table-mobile-card';
-        const title=document.createElement('h3');title.className='ui-table-mobile-card__heading';title.textContent=row.cells[0].textContent.trim();card.appendChild(title);
-        const details=document.createElement('dl');details.className='ui-table-mobile-card__details';
+        const card=document.createElement('article');card.className='mot-table-mobile-card';
+        const title=document.createElement('h3');title.className='mot-table-mobile-card__heading';title.textContent=row.cells[0].textContent.trim();card.appendChild(title);
+        const details=document.createElement('dl');details.className='mot-table-mobile-card__details';
         headers.slice(1).forEach((header,i)=>{
-          const item=document.createElement('div');item.className='ui-table-mobile-card__item';
+          const item=document.createElement('div');item.className='mot-table-mobile-card__item';
           const label=document.createElement('dt');label.textContent=header.textContent.trim();
           const value=document.createElement('dd');value.textContent=row.cells[i+1].textContent.trim();
           item.append(label,value);details.appendChild(item);
