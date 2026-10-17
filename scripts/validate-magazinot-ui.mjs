@@ -46,7 +46,7 @@ const errors=[];
 
 // CSS cascade budget for the stabilization phase. Baseline 2026-10-17: 228.
 // Existing declarations need component-by-component review; reject accidental growth.
-const cssImportantCount=(css.match(/!important\\b/g)||[]).length;
+const cssImportantCount=(css.match(/!important\b/g)||[]).length;
 const cssImportantBudget=228;
 if(cssImportantCount>cssImportantBudget){
   errors.push('magazinot_gen.css: !important budget exceeded ('+cssImportantCount+' > '+cssImportantBudget+'). Reuse existing components or document and review the exception before increasing the budget.');
