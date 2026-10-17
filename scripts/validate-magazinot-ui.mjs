@@ -109,6 +109,16 @@ if(!/ВОДА<\/span><span class="ui-info-dialog__pipe" aria-hidden="true">&rarr
   errors.push('UI Kit: diagram arrows must use transport-safe HTML entities');
 }
 
+// Legacy CMS/FTP sometimes turns special glyphs into '?'. Require transport-safe semantic symbols.
+if(/\d\s*\?\s*\d/.test(uiKit)||/\d+[\s\u00a0]*\?(?=<\/td>)/.test(uiKit)){
+  errors.push('UI Kit: numeric separator or currency converted to question mark');
+}
+if(/\d+\s*₽/.test(uiKit)){
+  errors.push('UI Kit: use CSS-encoded ui-currency-rub instead of unescaped currency glyph');
+}
+if(!uiKit.includes('class="ui-currency-rub"')||!css.includes('.ui-currency-rub::before')){
+  errors.push('UI Kit: canonical CSS ruble symbol is missing');
+}
 // The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
 const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);
 if(spriteIds.length!==iconIds.size) errors.push('site-assets/icons/ui-icons.svg: duplicated symbol ID');
