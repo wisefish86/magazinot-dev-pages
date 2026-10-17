@@ -119,6 +119,17 @@ if(/\d+\s*₽/.test(uiKit)){
 if(!uiKit.includes('class="ui-currency-rub"')||!css.includes('.ui-currency-rub::before')){
   errors.push('UI Kit: canonical CSS ruble symbol is missing');
 }
+// Regression guard: keep all three adaptive table demonstrations inside the UI Kit table section.
+const tableHeading=uiKit.indexOf('<h2>Table variants</h2>');
+const nextHeading=uiKit.indexOf('<h2>Image / figure modes</h2>',tableHeading);
+const tableSection=tableHeading>=0&&nextHeading>tableHeading?uiKit.slice(tableHeading,nextHeading):'';
+for(const required of ['ui-table-wrap--cards','ui-table-wrap--sticky-col','ui-table-wrap--desktop-scroll','ui-table--demo-very-wide']){
+  if(!tableSection.includes(required))errors.push('UI Kit: adaptive table demo missing from Table variants: '+required);
+}
+if(!js.includes('function initAdaptiveTableCards()'))errors.push('Shared JS: adaptive table card projection missing');
+if(!css.includes('.ui-table-wrap--cards[data-table-card-ready="true"]'))errors.push('Shared CSS: mobile card mode missing');
+if(!css.includes('.ui-marker-catalog__fixed-separator'))errors.push('Shared CSS: single pinned matrix separator missing');
+
 // The UI Kit is the human-facing icon registry: every SVG symbol must appear there.
 const spriteIds=[...iconSource.matchAll(/<symbol\s+id="([^"]+)"/g)].map(m=>m[1]);
 if(spriteIds.length!==iconIds.size) errors.push('site-assets/icons/ui-icons.svg: duplicated symbol ID');
