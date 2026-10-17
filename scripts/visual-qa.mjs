@@ -96,7 +96,7 @@ for(const name of pages){
       if(name==='ui-kit.html')errors.push(detail);
       else assetWarnings.push(detail+' (images missing from local QA fixture; verify original assets on FTP)');
     }
-    if(stats.documentWidth>size.width+4)errors.push(name+'/'+size.name+': horizontal overflow '+stats.documentWidth+' > '+size.width);
+    if(stats.documentWidth>size.width+4)errors.push(name+'/'+size.name+': horizontal overflow '+stats.documentWidth+' > '+size.width+'; suspects: '+stats.overflowing.join(', '));
     if(pageErrors.length)errors.push(name+'/'+size.name+': '+pageErrors.join('; '));
     await page.close();
   }
