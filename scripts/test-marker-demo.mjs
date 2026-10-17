@@ -64,7 +64,7 @@ try {
       return {
         wrapperWidth: wrap.clientWidth,
         contentWidth: wrap.scrollWidth,
-        cellBorder: style.borderLeftWidth,
+        cellBorder: style.borderRightWidth,
         cellAlign: style.verticalAlign,
         tableWidth: table.getBoundingClientRect().width
       };
